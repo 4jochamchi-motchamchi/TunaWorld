@@ -69,6 +69,7 @@ public class BulletinLayout_nara {
 		
 		
 		
+		
 	
 		
 		
