@@ -67,7 +67,5 @@ public class Game_view_hyunbin extends JFrame{
 		
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-		
+	}	
 }
