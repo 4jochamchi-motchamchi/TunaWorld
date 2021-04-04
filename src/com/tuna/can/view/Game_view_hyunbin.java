@@ -3,11 +3,17 @@ package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import com.tuna.can.controller.MiniGame_hyunbin;
 
@@ -27,6 +33,11 @@ public class Game_view_hyunbin {
 		JFrame mf = new JFrame("MINI GAME!");
 		JPanel topPanel = new JPanel();
 		JLabel topLab = new JLabel("참치캔 찾기 못참지!!");
+		try {
+			mf.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		mf.setLayout(null);
 		mf.setSize(700,900);
 
@@ -68,7 +79,8 @@ public class Game_view_hyunbin {
 		countNum.setBounds(400, 40, 150, 30);
 		
 		for(int i = 1; i < 26; i++) {
-			JButton button = new JButton();
+			ImageIcon cardBack = new ImageIcon("image/catcard2.PNG");
+			JButton button = new JButton(cardBack);
 			button.addActionListener(new MiniGame_hyunbin(i, button, countNum));
 			buttonPanel.add(button);
 
@@ -82,8 +94,14 @@ public class Game_view_hyunbin {
 		
 		
 		// 뒤로 가기 버튼
-		JButton backB = new JButton("뒤로가기");
-		backB.setBounds(10,10,90,25);
+		ImageIcon home = new ImageIcon("image/home.PNG");
+		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
+		JButton backB = new JButton(home);
+//		backB.setBounds(10,10,90,25);
+//		topPanel.add(backB);
+		backB.setBounds(30, 25, 55, 55);
+		backB.setBackground(Color.pink);
+		backB.setBorder(pinkborder);
 		topPanel.add(backB);
 		
 	
@@ -100,8 +118,9 @@ public class Game_view_hyunbin {
 //		textBox.setBackground(Color.PINK);
 //		textBox.setBounds(400, 40, 150, 30);
 //		textBox.setText("참치캔 이미지 " +" X ");
-		JLabel jaehwa = new JLabel("참치캔   X  갯수");
-		jaehwa.setBounds(400, 70, 150, 30);
+//		ImageIcon  can = new ImageIcon("image/logoBig.PNG");
+//		JLabel jaehwa = new JLabel("참치캔    X   갯수");
+//		jaehwa.setBounds(400, 70, 150, 30);
 		//-----------------------------------------------------
 		
 		
@@ -112,7 +131,7 @@ public class Game_view_hyunbin {
 		
 //		bottomPanel.add(textBox);
 		bottomPanel.add(countNum);
-		bottomPanel.add(jaehwa);
+//		bottomPanel.add(jaehwa);
 		
 		
 	/*--------------------------------------------------------------------------*/	
