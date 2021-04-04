@@ -63,6 +63,7 @@ public class Game_view_hyunbin {
 //		JButton[] jb = new JButton[25];
 		
 		JLabel countNum = new JLabel("남은 횟수  X  " +  5);
+		countNum.setFont(new Font("게임" ,Font.BOLD, 20));
 		countNum.setBounds(400, 40, 150, 30);
 		
 		for(int i = 1; i < 26; i++) {
@@ -122,7 +123,7 @@ public class Game_view_hyunbin {
 		sidePanel1.setBackground(Color.PINK);
 		JPanel sidePanel2 = new JPanel();
 		sidePanel2.setLayout(null);
-		sidePanel2.setBounds(600,0,100,800);
+		sidePanel2.setBounds(600,0,100,750);
 		sidePanel2.setBackground(Color.PINK);
 		
 	/*--------------------------------------------------------------------------*/	
@@ -133,7 +134,7 @@ public class Game_view_hyunbin {
 		mf.add(sidePanel1);
 		mf.add(sidePanel2);
 		mf.add(bottomPanel);
-		
+		mf.setResizable(false);
 		mf.setVisible(true);
 		mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

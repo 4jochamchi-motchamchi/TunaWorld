@@ -13,6 +13,8 @@ public class MiniGame_hyunbin implements ActionListener {
 	private int buttonNum;
 	
 	private static int countNum = 5;
+	
+	// Game_view에서 만든 Label의 주소값을 가져와서
 	private JLabel can;
 	
 	// 매개변수로 받은 
