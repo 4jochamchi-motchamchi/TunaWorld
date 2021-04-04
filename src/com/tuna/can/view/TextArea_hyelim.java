@@ -119,10 +119,7 @@ public class TextArea_hyelim {
 		saveButton.setBounds(580, 80 , 80, 25);
 		bottonP.add(saveButton);
 		
-       
-        
-		
-		
+
 		frame.add(topPanel);
 	    frame.add(subP);
 		frame.add(textareaP);
