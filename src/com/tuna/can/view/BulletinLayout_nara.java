@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,7 +28,10 @@ public class BulletinLayout_nara {
 	public static void main(String[] args) {
 		
 		JFrame mainFrame = new JFrame();
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);		
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
+		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);	
+		
+		ImageIcon home = new ImageIcon("image/home.PNG");
 		
 		mainFrame.setTitle("게시글보기");
 		mainFrame.setLayout(null);
@@ -45,7 +49,7 @@ public class BulletinLayout_nara {
 		JPanel writePanel = new JPanel();				// 댓글쓰는 패널
 		
 		JLabel topLabel = new JLabel("제목");				// 제목 들어갈 라벨(데이터 불러와야됨)
-		JButton backButton = new JButton("Back");		// 메인으로가기 버튼
+		JButton backButton = new JButton(home);		// 메인으로가기 버튼
 		JLabel nickName = new JLabel("작성자닉네임");		// 닉네임 들어갈 라벨(데이터 불러와야됨)
 		JButton plusFriend = new JButton("친구추가");		// 친구추가 들어갈 라벨
 		JLabel bulletin = new JLabel("게에에시시그으을");	// 게시글 들어갈 라벨(데이터 불러와야됨)
@@ -64,7 +68,9 @@ public class BulletinLayout_nara {
 		topPanel.setBorder(border);
 		
 		// 뒤로가기버튼 설정
-		backButton.setBounds(30, 35, 90, 25);
+		backButton.setBounds(30, 25, 55, 55);
+		backButton.setBackground(Color.pink);
+		backButton.setBorder(pinkborder);
 		topPanel.add(backButton);
 		
 		// 제목 설정
@@ -128,12 +134,13 @@ public class BulletinLayout_nara {
 		
 		// 댓글라벨
 		cm.setLocation(50, 10);
-		cm.setSize(40, 40);
+		cm.setSize(50, 40);
+		cm.setFont(new Font("댓글 : ",Font.BOLD, 14));
 		writePanel.add(cm);
 		
 		// 댓글입력창 설정
-		writeComment.setLocation(90, 10);
-		writeComment.setSize(480, 40);
+		writeComment.setLocation(100, 10);
+		writeComment.setSize(475, 40);
 		writeComment.setBorder(border);
 		writePanel.add(writeComment);
 		
