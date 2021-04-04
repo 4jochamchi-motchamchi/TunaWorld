@@ -62,6 +62,7 @@ public class Game_view_hyunbin {
 		
 //		JButton[] jb = new JButton[25];
 		
+		// 하단 페널에 게임 남은 횟수 표시
 		JLabel countNum = new JLabel("남은 횟수  X  " +  5);
 		countNum.setFont(new Font("게임" ,Font.BOLD, 20));
 		countNum.setBounds(400, 40, 150, 30);

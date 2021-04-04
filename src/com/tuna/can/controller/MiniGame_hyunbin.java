@@ -14,7 +14,8 @@ public class MiniGame_hyunbin implements ActionListener {
 	
 	private static int countNum = 5;
 	
-	// Game_view에서 만든 Label의 주소값을 가져와서
+	// Game_view에서 만든 Label의 주소값을 가져와서 클릭 이벤트가 발생 할때마다
+	// 카운트를 하기 위해
 	private JLabel can;
 	
 	// 매개변수로 받은 
