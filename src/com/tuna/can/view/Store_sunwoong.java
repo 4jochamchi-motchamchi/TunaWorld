@@ -61,6 +61,9 @@ public class Store_sunwoong {
 		////////////////////////////////////////
 
 		// 하단 패널
+//		하단 패널에 버튼 9개씩 추가하여 
+//		중간 패널 버튼 클릭시 하단패널 버튼 변경
+//		중간에 ~선택 ~ 구매 하시겠습니까 ~ 현재 금액 생성
 		JPanel botPanel = new JPanel();
 		CardLayout card = new CardLayout();
 		botPanel.setLayout(card);

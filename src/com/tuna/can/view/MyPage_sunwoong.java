@@ -42,6 +42,7 @@ public class MyPage_sunwoong {
       Panel bottomBottomPanel = new Panel();
       
 //      위쪽 패널
+//      이미지 넣기
       topPanel.setLayout(null);
       topPanel.setLocation(0, 0);
       topPanel.setSize(700, 250);
@@ -117,6 +118,8 @@ public class MyPage_sunwoong {
       bottomPanel2.setBackground(Color.gray);
       
 //      우측 하단 상단 패널
+//      버튼 클릭시 
+//     bottomTopPanel 버튼 변경
       bottomTopPanel.setLayout(new GridLayout(0,3));
       bottomTopPanel.setSize(350,100);
       bottomTopPanel.setLocation(0, 0);
