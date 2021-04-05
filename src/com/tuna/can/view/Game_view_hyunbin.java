@@ -44,10 +44,10 @@ public class Game_view_hyunbin {
 	/*--------------------------------------------------------------------------*/	
 		
 		
-		// 상단 게임 이름 패널
+		// 상단 게임 이름 판넬
 		topPanel.setLayout(null);
 		// topLab 글씨 크기 설정
-		topLab.setFont(new Font("게임" ,Font.BOLD, 30));
+		topLab.setFont(new Font("@Monaco" ,Font.BOLD, 30));
 		// 상단 페널 크기 위치 지정
 		topPanel.setBounds(0,0,700,100);
 		// 라벨 위치
@@ -68,23 +68,28 @@ public class Game_view_hyunbin {
 		// 버튼 페널 위치 설정
 		buttonPanel.setBounds(100, 100, 500, 650);
 		// 그리드레이아웃 버튼
-		buttonPanel.setLayout(new GridLayout(5,5,5,5));
+		buttonPanel.setLayout(new GridLayout(4,4,5,5));
 		// 버튼 생성
 		
 //		JButton[] jb = new JButton[25];
 		
 		// 하단 페널에 게임 남은 횟수 표시
-		JLabel countNum = new JLabel("남은 횟수  X  " +  5);
+		MiniGame_hyunbin hg = new MiniGame_hyunbin();
+		JLabel countNum = new JLabel("남은 횟수  X  " + hg.getCountNum());
 		countNum.setFont(new Font("게임" ,Font.BOLD, 20));
 		countNum.setBounds(400, 40, 150, 30);
 		
-		for(int i = 1; i < 26; i++) {
+		for(int i = 1; i < 17; i++) {
 			ImageIcon cardBack = new ImageIcon("image/catcard2.PNG");
 			JButton button = new JButton(cardBack);
+			button.setBackground(Color.WHITE);
 			button.addActionListener(new MiniGame_hyunbin(i, button, countNum));
-			buttonPanel.add(button);
-
 			
+			buttonPanel.add(button);
+//			if(MiniGame_hyunbin.getCheck() == 1) {
+//				break;
+//			}
+//		나라 작품	break;
 //			buttonPanel.add(new JButton(i+ ""));
 			
 		}
@@ -127,8 +132,6 @@ public class Game_view_hyunbin {
 		
 		// 읽기 전용으로 만들기
 //		textBox.setEditable(false);
-		
-		
 //		bottomPanel.add(textBox);
 		bottomPanel.add(countNum);
 //		bottomPanel.add(jaehwa);
@@ -137,10 +140,13 @@ public class Game_view_hyunbin {
 	/*--------------------------------------------------------------------------*/	
 		
 		// 좌우 판넬 설정
+//		ImageIcon cwtree = new ImageIcon("image/catwithtree.PNG");
+//		JButton ctree = new JButton(cwtree);
 		JPanel sidePanel1 = new JPanel();
 		sidePanel1.setLayout(null);
 		sidePanel1.setBounds(0,0,100,900);
 		sidePanel1.setBackground(Color.PINK);
+//		sidePanel1.add(ctree);
 		JPanel sidePanel2 = new JPanel();
 		sidePanel2.setLayout(null);
 		sidePanel2.setBounds(600,0,100,750);
