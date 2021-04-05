@@ -71,11 +71,11 @@ public class FriendsList_hyunbin {
 			nickName.setBounds(310, 27, 700, 50);
 			friends.add(nickName);
 			mf.add(friends);
-			ImageIcon photo = new ImageIcon("image/home.PNG");
+			ImageIcon photo = new ImageIcon("image/profile.png");
 			
 			JLabel imageLabel = new JLabel(photo);
 			imageLabel.setLayout(null);
-			imageLabel.setBounds(50,27,90,40);
+			imageLabel.setBounds(57,27,72,60);
 			friends.add(imageLabel);
 			
 			JButton button = new JButton("삭제");
