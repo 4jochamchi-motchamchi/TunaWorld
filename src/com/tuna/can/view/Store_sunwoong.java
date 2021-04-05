@@ -48,15 +48,21 @@ public class Store_sunwoong {
 		midPanel.setBounds(45, 170, 600, 130);
 		midPanel.setBackground(Color.blue);
 
-		JButton characterButton = new JButton();
+		JButton characterButton = new JButton("캐릭터");
 
-		JButton backgroundButton = new JButton();
+		JButton backgroundButton = new JButton("배경");
 
-		JButton fontButton = new JButton();
+		JButton fontButton = new JButton("폰트");
 
 		midPanel.add(characterButton);
 		midPanel.add(backgroundButton);
 		midPanel.add(fontButton);
+		
+		JLabel buyLabel = new JLabel("gdgdgddd");
+		buyLabel.setBounds(300, 300, 300, 50);
+		buyLabel.setFont(new Font("구매폰트", Font.BOLD, 20));
+		frame.add(buyLabel);
+		
 
 		////////////////////////////////////////
 
@@ -67,20 +73,116 @@ public class Store_sunwoong {
 		JPanel botPanel = new JPanel();
 		CardLayout card = new CardLayout();
 		botPanel.setLayout(card);
-		botPanel.setBounds(45, 350, 600, 600);
+		botPanel.setBounds(45, 350, 600, 500);
 
 		JPanel characterPanel = new JPanel();
-		characterPanel.setBounds(45, 350, 600, 600);
+		characterPanel.setLayout(new GridLayout(3,3));
+		characterPanel.setBounds(45, 350, 600, 500);
 		characterPanel.setBackground(Color.pink);
-		JButton storeButton1 = new JButton();
 
 		JPanel backgroundPanel = new JPanel();
-		backgroundPanel.setBounds(45, 350, 600, 600);
+		backgroundPanel.setLayout(new GridLayout(3,3));
+		backgroundPanel.setBounds(45, 350, 600, 500);
 		backgroundPanel.setBackground(Color.orange);
 
 		JPanel fontPanel = new JPanel();
-		fontPanel.setBounds(45, 350, 600, 600);
+		fontPanel.setLayout(new GridLayout(3,3));
+		fontPanel.setBounds(45, 350, 600, 500);
 		fontPanel.setBackground(Color.gray);
+		
+		JButton storeButton1 = new JButton("캐릭터 1");
+		JButton storeButton2 = new JButton();
+		JButton storeButton3 = new JButton();
+		JButton storeButton4 = new JButton();
+		JButton storeButton5 = new JButton();
+		JButton storeButton6 = new JButton();
+		JButton storeButton7 = new JButton();
+		JButton storeButton8 = new JButton();
+		JButton storeButton9 = new JButton();
+		
+		JButton storeButton10 = new JButton("배경 1");
+		JButton storeButton11 = new JButton();
+		JButton storeButton12 = new JButton();
+		JButton storeButton13 = new JButton();
+		JButton storeButton14 = new JButton();
+		JButton storeButton15 = new JButton();
+		JButton storeButton16 = new JButton();
+		JButton storeButton17 = new JButton();
+		JButton storeButton18 = new JButton();
+		
+		JButton storeButton19 = new JButton("폰트 1");
+		JButton storeButton20 = new JButton();
+		JButton storeButton21 = new JButton();
+		JButton storeButton22 = new JButton();
+		JButton storeButton23 = new JButton();
+		JButton storeButton24 = new JButton();
+		JButton storeButton25 = new JButton();
+		JButton storeButton26 = new JButton();
+		JButton storeButton27 = new JButton();
+		
+//		상점 1버튼 클릭시 텍스트 입력
+		storeButton1.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				buyLabel.setText(" 캐릭터 구매? ");
+			}
+			
+			
+		});
+		
+		storeButton10.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				buyLabel.setText(" 배경 구매?");
+			}
+			
+			
+		});
+		
+		storeButton19.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				buyLabel.setText(" 폰트 구매?");
+			}
+			
+			
+		});
+		
+		characterPanel.add(storeButton1);
+		characterPanel.add(storeButton2);
+		characterPanel.add(storeButton3);
+		characterPanel.add(storeButton4);
+		characterPanel.add(storeButton5);
+		characterPanel.add(storeButton6);
+		characterPanel.add(storeButton7);
+		characterPanel.add(storeButton8);
+		characterPanel.add(storeButton9);
+		
+		backgroundPanel.add(storeButton10);
+		backgroundPanel.add(storeButton11);
+		backgroundPanel.add(storeButton12);
+		backgroundPanel.add(storeButton13);
+		backgroundPanel.add(storeButton14);
+		backgroundPanel.add(storeButton15);
+		backgroundPanel.add(storeButton16);
+		backgroundPanel.add(storeButton17);
+		backgroundPanel.add(storeButton18);
+		
+		fontPanel.add(storeButton19);
+		fontPanel.add(storeButton20);
+		fontPanel.add(storeButton21);
+		fontPanel.add(storeButton22);
+		fontPanel.add(storeButton23);
+		fontPanel.add(storeButton24);
+		fontPanel.add(storeButton25);
+		fontPanel.add(storeButton26);
+		fontPanel.add(storeButton27);
 
 		botPanel.add("character", characterPanel);
 		botPanel.add("background", backgroundPanel);
