@@ -114,6 +114,7 @@ public class Login_page_Juhee {
 
 		mf.add(imagePanel);
 		mf.add(loginPanel);
+		mf.setResizable(false);
 		mf.setVisible(true);
 		mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
