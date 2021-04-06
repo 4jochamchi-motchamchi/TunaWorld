@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Store_sunwoong {
+public class Store {
 
 	public static void main(String[] args) {
 		Font font = new Font("상점폰트", Font.BOLD, 50);

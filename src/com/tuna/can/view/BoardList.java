@@ -21,7 +21,7 @@ import javax.swing.border.Border;
  * @author Hyelim Jeon
  *
  */
-public class BoardList_hyelim {
+public class BoardList {
 
 	public static void main(String[] args) {
 

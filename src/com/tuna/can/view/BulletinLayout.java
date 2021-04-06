@@ -24,7 +24,7 @@ import javax.swing.border.EtchedBorder;
  * @author NaraWee
  *
  */
-public class BulletinLayout_nara {
+public class BulletinLayout {
 
 	public static void main(String[] args) {
 		

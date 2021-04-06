@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 
 import com.tuna.can.controller.MyPage_Button;
 
-public class MyPage_sunwoong {
+public class MyPage {
 
    public static void main(String[] args) {
       

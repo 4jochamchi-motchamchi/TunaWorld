@@ -8,13 +8,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-class FriendsList_hyunbin implements ActionListener {
+class FriendsList implements ActionListener {
 	
 	private JButton button;
 	private JLabel label;
 	private ImageIcon photo;
 	
-	public FriendsList_hyunbin(ImageIcon photo, JLabel label, JButton button) {
+	public FriendsList(ImageIcon photo, JLabel label, JButton button) {
 		this.photo = photo;
 		this.label = label;
 		this.button = button;

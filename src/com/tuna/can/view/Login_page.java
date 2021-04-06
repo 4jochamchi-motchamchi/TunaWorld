@@ -27,7 +27,7 @@ import javax.swing.JTextField;
  * @author Juhee hwang
  *
  */
-public class Login_page_Juhee {
+public class Login_page {
 	
 	public static void main(String[] args) {
 		

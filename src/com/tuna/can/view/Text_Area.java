@@ -30,7 +30,7 @@ import javax.swing.border.Border;
  * @author Hyelim Jeon
  *
  */
-public class TextArea_hyelim {
+public class Text_Area {
 	
 	public static void main(String[] args) {
 	

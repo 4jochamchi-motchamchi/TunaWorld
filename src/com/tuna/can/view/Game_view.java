@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.tuna.can.controller.MiniGame_hyunbin;
+import com.tuna.can.controller.MiniGame;
 
 /**
  * @author doqnt
@@ -24,7 +24,7 @@ import com.tuna.can.controller.MiniGame_hyunbin;
  * </pre>
  *
  */
-public class Game_view_hyunbin {
+public class Game_view {
 
 
 	
@@ -74,7 +74,7 @@ public class Game_view_hyunbin {
 //		JButton[] jb = new JButton[25];
 		
 		// 하단 페널에 게임 남은 횟수 표시
-		MiniGame_hyunbin hg = new MiniGame_hyunbin();
+		MiniGame hg = new MiniGame();
 		JLabel countNum = new JLabel("남은 횟수  X  " + hg.getCountNum());
 		countNum.setFont(new Font("게임" ,Font.BOLD, 20));
 		countNum.setBounds(400, 40, 150, 30);
@@ -83,7 +83,7 @@ public class Game_view_hyunbin {
 			ImageIcon cardBack = new ImageIcon("image/catcard2.PNG");
 			JButton button = new JButton(cardBack);
 			button.setBackground(Color.WHITE);
-			button.addActionListener(new MiniGame_hyunbin(i, button, countNum));
+			button.addActionListener(new MiniGame(i, button, countNum));
 			
 			buttonPanel.add(button);
 //			if(MiniGame_hyunbin.getCheck() == 1) {

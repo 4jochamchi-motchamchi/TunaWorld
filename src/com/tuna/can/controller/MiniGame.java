@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-public class MiniGame_hyunbin implements ActionListener {
+public class MiniGame implements ActionListener {
 
 	// 버튼에 각각 번호를 부여하기 위한 필드
 	// for문으로 받은 매개변수
@@ -31,7 +31,7 @@ public class MiniGame_hyunbin implements ActionListener {
 	private boolean checkUsedCard = true;
 	
 	// view 클래스에 객체 생성
-	public MiniGame_hyunbin() {
+	public MiniGame() {
 		
 	}
 	
@@ -41,7 +41,7 @@ public class MiniGame_hyunbin implements ActionListener {
 	}
 
 
-	public MiniGame_hyunbin(int buttonNum, JButton button, JLabel can) {
+	public MiniGame(int buttonNum, JButton button, JLabel can) {
 		this.buttonNum = buttonNum;
 		this.button = button;
 		this.can = can;

@@ -1,8 +1,8 @@
 package com.tuna.can.run;
 
-import com.tuna.can.view.Game_view_hyunbin;
+import com.tuna.can.view.Game_view;
 
-public class Application_hyunbin {
+public class Application {
 
 	public static void main(String[] args) {
 		

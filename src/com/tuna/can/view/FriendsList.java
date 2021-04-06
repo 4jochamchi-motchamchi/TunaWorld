@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-public class FriendsList_hyunbin {
+public class FriendsList {
 
 	public static void main(String[] args) {
 
