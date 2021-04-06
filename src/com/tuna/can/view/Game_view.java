@@ -106,7 +106,8 @@ public class Game_view extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				new Main_page();
+					dispose();
 			}
 		});
 //		backB.setBounds(10,10,90,25);
