@@ -2,6 +2,9 @@ package com.tuna.can.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -11,10 +14,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
 
 /**
  * 
@@ -30,8 +35,9 @@ public class BulletinLayout {
 		
 		JFrame mainFrame = new JFrame();
 		Border border = BorderFactory.createEtchedBorder(1);
-		Border border2 = BorderFactory.createLineBorder(Color.BLACK);
+		Border border2 = BorderFactory.createDashedBorder(Color.darkGray);
 		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);	
+		Border whiteborder = BorderFactory.createLineBorder(Color.white, 1);	
 		
 		ImageIcon home = new ImageIcon("image/home.PNG");
 		
@@ -55,8 +61,8 @@ public class BulletinLayout {
 		JButton backButton = new JButton(home);			// 메인으로가기 버튼
 		JLabel nickName = new JLabel("작성자닉네임");		// 닉네임 들어갈 라벨(데이터 불러와야됨)
 		JButton plusFriend = new JButton("친구추가");		// 친구추가 들어갈 라벨
-		JLabel bulletin = new JLabel("게에에시시그으을");	// 게시글 들어갈 라벨(데이터 불러와야됨)
-		JLabel bulletinLabel = new JLabel();
+		JTextArea bulletin = new JTextArea("게에에시시그으을\n\n\nㄳㄳㄳ\n\n\n아아아아\n\n\n오오오오\n\n\n\n하이하이\n\n\n\n\n스크롤\n\n\n\n안녕");	// 게시글 들어갈 라벨(데이터 불러와야됨)
+//		JLabel bulletinLabel = new JLabel();
 		JLabel date = new JLabel("작성날짜들어갈거야아아아");	// 게시글 작성된 날짜 들어갈 라벨(데이터 불러와야됨)
 		JLabel comments = new JLabel("대대대대대대댓글");	// 댓글목록 보이는 라벨(데이터 불러와야됨)
 		JLabel cm = new JLabel("댓글 : ");				// 댓글
@@ -105,14 +111,27 @@ public class BulletinLayout {
 //		scroll.setBounds(690, 100, 8, 180);
 		
 		// 게시글 설정
+		JPanel bulletinLabel = new JPanel();
 		bulletinLabel.setLocation(50, 60);
 		bulletinLabel.setSize(600, 350);
+		bulletinLabel.setBackground(Color.white);
 		bulletinLabel.setBorder(border2);
 		bulletinPanel.add(bulletinLabel);
+
+	    bulletin.setLocation(60, 70);
+	    bulletin.setSize(580, 330);
+	    bulletin.setBackground(Color.white);
+	    bulletinPanel.add(bulletin);
+	    
+        JScrollPane scrollPane = new JScrollPane(bulletin);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBounds(60, 170, 580, 330);
+        scrollPane.setBorder(whiteborder);
+        mainFrame.getContentPane().add(scrollPane);
+	    
+	    
 		
-		bulletin.setLocation(55, 65);
-		bulletin.setSize(590, 250);
-		bulletinPanel.add(bulletin);
+		bulletin.setEditable(false);
 		
 		// 날짜라벨 설정
 		date.setLocation(50, 410);
@@ -156,6 +175,28 @@ public class BulletinLayout {
 		inputButton.setLocation(580,10);
 		inputButton.setSize(70, 40);
 		writePanel.add(inputButton);
+		
+		
+		
+		
+		
+		// 뒤로가기 버튼 눌렀을 때
+		backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(e.getSource() == backButton) {
+
+
+					
+				}
+				
+			}
+		});
+		
+		
+		
 		
 		
 		mainFrame.add(topPanel);
