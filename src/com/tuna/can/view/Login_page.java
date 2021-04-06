@@ -101,16 +101,22 @@ public class Login_page {
 		loginPanel.add(createUserBtn);
 		
 		loginBtn.addActionListener(new ActionListener() {
-			
+					
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-//				if(idText.) {
-//					JOptionPane.showConfirmDialog("아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!");
-//				}
+				if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!");
+					return;
+				}
+				if(idText.getText().isEmpty() || pwText.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "빈칸이 있습니다. \n 채워주세요!");
+					return;
+				}
+				
+				
 			}
 		});
-		
 
 		mf.add(imagePanel);
 		mf.add(loginPanel);
