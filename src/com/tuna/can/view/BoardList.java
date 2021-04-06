@@ -75,10 +75,10 @@ public class BoardList extends JFrame{
 //		    ImageIcon home = new ImageIcon("image/home.PNG");
 //			JButton backButton = new JButton(home);
 //			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
-//			backButton.setBounds(30, 30, 55, 55);
-//			backButton.setBackground(Color.pink);
-//			backButton.setBorder(pinkborder);
-//			topPanel.add(backButton);
+			backB.setBounds(30, 30, 55, 55);
+			backB.setBackground(Color.pink);
+			backB.setBorder(pinkborder);
+			topPanel.add(backB);
 			
 			//전체게시글 글씨
 			JLabel lbl = new JLabel(" 전체게시글 ");

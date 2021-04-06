@@ -86,10 +86,10 @@ public class Text_Area extends JFrame{
 //		ImageIcon home = new ImageIcon("image/home.PNG");
 //		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
 //		JButton backButton = new JButton(home);
-//		backButton.setBackground(Color.pink);
-//		backButton.setBorder(pinkborder);
-//		backButton.setBounds(30, 30, 55, 55);
-//		topPanel.add(backButton);
+		backB.setBackground(Color.pink);
+		backB.setBorder(pinkborder);
+		backB.setBounds(30, 30, 55, 55);
+		topPanel.add(backB);
 		
 		
 	    //제목
