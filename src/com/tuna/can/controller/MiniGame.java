@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class MiniGame implements ActionListener {
 
@@ -55,8 +56,12 @@ public class MiniGame implements ActionListener {
 		countNum--;
 			if (countNum < 0) {
 				
-				return;
-
+				int result = JOptionPane.showConfirmDialog(null, "참치 통조림을 결국 찾지 못했습니다. \n 아쉽겠네요 ㅋ", "게임 종료", -1);
+				if(result == JOptionPane.YES_OPTION) {
+					
+					System.out.println("ㅋㅋ");
+				}
+				
 			} else {
 
 //				if (checkUsedCard) {
@@ -78,8 +83,13 @@ public class MiniGame implements ActionListener {
 						ImageIcon can2 = new ImageIcon("image/naraCan.PNG");
 						button.setIcon(can2);
 						
+						int result = JOptionPane.showConfirmDialog(null, "참치 통조림을 찾았습니다 \n 축하드려요!", "참치캔 획득!", -1);
 						// 참치캔을 찾았을때 카운터를 0으로 변환
 						countNum = 0;
+						
+						if(result == JOptionPane.YES_OPTION) {
+							System.out.println("안녕?");
+						}
 						
 
 					} else {

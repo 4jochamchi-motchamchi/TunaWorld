@@ -1,7 +1,6 @@
 package com.tuna.can.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +44,7 @@ public class FriendsList {
 		JLabel topLabel = new JLabel("친구 목록");
 		topLabel.setLayout(null);
 		topLabel.setBounds(270, 27, 700, 50);
-		topLabel.setFont(new Font("친구 목록" ,Font.BOLD, 30));
+		topLabel.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 30));
 		
 		// 상단 판넬에 라벨 
 		topPanel.add(topLabel);
@@ -65,7 +64,7 @@ public class FriendsList {
 		JPanel middlePanel = new JPanel();
 		
 		middlePanel.setLayout(null);
-		middlePanel.setBounds(0,100,900,700);
+		middlePanel.setBounds(0,100,685,2000);
 		
 		JPanel friends = null;
 		
@@ -75,7 +74,7 @@ public class FriendsList {
 			
 			friends.setLayout(null);
 			
-			friends.setBounds(0,(i * 100),600,100);
+			friends.setBounds(0,(i * 100),700,100);
 			
 			friends.setBorder(border);
 			
@@ -94,7 +93,7 @@ public class FriendsList {
 			friends.add(imageLabel);
 			
 			JButton button = new JButton("삭제");
-			button.setLayout(null);
+//			button.setLayout(null);
 			button.setBounds(550,27,90,40);
 			button.addActionListener(new com.tuna.can.controller.FriendsList(button));
 			
@@ -103,9 +102,10 @@ public class FriendsList {
 			
 		}
 		
-		JScrollPane scrollbar = new JScrollPane(friends);
-		scrollbar.setBounds(0,0,700,700);
-		middlePanel.add(scrollbar);
+		JScrollPane scrollbar = new JScrollPane(middlePanel);
+		scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollbar.setBounds(0,100,685,700);
+//		middlePanel.add(scrollbar);
 		
 //		scrollbar.setLayout(null);
 //		scrollbar.setBounds(0,0, 30, 500);
@@ -124,10 +124,11 @@ public class FriendsList {
 		bottomPanel.setBounds(0, 750, 700, 110);
 		// 마이 프레임에 판넬 추가
 		
+		mf.getContentPane().add(scrollbar);
 		mf.add(topPanel);
 		mf.add(bottomPanel);
-		mf.add(middlePanel);
-		mf.setResizable(false);
+//		mf.add(middlePanel);
+//		mf.setResizable(false);
 		mf.setVisible(true);
 		mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
