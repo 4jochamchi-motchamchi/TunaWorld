@@ -14,7 +14,7 @@ public class MiniGame implements ActionListener {
 	// for문으로 받은 매개변수
 	private int buttonNum;
 
-	private static int countNum = 5;
+	private static int countNum = 7;
 
 	// Game_view에서 만든 Label의 주소값을 담아오기 위해
 	private JLabel can;

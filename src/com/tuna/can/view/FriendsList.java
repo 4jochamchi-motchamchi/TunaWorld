@@ -1,6 +1,7 @@
 package com.tuna.can.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +13,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
+
 
 public class FriendsList {
 
+
 	public static void main(String[] args) {
+//		JPanel friends = null;
 
 		// 미니 창 이름 설정
 		JFrame mf = new JFrame("Friend List");
@@ -57,20 +62,30 @@ public class FriendsList {
 		
 		/*------------------------------------------------------------------------------------------*/
 		
-		for(int i = 1; i < 7; i++) {
+		JPanel middlePanel = new JPanel();
+		
+		middlePanel.setLayout(null);
+		middlePanel.setBounds(0,100,900,700);
+		
+		JPanel friends = null;
+		
+		for(int i = 0; i <= 20; i++) {
 			
-			JPanel friends = new JPanel();
+			friends = new JPanel();
+			
 			friends.setLayout(null);
-			friends.setBounds(0, 100 * i,700,100 );
-			friends.setBorder(border);
-//			friends.setBackground(Color.pink);
 			
+			friends.setBounds(0,(i * 100),600,100);
+			
+			friends.setBorder(border);
+			
+//			friends.setBackground(Color.pink);
 			
 			JLabel nickName = new JLabel("다라미");
 			nickName.setLayout(null);
 			nickName.setBounds(310, 27, 700, 50);
 			friends.add(nickName);
-			mf.add(friends);
+//			mf.add(friends);
 			ImageIcon photo = new ImageIcon("image/profile.png");
 			
 			JLabel imageLabel = new JLabel(photo);
@@ -81,10 +96,22 @@ public class FriendsList {
 			JButton button = new JButton("삭제");
 			button.setLayout(null);
 			button.setBounds(550,27,90,40);
+			button.addActionListener(new com.tuna.can.controller.FriendsList(button));
+			
 			friends.add(button);
+			middlePanel.add(friends);
 			
 		}
 		
+		JScrollPane scrollbar = new JScrollPane(friends);
+		scrollbar.setBounds(0,0,700,700);
+		middlePanel.add(scrollbar);
+		
+//		scrollbar.setLayout(null);
+//		scrollbar.setBounds(0,0, 30, 500);
+		//scrollbar.setViewportView(middlePanel);
+//		scrollbar.setPreferredSize(new Dimension(200,100));
+		//middlePanel.add(scrollbar);
 		/*------------------------------------------------------------------------------------------*/
 		
 		// 하단 판넬
@@ -99,7 +126,7 @@ public class FriendsList {
 		
 		mf.add(topPanel);
 		mf.add(bottomPanel);
-		
+		mf.add(middlePanel);
 		mf.setResizable(false);
 		mf.setVisible(true);
 		mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
