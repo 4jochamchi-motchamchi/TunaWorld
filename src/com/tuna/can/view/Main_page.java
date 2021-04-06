@@ -154,26 +154,89 @@ public class Main_page extends JFrame{
 					if(answer == JOptionPane.YES_OPTION){
 						//사용자가 yes를 눌렀을 떄
 						JOptionPane.showMessageDialog(null, "로그아웃되었습니다.", "logout",0);
+						new Login_page();
+						dispose();
 					} else{
 						//사용자가 Yes 외 값 입력시
 						JOptionPane.showMessageDialog(null, "로그아웃을 취소합니다.", "logout",0);
 					}
 				}
-				
 			}
 		});
+		
+		// 상점 버튼 눌렀을 때
+				storeButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {				
+						new Store();
+						dispose();				
+					}
+			
+				});
 				
+		// 전체글보기 버튼 눌렀을 때
 		button1.addMouseListener(new MouseAdapter() {
-
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				BulletinLayout bulletin = new BulletinLayout();
-				
+			public void mouseClicked(MouseEvent e) {				
+				new BulletinLayout();
+				dispose();				
 			}
-			
-			
+	
 		});
+		
+		// 비밀글보기 버튼 눌렀을 때
+		button2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {				
+//				new BulletinLayout();
+//				dispose();				
+			}
+	
+		});
+		
+		// 친구글보기 버튼 눌렀을 때
+		button3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {				
+//				new BulletinLayout();
+//				dispose();				
+			}
+	
+		});
+		
+		// 친구 목록 버튼 눌렀을 때
+		button4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {				
+				new FriendsList();
+				dispose();				
+			}
+	
+		});
+		
+		// 마이페이지 버튼 눌렀을 때
+		button5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {				
+				new MyPage();
+				dispose();				
+			}
+	
+		});
+		
+		// 출석게임 버튼 눌렀을 때
+		button6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {				
+				new Game_view();
+				dispose();				
+			}
+	
+		});
+		
+		
+		
+		
 			
 		this.add(storePanel);
 		this.add(profilePanel);
@@ -183,6 +246,7 @@ public class Main_page extends JFrame{
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 	public static void main(String[] args) {
 		
 		new Main_page();
