@@ -2,6 +2,8 @@ package com.tuna.can.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -9,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -113,7 +116,21 @@ public class Signup_page extends JFrame{
 		JButton loginBtn = new JButton("가입 완료");
 		loginBtn.setBounds(360, 500, 200, 50);
 		loginBtn.setFont(new Font("가입 완료", Font.BOLD, 22));
-		loginBtn.addActionListener(new Test(this, new Login_page()));
+		loginBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				if(nnText.getText().isEmpty() || idText.getText().isEmpty() || pwText.getText().isEmpty()
+						|| phoneText.getText().isEmpty() || emailText.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "모든칸이 채워지지 않았습니다. \n 입력해주세요!", "경고", 0);
+					return;
+				}else {
+				new Login_page();
+					dispose();
+				}
+			}
+		});
 		
 		contentPanel.add(loginBtn);
 		

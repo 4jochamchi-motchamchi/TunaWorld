@@ -111,8 +111,14 @@ public class Login_page extends JFrame{
 			JButton createUserBtn = new JButton("회원가입");
 			createUserBtn.setBounds(380, 280, 150, 40);
 			createUserBtn.setFont(new Font("회원가입", Font.BOLD, 18));
-//			createUserBtn.addActionListener(new Test(this, new Signup_page()));
-			
+			createUserBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new Signup_page();
+						dispose();
+				}
+			});
 			
 			loginPanel.add(loginBtn);
 			loginPanel.add(createUserBtn);
@@ -121,11 +127,7 @@ public class Login_page extends JFrame{
 						
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
-					Login_page loginPage = new Login_page();
-					
-					loginPage.login(idText);
-					
+										
 					if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!");
 						return;
@@ -134,8 +136,6 @@ public class Login_page extends JFrame{
 						JOptionPane.showMessageDialog(null, "빈칸이 있습니다. \n 채워주세요!");
 						return;
 					}
-					
-					
 				}
 			});
 
