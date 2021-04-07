@@ -79,7 +79,6 @@ public class Login_page extends JFrame{
 			
 		
 			//로그인 PW
-		
 			JLabel pwLabel = new JLabel("비밀번호 : ",JLabel.CENTER);
 			pwLabel.setBounds(170, 160, 150, 60);
 			pwLabel.setFont(new Font("비밀번호 : ", Font.BOLD, 22));
