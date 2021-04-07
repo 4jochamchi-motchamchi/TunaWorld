@@ -12,13 +12,13 @@ public class TunaService {
 	
 	TunaDAO tunaDAO = new TunaDAO();
 
-	public MemberDTO selectMemberInfo(String userID) {
+	public MemberDTO selectMemberInfo(String loginMemberId) {
 		
 		MemberDTO member = new MemberDTO();
 		
 		Connection con = getConnection();
 		
-		member = tunaDAO.selectMemberInfo(con, userID);
+		member = tunaDAO.selectMemberInfo(con, loginMemberId);
 		
 		return member;
 	}
