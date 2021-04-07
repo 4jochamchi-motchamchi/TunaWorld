@@ -17,7 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+
+import com.tuna.can.controller.TunaController;
+
 import com.tuna.can.controller.Test;
+
 
 /**
  * <pre>
@@ -27,6 +31,15 @@ import com.tuna.can.controller.Test;
  *
  */
 public class Login_page extends JFrame{
+	TunaController tunaController = new TunaController();
+	
+	
+	public void login(JTextField idText) {
+		
+		
+		tunaController.loginMember(idText.toString());
+				
+	}
 
 
 
@@ -98,7 +111,7 @@ public class Login_page extends JFrame{
 			JButton createUserBtn = new JButton("회원가입");
 			createUserBtn.setBounds(380, 280, 150, 40);
 			createUserBtn.setFont(new Font("회원가입", Font.BOLD, 18));
-			createUserBtn.addActionListener(new Test(this, new Signup_page()));
+//			createUserBtn.addActionListener(new Test(this, new Signup_page()));
 			
 			
 			loginPanel.add(loginBtn);
@@ -108,6 +121,10 @@ public class Login_page extends JFrame{
 						
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
+					Login_page loginPage = new Login_page();
+					
+					loginPage.login(idText);
 					
 					if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!");
@@ -139,7 +156,7 @@ public class Login_page extends JFrame{
 		new Login_page();
 	}	
 	
-	
+
 }
 	
 //	public static void main(String[] args) {
