@@ -25,7 +25,7 @@ import javax.swing.border.Border;
 
 /**
  * 메인페이지 레이아웃
- * @author WEENARA with Juheehwang
+ * @author NaraWee with Juheehwang
  *
  */
 public class Main_page extends JFrame{
@@ -160,7 +160,7 @@ public class Main_page extends JFrame{
 					
 					if(answer == JOptionPane.YES_OPTION){
 						//사용자가 yes를 눌렀을 떄
-						JOptionPane.showMessageDialog(null, "로그아웃되었습니다.", "logout",0);
+						JOptionPane.showMessageDialog(null, "로그아웃되었습니다.", "logout",1);
 						new Login_page();
 						dispose();
 					} else{

@@ -1,6 +1,7 @@
 package com.tuna.can.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -59,7 +60,7 @@ public class BulletinLayout extends JFrame{
 			JPanel commentsPanel = new JPanel();			// 댓글목록 패널
 			JPanel writePanel = new JPanel();				// 댓글쓰는 패널
 			
-			JLabel topLabel = new JLabel("제목");				// 제목 들어갈 라벨(데이터 불러와야됨)
+			JLabel topLabel = new JLabel("제목");			// 제목 들어갈 라벨(데이터 불러와야됨)
 			JButton backButton = new JButton(home);			// 메인으로가기 버튼
 			JLabel nickName = new JLabel("작성자닉네임");		// 닉네임 들어갈 라벨(데이터 불러와야됨)
 			JButton plusFriend = new JButton("친구추가");		// 친구추가 들어갈 라벨
@@ -109,15 +110,13 @@ public class BulletinLayout extends JFrame{
 			plusFriend.setSize(100, 25);
 			bulletinPanel.add(plusFriend);
 			
-//			JScrollPane scroll = new JScrollPane();
-//			scroll.setBounds(690, 100, 8, 180);
 			
 			// 게시글 설정
 			JPanel bulletinLabel = new JPanel();
 			bulletinLabel.setLocation(50, 60);
 			bulletinLabel.setSize(600, 350);
 			bulletinLabel.setBackground(Color.white);
-			bulletinLabel.setBorder(border2);
+//			bulletinLabel.setBorder(border2);
 			bulletinPanel.add(bulletinLabel);
 
 		    bulletin.setLocation(60, 70);
@@ -127,13 +126,12 @@ public class BulletinLayout extends JFrame{
 		    
 	        JScrollPane scrollPane = new JScrollPane(bulletin);
 	        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	        scrollPane.setBounds(60, 170, 580, 330);
+	        scrollPane.setBounds(60, 160, 589, 350);
 	        scrollPane.setBorder(whiteborder);
 	        this.getContentPane().add(scrollPane);
 		    
-		    
-			
 			bulletin.setEditable(false);
+			
 			
 			// 날짜라벨 설정
 			date.setLocation(50, 410);
@@ -149,10 +147,54 @@ public class BulletinLayout extends JFrame{
 			commentsPanel.setBackground(Color.pink);
 			
 			// 댓글목록 설정
-			comments.setLocation(55, 10);
-			comments.setSize(590, 180);
-			comments.setVerticalAlignment(JLabel.TOP);
-			commentsPanel.add(comments);
+//			comments.setLocation(55, 10);
+//			comments.setSize(590, 180);
+//			comments.setVerticalAlignment(JLabel.TOP);
+//			commentsPanel.add(comments);
+			
+			
+			
+			
+			
+			
+			commentsPanel.setLayout(null);
+//			middlePanel.setBounds(0,100,685,500);
+			commentsPanel.setPreferredSize(new Dimension(540,1000));
+			
+			JPanel commentList = null;
+			
+			for(int i = 0; i <= 10; i++) {
+				
+				commentList = new JPanel();
+				
+				commentList.setLayout(null);
+				
+				commentList.setBounds(50,(i * 50),585,50);
+				
+				commentList.setBorder(border);
+				
+//				friends.setBackground(Color.pink);
+				
+				JLabel commentNickName = new JLabel("댓글닉네임");
+				commentNickName.setLayout(null);
+				commentNickName.setBounds(5, 5, 50, 50);
+				commentList.add(commentNickName);
+
+
+				commentsPanel.add(commentList);
+				
+			}
+			
+			JScrollPane scrollbar = new JScrollPane(commentsPanel);
+			scrollbar.setPreferredSize(new Dimension(600,180));
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			int width = scrollbar.getPreferredSize().width;
+			int height = scrollbar.getPreferredSize().height;
+			scrollbar.setBounds(50,550,width,height);
+			
+			this.getContentPane().add(scrollbar);
+			
+			
 			
 			
 			// writePanel 설정값
@@ -180,6 +222,17 @@ public class BulletinLayout extends JFrame{
 			
 			
 			
+			// 친구추가 버튼 눌렀을 때
+			plusFriend.addActionListener(new ActionListener() {
+							
+				@Override
+				public void actionPerformed(ActionEvent e) {
+								
+					if(e.getSource() == plusFriend) {
+						JOptionPane.showMessageDialog(null,"친구요청을 보냈습니다.", "친구추가",1);	
+					}				
+				}
+			});
 			
 			
 			// 뒤로가기 버튼 눌렀을 때
@@ -189,13 +242,9 @@ public class BulletinLayout extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					
 					if(e.getSource() == backButton) {
-
-								new Main_page();
-									dispose();
-	
-						
-					}
-					
+						new Main_page();
+						dispose();		
+					}				
 				}
 			});
 			
@@ -214,9 +263,6 @@ public class BulletinLayout extends JFrame{
 			
 		}
 		
-//		public void bulletinMain() {
-	//
-//		}
 		
 	public static void main(String[] args) {
 		
