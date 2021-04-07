@@ -134,7 +134,6 @@ public class Login_page extends JFrame{
 	}	
 	
 	
-	
 }
 	
 //	public static void main(String[] args) {

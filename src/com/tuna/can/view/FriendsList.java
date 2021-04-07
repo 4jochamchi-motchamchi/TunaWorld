@@ -1,7 +1,7 @@
+
 package com.tuna.can.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -66,22 +66,17 @@ public class FriendsList extends JFrame{
 						dispose();
 				}
 			});
-			backB.setBounds(30, 25, 55, 55);
-			backB.setBackground(Color.pink);
-			backB.setBorder(pinkborder);
-			topPanel.add(backB);
 			
 			/*------------------------------------------------------------------------------------------*/
 			
 			JPanel middlePanel = new JPanel();
 			
 			middlePanel.setLayout(null);
-//			middlePanel.setBounds(0,100,685,500);
-			middlePanel.setPreferredSize(new Dimension(640,1000));
+			middlePanel.setBounds(0,100,685,2000);
 			
 			JPanel friends = null;
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i <= 20; i++) {
 				
 				friends = new JPanel();
 				
@@ -116,20 +111,14 @@ public class FriendsList extends JFrame{
 			}
 			
 			JScrollPane scrollbar = new JScrollPane(middlePanel);
-			scrollbar.setPreferredSize(new Dimension(685,650));
 			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			int width = scrollbar.getPreferredSize().width;
-			int height = scrollbar.getPreferredSize().height;
-			scrollbar.setBounds(0,100,width,height);
+			scrollbar.setBounds(0,100,685,700);
 //			middlePanel.add(scrollbar);
-			
-//			Scrollbar scr_Ver1 = new Scrollbar(Scrollbar.VERTICAL, 0, 20, 0, 255);
-//		        scr_Ver1.setSize(15, 100);
-//		        scr_Ver1.setLocation(40, 30);
 			
 //			scrollbar.setLayout(null);
 //			scrollbar.setBounds(0,0, 30, 500);
 			//scrollbar.setViewportView(middlePanel);
+//			scrollbar.setPreferredSize(new Dimension(200,100));
 			//middlePanel.add(scrollbar);
 			/*------------------------------------------------------------------------------------------*/
 			
@@ -147,7 +136,7 @@ public class FriendsList extends JFrame{
 			this.add(topPanel);
 			this.add(bottomPanel);
 //			mf.add(middlePanel);
-			this.setResizable(false);
+//			mf.setResizable(false);
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
@@ -281,3 +270,4 @@ public class FriendsList extends JFrame{
 //	}
 //}
 //
+>>>>>>> branch 'master' of https://github.com/4jochamchi-motchamchi/Mini_Project.git
