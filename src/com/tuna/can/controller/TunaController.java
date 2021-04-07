@@ -18,7 +18,6 @@ public class TunaController {
 		
 		loginMember.setUserID(id);
 		
-		
 	}
 	
 	

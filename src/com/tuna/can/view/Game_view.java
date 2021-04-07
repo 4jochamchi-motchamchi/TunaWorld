@@ -83,7 +83,7 @@ public class Game_view extends JFrame{
 			ImageIcon cardBack = new ImageIcon("image/catcard2.PNG");
 			JButton button = new JButton(cardBack);
 			button.setBackground(Color.WHITE);
-			button.addActionListener(new MiniGame(i, button, countNum));
+			button.addActionListener(new MiniGame(i, button, countNum, this, new Main_page()));
 			
 			buttonPanel.add(button);
 //			if(MiniGame_hyunbin.getCheck() == 1) {
@@ -175,7 +175,6 @@ public class Game_view extends JFrame{
 		
 	}
 	public static void main(String[] args) {
-//		Game_view gb = new Game_view();
 		new Game_view();
 	}
 		

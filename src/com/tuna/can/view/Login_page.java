@@ -17,7 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+
 import com.tuna.can.controller.TunaController;
+
+import com.tuna.can.controller.Test;
+
 
 /**
  * <pre>
@@ -36,6 +40,8 @@ public class Login_page extends JFrame{
 		tunaController.loginMember(idText.toString());
 				
 	}
+
+
 
 	public Login_page() {
 		super("Login page");
@@ -105,6 +111,8 @@ public class Login_page extends JFrame{
 			JButton createUserBtn = new JButton("회원가입");
 			createUserBtn.setBounds(380, 280, 150, 40);
 			createUserBtn.setFont(new Font("회원가입", Font.BOLD, 18));
+			createUserBtn.addActionListener(new Test(this, new Signup_page()));
+			
 			
 			loginPanel.add(loginBtn);
 			loginPanel.add(createUserBtn);
