@@ -8,7 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class CreateUserButton implements ActionListener {
+public class CreateUserButton {
 
 	private JButton createUserBtn;
 	
@@ -19,20 +19,14 @@ public class CreateUserButton implements ActionListener {
 		super();
 		this.createUserBtn = createUserBtn;
 	}
-	public static void changePanel(JFrame jf, JPanel oldp, JPanel newp) {
-		jf.remove(oldp);
-		jf.add(newp);
-		jf.repaint();
-	}
+	
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == createUserBtn) {
-		
-			signUp.show
-		
-	}
-		
-	}
-
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		if(e.getSource() == createUserBtn) {
+//		
+//			changePanel(jf, oldp, newp);
+//		
+//		}
+//	}
 }
