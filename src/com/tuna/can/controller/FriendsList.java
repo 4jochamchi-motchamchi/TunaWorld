@@ -9,7 +9,6 @@ import javax.swing.JScrollPane;
 public class FriendsList implements ActionListener {
 	
 	private JButton button;
-	private static JScrollPane scrollbar;
 
 	
 	
@@ -21,7 +20,6 @@ public class FriendsList implements ActionListener {
 	public FriendsList(JButton button) {
 
 		this.button = button;
-//		this.scrollbar = scrollbar;
 
 	}
 	
