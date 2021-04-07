@@ -2,6 +2,7 @@ package com.tuna.can.view;
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,46 +76,52 @@ public class Main_page extends JFrame{
 		profilePanel.add(nickName);
 		
 		
-		
-	
 //------------------------------------------------		
 		
 		
-//		// listPanel 설정
-//		listPanel.setBackground(Color.pink);
-//		
-//		// button들 설정
-		button1.setBounds(50, 0, 570, 80);
-		button2.setBounds(50, 90, 570, 80);
-		button3.setBounds(50, 180, 570, 80);
-		button4.setBounds(50, 270, 570, 80);
-		button5.setBounds(50, 360, 570, 80);
-		button6.setBounds(50, 450, 570, 80);
+	      //      // listPanel 설정
+	      //      listPanel.setBackground(Color.pink);
+	      //      
+	      //      // button들 설정
+	      button1.setBounds(50, 10, 570, 80);
+	      button2.setBounds(50, 100, 570, 80);
+	      button3.setBounds(50, 190, 570, 80);
+	      button4.setBounds(50, 280, 570, 80);
+	      button5.setBounds(50, 370, 570, 80);
+	      button6.setBounds(50, 460, 570, 80);
 
-//        // scroll 생성
-//        JScrollPane scroll = new JScrollPane(listPanel);
-//        scroll.setBounds(0, 300, 700, 450);
-//        scroll.setPreferredSize(new Dimension(600, 450));      
-      
-		JPanel listPanel = new JPanel();
-		listPanel.setBackground(Color.pink);
-        listPanel.add(button1);
-        listPanel.add(button2);
-        listPanel.add(button3);
-        listPanel.add(button4);
-        listPanel.add(button5);
-        listPanel.add(button6);
-//        
-//        scroll.add(listPanel);
-        
-        listPanel.setLayout(null);
-        listPanel.setBounds(0, 300, 680, 450);
+	      //        // scroll 생성
+	      //        JScrollPane scroll = new JScrollPane(listPanel);
+	      //        scroll.setBounds(0, 300, 700, 450);
+	      //        scroll.setPreferredSize(new Dimension(600, 450));      
 
-//        JScrollPane scrollPane = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JScrollPane scrollPane = new JScrollPane(listPanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(0, 300, 683, 450);
-        this.getContentPane().add(scrollPane);
+	      JPanel listPanel = new JPanel();
+	      listPanel.setLayout(null);
+	      listPanel.setPreferredSize(new Dimension(660,560));
+	      //listPanel.setBounds(0, 300, 680, 450);
+	      listPanel.setBackground(Color.pink);
+	      listPanel.add(button1);
+	      listPanel.add(button2);
+	      listPanel.add(button3);
+	      listPanel.add(button4);
+	      listPanel.add(button5);
+	      listPanel.add(button6);
+	      //        
+	      //        scroll.add(listPanel);
+
+
+	      //        JScrollPane scrollPane = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	      JScrollPane scrollPane = new JScrollPane(listPanel);
+	      scrollPane.setPreferredSize(new Dimension(685,460));
+	      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	      int width = scrollPane.getPreferredSize().width; // 적절한 폭
+	        int height = scrollPane.getPreferredSize().height; // 적절한 높이
+	        scrollPane.setBounds(0, 300, width, height);
+	        scrollPane.setBackground(Color.pink);
+
+	      //scrollPane.setBounds(0, 300, 683, 450);
+	      this.getContentPane().add(scrollPane);
+
         
 
 		
@@ -178,7 +185,7 @@ public class Main_page extends JFrame{
 		button1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {				
-				new BulletinLayout();
+				new BoardList();
 				dispose();				
 			}
 	
@@ -392,14 +399,7 @@ public class Main_page extends JFrame{
 //			}
 //		});
 //		
-//		
-//
-//		
-//		
-//		
-//		
-//		
-//		
+
 //		
 //		
 //		button1.addMouseListener(new MouseAdapter() {
