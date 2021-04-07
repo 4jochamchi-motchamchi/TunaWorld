@@ -25,7 +25,7 @@ import javax.swing.border.Border;
 
 /**
  * 메인페이지 레이아웃
- * @author NaraWee with Juheehwang
+ * @author NaraWee
  *
  */
 public class Main_page extends JFrame{
@@ -45,6 +45,8 @@ public class Main_page extends JFrame{
 //		JPanel listPanel = new JPanel(new GridLayout(6,1));		// 다른 페이지로 넘어갈 리스트 들어갈 패널
 		JPanel storePanel = new JPanel();						// 상점으로 이동할 버튼 들어갈 패널
 		
+		Font font = new Font(null, Font.BOLD, 20);
+		
 		ImageIcon profileImage = new ImageIcon("image/basicprofile.PNG");		// 프로필 이미지
 		ImageIcon store = new ImageIcon("image/store.PNG");
 		ImageIcon logout = new ImageIcon("image/logout.PNG");
@@ -58,6 +60,13 @@ public class Main_page extends JFrame{
 		JButton button6 = new JButton("출석게임");		// 미니게임 출석하기 버튼
 		JButton storeButton = new JButton(store);		// 상점 버튼
 		JButton logoutButton = new JButton(logout);		// 로그아웃 버튼
+		
+		button1.setFont(font);
+		button2.setFont(font);
+		button3.setFont(font);
+		button4.setFont(font);
+		button5.setFont(font);
+		button6.setFont(font);
 		
 		// profilePanel 설정
 		profilePanel.setLayout(null);
@@ -78,6 +87,7 @@ public class Main_page extends JFrame{
 		
 //------------------------------------------------		
 		
+	
 		
 	      //      // listPanel 설정
 	      //      listPanel.setBackground(Color.pink);
@@ -115,9 +125,9 @@ public class Main_page extends JFrame{
 	      scrollPane.setPreferredSize(new Dimension(685,460));
 	      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	      int width = scrollPane.getPreferredSize().width; // 적절한 폭
-	        int height = scrollPane.getPreferredSize().height; // 적절한 높이
-	        scrollPane.setBounds(0, 300, width, height);
-	        scrollPane.setBackground(Color.pink);
+	      int height = scrollPane.getPreferredSize().height; // 적절한 높이
+	      scrollPane.setBounds(0, 300, width, height);
+	      scrollPane.setBackground(Color.pink);
 
 	      //scrollPane.setBounds(0, 300, 683, 450);
 	      this.getContentPane().add(scrollPane);
