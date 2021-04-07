@@ -21,12 +21,7 @@ public class CreateUserButton {
 	}
 	
 
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		if(e.getSource() == createUserBtn) {
-//		
-//			changePanel(jf, oldp, newp);
-//		
-//		}
-//	}
+		
+	
+
 }

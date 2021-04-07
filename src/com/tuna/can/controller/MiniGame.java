@@ -1,24 +1,29 @@
 package com.tuna.can.controller;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class MiniGame implements ActionListener {
+import com.tuna.can.view.Main_page;
+
+public class MiniGame extends JFrame implements ActionListener{
 
 	// 버튼에 각각 번호를 부여하기 위한 필드
 	// for문으로 받은 매개변수
 	private int buttonNum;
 
 	private static int countNum = 7;
+	
 
 	// Game_view에서 만든 Label의 주소값을 담아오기 위해
 	private JLabel can;
+	private JFrame newFrame;
+	private JFrame oldFrame;
 
 	// 매개변수로 받은
 	private JButton button;
@@ -42,10 +47,12 @@ public class MiniGame implements ActionListener {
 	}
 
 
-	public MiniGame(int buttonNum, JButton button, JLabel can) {
+	public MiniGame(int buttonNum, JButton button, JLabel can, JFrame newFrame, JFrame oldFrame) {
 		this.buttonNum = buttonNum;
 		this.button = button;
 		this.can = can;
+		this.newFrame = newFrame;
+		this.oldFrame = oldFrame;
 //		button.addActionListener(this);
 		
 	}
@@ -59,7 +66,11 @@ public class MiniGame implements ActionListener {
 				int result = JOptionPane.showConfirmDialog(null, "참치 통조림을 결국 찾지 못했습니다. \n 아쉽겠네요 ㅋ", "게임 종료", -1);
 				if(result == JOptionPane.YES_OPTION) {
 					
-					System.out.println("ㅋㅋ");
+					new Main_page();
+					newFrame.dispose();
+					
+					    
+					 
 				}
 				
 			} else {
