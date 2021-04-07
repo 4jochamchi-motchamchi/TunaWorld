@@ -27,6 +27,7 @@ import com.tuna.can.controller.MiniGame;
  *
  */
 public class Game_view extends JFrame{
+	
 
 	public Game_view() {
 		
