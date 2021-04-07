@@ -54,9 +54,10 @@ public class Store extends JFrame{
 						dispose();
 				}
 			});
-//			JButton backButton = new JButton("back");
-//			backButton.setBounds(10, 10, 90, 25);
-//			topPanel.add(backButton);
+			backB.setBounds(30, 25, 55, 55);
+			backB.setBackground(Color.pink);
+			backB.setBorder(pinkborder);
+			topPanel.add(backB);
 
 			//////////////////////////////////////////
 

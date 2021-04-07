@@ -29,7 +29,7 @@ public class CreateUserButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == createUserBtn) {
 		
-			signUp.show
+//			signUp.show
 		
 	}
 		

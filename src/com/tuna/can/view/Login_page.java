@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.tuna.can.controller.TunaController;
+
 /**
  * <pre>
  * 로그인 할 수 있는 페이지
@@ -25,6 +27,15 @@ import javax.swing.JTextField;
  *
  */
 public class Login_page extends JFrame{
+	TunaController tunaController = new TunaController();
+	
+	
+	public void login(JTextField idText) {
+		
+		
+		tunaController.loginMember(idText.toString());
+				
+	}
 
 	public Login_page() {
 		super("Login page");
@@ -102,6 +113,10 @@ public class Login_page extends JFrame{
 						
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
+					Login_page loginPage = new Login_page();
+					
+					loginPage.login(idText);
 					
 					if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!");
