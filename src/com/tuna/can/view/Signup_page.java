@@ -13,8 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.tuna.can.controller.Test;
+
 public class Signup_page extends JFrame{
-	
+
+
 	public Signup_page() {
 		
 		super("Sign up");
@@ -23,6 +26,7 @@ public class Signup_page extends JFrame{
 		
 //		JFrame mf = new JFrame("Sign up");
 		this.setLayout(null);
+		this.setVisible(false);
 		this.setSize(700,900);
 		try {
 			this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
@@ -109,6 +113,7 @@ public class Signup_page extends JFrame{
 		JButton loginBtn = new JButton("가입 완료");
 		loginBtn.setBounds(360, 500, 200, 50);
 		loginBtn.setFont(new Font("가입 완료", Font.BOLD, 22));
+		loginBtn.addActionListener(new Test(this, new Login_page()));
 		
 		contentPanel.add(loginBtn);
 		
