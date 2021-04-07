@@ -18,12 +18,11 @@ public class MiniGame extends JFrame implements ActionListener{
 	private int buttonNum;
 
 	private static int countNum = 7;
-	
-
 	// Game_view에서 만든 Label의 주소값을 담아오기 위해
 	private JLabel can;
-	private JFrame newFrame;
-	private JFrame oldFrame;
+	
+	// game_view가 하나만 생성되게 하는 변수
+	private static JFrame oldFrame;
 
 	// 매개변수로 받은
 	private JButton button;
@@ -47,13 +46,11 @@ public class MiniGame extends JFrame implements ActionListener{
 	}
 
 
-	public MiniGame(int buttonNum, JButton button, JLabel can, JFrame newFrame, JFrame oldFrame) {
+	public MiniGame(int buttonNum, JButton button, JLabel can, JFrame oldFrame) {
 		this.buttonNum = buttonNum;
 		this.button = button;
 		this.can = can;
-		this.newFrame = newFrame;
 		this.oldFrame = oldFrame;
-//		button.addActionListener(this);
 		
 	}
 
@@ -67,9 +64,8 @@ public class MiniGame extends JFrame implements ActionListener{
 				if(result == JOptionPane.YES_OPTION) {
 					
 					new Main_page();
-					newFrame.dispose();
 					
-					    
+					oldFrame.dispose();
 					 
 				}
 				
@@ -99,7 +95,15 @@ public class MiniGame extends JFrame implements ActionListener{
 						countNum = 0;
 						
 						if(result == JOptionPane.YES_OPTION) {
-							System.out.println("안녕?");
+							
+							new Main_page();
+							
+							
+							// 코인 증가  코드 자리
+							
+							
+							oldFrame.dispose();
+							
 						}
 						
 
@@ -108,7 +112,6 @@ public class MiniGame extends JFrame implements ActionListener{
 						ImageIcon can = new ImageIcon("image/zcat.PNG");
 						button.setIcon(can);
 						
-//						System.out.println("오답");
 
 					}
 				}
