@@ -96,6 +96,7 @@ public class Login_page {
 		JButton createUserBtn = new JButton("회원가입");
 		createUserBtn.setBounds(380, 280, 150, 40);
 		createUserBtn.setFont(new Font("회원가입", Font.BOLD, 18));
+		createUserBtn.addActionListener(new CreateUserButton(createUserBtn));
 		
 		loginPanel.add(loginBtn);
 		loginPanel.add(createUserBtn);
