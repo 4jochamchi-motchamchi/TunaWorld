@@ -270,4 +270,4 @@ public class FriendsList extends JFrame{
 //	}
 //}
 //
->>>>>>> branch 'master' of https://github.com/4jochamchi-motchamchi/Mini_Project.git
+
