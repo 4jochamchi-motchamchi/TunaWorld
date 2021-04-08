@@ -41,12 +41,14 @@ public class BulletinLayout extends JFrame{
 			Border border2 = BorderFactory.createDashedBorder(Color.darkGray);
 			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);	
 			Border whiteborder = BorderFactory.createLineBorder(Color.white, 1);	
+			Border lightgrayborder = BorderFactory.createLineBorder(Color.lightGray, 1);	
 			
 			ImageIcon home = new ImageIcon("image/home.PNG");
 			
 			this.setTitle("게시글보기");
 			this.setLayout(null);
 			this.setSize(700,900);
+			this.setLocation(600, 50);
 			try {
 				this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
 			} catch (IOException e1) {
@@ -54,6 +56,8 @@ public class BulletinLayout extends JFrame{
 			}
 			
 			this.setBackground(Color.pink);
+			
+//			ImageIcon Listicon = new ImageIcon("image/List.PNG");
 			
 			JPanel topPanel = new JPanel();					// Back, 제목 들어갈 패널
 			JPanel bulletinPanel = new JPanel();			// 게시글, 작성자닉넴, 친구추가 들어갈 패널
@@ -67,7 +71,7 @@ public class BulletinLayout extends JFrame{
 			JTextArea bulletin = new JTextArea("게에에시시그으을\n\n\nㄳㄳㄳ\n\n\n아아아아\n\n\n오오오오\n\n\n\n하이하이\n\n\n\n\n스크롤\n\n\n\n안녕");	// 게시글 들어갈 라벨(데이터 불러와야됨)
 //			JLabel bulletinLabel = new JLabel();
 			JLabel date = new JLabel("작성날짜들어갈거야아아아");	// 게시글 작성된 날짜 들어갈 라벨(데이터 불러와야됨)
-			JLabel comments = new JLabel("대대대대대대댓글");	// 댓글목록 보이는 라벨(데이터 불러와야됨)
+//			JLabel comments = new JLabel();					// 댓글목록 보이는 라벨(데이터 불러와야됨)
 			JLabel cm = new JLabel("댓글 : ");				// 댓글
 			JTextField writeComment = new JTextField();		// 댓글 쓸 수있는 텍스트박스
 			JButton inputButton = new JButton("입력");		// 댓글 입력 버튼
@@ -116,7 +120,7 @@ public class BulletinLayout extends JFrame{
 			bulletinLabel.setLocation(50, 60);
 			bulletinLabel.setSize(600, 350);
 			bulletinLabel.setBackground(Color.white);
-//			bulletinLabel.setBorder(border2);
+			bulletinLabel.setBorder(border2);
 			bulletinPanel.add(bulletinLabel);
 
 		    bulletin.setLocation(60, 70);
@@ -126,7 +130,7 @@ public class BulletinLayout extends JFrame{
 		    
 	        JScrollPane scrollPane = new JScrollPane(bulletin);
 	        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	        scrollPane.setBounds(60, 160, 589, 350);
+	        scrollPane.setBounds(60, 165, 589, 340);
 	        scrollPane.setBorder(whiteborder);
 	        this.getContentPane().add(scrollPane);
 		    
@@ -156,41 +160,51 @@ public class BulletinLayout extends JFrame{
 			
 			
 			
-			
-			commentsPanel.setLayout(null);
-//			middlePanel.setBounds(0,100,685,500);
-			commentsPanel.setPreferredSize(new Dimension(540,1000));
+			// 댓글목록 설정(내용 불러와야함)
 			
 			JPanel commentList = null;
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i <= 5; i++) {
+				
+				commentsPanel.setLayout(null);
+				commentsPanel.setPreferredSize(new Dimension(550,50*i));
+				commentsPanel.setBackground(Color.pink);
 				
 				commentList = new JPanel();
 				
 				commentList.setLayout(null);
 				
-				commentList.setBounds(50,(i * 50),585,50);
+				commentList.setBounds(0,(i * 50),700,50);
 				
-				commentList.setBorder(border);
+				commentList.setBorder(lightgrayborder);
 				
-//				friends.setBackground(Color.pink);
 				
-				JLabel commentNickName = new JLabel("댓글닉네임");
+				JLabel commentNickName = new JLabel("댓글닉네임 : 댓글 내용");
 				commentNickName.setLayout(null);
-				commentNickName.setBounds(5, 5, 50, 50);
+				commentNickName.setBounds(5, 2, 100, 50);
+//				commentNickName.setIcon(Listicon);
+//				commentList.setBackground(Color.pink);
+				commentList.setBackground(new Color(255, 240, 245));
 				commentList.add(commentNickName);
+				
+				/* 닉네임 옆에 라벨 따로 만들어서 댓글 내용 불러들어와야 함*/
+				
+//				commentNickName.
 
 
 				commentsPanel.add(commentList);
 				
 			}
-			
+
 			JScrollPane scrollbar = new JScrollPane(commentsPanel);
-			scrollbar.setPreferredSize(new Dimension(600,180));
-			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollbar.setPreferredSize(new Dimension(600,200));
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			int width = scrollbar.getPreferredSize().width;
 			int height = scrollbar.getPreferredSize().height;
 			scrollbar.setBounds(50,550,width,height);
+			scrollbar.setBackground(Color.pink);
+			
+			scrollbar.setBorder(pinkborder);
 			
 			this.getContentPane().add(scrollbar);
 			
@@ -248,13 +262,36 @@ public class BulletinLayout extends JFrame{
 				}
 			});
 			
+			// 댓글입력 버튼 눌렀을 때
+//			inputButton.addActionListener(new ActionListener() {
+//				
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					// getText() : JTextField에서 입력한 값을 가져오는 메소드
+//					String text = "댓글닉네임 : " + writeComment.getText();
+//
+//					comments.
+//					
+//				}
+//			});
+//			
 			
+			JPanel sidePanel1 = new JPanel();
+			sidePanel1.setLayout(null);
+			sidePanel1.setBounds(0,100,50,800);
+			sidePanel1.setBackground(Color.PINK);
+//			sidePanel1.add(ctree);
+			JPanel sidePanel2 = new JPanel();
+			sidePanel2.setLayout(null);
+			sidePanel2.setBounds(650,100,50,750);
+			sidePanel2.setBackground(Color.PINK);
 			
-			
+			this.add(sidePanel1);
+			this.add(sidePanel2);
 			
 			this.add(topPanel);
 			this.add(bulletinPanel);
-			this.add(commentsPanel);
+//			this.add(commentsPanel);
 			this.add(writePanel);
 			
 			this.setResizable(false);		
