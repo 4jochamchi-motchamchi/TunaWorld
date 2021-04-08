@@ -9,27 +9,19 @@ import com.tuna.can.service.TunaService;
 
 public class TunaController {
 	
-	private MemberDTO loginMember = null;
+	private String loginMemberId; 
 	private TunaService service = new TunaService();
-
-	public void loginMember(String id) {
-
-		loginMember = new MemberDTO();
-		
-		loginMember.setUserID(id);
-		
-	}
 	
 	
-	public MemberDTO selectMemberInfo(){
+	public MemberDTO selectMemberInfo(String id){
 		
-		MemberDTO memberInfo = new MemberDTO();
-		String id = loginMember.getUserID();
+		loginMemberId = id;
 		
-		memberInfo = service.selectMemberInfo(loginMember.getUserID());
+		MemberDTO loginMember = new MemberDTO();
 		
+		loginMember = service.selectMemberInfo(loginMemberId);
 		
-		return memberInfo;
+		return loginMember;
 	}
 	
 	
