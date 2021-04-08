@@ -32,6 +32,7 @@ public class FriendsList extends JFrame{
 			Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
 			this.setSize(700, 900);
+			this.setLocation(600, 50);
 			
 			try {
 				this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
