@@ -1,13 +1,17 @@
 package com.tuna.can.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
+import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
 
@@ -50,6 +54,7 @@ public class Login_page extends JFrame{
 //			JFrame mf = new JFrame("Login Page");
 			this.setLayout(null);
 			this.setSize(700,900);
+			this.setLocation(600, 50);
 			try {
 				this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
 			} catch (IOException e1) {
@@ -99,41 +104,61 @@ public class Login_page extends JFrame{
 			
 			//pw 텍스트 상자 생성
 			JPasswordField pwText = new JPasswordField(40);
-			pwText.setBounds(320, 170, 150, 45);
+			pwText.setBounds(320, 170, 150, 40);
 			loginPanel.add(pwText);
 			
 			//로그인 버튼 생성
-			JButton loginBtn = new JButton("로그인");
-			loginBtn.setBounds(180, 280, 150, 40);
-			loginBtn.setFont(new Font("로그인", Font.BOLD, 18));
+			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
+			ImageIcon login = new ImageIcon("image/login.png");
+			ImageIcon rollover_login = new ImageIcon("image/rollover_login.PNG");
+			JButton loginBtn = new JButton(login);
+			loginBtn.setBackground(Color.PINK);
+			loginBtn.setBorder(pinkborder);
+			loginBtn.setBounds(150, 250, 190, 90);
+			loginBtn.setRolloverIcon(rollover_login);
+			
+//			loginBtn.reshape(150, 230, 160, 90);
+			
+//			loginBtn.setPressedIcon(loginBtn);
+			
 			
 			//회원가입 버튼 생성
-			JButton createUserBtn = new JButton("회원가입");
-			createUserBtn.setBounds(380, 280, 150, 40);
-			createUserBtn.setFont(new Font("회원가입", Font.BOLD, 18));
+			ImageIcon signUp = new ImageIcon("image/signUp.png");
+			ImageIcon rollover_signUp = new ImageIcon("image/rollover_signUp.PNG");
+			JButton createUserBtn = new JButton(signUp);
+			createUserBtn.setBackground(Color.PINK);
+			createUserBtn.setBorder(pinkborder);
+			createUserBtn.setBounds(370, 250, 190, 90);
+			createUserBtn.setRolloverIcon(rollover_signUp);
 			createUserBtn.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					new Signup_page();
+						new Signup_page();
 						dispose();
 				}
 			});
 			
 			loginPanel.add(loginBtn);
+//			loginPanel.add(rollover_loginBtn);
 			loginPanel.add(createUserBtn);
 			
+			
+			
 			loginBtn.addActionListener(new ActionListener() {
+
 						
 				@Override
 				public void actionPerformed(ActionEvent e) {
 										
 					if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!");
+						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!", "경고", 0);
+						idText.requestFocus();
 						return;
 					}
 					if(idText.getText().isEmpty() || pwText.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "빈칸이 있습니다. \n 채워주세요!");
+						JOptionPane.showMessageDialog(null, "빈칸이 있습니다. \n 채워주세요!","경고",0);
+						idText.requestFocus();
 						return;
 					}
 				}
@@ -149,7 +174,10 @@ public class Login_page extends JFrame{
 		
 		}
 
-	
+//	public void setRolloverIcon(Icon rolloverIcon) {
+//		ImageIcon login = new ImageIcon("image/login.png");
+//		rolloverIcon.paintIcon(login);
+//	}
 
 	public static void main(String[] args) {
 		
