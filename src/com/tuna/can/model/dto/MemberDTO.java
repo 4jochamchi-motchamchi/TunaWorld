@@ -7,22 +7,36 @@ public class MemberDTO {
 	private String userID;
 	private String userPwd;
 	private String phone;
-	private String meail;
+	private String email;
+	private int tunaCan;
 	
+
 	public MemberDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MemberDTO(int userNo, String nickName, String userID, String userPwd, String phone, String meail) {
-
+	public MemberDTO(int userNo, String nickName, String userID, String userPwd, String phone, String meail,
+			int tunaCan) {
+		super();
 		this.userNo = userNo;
 		this.nickName = nickName;
 		this.userID = userID;
 		this.userPwd = userPwd;
 		this.phone = phone;
-		this.meail = meail;
+		this.email = meail;
+		this.tunaCan = tunaCan;
 	}
-	
+
+
+
+
+	public int getTunaCan() {
+		return tunaCan;
+	}
+
+	public void setTunaCan(int tunaCan) {
+		this.tunaCan = tunaCan;
+	}
 	public int getUserNo() {
 		return userNo;
 	}
@@ -53,18 +67,19 @@ public class MemberDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getMeail() {
-		return meail;
+	public String getEmail() {
+		return email;
 	}
-	public void setMeail(String meail) {
-		this.meail = meail;
+	public void setEmail(String meail) {
+		this.email = meail;
 	}
+
 
 	@Override
 	public String toString() {
 		return "MemberDTO [userNo=" + userNo + ", nickName=" + nickName + ", userID=" + userID + ", userPwd=" + userPwd
-				+ ", phone=" + phone + ", meail=" + meail + "]";
+				+ ", phone=" + phone + ", meail=" + email + ", tunaCan=" + tunaCan + "]";
 	}
-	
+
 	
 }

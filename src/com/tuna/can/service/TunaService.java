@@ -12,6 +12,7 @@ public class TunaService {
 	
 	TunaDAO tunaDAO = new TunaDAO();
 
+//	MyPage 페이지 회원정보 select
 	public MemberDTO selectMemberInfo(String loginMemberId) {
 		
 		MemberDTO member = new MemberDTO();

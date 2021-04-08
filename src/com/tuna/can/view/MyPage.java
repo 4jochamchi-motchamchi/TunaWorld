@@ -29,8 +29,13 @@ import com.tuna.can.model.dto.MemberDTO;
 
 public class MyPage extends JFrame {
 	
-//	TunaController tunaController = new TunaController();
-//
+	TunaController tunaController = new TunaController();
+
+	
+	public MyPage() {
+
+		myPageMainFrame();
+	}
 	public static void main(String[] args) {
 
 		MyPage mypage = new MyPage();
@@ -57,10 +62,10 @@ public class MyPage extends JFrame {
 
 	public JPanel mypageInfo() {
 		
-//		MemberDTO member = new MemberDTO();
+		MemberDTO member = new MemberDTO();
 		
-//		member = tunaController.selectMemberInfo("USER01");
-//		System.out.println(member);
+		member = tunaController.selectMemberInfo("user01");
+		System.out.println(member);
 
 		JPanel bottomPanel1 = new JPanel();
 

@@ -53,13 +53,13 @@ public class TunaDAO {
 			System.out.println(rset);
 			
 			if(rset.next()) {
-				System.out.println("if 들어갔음");
-				member.setMeail(rset.getString("EMAIL"));
-				member.setNickName(rset.getString("USER_NICKNAME"));
-				member.setPhone(rset.getString("PHONE"));
-				member.setUserID(rset.getString("USER_ID"));
 				member.setUserNo(rset.getInt("USER_NO"));
+				member.setNickName(rset.getString("USER_NICKNAME"));
+				member.setUserID(rset.getString("USER_ID"));
 				member.setUserPwd(rset.getString("USER_PWD"));
+				member.setPhone(rset.getString("PHONE"));
+				member.setEmail(rset.getString("EMAIL"));
+				member.setTunaCan(rset.getInt("TUNACAN"));
 			}
 			System.out.println(member);
 			
