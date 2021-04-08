@@ -48,6 +48,7 @@ public class BulletinLayout extends JFrame{
 			this.setTitle("게시글보기");
 			this.setLayout(null);
 			this.setSize(700,900);
+			this.setLocation(600, 50);
 			try {
 				this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
 			} catch (IOException e1) {
@@ -55,6 +56,8 @@ public class BulletinLayout extends JFrame{
 			}
 			
 			this.setBackground(Color.pink);
+			
+			ImageIcon Listicon = new ImageIcon("image/List.PNG");
 			
 			JPanel topPanel = new JPanel();					// Back, 제목 들어갈 패널
 			JPanel bulletinPanel = new JPanel();			// 게시글, 작성자닉넴, 친구추가 들어갈 패널
@@ -158,12 +161,14 @@ public class BulletinLayout extends JFrame{
 			
 			
 			// 댓글목록 설정(내용 불러와야함)
-			commentsPanel.setLayout(null);
-			commentsPanel.setPreferredSize(new Dimension(650,500));	
 			
 			JPanel commentList = null;
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i <= 3; i++) {
+				
+				commentsPanel.setLayout(null);
+				commentsPanel.setPreferredSize(new Dimension(550,50*i));
+				commentsPanel.setBackground(Color.pink);
 				
 				commentList = new JPanel();
 				
@@ -173,13 +178,16 @@ public class BulletinLayout extends JFrame{
 				
 				commentList.setBorder(lightgrayborder);
 				
-				JLabel commentNickName = new JLabel("댓글닉네임 : ");
+				
+				JLabel commentNickName = new JLabel("댓글닉네임 : 댓글 내용");
 				commentNickName.setLayout(null);
 				commentNickName.setBounds(5, 3, 100, 50);
-				commentNickName.setBackground(Color.pink);
+				commentList.setBackground(new Color(255, 240, 245));
 				commentList.add(commentNickName);
 				
 				/* 닉네임 옆에 라벨 따로 만들어서 댓글 내용 불러들어와야 함*/
+				
+//				commentNickName.
 
 
 				commentsPanel.add(commentList);
@@ -187,12 +195,14 @@ public class BulletinLayout extends JFrame{
 			}
 
 			JScrollPane scrollbar = new JScrollPane(commentsPanel);
-			scrollbar.setPreferredSize(new Dimension(685,200));
-			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollbar.setPreferredSize(new Dimension(600,200));
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			int width = scrollbar.getPreferredSize().width;
 			int height = scrollbar.getPreferredSize().height;
-			scrollbar.setBounds(0,550,width,height);
+			scrollbar.setBounds(50,550,width,height);
 			scrollbar.setBackground(Color.pink);
+			
+			scrollbar.setBorder(pinkborder);
 			
 			this.getContentPane().add(scrollbar);
 			
@@ -264,7 +274,18 @@ public class BulletinLayout extends JFrame{
 //			});
 //			
 			
+			JPanel sidePanel1 = new JPanel();
+			sidePanel1.setLayout(null);
+			sidePanel1.setBounds(0,100,50,800);
+			sidePanel1.setBackground(Color.PINK);
+//			sidePanel1.add(ctree);
+			JPanel sidePanel2 = new JPanel();
+			sidePanel2.setLayout(null);
+			sidePanel2.setBounds(650,100,50,750);
+			sidePanel2.setBackground(Color.PINK);
 			
+			this.add(sidePanel1);
+			this.add(sidePanel2);
 			
 			this.add(topPanel);
 			this.add(bulletinPanel);
