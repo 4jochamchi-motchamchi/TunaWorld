@@ -34,6 +34,7 @@ public class Main_page extends JFrame{
 		super("MainPage");
 		this.setLayout(null);
 		this.setTitle("MainPage");
+		this.setLocation(600, 50);
 		this.setSize(700,900);
 		try {
 			this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
@@ -50,6 +51,7 @@ public class Main_page extends JFrame{
 		ImageIcon profileImage = new ImageIcon("image/basicprofile.PNG");		// 프로필 이미지
 		ImageIcon store = new ImageIcon("image/store.PNG");
 		ImageIcon logout = new ImageIcon("image/logout.PNG");
+		ImageIcon logoutred = new ImageIcon("image/logoutred.PNG");
 		JLabel imageLabel = new JLabel(profileImage);	// 이미지 들어갈 라벨
 		JLabel nickName = new JLabel("닉네임");			// 닉네임 들어갈 라벨
 		JButton button1 = new JButton("전체글보기");		// 전체글보기 버튼
@@ -60,6 +62,7 @@ public class Main_page extends JFrame{
 		JButton button6 = new JButton("출석게임");		// 미니게임 출석하기 버튼
 		JButton storeButton = new JButton(store);		// 상점 버튼
 		JButton logoutButton = new JButton(logout);		// 로그아웃 버튼
+		logoutButton.setRolloverIcon(logoutred);
 		
 		button1.setFont(font);
 		button2.setFont(font);
@@ -151,7 +154,7 @@ public class Main_page extends JFrame{
 		storePanel.add(storeButton);
 		
 		// storeButton 설정
-		logoutButton.setBounds(605, 30, 55, 55);
+		logoutButton.setBounds(600, 30, 60, 60);
 		logoutButton.setBackground(Color.pink);
 		logoutButton.setBorder(pinkborder);
 		storePanel.add(logoutButton);
