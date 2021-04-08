@@ -34,7 +34,7 @@ public class BulletinLayout extends JFrame{
 
 	public BulletinLayout() {
 		super("게시글 보기");
-//		public static void main(String[] args) {
+//		public static void main(String[] args) 
 			
 //			JFrame mainFrame = new JFrame();
 			Border border = BorderFactory.createEtchedBorder(1);

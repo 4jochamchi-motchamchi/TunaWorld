@@ -1,5 +1,6 @@
 package com.tuna.can.view;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
@@ -28,10 +30,8 @@ public class BoardList extends JFrame{
 	public BoardList() {
 		super("BoardsList");
 		
-//		public static void main(String[] args) {
 
-			//메인프레임생성
-//			JFrame frame = new JFrame("BoardList");
+		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
 			this.setSize(700, 900);
 			
@@ -45,18 +45,20 @@ public class BoardList extends JFrame{
 			//각위치 패널 생성
 			JPanel topPanel = new JPanel();
 			topPanel.setLayout(null);
-			topPanel.setBounds(0, 0, 700, 125);
+			topPanel.setBounds(0, 0, 700, 100);
 			topPanel.setBackground(Color.pink);
 			
 		    JPanel midlePanel = new JPanel();
-		    midlePanel.setLayout(null);
-		    midlePanel.setBounds(0,125,700,650);
+     	    //midlePanel.setLayout(null);
+		    //midlePanel.setBounds(0,100,700,700);
 		    midlePanel.setBackground(Color.pink);
 		    
-		    JPanel bottonPanel = new JPanel();
-		    bottonPanel.setLayout(null);
-		    bottonPanel.setBounds(0, 775, 700, 125);
-		    bottonPanel.setBackground(Color.pink);
+		    JPanel bottomPanel = new JPanel();
+			bottomPanel.setLayout(null);
+			bottomPanel.setBackground(Color.pink);
+			bottomPanel.setBounds(0, 800, 700, 100);
+			
+
 		    
 		   
 			
@@ -72,9 +74,7 @@ public class BoardList extends JFrame{
 						dispose();
 				}
 			});
-//		    ImageIcon home = new ImageIcon("image/home.PNG");
-//			JButton backButton = new JButton(home);
-//			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
+//		    
 			backB.setBounds(30, 30, 55, 55);
 			backB.setBackground(Color.pink);
 			backB.setBorder(pinkborder);
@@ -87,48 +87,97 @@ public class BoardList extends JFrame{
 			
 		    
 			//전체글 리스트 
-	        JList list = new JList();
-	        midlePanel.add(list);
+			JPanel allList = null;
+			
+			for(int i = 0; i <= 10; i++) {
+				
+				midlePanel.setLayout(null);
+				midlePanel.setPreferredSize(new Dimension(670,100*i));
+				
+				
+				allList = new JPanel();
+				allList.setLayout(null);
+			    allList.setBackground(Color.pink);
+				
+			    allList.setBounds(0,(i * 100),680,100);
+				allList.setBorder(border);
+				
+				
+				JLabel subject = new JLabel(" 제목");
+			    subject.setLayout(null);
 
-	        
-			//스크롤
+			    subject.setBounds(5, 10, 100, 80);
+			    allList.add(subject);
+			    
+			    JButton editButton = new JButton("수정");
+			    editButton.setBounds(500,25,70,40);
+			    editButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == editButton) {
+							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
+						}				
+					}
+				});
+				JButton deleteButton = new JButton("삭제");
+				deleteButton.setBounds(580,25,70,40);
+				deleteButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+								
+					if(e.getSource() == deleteButton) {
+						JOptionPane.showMessageDialog(null,"삭제하시겠습까?");	
+					}				
+				}
+			});
+				
+				allList.add(editButton);
+			    allList.add(deleteButton);
+				
+			    midlePanel.add(allList);
+			    
+				
+			}
+			JScrollPane scrollbar = new JScrollPane(midlePanel);
+			scrollbar.setPreferredSize(new Dimension(690,700));
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			int width = scrollbar.getPreferredSize().width;
+			int height = scrollbar.getPreferredSize().height;
+			scrollbar.setBounds(0,100,width,height);
+			scrollbar.setBackground(Color.pink);
 			
-//			JScrollPane scroll = new JScrollPane(list,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-//				    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-//			
-//	        midlePanel.add(scroll);
-	        JScrollPane a = new JScrollPane();
-	        midlePanel.add(a);
+			scrollbar.setBorder(border);
+			
+			this.getContentPane().add(scrollbar);
+			
 			
 
-			//삭제버튼(확인팝업)
-			JButton deleteButton  = new JButton("delete");
-			deleteButton.addActionListener(null);
-			
-			
-			
-			//수정버튼
-		   
-		    
 
 			
 		    //내게시글보기 버튼
 			JButton myboard  = new JButton("myboard");
 			myboard.setBounds(30, 20, 90, 30);
-			bottonPanel.add(myboard);
+			bottomPanel.add(myboard);
 			
 			
 			//글쓰러 가기 버튼
 			JButton write  = new JButton("write");
 		    write.setBounds(560, 20, 90, 30);
-		    bottonPanel.add(write);
+		    bottomPanel.add(write);
+			
+		
+			// 마이 프레임에 판넬 추가
 			
 			
-		    this.add(topPanel);
-		    this.add(midlePanel);
-		    this.add(bottonPanel);
 			
+			 this.add(topPanel);
+			// this.add(midlePanel);
+			 this.add(bottomPanel);
 
+ 
+			this.setResizable(false);
 		    this.setVisible(true);
 		    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -143,100 +192,3 @@ public class BoardList extends JFrame{
 	
 }
 
-//	public static void main(String[] args) {
-//
-//		//메인프레임생성
-//		JFrame frame = new JFrame("BoardList");
-//		frame.setLayout(null);
-//		frame.setSize(700, 900);
-//		
-//		//아이콘
-//		try {
-//			frame.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		//각위치 패널 생성
-//		JPanel topPanel = new JPanel();
-//		topPanel.setLayout(null);
-//		topPanel.setBounds(0, 0, 700, 125);
-//		topPanel.setBackground(Color.pink);
-//		
-//	    JPanel midlePanel = new JPanel();
-//	    midlePanel.setLayout(null);
-//	    midlePanel.setBounds(0,125,700,650);
-//	    midlePanel.setBackground(Color.pink);
-//	    
-//	    JPanel bottonPanel = new JPanel();
-//	    bottonPanel.setLayout(null);
-//	    bottonPanel.setBounds(0, 775, 700, 125);
-//	    bottonPanel.setBackground(Color.pink);
-//	    
-//	   
-//		
-//		// 뒤로가기 버튼
-//	    ImageIcon home = new ImageIcon("image/home.PNG");
-//		JButton backButton = new JButton(home);
-//		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
-//		backButton.setBounds(30, 30, 55, 55);
-//		backButton.setBackground(Color.pink);
-//		backButton.setBorder(pinkborder);
-//		topPanel.add(backButton);
-//		
-//		//전체게시글 글씨
-//		JLabel lbl = new JLabel(" 전체게시글 ");
-//		lbl.setBounds(350, 40, 150, 50);
-//		topPanel.add(lbl);
-//		
-//	    
-//		//전체글 리스트 
-//        JList list = new JList();
-//        midlePanel.add(list);
-//
-//        
-//		//스크롤
-//		
-////		JScrollPane scroll = new JScrollPane(list,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-////			    JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-////		
-////        midlePanel.add(scroll);
-//        JScrollPane a = new JScrollPane();
-//        midlePanel.add(a);
-//		
-//
-//		//삭제버튼(확인팝업)
-//		JButton deleteButton  = new JButton("delete");
-//		deleteButton.addActionListener(null);
-//		
-//		
-//		
-//		//수정버튼
-//	   
-//	    
-//
-//		
-//	    //내게시글보기 버튼
-//		JButton myboard  = new JButton("myboard");
-//		myboard.setBounds(30, 20, 90, 30);
-//		bottonPanel.add(myboard);
-//		
-//		
-//		//글쓰러 가기 버튼
-//		JButton write  = new JButton("write");
-//	    write.setBounds(560, 20, 90, 30);
-//	    bottonPanel.add(write);
-//		
-//		
-//		frame.add(topPanel);
-//		frame.add(midlePanel);
-//		frame.add(bottonPanel);
-//		
-//
-//		frame.setVisible(true);
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//	}
-//	
-//
-//}
