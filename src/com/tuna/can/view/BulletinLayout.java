@@ -57,7 +57,7 @@ public class BulletinLayout extends JFrame{
 			
 			this.setBackground(Color.pink);
 			
-			ImageIcon Listicon = new ImageIcon("image/List.PNG");
+//			ImageIcon Listicon = new ImageIcon("image/List.PNG");
 			
 			JPanel topPanel = new JPanel();					// Back, 제목 들어갈 패널
 			JPanel bulletinPanel = new JPanel();			// 게시글, 작성자닉넴, 친구추가 들어갈 패널
@@ -164,7 +164,7 @@ public class BulletinLayout extends JFrame{
 			
 			JPanel commentList = null;
 			
-			for(int i = 0; i <= 3; i++) {
+			for(int i = 0; i <= 5; i++) {
 				
 				commentsPanel.setLayout(null);
 				commentsPanel.setPreferredSize(new Dimension(550,50*i));
@@ -181,7 +181,9 @@ public class BulletinLayout extends JFrame{
 				
 				JLabel commentNickName = new JLabel("댓글닉네임 : 댓글 내용");
 				commentNickName.setLayout(null);
-				commentNickName.setBounds(5, 3, 100, 50);
+				commentNickName.setBounds(5, 2, 100, 50);
+//				commentNickName.setIcon(Listicon);
+//				commentList.setBackground(Color.pink);
 				commentList.setBackground(new Color(255, 240, 245));
 				commentList.add(commentNickName);
 				
