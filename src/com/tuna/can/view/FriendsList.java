@@ -76,16 +76,18 @@ public class FriendsList extends JFrame{
 			
 			JPanel middlePanel = new JPanel();
 			
-			middlePanel.setLayout(null);
-//			middlePanel.setBounds(0,100,685,500);
-			middlePanel.setPreferredSize(new Dimension(640,1000));
 			
+			middlePanel.setBackground(Color.pink);
 			JPanel friends = null;
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i < 7; i++) {
 				
+				middlePanel.setLayout(null);
+//			middlePanel.setBounds(0,100,685,500);
+				middlePanel.setPreferredSize(new Dimension(640,i*100));
 				friends = new JPanel();
 				
+				friends.setBackground(Color.WHITE);
 				friends.setLayout(null);
 				
 				friends.setBounds(0,(i * 100),700,100);
@@ -118,7 +120,7 @@ public class FriendsList extends JFrame{
 			
 			JScrollPane scrollbar = new JScrollPane(middlePanel);
 			scrollbar.setPreferredSize(new Dimension(685,650));
-			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			int width = scrollbar.getPreferredSize().width;
 			int height = scrollbar.getPreferredSize().height;
 			scrollbar.setBounds(0,100,width,height);
@@ -141,7 +143,7 @@ public class FriendsList extends JFrame{
 //			bottomPanel.setSize(700,150);
 			bottomPanel.setBackground(Color.pink);
 			
-			bottomPanel.setBounds(0, 750, 700, 110);
+			bottomPanel.setBounds(0, 800, 700, 70);
 			// 마이 프레임에 판넬 추가
 			
 			this.getContentPane().add(scrollbar);

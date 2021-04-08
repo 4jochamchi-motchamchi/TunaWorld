@@ -58,7 +58,7 @@ public class MiniGame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		countNum--;
-			if (countNum < 0) {
+			if (countNum < 1) {
 				
 				int result = JOptionPane.showConfirmDialog(null, "참치 통조림을 결국 찾지 못했습니다. \n 아쉽겠네요 ㅋ", "게임 종료", -1);
 				if(result == JOptionPane.YES_OPTION) {
@@ -90,7 +90,7 @@ public class MiniGame extends JFrame implements ActionListener{
 						ImageIcon can2 = new ImageIcon("image/naraCan.PNG");
 						button.setIcon(can2);
 						
-						int result = JOptionPane.showConfirmDialog(null, "참치 통조림을 찾았습니다 \n 축하드려요!", "참치캔 획득!", -1);
+						int result = JOptionPane.showConfirmDialog(null, "참치 통조림을 찾았습니다 \n 축하드려요!", "참치캔 획득!",-1);
 						// 참치캔을 찾았을때 카운터를 0으로 변환
 						countNum = 0;
 						
