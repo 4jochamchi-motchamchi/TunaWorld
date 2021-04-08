@@ -41,6 +41,7 @@ public class Game_view extends JFrame{
 		}
 		this.setLayout(null);
 		this.setSize(700,900);
+		this.setLocation(600, 50);
 
 	/*--------------------------------------------------------------------------*/	
 		
@@ -179,7 +180,7 @@ public class Game_view extends JFrame{
 		new Game_view();
 	}
 		
-	}
+}
 
 //	
 //	public static void main(String[] args) {
