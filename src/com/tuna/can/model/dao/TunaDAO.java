@@ -71,8 +71,35 @@ public class TunaDAO {
 		
 	}
 
-	public UserInventoryDTO selectUserInventory(int userNo) {
+	public UserInventoryDTO selectUserInventory(Connection con, int userNo) {
 
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectUserInventory");
+		
+		UserInventoryDTO userInventory = new UserInventoryDTO();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				userInventory.setUserNo(rset.getInt("USER_NO"));
+				userInventory.setItemNo(rset.getInt("ITEM_NO"));
+				userInventory.setItemName(rset.getString("ITEM_NAME"));
+			}
+			
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		
+		
 		return null;
 		
 	}

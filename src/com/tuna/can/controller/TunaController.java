@@ -11,7 +11,10 @@ import com.tuna.can.service.TunaService;
 public class TunaController {
 	
 	private String loginMemberId; 
+	
 	private TunaService service = new TunaService();
+	
+//	로그인한 USER의 개인정보를 담고있을 객체
 	private UserDTO loginMember = null;
 	
 //	MyPage에 로그인한 회원정보 조회

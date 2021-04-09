@@ -31,9 +31,9 @@ public class TunaService {
 		
 		Connection con = getConnection();
 		
-		userInventory = tunaDAO.selectUserInventory(userNo);
+		userInventory = tunaDAO.selectUserInventory(con, userNo);
 		
-		return = userInventory;
+		return userInventory;
 	}
 
 }

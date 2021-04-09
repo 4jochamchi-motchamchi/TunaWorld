@@ -10,7 +10,8 @@ SELECT
 
 <entry key="selectUserInventory">
 SELECT
-       U.ITEM_NO
+	   U.USER_NO
+     , U.ITEM_NO
      , U.ITEM_CATEGORY
      , U.EQUIP_ITEM_YN
      , S.ITEM_NAME
