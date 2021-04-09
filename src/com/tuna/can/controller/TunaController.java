@@ -1,7 +1,11 @@
 package com.tuna.can.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -41,9 +45,9 @@ public class TunaController {
 	
 
 	// 유저 정보에서 코인 조회
-	public int selectUSerCoin(int UserInfo) {
+	public int selectUSerCoin(UserDTO UserInfo) {
 		
-		coin = service.selectCoin(UserInfo);
+		coin = service.selectCoin(UserInfo.getUserNo());
 		 
 		return coin;
 	}
@@ -57,6 +61,8 @@ public class TunaController {
 		return userCoin;
 		
 	}
+	
+	
 	public BoardDTO selectBoardContent(int boardNo) {
 		
 		BoardDTO boardDTO = new BoardDTO();
@@ -65,6 +71,15 @@ public class TunaController {
 		
 	}
 	
+	// 친구목록에 친구닉네임, 이미지 받아오기
+	public List<FriendDTO> selectFriendsList(UserDTO userInfo) {
+			
+		List<FriendDTO> friendsList = new ArrayList<>();
+		friendsList = service.selectFriendsList(userInfo.getUserNo());
+		
+		return friendsList;
+		
+	}
 	
 
 }

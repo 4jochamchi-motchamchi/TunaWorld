@@ -1,16 +1,19 @@
 package com.tuna.can.model.dao;
 
+import static com.tuna.can.common.JDBCTemplate.close;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
-import static com.tuna.can.common.JDBCTemplate.close;
-
 import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -146,7 +149,6 @@ public class TunaDAO {
 		
 		int result = 0;
 		
-		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userInfor.getCoin()+1);
@@ -196,6 +198,43 @@ public class TunaDAO {
 			close(rset);
 		}
 		return boardDTO;
+	}
+
+	
+	// 친구리스트에서 이미지, 친구 닉네임 불러오기
+	public List<FriendDTO> selectFriendsList(Connection con,int userNo) {
+		String query = prop.getProperty("slectFriendsLIst");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<FriendDTO> friendsInfo = null;
+		
+		try {
+			
+			friendsInfo = new ArrayList<>();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				FriendDTO friends = new FriendDTO();
+				
+				friends.setFriends(rset.getString("FRIEND"));
+				friends.setImage(rset.getString("ITEM_IMG"));
+				
+				friendsInfo.add(friends);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+			close(rset);
+		}
+		return friendsInfo;
 	}
 
 }

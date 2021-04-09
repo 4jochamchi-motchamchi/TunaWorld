@@ -3,7 +3,7 @@ package com.tuna.can.model.dto;
 public class FriendDTO {
 
 	private String friends;
-	private int image;
+	private String image;
 	
 	
 	public FriendDTO() {
@@ -11,7 +11,7 @@ public class FriendDTO {
 	}
 
 
-	public FriendDTO(String friends, int image) {
+	public FriendDTO(String friends, String image) {
 		super();
 		this.friends = friends;
 		this.image = image;
@@ -28,12 +28,12 @@ public class FriendDTO {
 	}
 
 
-	public int getImage() {
+	public String getImage() {
 		return image;
 	}
 
 
-	public void setImage(int image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

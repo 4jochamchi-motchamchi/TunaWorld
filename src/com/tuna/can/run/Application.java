@@ -1,13 +1,19 @@
 package com.tuna.can.run;
 
 import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.UserDTO;
 
 public class Application {
 
 	public static void main(String[] args) {
 		
+		UserDTO ud = new UserDTO();
+		ud.setUserNo(4);
+		ud.setCoin(300);
+		
 		TunaController tc = new TunaController();
-		tc.selectUSerCoin(1);
+		tc.selectUSerCoin(ud);
+		tc.updateCoin(ud);
 		
 	}
 }
