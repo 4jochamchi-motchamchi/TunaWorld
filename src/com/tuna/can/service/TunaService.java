@@ -33,7 +33,7 @@ public class TunaService {
 		
 		userInventory = tunaDAO.selectUserInventory(userNo);
 		
-		return = userInventory;
+		return userInventory;
 	}
 
 }
