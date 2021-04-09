@@ -110,33 +110,7 @@ public class BoardList extends JFrame{
 
 			    subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
-			    
-			    JButton editButton = new JButton("수정");
-			    editButton.setBounds(500,25,70,40);
-			    editButton.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-									
-						if(e.getSource() == editButton) {
-							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
-						}				
-					}
-				});
-				JButton deleteButton = new JButton("삭제");
-				deleteButton.setBounds(580,25,70,40);
-				deleteButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-								
-					if(e.getSource() == deleteButton) {
-						JOptionPane.showMessageDialog(null,"삭제하시겠습까?");	
-					}				
-				}
-			});
-				
-				allList.add(editButton);
-			    allList.add(deleteButton);
+
 				
 			    midlePanel.add(allList);
 			    
@@ -158,7 +132,7 @@ public class BoardList extends JFrame{
 			
 		    //내게시글보기 버튼
 			JButton myboard  = new JButton("myboard");
-			myboard.setBounds(30, 20, 90, 30);
+			myboard.setBounds(30, 0, 90, 50);
 		    myboard.addActionListener(new ActionListener() {
 				
 				@Override
@@ -173,7 +147,7 @@ public class BoardList extends JFrame{
 			
 			//글쓰러 가기 버튼
 			JButton write  = new JButton("write");
-		    write.setBounds(560, 20, 90, 30);
+		    write.setBounds(560, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override

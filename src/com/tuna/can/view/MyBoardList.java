@@ -81,8 +81,8 @@ public class MyBoardList extends JFrame{
 			backB.setBorder(pinkborder);
 			topPanel.add(backB);
 			
-			//전체게시글 글씨
-			JLabel lbl = new JLabel(" 비밀게시글 ");
+			//내게시글 글씨
+			JLabel lbl = new JLabel(" 내게시글 ");
 			lbl.setBounds(350, 40, 150, 50);
 			topPanel.add(lbl);
 			
@@ -156,7 +156,7 @@ public class MyBoardList extends JFrame{
 			
 			//글쓰러 가기 버튼
 			JButton write  = new JButton("write");
-		    write.setBounds(560, 20, 90, 30);
+		    write.setBounds(560, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override
