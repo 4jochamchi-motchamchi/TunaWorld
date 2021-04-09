@@ -36,6 +36,7 @@ public class TunaService {
 		
 		return userInventory;
 	}
+	
 
 	public BoardDTO selectBoardContent(int boardNo) {
 		
@@ -47,6 +48,7 @@ public class TunaService {
 		
 		return boardContent;
 		
+
 	}
 
 }

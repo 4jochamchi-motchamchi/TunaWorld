@@ -35,6 +35,7 @@ public class Signup_page extends JFrame{
 		this.setLayout(null);
 		this.setVisible(false);
 		this.setSize(700,900);
+		this.setLocation(600, 50);
 		try {
 			this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
 		} catch (IOException e1) {
