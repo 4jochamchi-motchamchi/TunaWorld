@@ -14,7 +14,8 @@ import java.util.Properties;
 
 import static com.tuna.can.common.JDBCTemplate.close;
 
-import com.tuna.can.model.dto.MemberDTO;
+import com.tuna.can.model.dto.UserDTO;
+import com.tuna.can.model.dto.UserInventoryDTO;
 
 public class TunaDAO {
 	Properties prop = new Properties();
@@ -30,7 +31,7 @@ public class TunaDAO {
 		}
 	}
 
-	public MemberDTO selectMemberInfo(Connection con, String loginMemberId) {
+	public UserDTO selectMemberInfo(Connection con, String loginMemberId) {
 		
 		String query = prop.getProperty("selectMemberInfo");
 		
@@ -38,10 +39,9 @@ public class TunaDAO {
 		
 		ResultSet rset = null;
 		
-		MemberDTO member = new MemberDTO();
+		UserDTO member = new UserDTO();
 		
 		System.out.println(loginMemberId);
-		
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -50,8 +50,6 @@ public class TunaDAO {
 			
 			rset = pstmt.executeQuery();
 			
-			System.out.println(rset);
-			
 			if(rset.next()) {
 				member.setUserNo(rset.getInt("USER_NO"));
 				member.setNickName(rset.getString("USER_NICKNAME"));
@@ -59,9 +57,8 @@ public class TunaDAO {
 				member.setUserPwd(rset.getString("USER_PWD"));
 				member.setPhone(rset.getString("PHONE"));
 				member.setEmail(rset.getString("EMAIL"));
-				member.setTunaCan(rset.getInt("TUNACAN"));
+				member.setCoin(rset.getInt("COIN"));
 			}
-			System.out.println(member);
 			
 		} catch (SQLException e) {
 
@@ -71,6 +68,12 @@ public class TunaDAO {
 			close(rset);
 		}
 		return member;
+		
+	}
+
+	public UserInventoryDTO selectUserInventory(int userNo) {
+
+		return null;
 		
 	}
 

@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -126,7 +130,15 @@ public class Signup_page extends JFrame{
 					JOptionPane.showMessageDialog(null, "모든칸이 채워지지 않았습니다. \n 입력해주세요!", "경고", 0);
 					return;
 				}else {
+				Map<String, String> newMemberInfo = new HashMap<String, String>();
+				newMemberInfo.put("id", getName());
+				newMemberInfo.put("pw", getName());
+				newMemberInfo.put("phone", getName());
+				newMemberInfo.put("email", getName());
+				
+				
 				new Login_page();
+				
 					dispose();
 				}
 			}

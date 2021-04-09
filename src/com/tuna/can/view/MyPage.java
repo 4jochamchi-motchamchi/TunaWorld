@@ -1,6 +1,7 @@
 package com.tuna.can.view;
 
 import java.awt.CardLayout;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -25,7 +26,7 @@ import javax.swing.border.Border;
 
 import com.tuna.can.controller.MyPage_Button;
 import com.tuna.can.controller.TunaController;
-import com.tuna.can.model.dto.MemberDTO;
+import com.tuna.can.model.dto.UserDTO;
 
 public class MyPage extends JFrame {
 	
@@ -62,7 +63,7 @@ public class MyPage extends JFrame {
 
 	public JPanel mypageInfo() {
 		
-		MemberDTO member = new MemberDTO();
+		UserDTO member = new UserDTO();
 		
 		member = tunaController.selectMemberInfo("user01");
 		System.out.println(member);
@@ -102,23 +103,23 @@ public class MyPage extends JFrame {
 
 		JTextField userIdText = new JTextField(10);
 		userIdText.setBounds(130, 100, 186, 35);
-//		userIdText.setText(member.getUserID());
+		userIdText.setText(member.getUserID());
 
 		JTextField phoneText = new JTextField(10);
 		phoneText.setBounds(130, 190, 186, 35);
-//		phoneText.setText(member.getPhone());
+		phoneText.setText(member.getPhone());
 
 		JTextField emailText = new JTextField(10);
 		emailText.setBounds(130, 280, 186, 35);
-//		emailText.setText(member.getMeail());
+		emailText.setText(member.getEmail());
 
 		JTextField nicknameText = new JTextField(10);
 		nicknameText.setBounds(130, 370, 186, 35);
-//		nicknameText.setText(member.getNickName());
+		nicknameText.setText(member.getNickName());
 
 		JTextField pwdText = new JTextField(10);
 		pwdText.setBounds(130, 460, 186, 35);
-//		pwdText.setText(member.getUserPwd());
+		pwdText.setText(member.getUserPwd());
 
 		JButton userCommit = new JButton("commit");
 		userCommit.setBounds(240, 530, 80, 40);
@@ -181,6 +182,8 @@ public class MyPage extends JFrame {
 	}
 
 	public JPanel inventory() {
+		
+		tunaController.selectUserInventory();
 		
 		JPanel bottomPanel2 = new JPanel();
 
