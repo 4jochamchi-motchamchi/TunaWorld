@@ -20,6 +20,18 @@ SELECT
  WHERE U.USER_NO = ?
 
 </entry>
+<entry key="selectCoin">
+SELECT
+	   USER_NICKNAME
+     , COIN
+  FROM USER_INFORMATION
+ WHERE USER_NO = ?
+</entry>
+<entry key="updateCoin">
+UPDATE USER_INFORMATION U
+   SET COIN = ?
+ WHERE USER_NO = ?
+</entry>
 </properties>
 
 

@@ -1,13 +1,15 @@
 package com.tuna.can.service;
 
+import static com.tuna.can.common.JDBCTemplate.getConnection;
+import static com.tuna.can.common.JDBCTemplate.commit;
+import static com.tuna.can.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
-import java.util.List;
 
 import com.tuna.can.model.dao.TunaDAO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
-import static com.tuna.can.common.JDBCTemplate.getConnection;
 
 public class TunaService {
 	
@@ -33,7 +35,37 @@ public class TunaService {
 		
 		userInventory = tunaDAO.selectUserInventory(userNo);
 		
-		return = userInventory;
+		return userInventory;
 	}
 
+	// 유저 코인 현환
+	public int selectCoin(int userNo) {
+		
+		
+		int userCoin = 0;
+		Connection con = getConnection();
+		
+		userCoin = tunaDAO.selectMenberCoin(con, userNo);
+		
+		return userCoin;
+		
+		
+	}
+
+	public int updateCoin(UserDTO userInfor) {
+		
+		int userCoin = 0;
+		Connection con = getConnection();
+		
+		userCoin = tunaDAO.upateUserCoin(con, userInfor);
+		
+		if(userCoin > 0){
+				commit(con);
+		} else {
+			System.out.println();
+				rollback(con);
+		}
+		
+		return userCoin;
+	}
 }

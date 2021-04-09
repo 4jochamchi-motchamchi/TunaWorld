@@ -3,6 +3,7 @@ package com.tuna.can.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
@@ -20,7 +21,6 @@ public class FriendsList implements ActionListener {
 	public FriendsList(JButton button) {
 
 		this.button = button;
-
 	}
 	
 	@Override

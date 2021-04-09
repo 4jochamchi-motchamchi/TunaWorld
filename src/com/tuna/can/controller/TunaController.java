@@ -13,6 +13,7 @@ public class TunaController {
 	private String loginMemberId; 
 	private TunaService service = new TunaService();
 	private UserDTO loginMember = null;
+	private int coin;
 	
 //	MyPage에 로그인한 회원정보 조회
 	public UserDTO selectMemberInfo(String id){
@@ -37,6 +38,23 @@ public class TunaController {
 		
 	}
 	
+	// 유저 정보에서 코인 조회
+	public int selectUSerCoin(int UserInfo) {
+		
+		coin = service.selectCoin(UserInfo);
+		 
+		return coin;
+	}
+	
+	// 받아온 코인 정보값에 코인갯수 업데이트
+	public int updateCoin(UserDTO userInfo) {
+		
+		int userCoin = 0;
+		userCoin = service.updateCoin(userInfo);
+		
+		return userCoin;
+		
+	}
 	
 
 }
