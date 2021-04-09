@@ -7,6 +7,7 @@ import static com.tuna.can.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 
 import com.tuna.can.model.dao.TunaDAO;
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -33,9 +34,28 @@ public class TunaService {
 		
 		Connection con = getConnection();
 		
-		userInventory = tunaDAO.selectUserInventory(userNo);
+		userInventory = tunaDAO.selectUserInventory(con, userNo);
 		
 		return userInventory;
+
+
+
+	}
+	
+
+	public BoardDTO selectBoardContent(int boardNo) {
+		
+		BoardDTO boardContent = new BoardDTO();
+		
+		Connection con = getConnection();
+		
+		boardContent = tunaDAO.selectBoardContent(con, boardNo);
+		
+		return boardContent;
+		
+
+
+
 	}
 
 	// 유저 코인 현환

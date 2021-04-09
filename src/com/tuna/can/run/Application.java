@@ -8,5 +8,6 @@ public class Application {
 		
 		TunaController tc = new TunaController();
 		tc.selectUSerCoin(1);
+		
 	}
 }

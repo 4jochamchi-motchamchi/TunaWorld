@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import static com.tuna.can.common.JDBCTemplate.close;
 
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -67,8 +68,35 @@ public class TunaDAO {
 		
 	}
 
-	public UserInventoryDTO selectUserInventory(int userNo) {
+	public UserInventoryDTO selectUserInventory(Connection con, int userNo) {
 
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectUserInventory");
+		
+		UserInventoryDTO userInventory = new UserInventoryDTO();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				userInventory.setUserNo(rset.getInt("USER_NO"));
+				userInventory.setItemNo(rset.getInt("ITEM_NO"));
+				userInventory.setItemName(rset.getString("ITEM_NAME"));
+			}
+			
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		
+		
 		return null;
 		
 	}
@@ -136,6 +164,40 @@ public class TunaDAO {
 		
 		return result;
 	}
+
+	public BoardDTO selectBoardContent(Connection con, int boardNo) {
+		
+		String query = prop.getProperty("selectBoard");
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		BoardDTO boardDTO = new BoardDTO();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				boardDTO.setTitle(rset.getString("TITLE"));
+				boardDTO.setBoardContents(rset.getString("BOARD_CONTENTS"));
+				boardDTO.setUserNickname(rset.getString("USER_NICKNAME"));
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return boardDTO;
+	}
+
 }
 
 

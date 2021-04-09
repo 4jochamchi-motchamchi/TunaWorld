@@ -10,7 +10,8 @@ SELECT
 
 <entry key="selectUserInventory">
 SELECT
-       U.ITEM_NO
+	   U.USER_NO
+     , U.ITEM_NO
      , U.ITEM_CATEGORY
      , U.EQUIP_ITEM_YN
      , S.ITEM_NAME
@@ -18,7 +19,6 @@ SELECT
   FROM USER_INVENTORY_LIST U
   JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
  WHERE U.USER_NO = ?
-
 </entry>
 <entry key="selectCoin">
 SELECT
@@ -31,6 +31,15 @@ SELECT
 UPDATE USER_INFORMATION U
    SET COIN = ?
  WHERE USER_NO = ?
+</entry>
+<entry key="selectBoard">
+SELECT
+	   A.TITLE
+	 , A.BOARD_CONTENTS
+	 , B.USER_NICKNAME
+  FROM BOARD_LIST A
+  JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+ WHERE A.BOARD_NO = ?
 </entry>
 </properties>
 

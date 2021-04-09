@@ -5,23 +5,23 @@ public class UserInventoryDTO {
 	private int userNo;
 	private int itemNo;
 	private int itemCategory;
+	private String equipItemYN;
 	private String itemName;
 	private String itemImg;
 	
 	public UserInventoryDTO() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public UserInventoryDTO(int userNo, int itemNo, int itemCategory, String itemName, String itemImg) {
 
+	}
+
+	public UserInventoryDTO(int userNo, int itemNo, int itemCategory, String equipItemYN, String itemName,
+			String itemImg) {
 		this.userNo = userNo;
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
+		this.equipItemYN = equipItemYN;
 		this.itemName = itemName;
 		this.itemImg = itemImg;
 	}
-
-
 
 	public int getUserNo() {
 		return userNo;
@@ -53,11 +53,20 @@ public class UserInventoryDTO {
 	public void setItemImg(String itemImg) {
 		this.itemImg = itemImg;
 	}
+	public String getEquipItemYN() {
+		return equipItemYN;
+	}
+
+	public void setEquipItemYN(String equipItemYN) {
+		this.equipItemYN = equipItemYN;
+	}
 
 	@Override
 	public String toString() {
 		return "UserInventoryDTO [userNo=" + userNo + ", itemNo=" + itemNo + ", itemCategory=" + itemCategory
-				+ ", itemName=" + itemName + ", itemImg=" + itemImg + "]";
+				+ ", equipItemYN=" + equipItemYN + ", itemName=" + itemName + ", itemImg=" + itemImg + "]";
 	}
+
+
 	
 }
