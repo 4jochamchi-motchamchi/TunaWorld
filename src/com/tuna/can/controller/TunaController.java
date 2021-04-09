@@ -1,7 +1,10 @@
 package com.tuna.can.controller;
 
 
-import com.tuna.can.model.dto.BoardDTO;
+import java.util.List;
+
+import com.tuna.can.model.dto.BulletinDTO;
+import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -38,11 +41,32 @@ public class TunaController {
 		
 	}
 	
-	public BoardDTO selectBoardContent(int boardNo) {
+	// 게시글 내용 조회
+	public BulletinDTO selectBulletinContent(int boardNo) {
 		
-		BoardDTO boardDTO = new BoardDTO();
-		boardDTO = service.selectBoardContent(boardNo);
-		return boardDTO;
+		BulletinDTO bulletinDTO = new BulletinDTO();
+		bulletinDTO = service.selectBulletinContent(boardNo);
+		return bulletinDTO;
+		
+	}
+	
+	// 댓글 내용 조회
+	public List<CommentDTO> selectComment(int commentNo) {
+
+		List<CommentDTO> comment = service.selectComment(commentNo);
+		return comment;
+		
+	}
+
+	public int insertComment(String text) {
+
+		CommentDTO insertComment = new CommentDTO();
+		
+		int result = 0;
+		
+		result = service.insertComment(text);
+		
+		return result;
 		
 	}
 	

@@ -1,22 +1,43 @@
 package com.tuna.can.model.dto;
 
-public class BoardDTO {
+import java.sql.Date;
+
+/**
+ * <pre>
+ * 	게시글 내용과 그에 관련된 내용을 불러오기위한 BulletinDTO
+ * </pre>
+ * @author WEENARA
+ *
+ */
+public class BulletinDTO {
 
 	private String title;
 	private String boardContents;
 	private String userNickname;
+	private String enrollDate;
 	
 	
-	public BoardDTO() {
+	public BulletinDTO() {
 		super();
 	}
 
 
-	public BoardDTO(String title, String boardContents, String userNickname) {
+	public BulletinDTO(String title, String boardContents, String userNickname, String enrollDate) {
 		super();
 		this.title = title;
 		this.boardContents = boardContents;
 		this.userNickname = userNickname;
+		this.enrollDate = enrollDate;
+	}
+
+
+	public String getEnrollDate() {
+		return enrollDate;
+	}
+
+
+	public void setEnrollDate(String enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 
 
@@ -52,7 +73,8 @@ public class BoardDTO {
 
 	@Override
 	public String toString() {
-		return "BoardDTO [title=" + title + ", boardContents=" + boardContents + ", userNickname=" + userNickname + "]";
+		return "BoardDTO [title=" + title + ", boardContents=" + boardContents + ", userNickname=" + userNickname
+				+ ", enrollDate=" + enrollDate + "]";
 	}
 	
 }
