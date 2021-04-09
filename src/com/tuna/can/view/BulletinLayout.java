@@ -3,7 +3,6 @@ package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,6 +21,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.BoardDTO;
+
 /**
  * 
  * <pre>
@@ -35,6 +37,11 @@ public class BulletinLayout extends JFrame{
 	public BulletinLayout() {
 		super("게시글 보기");
 //		public static void main(String[] args) 
+		
+		TunaController tunaController = new TunaController();
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO = tunaController.selectBoardContent(1);
+		
 			
 //			JFrame mainFrame = new JFrame();
 			Border border = BorderFactory.createEtchedBorder(1);
@@ -66,9 +73,9 @@ public class BulletinLayout extends JFrame{
 			
 			JLabel topLabel = new JLabel("제목");			// 제목 들어갈 라벨(데이터 불러와야됨)
 			JButton backButton = new JButton(home);			// 메인으로가기 버튼
-			JLabel nickName = new JLabel("작성자닉네임");		// 닉네임 들어갈 라벨(데이터 불러와야됨)
+			JLabel nickName = new JLabel(boardDTO.getUserNickname());		// 닉네임 들어갈 라벨(데이터 불러와야됨)
 			JButton plusFriend = new JButton("친구추가");		// 친구추가 들어갈 라벨
-			JTextArea bulletin = new JTextArea("게에에시시그으을\n\n\nㄳㄳㄳ\n\n\n아아아아\n\n\n오오오오\n\n\n\n하이하이\n\n\n\n\n스크롤\n\n\n\n안녕");	// 게시글 들어갈 라벨(데이터 불러와야됨)
+			JTextArea bulletin = new JTextArea(boardDTO.getBoardContents());	// 게시글 들어갈 라벨(데이터 불러와야됨)
 //			JLabel bulletinLabel = new JLabel();
 			JLabel date = new JLabel("작성날짜들어갈거야아아아");	// 게시글 작성된 날짜 들어갈 라벨(데이터 불러와야됨)
 //			JLabel comments = new JLabel();					// 댓글목록 보이는 라벨(데이터 불러와야됨)
@@ -164,7 +171,7 @@ public class BulletinLayout extends JFrame{
 			
 			JPanel commentList = null;
 			
-			for(int i = 0; i <= 5; i++) {
+			for(int i = 0; i <= 2; i++) {
 				
 				commentsPanel.setLayout(null);
 				commentsPanel.setPreferredSize(new Dimension(550,50*i));
@@ -270,11 +277,10 @@ public class BulletinLayout extends JFrame{
 //					// getText() : JTextField에서 입력한 값을 가져오는 메소드
 //					String text = "댓글닉네임 : " + writeComment.getText();
 //
-//					comments.
 //					
 //				}
 //			});
-//			
+			
 			
 			JPanel sidePanel1 = new JPanel();
 			sidePanel1.setLayout(null);
