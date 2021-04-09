@@ -31,7 +31,7 @@ public class UserDTO {
 		return coin;
 	}
 
-	public void setCoin(int tunaCan) {
+	public void setCoin(int coin) {
 		this.coin = coin;
 	}
 	public int getUserNo() {

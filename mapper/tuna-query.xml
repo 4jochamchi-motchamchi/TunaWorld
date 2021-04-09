@@ -19,7 +19,6 @@ SELECT
   FROM USER_INVENTORY_LIST U
   JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
  WHERE U.USER_NO = ?
-
 </entry>
 
 <entry key="selectBulletin">
@@ -58,6 +57,33 @@ SELECT
     , ?
     , ?
     )
+</entry>
+
+<entry key="selectCoin">
+SELECT
+	   USER_NICKNAME
+     , COIN
+  FROM USER_INFORMATION
+ WHERE USER_NO = ?
+</entry>
+<entry key="updateCoin">
+UPDATE USER_INFORMATION U
+   SET COIN = ?
+ WHERE USER_NO = ?
+</entry>
+
+<entry key="slectFriendsLIst">
+SELECT
+        S.ITEM_IMG          
+     , (SELECT UI.USER_NICKNAME
+          FROM USER_INFORMATION UI
+         WHERE UI.USER_NO = F.FRIEND_NO) "FRIENDS"
+  FROM USER_INFORMATION U
+  JOIN FRIENDS_LIST F ON (U.USER_NO = F.USER_NO)
+  JOIN USER_INVENTORY_LIST UIL ON (U.USER_NO = UIL.USER_NO)
+  JOIN STORE S ON (UIL.ITEM_CATEGORY = S.ITEM_CATEGORY)
+ WHERE U.USER_NO = ?
+   AND S.ITEM_CATEGORY = 3
 </entry>
 </properties>
 

@@ -1,10 +1,17 @@
 package com.tuna.can.controller;
 
 
+
 import java.util.List;
 
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tuna.can.model.dto.FriendDTO;
+
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -17,6 +24,7 @@ public class TunaController {
 	
 //	로그인한 USER의 개인정보를 담고있을 객체
 	private UserDTO loginMember = null;
+	private int coin;
 	
 //	MyPage에 로그인한 회원정보 조회
 	public UserDTO selectMemberInfo(String id){
@@ -40,6 +48,29 @@ public class TunaController {
 		
 		
 	}
+	
+
+
+
+
+	// 유저 정보에서 코인 조회
+	public int selectUSerCoin(UserDTO UserInfo) {
+		
+		coin = service.selectCoin(UserInfo.getUserNo());
+		 
+		return coin;
+	}
+	
+	// 받아온 코인 정보값에 코인갯수 업데이트
+	public int updateCoin(UserDTO userInfo) {
+		
+		int userCoin = 0;
+		userCoin = service.updateCoin(userInfo);
+		
+		return userCoin;
+		
+	}
+	
 	
 	// 게시글 내용 조회
 	public BulletinDTO selectBulletinContent(int boardNo) {
@@ -70,6 +101,15 @@ public class TunaController {
 		
 	}
 	
+	// 친구목록에 친구닉네임, 이미지 받아오기
+	public List<FriendDTO> selectFriendsList(UserDTO userInfo) {
+			
+		List<FriendDTO> friendsList = new ArrayList<>();
+		friendsList = service.selectFriendsList(userInfo.getUserNo());
+		
+		return friendsList;
+		
+	}
 	
 
 }

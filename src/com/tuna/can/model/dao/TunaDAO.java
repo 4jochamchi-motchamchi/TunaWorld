@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
+import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -102,6 +103,70 @@ public class TunaDAO {
 		
 		return null;
 		
+	}
+
+
+	// 김현빈씨 파트 친구닉네임, 이미지 select하는 메소드
+	// 김현빈씨 파트 코인 획득 
+	public int selectMenberCoin(Connection con, int userNo) {
+		
+		String query = prop.getProperty("selectCoin");
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		int coin = 0;
+		
+		try {
+			pstmt =  con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				
+				coin = rset.getInt("COIN");
+				String str = rset.getString("USER_NICKNAME");		
+				System.out.println(str);
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return coin;
+		
+	}
+
+	
+	// 코인 획득
+	public int upateUserCoin(Connection con, UserDTO userInfor) {
+		String query = prop.getProperty("updateCoin");
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userInfor.getCoin()+1);
+			pstmt.setInt(2, userInfor.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	public BulletinDTO selectBulletinContent(Connection con, int boardNo) {
@@ -200,12 +265,44 @@ public class TunaDAO {
 
 	}
 
+	
+	// 친구리스트에서 이미지, 친구 닉네임 불러오기
+	public List<FriendDTO> selectFriendsList(Connection con,int userNo) {
+		String query = prop.getProperty("slectFriendsLIst");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<FriendDTO> friendsInfo = null;
+		
+		try {
+			
+			friendsInfo = new ArrayList<>();
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				FriendDTO friends = new FriendDTO();
+				
+				friends.setFriends(rset.getString("FRIEND"));
+				friends.setImage(rset.getString("ITEM_IMG"));
+				
+				friendsInfo.add(friends);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+			close(rset);
+		}
+		return friendsInfo;
+	}
+
 }
-
-
-
-
-
 
 
 

@@ -99,7 +99,7 @@ public class MiniGame extends JFrame implements ActionListener{
 							new Main_page();
 							
 							
-							// 코인 증가  코드 자리
+							
 							
 							
 							oldFrame.dispose();
