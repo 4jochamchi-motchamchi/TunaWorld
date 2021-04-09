@@ -34,6 +34,7 @@ public class BoardList extends JFrame{
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
 			this.setSize(700, 900);
+			this.setLocation(600, 50);
 			
 			//아이콘
 			try {
@@ -60,7 +61,7 @@ public class BoardList extends JFrame{
 			
 
 		    
-		   
+		  
 			
 			// 뒤로가기 버튼
 			ImageIcon home = new ImageIcon("image/home.PNG");
@@ -85,14 +86,14 @@ public class BoardList extends JFrame{
 			lbl.setBounds(350, 40, 150, 50);
 			topPanel.add(lbl);
 			
-		    
+			
 			//전체글 리스트 
 			JPanel allList = null;
 			
 			for(int i = 0; i <= 10; i++) {
 				
 				midlePanel.setLayout(null);
-				midlePanel.setPreferredSize(new Dimension(670,100*i));
+				midlePanel.setPreferredSize(new Dimension(660,100*i));
 				
 				
 				allList = new JPanel();
@@ -100,78 +101,64 @@ public class BoardList extends JFrame{
 			    allList.setBackground(Color.pink);
 				
 			    allList.setBounds(0,(i * 100),680,100);
-				allList.setBorder(border);
+				allList.setBorder(pinkborder);
 				
 				
-				JLabel subject = new JLabel(" 제목");
-			    subject.setLayout(null);
+				ImageIcon underline =new ImageIcon("image/List.PNG");
+				JLabel subject = new JLabel(underline);
+				subject.setLayout(null);
 
-			    subject.setBounds(5, 10, 100, 80);
+			    subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
-			    
-			    JButton editButton = new JButton("수정");
-			    editButton.setBounds(500,25,70,40);
-			    editButton.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-									
-						if(e.getSource() == editButton) {
-							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
-						}				
-					}
-				});
-				JButton deleteButton = new JButton("삭제");
-				deleteButton.setBounds(580,25,70,40);
-				deleteButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-								
-					if(e.getSource() == deleteButton) {
-						JOptionPane.showMessageDialog(null,"삭제하시겠습까?");	
-					}				
-				}
-			});
-				
-				allList.add(editButton);
-			    allList.add(deleteButton);
+
 				
 			    midlePanel.add(allList);
 			    
 				
 			}
 			JScrollPane scrollbar = new JScrollPane(midlePanel);
-			scrollbar.setPreferredSize(new Dimension(690,700));
-			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollbar.setPreferredSize(new Dimension(685,700));
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			int width = scrollbar.getPreferredSize().width;
 			int height = scrollbar.getPreferredSize().height;
 			scrollbar.setBounds(0,100,width,height);
 			scrollbar.setBackground(Color.pink);
 			
-			scrollbar.setBorder(border);
+			scrollbar.setBorder(pinkborder);
 			
 			this.getContentPane().add(scrollbar);
 			
-			
-
 
 			
 		    //내게시글보기 버튼
 			JButton myboard  = new JButton("myboard");
-			myboard.setBounds(30, 20, 90, 30);
-			bottomPanel.add(myboard);
+			myboard.setBounds(30, 0, 90, 50);
+		    myboard.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+						new MyBoardList();
+						dispose();
+				}
+			});
+		    bottomPanel.add(myboard);
 			
+
 			
 			//글쓰러 가기 버튼
 			JButton write  = new JButton("write");
-		    write.setBounds(560, 20, 90, 30);
+		    write.setBounds(560, 0, 90, 50);
+		    write.addActionListener(new ActionListener() {
+				
+					@Override
+					public void actionPerformed(ActionEvent e) {
+							new Text_Area();
+							dispose();
+					}
+				});
 		    bottomPanel.add(write);
 			
-		
-			// 마이 프레임에 판넬 추가
-			
-			
-			
+
 			 this.add(topPanel);
 			// this.add(midlePanel);
 			 this.add(bottomPanel);

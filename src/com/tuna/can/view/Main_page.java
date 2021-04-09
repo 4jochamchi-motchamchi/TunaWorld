@@ -55,7 +55,7 @@ public class Main_page extends JFrame{
 		JLabel imageLabel = new JLabel(profileImage);	// 이미지 들어갈 라벨
 		JLabel nickName = new JLabel("닉네임");			// 닉네임 들어갈 라벨
 		JButton button1 = new JButton("전체글보기");		// 전체글보기 버튼
-		JButton button2 = new JButton("비밀글보기");		// 비밀글보기 버튼
+		JButton button2 = new JButton("내글보기");		// 내글보기 버튼
 		JButton button3 = new JButton("친구글보기");		// 친구글보기 버튼
 		JButton button4 = new JButton("친구 목록");		// 친구목록 버튼
 		JButton button5 = new JButton("마이페이지");		// 마이페이지 버튼
@@ -208,8 +208,8 @@ public class Main_page extends JFrame{
 		button2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {				
-//				new BulletinLayout();
-//				dispose();				
+				new MyBoardList();
+				dispose();				
 			}
 	
 		});
@@ -218,8 +218,8 @@ public class Main_page extends JFrame{
 		button3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {				
-//				new BulletinLayout();
-//				dispose();				
+				new FriendBoardList();
+				dispose();				
 			}
 	
 		});
