@@ -34,9 +34,12 @@ public class JDBCTemplate {
 			
 			String driver = prop.getProperty("driver");
 			String url = prop.getProperty("url");
+			String user = prop.getProperty("user");
+			String password = prop.getProperty("password");
 
+			
 			Class.forName(driver);
-			con = DriverManager.getConnection(url, prop);
+			con = DriverManager.getConnection(url, user, password);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -93,3 +96,4 @@ public class JDBCTemplate {
 		
 	
 }
+

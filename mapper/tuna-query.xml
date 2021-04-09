@@ -4,13 +4,22 @@
 <entry key="selectMemberInfo">
 SELECT
 	   *
-  FROM MEMBER
+  FROM USER_INFORMATION
  WHERE USER_ID = ?
-
 </entry>
 
+<entry key="selectUserInventory">
+SELECT
+       U.ITEM_NO
+     , U.ITEM_CATEGORY
+     , U.EQUIP_ITEM_YN
+     , S.ITEM_NAME
+     , S.ITEM_IMG
+  FROM USER_INVENTORY_LIST U
+  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
+ WHERE U.USER_NO = ?
 
-
+</entry>
 </properties>
 
 

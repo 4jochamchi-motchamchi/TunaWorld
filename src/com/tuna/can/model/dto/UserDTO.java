@@ -1,28 +1,39 @@
 package com.tuna.can.model.dto;
 
-public class MemberDTO {
+public class UserDTO {
 
 	private int userNo;
 	private String nickName;
 	private String userID;
 	private String userPwd;
 	private String phone;
-	private String meail;
+	private String email;
+	private int coin;
 	
-	public MemberDTO() {
-		// TODO Auto-generated constructor stub
+
+	public UserDTO() {
+
 	}
 	
-	public MemberDTO(int userNo, String nickName, String userID, String userPwd, String phone, String meail) {
-
+	public UserDTO(int userNo, String nickName, String userID, String userPwd, String phone, String meail,
+			int tunaCan) {
+		super();
 		this.userNo = userNo;
 		this.nickName = nickName;
 		this.userID = userID;
 		this.userPwd = userPwd;
 		this.phone = phone;
-		this.meail = meail;
+		this.email = meail;
+		this.coin = tunaCan;
 	}
-	
+
+	public int getCoin() {
+		return coin;
+	}
+
+	public void setCoin(int tunaCan) {
+		this.coin = coin;
+	}
 	public int getUserNo() {
 		return userNo;
 	}
@@ -53,18 +64,17 @@ public class MemberDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getMeail() {
-		return meail;
+	public String getEmail() {
+		return email;
 	}
-	public void setMeail(String meail) {
-		this.meail = meail;
+	public void setEmail(String meail) {
+		this.email = meail;
 	}
 
 	@Override
 	public String toString() {
 		return "MemberDTO [userNo=" + userNo + ", nickName=" + nickName + ", userID=" + userID + ", userPwd=" + userPwd
-				+ ", phone=" + phone + ", meail=" + meail + "]";
+				+ ", phone=" + phone + ", meail=" + email + ", tunaCan=" + coin + "]";
 	}
-	
 	
 }
