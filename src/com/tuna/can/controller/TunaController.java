@@ -1,9 +1,7 @@
 package com.tuna.can.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -34,6 +32,14 @@ public class TunaController {
 		userInventory = service.selectUserInventory(loginMember.getUserNo());
 		
 		
+		
+	}
+	
+	public BoardDTO selectBoardContent(int boardNo) {
+		
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO = service.selectBoardContent(boardNo);
+		return boardDTO;
 		
 	}
 	

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.tuna.can.model.dao.TunaDAO;
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -33,7 +34,19 @@ public class TunaService {
 		
 		userInventory = tunaDAO.selectUserInventory(userNo);
 		
-		return = userInventory;
+		return userInventory;
+	}
+
+	public BoardDTO selectBoardContent(int boardNo) {
+		
+		BoardDTO boardContent = new BoardDTO();
+		
+		Connection con = getConnection();
+		
+		boardContent = tunaDAO.selectBoardContent(con, boardNo);
+		
+		return boardContent;
+		
 	}
 
 }
