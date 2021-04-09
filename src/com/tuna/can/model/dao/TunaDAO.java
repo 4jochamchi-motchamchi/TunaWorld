@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import static com.tuna.can.common.JDBCTemplate.close;
 
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -102,6 +103,39 @@ public class TunaDAO {
 		
 		return null;
 		
+	}
+
+	public BoardDTO selectBoardContent(Connection con, int boardNo) {
+		
+		String query = prop.getProperty("selectBoard");
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		BoardDTO boardDTO = new BoardDTO();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				boardDTO.setTitle(rset.getString("TITLE"));
+				boardDTO.setBoardContents(rset.getString("BOARD_CONTENTS"));
+				boardDTO.setUserNickname(rset.getString("USER_NICKNAME"));
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return boardDTO;
 	}
 
 }

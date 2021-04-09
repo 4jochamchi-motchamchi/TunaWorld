@@ -68,7 +68,7 @@ public class Login_page extends JFrame{
 			// 4조참치 로고
 			ImageIcon icon = new ImageIcon("image/logoBig_ver2.PNG");
 			JLabel imageLable = new JLabel(icon);
-			imageLable.setBounds(30, 30, 650, 380);
+			imageLable.setBounds(30, 40, 650, 380);
 			imagePanel.add(imageLable);
 			
 			//로그인 ID
