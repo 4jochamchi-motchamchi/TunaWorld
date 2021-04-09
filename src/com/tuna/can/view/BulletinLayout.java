@@ -73,7 +73,7 @@ public class BulletinLayout extends JFrame{
 			
 			JLabel topLabel = new JLabel("제목");			// 제목 들어갈 라벨(데이터 불러와야됨)
 			JButton backButton = new JButton(home);			// 메인으로가기 버튼
-			JLabel nickName = new JLabel("작성자닉네임");		// 닉네임 들어갈 라벨(데이터 불러와야됨)
+			JLabel nickName = new JLabel(boardDTO.getUserNickname());		// 닉네임 들어갈 라벨(데이터 불러와야됨)
 			JButton plusFriend = new JButton("친구추가");		// 친구추가 들어갈 라벨
 			JTextArea bulletin = new JTextArea(boardDTO.getBoardContents());	// 게시글 들어갈 라벨(데이터 불러와야됨)
 //			JLabel bulletinLabel = new JLabel();

@@ -98,7 +98,7 @@ public class TunaDAO {
 			if(rset.next()) {
 				boardDTO.setTitle(rset.getString("TITLE"));
 				boardDTO.setBoardContents(rset.getString("BOARD_CONTENTS"));
-				boardDTO.setUserNickname("USER_NICKNAME");
+				boardDTO.setUserNickname(rset.getString("USER_NICKNAME"));
 			}
 			
 		} catch (SQLException e) {
