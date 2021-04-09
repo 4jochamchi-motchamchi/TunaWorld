@@ -61,7 +61,7 @@ public class BoardList extends JFrame{
 			
 
 		    
-		   
+		  
 			
 			// 뒤로가기 버튼
 			ImageIcon home = new ImageIcon("image/home.PNG");
@@ -86,14 +86,14 @@ public class BoardList extends JFrame{
 			lbl.setBounds(350, 40, 150, 50);
 			topPanel.add(lbl);
 			
-		    
+			
 			//전체글 리스트 
 			JPanel allList = null;
 			
 			for(int i = 0; i <= 10; i++) {
 				
 				midlePanel.setLayout(null);
-				midlePanel.setPreferredSize(new Dimension(670,100*i));
+				midlePanel.setPreferredSize(new Dimension(660,100*i));
 				
 				
 				allList = new JPanel();
@@ -101,13 +101,14 @@ public class BoardList extends JFrame{
 			    allList.setBackground(Color.pink);
 				
 			    allList.setBounds(0,(i * 100),680,100);
-				allList.setBorder(border);
+				allList.setBorder(pinkborder);
 				
 				
-				JLabel subject = new JLabel(" 제목");
-			    subject.setLayout(null);
+				ImageIcon underline =new ImageIcon("image/List.PNG");
+				JLabel subject = new JLabel(underline);
+				subject.setLayout(null);
 
-			    subject.setBounds(5, 10, 100, 80);
+			    subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
 			    
 			    JButton editButton = new JButton("수정");
@@ -143,13 +144,13 @@ public class BoardList extends JFrame{
 			}
 			JScrollPane scrollbar = new JScrollPane(midlePanel);
 			scrollbar.setPreferredSize(new Dimension(685,700));
-			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			int width = scrollbar.getPreferredSize().width;
 			int height = scrollbar.getPreferredSize().height;
 			scrollbar.setBounds(0,100,width,height);
 			scrollbar.setBackground(Color.pink);
 			
-			scrollbar.setBorder(border);
+			scrollbar.setBorder(pinkborder);
 			
 			this.getContentPane().add(scrollbar);
 			

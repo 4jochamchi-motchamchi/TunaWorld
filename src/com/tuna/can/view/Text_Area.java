@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
@@ -33,6 +34,7 @@ public class Text_Area extends JFrame{
 		
 		this.setLayout(null);
 		this.setSize(700, 900);
+		this.setLocation(600, 50);
 		//아이콘
 		try {
 			this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
@@ -143,12 +145,18 @@ public class Text_Area extends JFrame{
 		saveButton.setBounds(550, 80 , 80, 25);
 	    saveButton.addActionListener(new ActionListener() {
 			
+	    	
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if(e.getSource() == saveButton) {
+						JOptionPane.showMessageDialog(null,"저장되었습니다");}
+					
 						new BoardList();
 						dispose();
 				}
 			});
+	    
+	
 		bottonP.add(saveButton);
 		
 

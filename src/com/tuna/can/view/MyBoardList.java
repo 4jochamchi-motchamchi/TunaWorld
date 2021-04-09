@@ -20,15 +20,15 @@ import javax.swing.border.Border;
 
 /**
  * <pre>
- * 친구 게시글 목록 페이지
+ * 비밀게시글 목록 페이지
  * </pre>
  * @author Hyelim Jeon
  *
  */
-public class FriendBoardList extends JFrame{
+public class MyBoardList extends JFrame{
 
-	public FriendBoardList() {
-		super("MyBoardsList");
+	public MyBoardList() {
+		super("MyBoardList");
 		
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
@@ -82,7 +82,7 @@ public class FriendBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//전체게시글 글씨
-			JLabel lbl = new JLabel(" 친구게시글 ");
+			JLabel lbl = new JLabel(" 비밀게시글 ");
 			lbl.setBounds(350, 40, 150, 50);
 			topPanel.add(lbl);
 			
@@ -103,6 +103,7 @@ public class FriendBoardList extends JFrame{
 			    allList.setBounds(0,(i * 100),680,100);
 				allList.setBorder(pinkborder);
 				
+				
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				subject.setLayout(null);
@@ -110,11 +111,33 @@ public class FriendBoardList extends JFrame{
 			    subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
 			    
-			    JLabel friendnick = new JLabel("닉네임");
-			    friendnick.setBounds(500,25,70,40);
-			    allList.add(friendnick);
-
+			    JButton editButton = new JButton("수정");
+			    editButton.setBounds(500,25,70,40);
+			    editButton.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == editButton) {
+							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
+						}				
+					}
+				});
+				JButton deleteButton = new JButton("삭제");
+				deleteButton.setBounds(580,25,70,40);
+				deleteButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+								
+					if(e.getSource() == deleteButton) {
+						JOptionPane.showMessageDialog(null,"삭제하시겠습까?");	
+					}				
+				}
+			});
 				
+				allList.add(editButton);
+			    allList.add(deleteButton);
+
 			    midlePanel.add(allList);
 			    
 				
@@ -130,6 +153,19 @@ public class FriendBoardList extends JFrame{
 			scrollbar.setBorder(pinkborder);
 			
 			this.getContentPane().add(scrollbar);
+			
+			//글쓰러 가기 버튼
+			JButton write  = new JButton("write");
+		    write.setBounds(560, 20, 90, 30);
+		    write.addActionListener(new ActionListener() {
+				
+					@Override
+					public void actionPerformed(ActionEvent e) {
+							new Text_Area();
+							dispose();
+					}
+				});
+		    bottomPanel.add(write);
 
 
 			
@@ -147,7 +183,7 @@ public class FriendBoardList extends JFrame{
 
 	public static void main(String[] args) {
 		
-		new FriendBoardList();
+		new MyBoardList();
 	}
 	
 	
