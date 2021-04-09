@@ -34,6 +34,7 @@ public class BoardList extends JFrame{
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
 			this.setSize(700, 900);
+			this.setLocation(600, 50);
 			
 			//아이콘
 			try {
@@ -141,7 +142,7 @@ public class BoardList extends JFrame{
 				
 			}
 			JScrollPane scrollbar = new JScrollPane(midlePanel);
-			scrollbar.setPreferredSize(new Dimension(690,700));
+			scrollbar.setPreferredSize(new Dimension(685,700));
 			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			int width = scrollbar.getPreferredSize().width;
 			int height = scrollbar.getPreferredSize().height;
@@ -152,26 +153,37 @@ public class BoardList extends JFrame{
 			
 			this.getContentPane().add(scrollbar);
 			
-			
-
 
 			
 		    //내게시글보기 버튼
 			JButton myboard  = new JButton("myboard");
 			myboard.setBounds(30, 20, 90, 30);
-			bottomPanel.add(myboard);
+		    myboard.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+						new MyBoardList();
+						dispose();
+				}
+			});
+		    bottomPanel.add(myboard);
 			
+
 			
 			//글쓰러 가기 버튼
 			JButton write  = new JButton("write");
 		    write.setBounds(560, 20, 90, 30);
+		    write.addActionListener(new ActionListener() {
+				
+					@Override
+					public void actionPerformed(ActionEvent e) {
+							new Text_Area();
+							dispose();
+					}
+				});
 		    bottomPanel.add(write);
 			
-		
-			// 마이 프레임에 판넬 추가
-			
-			
-			
+
 			 this.add(topPanel);
 			// this.add(midlePanel);
 			 this.add(bottomPanel);

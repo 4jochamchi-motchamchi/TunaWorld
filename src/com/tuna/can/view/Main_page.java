@@ -208,8 +208,8 @@ public class Main_page extends JFrame{
 		button2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {				
-//				new BulletinLayout();
-//				dispose();				
+				new MyBoardList();
+				dispose();				
 			}
 	
 		});
@@ -218,8 +218,8 @@ public class Main_page extends JFrame{
 		button3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {				
-//				new BulletinLayout();
-//				dispose();				
+				new FriendBoardList();
+				dispose();				
 			}
 	
 		});

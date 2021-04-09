@@ -141,6 +141,14 @@ public class Text_Area extends JFrame{
         //저장버튼
         JButton saveButton = new JButton(" save ");
 		saveButton.setBounds(550, 80 , 80, 25);
+	    saveButton.addActionListener(new ActionListener() {
+			
+				@Override
+				public void actionPerformed(ActionEvent e) {
+						new BoardList();
+						dispose();
+				}
+			});
 		bottonP.add(saveButton);
 		
 
