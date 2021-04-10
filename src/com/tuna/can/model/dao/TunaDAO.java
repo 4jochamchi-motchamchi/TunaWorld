@@ -72,7 +72,7 @@ public class TunaDAO {
 		
 	}
 
-	public UserInventoryDTO selectUserInventory(Connection con, int userNo) {
+	public ArrayList<UserInventoryDTO> selectUserInventory(Connection con, int userNo) {
 
 		PreparedStatement pstmt = null;
 		
@@ -80,17 +80,24 @@ public class TunaDAO {
 		
 		String query = prop.getProperty("selectUserInventory");
 		
-		UserInventoryDTO userInventory = new UserInventoryDTO();
+		ArrayList<UserInventoryDTO> invenButtonInfo = null;
 		
 		try {
+			invenButtonInfo = new ArrayList<UserInventoryDTO>();
 			pstmt = con.prepareStatement(query);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
+				
+				UserInventoryDTO userInventory = new UserInventoryDTO();
 				userInventory.setUserNo(rset.getInt("USER_NO"));
 				userInventory.setItemNo(rset.getInt("ITEM_NO"));
+				userInventory.setItemCategory(rset.getInt("ITEM_CATEGORY"));
+				userInventory.setEquipItemYN(rset.getString("EQUIP_ITEM_YN"));
 				userInventory.setItemName(rset.getString("ITEM_NAME"));
+				userInventory.setItemImg(rset.getString("ITEM_IMG"));
+				invenButtonInfo.add(userInventory);
 			}
 			
 			
@@ -101,7 +108,7 @@ public class TunaDAO {
 		
 		
 		
-		return null;
+		return invenButtonInfo;
 		
 	}
 
@@ -301,6 +308,32 @@ public class TunaDAO {
 			close(rset);
 		}
 		return friendsInfo;
+	}
+
+	public int updateEquipYn(Connection con, int userNo, int itemNo, String equipYn) {
+		
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateEquipYn");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, equipYn);
+			pstmt.setInt(2, itemNo);
+			pstmt.setInt(3, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		
+		
+		return result;
 	}
 
 }

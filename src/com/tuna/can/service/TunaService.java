@@ -36,19 +36,30 @@ public class TunaService {
 		return member;
 	}
 
-	public UserInventoryDTO selectUserInventory(int userNo) {
+//	MyPage inventory load 
+	public ArrayList<UserInventoryDTO> selectUserInventory(int userNo) {
 
-		UserInventoryDTO userInventory = new UserInventoryDTO();
+		
+		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
 		
 		Connection con = getConnection();
 		
-		userInventory = tunaDAO.selectUserInventory(con, userNo);
+		invenButtonInfo = tunaDAO.selectUserInventory(con, userNo);
 		
-		return userInventory;
-
-
+		return invenButtonInfo;
 
 	}
+	
+////	장비 장착시 장착여부 DB변경
+//	public int updateEquipYn(int itemNo, String equipYn) {
+//		
+//		Connection con = getConnection();
+		
+//		int result = tunaDAO.updateEquipYn(con, itemNo, equipYn);
+		
+//		return result;
+		
+//	}
 	
 
 	// boardNO 정보로 게시글 내용 SELECT
@@ -74,6 +85,7 @@ public class TunaService {
 		
 		return comment;
 	}
+	
 
 	// 댓글 INSERT 해쥬기이
 	public int insertComment(CommentDTO comment) {

@@ -39,19 +39,17 @@ public class TunaController {
 	}
 
 //	MyPage에 로그인한 회원의 아이템 정보 조회
-	public void selectUserInventory() {
+	public ArrayList<UserInventoryDTO> selectUserInventory() {
 		
-		UserInventoryDTO userInventory = new UserInventoryDTO();
+		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
 		
-		userInventory = service.selectUserInventory(loginMember.getUserNo());
+		invenButtonInfo = service.selectUserInventory(loginMember.getUserNo());
+		
+		return invenButtonInfo;
 		
 		
 		
 	}
-	
-
-
-
 
 	// 유저 정보에서 코인 조회
 	public int selectUSerCoin(UserDTO UserInfo) {
