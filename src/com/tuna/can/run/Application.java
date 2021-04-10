@@ -9,12 +9,13 @@ public class Application {
 	public static void main(String[] args) {
 		
 		UserDTO ud = new UserDTO();
-		ud.setUserNo(4);
-		ud.setCoin(300);
+		ud.setUserNo(1);
+		ud.setCoin(100);
 		
 		TunaController tc = new TunaController();
 		tc.selectUSerCoin(ud);
 		tc.updateCoin(ud);
+		
 		
 	}
 }

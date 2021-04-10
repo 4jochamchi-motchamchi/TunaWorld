@@ -139,10 +139,17 @@ UPDATE
  WHERE ITEM_NO = ?
    AND USER_NO = ?
 </entry>
-
-
-
-
+<entry key="selectCoin">
+SELECT
+	   COIN
+  FROM USER_INFORMATION
+ WHERE USER_NO = ?
+</entry>
+<entry key="updateCoin">
+UPDATE USER_INFORMATION
+   SET COIN = ?
+ WHERE USER_NO = ?
+</entry>
 </properties>
 
 
