@@ -70,7 +70,7 @@ public class ButtonController extends JButton implements ActionListener{
 			equipYn = "Y";
 		}
 		
-		int result = service.updateEquipYn(itemNo, equipYn);
+//		int result = service.updateEquipYn(itemNo, equipYn);
 		
 		JOptionPane.showMessageDialog(null, "모든칸이 채워지지 않았습니다. \n 입력해주세요!", "경고", 0);
 	}
