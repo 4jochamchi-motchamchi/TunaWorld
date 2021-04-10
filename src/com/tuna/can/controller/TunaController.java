@@ -87,13 +87,14 @@ public class TunaController {
 		
 	}
 
-	public int insertComment(String text) {
+	// 댓글 집어넣기
+	public int insertComment(CommentDTO comment) {
 
 		CommentDTO insertComment = new CommentDTO();
 		
 		int result = 0;
 		
-		result = service.insertComment(text);
+		result = service.insertComment(comment);
 		
 		return result;
 		
