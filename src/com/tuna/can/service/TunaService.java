@@ -75,13 +75,14 @@ public class TunaService {
 		return comment;
 	}
 
-	public int insertComment(String text) {
+	// 댓글 INSERT 해쥬기이
+	public int insertComment(CommentDTO comment) {
 
 		int result = 0;
 		
 		Connection con = getConnection();
 		
-		result = tunaDAO.insertComment(con, text);
+		result = tunaDAO.insertComment(con, comment);
 		
 		return result;
 	}
