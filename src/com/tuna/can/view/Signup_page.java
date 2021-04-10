@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import com.tuna.can.controller.Test;
 
@@ -118,10 +121,16 @@ public class Signup_page extends JFrame{
 		contentPanel.add(emailText);
 		
 		//로그인 버튼 생성
-		JButton loginBtn = new JButton("가입 완료");
-		loginBtn.setBounds(360, 500, 200, 50);
-		loginBtn.setFont(new Font("가입 완료", Font.BOLD, 22));
-		loginBtn.addActionListener(new ActionListener() {
+		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
+		ImageIcon create_user = new ImageIcon("image/createcomplete.png");
+		ImageIcon rollover_create_user = new ImageIcon("image/rollover_createcomplete.png");
+		JButton createUserBtn = new JButton(create_user);
+		createUserBtn.setBounds(390, 500, 210, 90);
+		createUserBtn.setBackground(Color.PINK);
+		createUserBtn.setBorder(pinkborder);
+		createUserBtn.setRolloverIcon(rollover_create_user);
+	
+		createUserBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -145,7 +154,7 @@ public class Signup_page extends JFrame{
 			}
 		});
 		
-		contentPanel.add(loginBtn);
+		contentPanel.add(createUserBtn);
 		
 		
 		

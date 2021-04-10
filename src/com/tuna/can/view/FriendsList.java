@@ -1,4 +1,5 @@
 
+
 package com.tuna.can.view;
 
 import java.awt.Color;
@@ -138,4 +139,5 @@ public class FriendsList extends JFrame{
 }
 
 	
+
 

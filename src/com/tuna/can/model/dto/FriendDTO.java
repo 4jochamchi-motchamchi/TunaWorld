@@ -1,3 +1,4 @@
+
 package com.tuna.can.model.dto;
 
 public class FriendDTO {

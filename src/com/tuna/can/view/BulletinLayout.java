@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -22,7 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
-import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.BulletinDTO;
+import com.tuna.can.model.dto.CommentDTO;
 
 /**
  * 
@@ -39,8 +42,13 @@ public class BulletinLayout extends JFrame{
 //		public static void main(String[] args) 
 		
 		TunaController tunaController = new TunaController();
-		BoardDTO boardDTO = new BoardDTO();
-		boardDTO = tunaController.selectBoardContent(1);
+		
+		// 게시글 DTO
+		BulletinDTO board = new BulletinDTO();
+		board = tunaController.selectBulletinContent(1);
+		
+		// 댓글 DTO
+		List<CommentDTO> selectComment = tunaController.selectComment(1);
 		
 			
 //			JFrame mainFrame = new JFrame();
@@ -64,24 +72,25 @@ public class BulletinLayout extends JFrame{
 			
 			this.setBackground(Color.pink);
 			
-//			ImageIcon Listicon = new ImageIcon("image/List.PNG");
+			ImageIcon addfriend = new ImageIcon("image/addfriend.PNG");
+			ImageIcon send = new ImageIcon("image/send.PNG");
 			
-			JPanel topPanel = new JPanel();					// Back, 제목 들어갈 패널
-			JPanel bulletinPanel = new JPanel();			// 게시글, 작성자닉넴, 친구추가 들어갈 패널
-			JPanel commentsPanel = new JPanel();			// 댓글목록 패널
-			JPanel writePanel = new JPanel();				// 댓글쓰는 패널
+			JPanel topPanel = new JPanel();											// Back, 제목 들어갈 패널
+			JPanel bulletinPanel = new JPanel();									// 게시글, 작성자닉넴, 친구추가 들어갈 패널
+			JPanel commentsPanel = new JPanel();									// 댓글목록 패널
+			JPanel writePanel = new JPanel();										// 댓글쓰는 패널
 			
-			JLabel topLabel = new JLabel("제목");			// 제목 들어갈 라벨(데이터 불러와야됨)
-			JButton backButton = new JButton(home);			// 메인으로가기 버튼
-			JLabel nickName = new JLabel(boardDTO.getUserNickname());		// 닉네임 들어갈 라벨(데이터 불러와야됨)
-			JButton plusFriend = new JButton("친구추가");		// 친구추가 들어갈 라벨
-			JTextArea bulletin = new JTextArea(boardDTO.getBoardContents());	// 게시글 들어갈 라벨(데이터 불러와야됨)
+			JLabel topLabel = new JLabel(board.getTitle());							// 제목 들어갈 라벨(데이터 불러와야됨)
+			JButton backButton = new JButton(home);									// 메인으로가기 버튼
+			JLabel nickName = new JLabel(board.getUserNickname());					// 닉네임 들어갈 라벨(데이터 불러와야됨)
+			JButton plusFriend = new JButton(addfriend);								// 친구추가 들어갈 라벨
+			JTextArea bulletin = new JTextArea(board.getBoardContents());			// 게시글 들어갈 라벨(데이터 불러와야됨)
 //			JLabel bulletinLabel = new JLabel();
-			JLabel date = new JLabel("작성날짜들어갈거야아아아");	// 게시글 작성된 날짜 들어갈 라벨(데이터 불러와야됨)
-//			JLabel comments = new JLabel();					// 댓글목록 보이는 라벨(데이터 불러와야됨)
-			JLabel cm = new JLabel("댓글 : ");				// 댓글
-			JTextField writeComment = new JTextField();		// 댓글 쓸 수있는 텍스트박스
-			JButton inputButton = new JButton("입력");		// 댓글 입력 버튼
+			JLabel date = new JLabel(board.getEnrollDate());						// 게시글 작성된 날짜 들어갈 라벨(데이터 불러와야됨)
+//			JLabel comments = new JLabel();											// 댓글목록 보이는 라벨(데이터 불러와야됨)
+			JLabel cm = new JLabel("댓글 : ");										// 댓글
+			JTextField writeComment = new JTextField();								// 댓글 쓸 수있는 텍스트박스
+			JButton inputButton = new JButton(send);								// 댓글 입력 버튼
 			
 			
 			// topPanel 설정값
@@ -111,14 +120,16 @@ public class BulletinLayout extends JFrame{
 			bulletinPanel.setBackground(Color.pink);
 			
 			// 작성자 닉네임 설정
-			nickName.setLocation(440, 25);
+			nickName.setLocation(490, 25);
 			nickName.setSize(100, 25);
 			nickName.setHorizontalAlignment(JLabel.CENTER);
 			bulletinPanel.add(nickName);
 			
 			// 친구추가 설정
-			plusFriend.setLocation(550, 25);
-			plusFriend.setSize(100, 25);
+			plusFriend.setLocation(600, 15);
+			plusFriend.setSize(45, 45);
+			plusFriend.setBackground(Color.pink);
+			plusFriend.setBorder(pinkborder);
 			bulletinPanel.add(plusFriend);
 			
 			
@@ -137,7 +148,7 @@ public class BulletinLayout extends JFrame{
 		    
 	        JScrollPane scrollPane = new JScrollPane(bulletin);
 	        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	        scrollPane.setBounds(60, 165, 589, 340);
+	        scrollPane.setBounds(60, 165, 589, 344);
 	        scrollPane.setBorder(whiteborder);
 	        this.getContentPane().add(scrollPane);
 		    
@@ -171,7 +182,7 @@ public class BulletinLayout extends JFrame{
 			
 			JPanel commentList = null;
 			
-			for(int i = 0; i <= 2; i++) {
+			for(int i = 0; i < selectComment.size(); i++) {
 				
 				commentsPanel.setLayout(null);
 				commentsPanel.setPreferredSize(new Dimension(550,50*i));
@@ -185,19 +196,14 @@ public class BulletinLayout extends JFrame{
 				
 				commentList.setBorder(lightgrayborder);
 				
-				
-				JLabel commentNickName = new JLabel("댓글닉네임 : 댓글 내용");
+				CommentDTO commentDTO = selectComment.get(i);
+				JLabel commentNickName = new JLabel(commentDTO.getUserNickname() + " : " + commentDTO.getCommentContent());
 				commentNickName.setLayout(null);
-				commentNickName.setBounds(5, 2, 100, 50);
+				commentNickName.setBounds(5, 2, 595, 50);
 //				commentNickName.setIcon(Listicon);
 //				commentList.setBackground(Color.pink);
 				commentList.setBackground(new Color(255, 240, 245));
 				commentList.add(commentNickName);
-				
-				/* 닉네임 옆에 라벨 따로 만들어서 댓글 내용 불러들어와야 함*/
-				
-//				commentNickName.
-
 
 				commentsPanel.add(commentList);
 				
@@ -237,8 +243,10 @@ public class BulletinLayout extends JFrame{
 			writePanel.add(writeComment);
 			
 			// 댓글입력 버튼 설정
-			inputButton.setLocation(580,10);
+			inputButton.setLocation(580,13);
 			inputButton.setSize(70, 40);
+			inputButton.setBackground(Color.pink);
+			inputButton.setBorder(pinkborder);
 			writePanel.add(inputButton);
 			
 			
@@ -270,16 +278,26 @@ public class BulletinLayout extends JFrame{
 			});
 			
 			// 댓글입력 버튼 눌렀을 때
-//			inputButton.addActionListener(new ActionListener() {
-//				
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					// getText() : JTextField에서 입력한 값을 가져오는 메소드
-//					String text = "댓글닉네임 : " + writeComment.getText();
-//
-//					
-//				}
-//			});
+			inputButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					
+					if(e.getSource() == inputButton) {
+								
+						// getText() : JTextField에서 입력한 값을 가져오는 메소드
+						String text = writeComment.getText();
+						
+						tunaController.insertComment(text);
+						
+						writeComment.requestFocus();
+
+					}
+
+					
+				}
+			});
 			
 			
 			JPanel sidePanel1 = new JPanel();

@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<entry key="selectMemberInfo">
+	SELECT
+		   *
+	  FROM USER_INFORMATION
+	 WHERE USER_ID = ?
+	</entry>
+	
+	<entry key="selectUserInventory">
+	SELECT
+	       U.ITEM_NO
+	     , U.ITEM_CATEGORY
+	     , U.EQUIP_ITEM_YN
+	     , S.ITEM_NAME
+	     , S.ITEM_IMG
+	  FROM USER_INVENTORY_LIST U
+	  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
+	 WHERE U.USER_NO = ?
+	
+	</entry>
+	
+	<entry key="login_check">
+	    SELECT
+	           USER_ID
+	         , USER_PWD
+	      FROM USER_INFORMATION
+	</entry>
+	
+	<entry key="create_User">
+	     INSERT
+	       INTO USER_INFORMATION
+	     VALUES
+	     (
+	       ?
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     , ?
+	     )	
+	</entry>
 <entry key="selectMemberInfo">
 SELECT
 	   *
@@ -20,18 +61,7 @@ SELECT
   JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
  WHERE U.USER_NO = ?
 </entry>
-<entry key="selectCoin">
-SELECT
-	   USER_NICKNAME
-     , COIN
-  FROM USER_INFORMATION
- WHERE USER_NO = ?
-</entry>
-<entry key="updateCoin">
-UPDATE USER_INFORMATION U
-   SET COIN = ?
- WHERE USER_NO = ?
-</entry>
+
 <entry key="selectBoard">
 SELECT
 	   A.TITLE
@@ -62,7 +92,13 @@ DELETE
  WHERE USER_NO = ?
    AND FRIEND_NO = ?
 </entry>
-
+<entry key="updateEquipYn">
+UPDATE
+	   USER_INVENTORY_LIST
+   SET EQUIP_ITEM_YN = ?
+ WHERE ITEM_NO = ?
+   AND USER_NO = ?
+</entry>
 </properties>
 
 

@@ -1,11 +1,17 @@
 package com.tuna.can.controller;
 
 
+
+import java.util.List;
+
+import com.tuna.can.model.dto.BulletinDTO;
+import com.tuna.can.model.dto.CommentDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.FriendDTO;
+
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -33,16 +39,17 @@ public class TunaController {
 	}
 
 //	MyPage에 로그인한 회원의 아이템 정보 조회
-	public void selectUserInventory() {
+	public ArrayList<UserInventoryDTO> selectUserInventory() {
 		
-		UserInventoryDTO userInventory = new UserInventoryDTO();
+		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
 		
-		userInventory = service.selectUserInventory(loginMember.getUserNo());
+		invenButtonInfo = service.selectUserInventory(loginMember.getUserNo());
+		
+		return invenButtonInfo;
 		
 		
 		
 	}
-	
 
 	// 유저 정보에서 코인 조회
 	public int selectUSerCoin(UserDTO UserInfo) {
@@ -63,13 +70,40 @@ public class TunaController {
 	}
 	
 	
-	public BoardDTO selectBoardContent(int boardNo) {
+	// 게시글 내용 조회
+	public BulletinDTO selectBulletinContent(int boardNo) {
 		
+
 		BoardDTO boardDTO = new BoardDTO();
 		
 		boardDTO = service.selectBoardContent(boardNo);
 		
 		return boardDTO;
+
+		BulletinDTO bulletinDTO = new BulletinDTO();
+		bulletinDTO = service.selectBulletinContent(boardNo);
+		return bulletinDTO;
+		
+	}
+	
+	// 댓글 내용 조회
+	public List<CommentDTO> selectComment(int commentNo) {
+
+		List<CommentDTO> comment = service.selectComment(commentNo);
+		return comment;
+		
+	}
+
+	public int insertComment(String text) {
+
+		CommentDTO insertComment = new CommentDTO();
+		
+		int result = 0;
+		
+		result = service.insertComment(text);
+		
+		return result;
+
 		
 	}
 	
