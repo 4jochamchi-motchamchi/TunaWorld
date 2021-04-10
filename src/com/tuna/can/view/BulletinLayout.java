@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -46,7 +45,7 @@ public class BulletinLayout extends JFrame{
 		
 		
 		// 게시글 번호
-		int boardNumber = 2;
+		int boardNumber = 1;
 		// 로그인
 		int userNo = 1;		
 		
@@ -186,8 +185,6 @@ public class BulletinLayout extends JFrame{
 			
 			
 			
-			
-			
 			// 댓글목록 설정(내용 불러와야함)
 			
 			JPanel commentList = null;
@@ -195,7 +192,7 @@ public class BulletinLayout extends JFrame{
 			for(int i = 0; i < selectComment.size(); i++) {
 				
 				commentsPanel.setLayout(null);
-				commentsPanel.setPreferredSize(new Dimension(550,50*i));
+				commentsPanel.setPreferredSize(new Dimension(550,50*(i+1)));
 				commentsPanel.setBackground(Color.pink);
 				
 				commentList = new JPanel();
@@ -323,14 +320,18 @@ public class BulletinLayout extends JFrame{
 							
 							if(result >0) {
 								System.out.println("댓글 등록 성공");
+								
+								// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
+								new BulletinLayout();
+								dispose();				
+
+								
 							} else {
 								System.out.println("댓글 등록 실패");
 							}
 
 							writeComment.requestFocus();
 							
-							new BulletinLayout();
-							dispose();				
 							
 						}
 						
@@ -339,15 +340,7 @@ public class BulletinLayout extends JFrame{
 				
 				
 			}
-		
-			
-			
-			
-
-			
-			
-			
-			
+	
 			
 			
 			JPanel sidePanel1 = new JPanel();

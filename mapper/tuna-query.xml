@@ -81,6 +81,7 @@ SELECT
       FROM COMMENT_BOARD A
       JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
      WHERE A.BOARD_NO = ?
+     ORDER BY A.COMMENT_NO
 </entry>
 
 <entry key="insertComment">
