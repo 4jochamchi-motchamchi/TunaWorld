@@ -96,6 +96,13 @@ public class TunaService {
 		
 		result = tunaDAO.insertComment(con, comment);
 		
+		if(result > 0){
+			commit(con);
+		} else {
+			System.out.println();
+			rollback(con);
+		}
+		
 		return result;
 	}
 

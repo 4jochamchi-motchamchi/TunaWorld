@@ -205,6 +205,9 @@ public class TunaDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return bulletinDTO;
@@ -239,6 +242,9 @@ public class TunaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return commentList;
@@ -267,6 +273,8 @@ public class TunaDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;
