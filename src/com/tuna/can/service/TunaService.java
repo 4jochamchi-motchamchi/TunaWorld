@@ -24,6 +24,37 @@ public class TunaService {
 	
 	TunaDAO tunaDAO = new TunaDAO();
 
+	
+	/**
+	 * <pre>
+	 * 유저 정보 등록/생성용 메소드
+	 * </pre>
+	 * @param user
+	 * @return
+	 */
+	public int registUser(UserDTO user) {
+		
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		int createResult = tunaDAO.createUser(con, user);
+		//마지막 발생한 회원번호 시퀀스 조회
+		int createdNo = tunaDAO.selectLastNo(con);
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserNo(createdNo);
+		
+		
+		if(createResult>0) {
+			commit(con);
+			result =1;
+		}else {
+			rollback(con);
+		}	
+		
+		return result;
+		
+	}
 //	MyPage 페이지 회원정보 select
 	public UserDTO selectMemberInfo(String loginMemberId) {
 		
