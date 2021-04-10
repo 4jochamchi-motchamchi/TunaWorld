@@ -24,9 +24,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import com.tuna.can.controller.ButtonController;
 import com.tuna.can.controller.MyPage_Button;
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.UserDTO;
+import com.tuna.can.model.dto.UserInventoryDTO;
 
 public class MyPage extends JFrame {
 	
@@ -182,8 +184,9 @@ public class MyPage extends JFrame {
 	}
 
 	public JPanel inventory() {
+		UserInventoryDTO userInventory = new UserInventoryDTO();
 		
-		tunaController.selectUserInventory();
+//		userInventory = tunaController.selectUserInventory();
 		
 		JPanel bottomPanel2 = new JPanel();
 
@@ -254,13 +257,21 @@ public class MyPage extends JFrame {
 		fontPanel.setBackground(Color.green);
 
 		for (int i = 1; i < 19; i++) {
-			if (i < 7) {
-				characterPanel.add(new MyPage_Button());
-			} else if (i < 13) {
-				backgroundPanel.add(new MyPage_Button());
-			} else {
-				fontPanel.add(new MyPage_Button());
+			ButtonController button = new ButtonController(i);
+			
+			switch (button.getCategoryNumber()) {
+			case 1:
+				characterPanel.add(button);
+				break;
+			case 2:
+				backgroundPanel.add(button);
+				break;
+			case 3:
+				fontPanel.add(button);
+				break;
+
 			}
+		
 		}
 
 		bottomBottomPanel.add("character", characterPanel);

@@ -84,6 +84,14 @@ SELECT
  WHERE U.USER_NO = ?
    AND S.ITEM_CATEGORY = 3
 </entry>
+
+<entry key="updateEquipYn">
+UPDATE
+	   USER_INVENTORY_LIST
+   SET EQUIP_ITEM_YN = ?
+ WHERE ITEM_NO = ?
+   AND USER_NO = ?
+</entry>
 </properties>
 
 
