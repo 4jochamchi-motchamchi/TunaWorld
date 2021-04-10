@@ -1,14 +1,19 @@
 package com.tuna.can.service;
 
+import static com.tuna.can.common.JDBCTemplate.commit;
+import static com.tuna.can.common.JDBCTemplate.getConnection;
+import static com.tuna.can.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tuna.can.model.dao.TunaDAO;
 import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
-import static com.tuna.can.common.JDBCTemplate.getConnection;
 
 public class TunaService {
 	
@@ -36,6 +41,8 @@ public class TunaService {
 		
 		return userInventory;
 
+
+
 	}
 	
 
@@ -49,6 +56,48 @@ public class TunaService {
 		
 		return boardContent;
 		
+
+
+
 	}
 
+	// 유저 코인 현환
+	public int selectCoin(int userNo) {
+		
+		
+		int userCoin = 0;
+		Connection con = getConnection();
+		
+		userCoin = tunaDAO.selectMenberCoin(con, userNo);
+		
+		return userCoin;
+		
+		
+	}
+
+	public int updateCoin(UserDTO userInfor) {
+		
+		int userCoin = 0;
+		Connection con = getConnection();
+		
+		userCoin = tunaDAO.upateUserCoin(con, userInfor);
+		
+		if(userCoin > 0){
+				commit(con);
+		} else {
+			System.out.println();
+				rollback(con);
+		}
+		
+		return userCoin;
+	}
+
+	// 친구 목록 조회
+	public List<FriendDTO> selectFriendsList(int userNo) {
+		Connection con = getConnection();
+		
+		List<FriendDTO> friendsList = new ArrayList<>();
+		friendsList = tunaDAO.selectFriendsList(con, userNo);
+		return friendsList;
+	}
 }

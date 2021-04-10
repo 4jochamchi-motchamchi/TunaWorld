@@ -29,6 +29,7 @@ public class FriendsList extends JFrame{
 
 			// 미니 창 이름 설정
 //			JFrame mf = new JFrame("Friend List");
+			Border button2 = BorderFactory.createLineBorder(new Color(255, 240, 245));
 			Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
 			this.setSize(700, 900);
@@ -57,8 +58,8 @@ public class FriendsList extends JFrame{
 			
 			// 뒤로 가기 버튼
 			
-			ImageIcon home = new ImageIcon("image/home.PNG");
 			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
+			ImageIcon home = new ImageIcon("image/home.PNG");
 			JButton backB = new JButton(home);
 			backB.addActionListener(new ActionListener() {
 				
@@ -91,7 +92,7 @@ public class FriendsList extends JFrame{
 				friends.setBackground(Color.WHITE);
 				friends.setLayout(null);
 				
-				friends.setBounds(0,(i * 100),682,100);
+				friends.setBounds(0,(i * 100),665,100);
 				
 				friends.setBorder(border);
 				friends.setBackground(new Color(255, 240, 245));
@@ -110,9 +111,15 @@ public class FriendsList extends JFrame{
 				imageLabel.setBounds(57,27,72,60);
 				friends.add(imageLabel);
 				
-				JButton button = new JButton("삭제");
+				ImageIcon delete = new ImageIcon("image/delete.png");
+				ImageIcon deletered = new ImageIcon("image/deleteRed.png");
+				
+				JButton button = new JButton(delete);
 //				button.setLayout(null);
+				button.setBackground(new Color(255, 240, 245));
+				button.setBorder(button2);
 				button.setBounds(550,27,90,40);
+				button.setRolloverIcon(deletered);
 				button.addActionListener(new com.tuna.can.controller.FriendsList(button));
 				
 				friends.add(button);
