@@ -108,6 +108,9 @@ public class TunaController {
 		return friendsList;
 		
 	}
+	public void insertBoard() {
+		
+	}
 	
 
 }

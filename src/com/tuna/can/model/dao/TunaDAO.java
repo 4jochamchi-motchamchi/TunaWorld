@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
@@ -333,6 +334,41 @@ public class TunaDAO {
 		
 		
 		return result;
+	}
+	//전체글 불러오기
+	public List<BoardDTO> allBoardList(Connection con, int boardno ) {
+
+		String query = prop.getProperty("allBoardList");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> bList = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardno);
+
+			rset = pstmt.executeQuery();
+
+			
+			bList = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				board.setUserId(rset.getString("USER_NICKNAME"));
+				board.setTitle(rset.getString("TITLE"));
+				
+				bList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bList;
 	}
 
 }
