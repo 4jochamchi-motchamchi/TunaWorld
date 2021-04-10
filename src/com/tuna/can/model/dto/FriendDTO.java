@@ -2,8 +2,10 @@ package com.tuna.can.model.dto;
 
 public class FriendDTO {
 
-	private String friends;
+	private String friendsNickname;
 	private String image;
+	private int UserNO;
+	private int friendsNo;
 	
 	
 	public FriendDTO() {
@@ -11,20 +13,22 @@ public class FriendDTO {
 	}
 
 
-	public FriendDTO(String friends, String image) {
+	public FriendDTO(String friendsNickname, String image, int userNO, int friendsNo) {
 		super();
-		this.friends = friends;
+		this.friendsNickname = friendsNickname;
 		this.image = image;
+		UserNO = userNO;
+		this.friendsNo = friendsNo;
 	}
 
 
-	public String getFriends() {
-		return friends;
+	public String getFriendsNickname() {
+		return friendsNickname;
 	}
 
 
-	public void setFriends(String friends) {
-		this.friends = friends;
+	public void setFriendsNickname(String friendsNickname) {
+		this.friendsNickname = friendsNickname;
 	}
 
 
@@ -38,12 +42,31 @@ public class FriendDTO {
 	}
 
 
+	public int getUserNO() {
+		return UserNO;
+	}
+
+
+	public void setUserNO(int userNO) {
+		UserNO = userNO;
+	}
+
+
+	public int getFriendsNo() {
+		return friendsNo;
+	}
+
+
+	public void setFriendsNo(int friendsNo) {
+		this.friendsNo = friendsNo;
+	}
+
+
 	@Override
 	public String toString() {
-		return "FriendDTO [friends=" + friends + ", image=" + image + "]";
+		return "FriendDTO [friendsNickname=" + friendsNickname + ", image=" + image + ", UserNO=" + UserNO
+				+ ", friendsNo=" + friendsNo + "]";
 	}
-	
-	
 	
 	
 	

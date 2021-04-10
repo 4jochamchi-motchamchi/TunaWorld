@@ -29,7 +29,7 @@ public class FriendsList extends JFrame{
 
 			// 미니 창 이름 설정
 //			JFrame mf = new JFrame("Friend List");
-			Border button2 = BorderFactory.createLineBorder(new Color(255, 240, 245));
+//			Border button2 = BorderFactory.createLineBorder(new Color(255, 240, 245));
 			Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
 			this.setSize(700, 900);
@@ -80,50 +80,16 @@ public class FriendsList extends JFrame{
 			
 			
 			middlePanel.setBackground(Color.pink);
-			JPanel friends = null;
+			JPanel friendsPanel = null;
+			middlePanel.setLayout(null);
 			
-			for(int i = 0; i < 10; i++) {
+			
+			
+			for(int i = 0; i < 3; i++) {
 				
-				middlePanel.setLayout(null);
-//			middlePanel.setBounds(0,100,685,500);
 				middlePanel.setPreferredSize(new Dimension(640,i*100));
-				friends = new JPanel();
 				
-				friends.setBackground(Color.WHITE);
-				friends.setLayout(null);
-				
-				friends.setBounds(0,(i * 100),665,100);
-				
-				friends.setBorder(border);
-				friends.setBackground(new Color(255, 240, 245));
-				
-//				friends.setBackground(Color.pink);
-				
-				JLabel nickName = new JLabel("다라미");
-				nickName.setLayout(null);
-				nickName.setBounds(310, 27, 700, 50);
-				friends.add(nickName);
-//				mf.add(friends);
-				ImageIcon photo = new ImageIcon("image/profile.png");
-				
-				JLabel imageLabel = new JLabel(photo);
-				imageLabel.setLayout(null);
-				imageLabel.setBounds(57,27,72,60);
-				friends.add(imageLabel);
-				
-				ImageIcon delete = new ImageIcon("image/delete.png");
-				ImageIcon deletered = new ImageIcon("image/deleteRed.png");
-				
-				JButton button = new JButton(delete);
-//				button.setLayout(null);
-				button.setBackground(new Color(255, 240, 245));
-				button.setBorder(button2);
-				button.setBounds(550,27,90,40);
-				button.setRolloverIcon(deletered);
-				button.addActionListener(new com.tuna.can.controller.FriendsList(button));
-				
-				friends.add(button);
-				middlePanel.add(friends);
+				middlePanel.add(new com.tuna.can.controller.FriendsList(i));
 				
 			}
 			

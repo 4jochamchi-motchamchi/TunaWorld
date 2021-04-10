@@ -66,20 +66,31 @@ public class TunaController {
 	public BoardDTO selectBoardContent(int boardNo) {
 		
 		BoardDTO boardDTO = new BoardDTO();
+		
 		boardDTO = service.selectBoardContent(boardNo);
+		
 		return boardDTO;
 		
 	}
 	
 	// 친구목록에 친구닉네임, 이미지 받아오기
-	public List<FriendDTO> selectFriendsList(UserDTO userInfo) {
+	public List<FriendDTO> selectFriendsList(int userInfo) {
 			
 		List<FriendDTO> friendsList = new ArrayList<>();
-		friendsList = service.selectFriendsList(userInfo.getUserNo());
+		friendsList = service.selectFriendsList(userInfo);
 		
 		return friendsList;
-		
 	}
 	
-
+	
+	// 친구 삭제
+//	public int deleteFriend (UserDTO  UserInfo) {
+//		
+//		int friend = 0;
+//		
+//		friend = service.deleteFriend(UserInfo.getUserNo());
+//		 return friend;
+//	}
+	
+	
 }

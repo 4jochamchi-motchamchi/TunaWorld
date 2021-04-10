@@ -53,6 +53,7 @@ public class JDBCTemplate {
 		
 		return con;
 	}
+	
 	// preparedStatement를 닫아주지않아도 된다 Statement 로  매개변수를 받기 떄문에 상속관계
 	public static void close(Statement stmt) {
 		
