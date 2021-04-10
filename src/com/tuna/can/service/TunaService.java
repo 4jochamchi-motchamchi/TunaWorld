@@ -4,11 +4,9 @@ package com.tuna.can.service;
 import static com.tuna.can.common.JDBCTemplate.getConnection;
 
 import static com.tuna.can.common.JDBCTemplate.commit;
-import static com.tuna.can.common.JDBCTemplate.getConnection;
 import static com.tuna.can.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +125,7 @@ public class TunaService {
 		int userCoin = 0;
 		Connection con = getConnection();
 		
-		userCoin = tunaDAO.upateUserCoin(con, userInfor);
+		userCoin = tunaDAO.updateUserCoin(con, userInfor);
 		
 		if(userCoin > 0){
 				commit(con);
@@ -147,5 +145,31 @@ public class TunaService {
 		friendsList = tunaDAO.selectFriendsList(con, userNo);
 		return friendsList;
 	}
+
+
+	/**
+	 * <pre>
+	 *   친구 삭제용 메소드
+	 * </pre>
+	 * @param userNo
+	 * @return
+	 */
+//	public int deleteFriend(int userNo, int friends) {
+//		
+//		Connection con = getConnection();
+//		
+//		int friendNo = 0;
+//		
+//		friendNo = tunaDAO.deleteFriend(con, userNo, friends);
+//		
+//		if(friendNo > 0){
+//				commit(con);
+//		} else {
+//			System.out.println();
+//				rollback(con);
+//		}
+//		
+//		return friendNo;
+//	}
 
 }

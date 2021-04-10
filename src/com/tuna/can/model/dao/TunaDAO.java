@@ -12,12 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
+/**
+ * @author doqnt
+ *
+ */
 public class TunaDAO {
 	Properties prop = new Properties();
 	
@@ -152,7 +157,7 @@ public class TunaDAO {
 
 	
 	// 코인 획득
-	public int upateUserCoin(Connection con, UserDTO userInfor) {
+	public int updateUserCoin(Connection con, UserDTO userInfor) {
 		String query = prop.getProperty("updateCoin");
 		PreparedStatement pstmt = null;
 		
@@ -176,8 +181,15 @@ public class TunaDAO {
 		return result;
 	}
 
+
+
+
+
+
 	// 게시글 내용 가져오기
+
 	public BulletinDTO selectBulletinContent(Connection con, int boardNo) {
+
 		
 		String query = prop.getProperty("selectBulletin");
 		
@@ -288,7 +300,7 @@ public class TunaDAO {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+//		System.out.println("userNo : " + userNo );
 		List<FriendDTO> friendsInfo = null;
 		
 		try {
@@ -298,12 +310,14 @@ public class TunaDAO {
 			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
-			
+//			System.out.println("rset : " +rset);
+		
 			while(rset.next()) {
 				FriendDTO friends = new FriendDTO();
 				
-				friends.setFriends(rset.getString("FRIEND"));
-				friends.setImage(rset.getString("ITEM_IMG"));
+				friends.setFriendsNickname(rset.getString(2));
+//				friends.setImage(rset.getString("ITEM_IMG"));
+				
 				
 				friendsInfo.add(friends);
 				
@@ -317,6 +331,35 @@ public class TunaDAO {
 		}
 		return friendsInfo;
 	}
+
+
+	
+//	public int deleteFriend(Connection con, int userNo, int friendNo) {
+//		String query = prop.getProperty("deleteFriend");
+//		PreparedStatement pstmt = null;
+//		
+//		int result = 0;
+//		
+//		try {
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setInt(1, userNo);
+//			pstmt.setInt(2, friendNo);
+//			
+//			result = pstmt.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			
+//			e.printStackTrace();
+//		}
+//		finally {
+//			
+//			close(pstmt);
+//			
+//		}
+//		
+//		
+//		return result;
+//	}
 
 	public int updateEquipYn(Connection con, int userNo, int itemNo, String equipYn) {
 		
@@ -343,6 +386,42 @@ public class TunaDAO {
 		
 		return result;
 	}
+	//전체글 불러오기
+	public List<BoardDTO> allBoardList(Connection con, int boardno ) {
+
+		String query = prop.getProperty("allBoardList");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> bList = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardno);
+
+			rset = pstmt.executeQuery();
+
+			
+			bList = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				board.setUserId(rset.getString("USER_NICKNAME"));
+				board.setTitle(rset.getString("TITLE"));
+				
+				bList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return bList;
+	}
+
 
 }
 

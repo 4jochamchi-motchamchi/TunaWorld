@@ -114,18 +114,25 @@ SELECT
 
 <entry key="slectFriendsLIst">
 SELECT
-        S.ITEM_IMG          
-     , (SELECT UI.USER_NICKNAME
-          FROM USER_INFORMATION UI
-         WHERE UI.USER_NO = F.FRIEND_NO) "FRIENDS"
+       S.ITEM_IMG 
+    , (SELECT 
+              UI.USER_NICKNAME
+         FROM USER_INFORMATION UI
+        WHERE UI.USER_NO = F.FRIEND_NO) FRIEND
+     , F.FRIEND_NO 
   FROM USER_INFORMATION U
   JOIN FRIENDS_LIST F ON (U.USER_NO = F.USER_NO)
   JOIN USER_INVENTORY_LIST UIL ON (U.USER_NO = UIL.USER_NO)
   JOIN STORE S ON (UIL.ITEM_CATEGORY = S.ITEM_CATEGORY)
  WHERE U.USER_NO = ?
-   AND S.ITEM_CATEGORY = 3
+   AND UIL.ITEM_CATEGORY = 3
 </entry>
-
+<entry key="deleteFriend">
+DELETE
+  FROM FRIENDS_LIST
+ WHERE USER_NO = ?
+   AND FRIEND_NO = ?
+</entry>
 <entry key="updateEquipYn">
 UPDATE
 	   USER_INVENTORY_LIST
@@ -133,6 +140,10 @@ UPDATE
  WHERE ITEM_NO = ?
    AND USER_NO = ?
 </entry>
+
+
+
+
 </properties>
 
 

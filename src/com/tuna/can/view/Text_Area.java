@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;    // gjr
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -20,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 
+import com.tuna.can.model.dto.BoardDTO;
+
+
 /**
  * <pre>
  * 게시판 글쓰기 페이지
@@ -29,9 +33,13 @@ import javax.swing.border.Border;
  */
 public class Text_Area extends JFrame{
 
+
 	public Text_Area() {
+		
 		super("TextArea");
 		
+
+
 		this.setLayout(null);
 		this.setSize(700, 900);
 		this.setLocation(600, 50);
@@ -85,22 +93,24 @@ public class Text_Area extends JFrame{
 					dispose();
 			}
 		});
-//		ImageIcon home = new ImageIcon("image/home.PNG");
-//		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
-//		JButton backButton = new JButton(home);
+
 		backB.setBackground(Color.pink);
 		backB.setBorder(pinkborder);
 		backB.setBounds(30, 30, 55, 55);
 		topPanel.add(backB);
 		
-		
+		Scanner sc = new Scanner(System.in);
 	    //제목
-		JLabel subname = new JLabel("제목");
-        subname.setBounds(50,10,90,25);
+		JLabel titleT = new JLabel("제목");
+        titleT.setBounds(50,10,90,25);
         TextField subject = new TextField(80);
         subject.setBounds(140,10, 500 ,25);
+        String sub = subject.getText();
+        BoardDTO b = new BoardDTO();
+        b.setTitle(sub);
         
-        subP.add(subname);
+ 
+        subP.add(titleT);
         subP.add(subject);
     
         
@@ -108,6 +118,10 @@ public class Text_Area extends JFrame{
         TextArea txt = new TextArea(30,70);
         txt.setBounds(40,0,600,550);
         textareaP.add(txt);
+        String content = txt.getText();
+        b.setBoardContent(content);
+
+        
         
         
 		//날짜
@@ -116,6 +130,9 @@ public class Text_Area extends JFrame{
         JLabel oneul = new JLabel(today);
         oneul.setBounds(500, 10, 200, 30);
         bottonP.add(oneul);
+        b.setBoardDate(day);
+
+		
 
         
         //공개범위 라디오 버튼
@@ -170,9 +187,27 @@ public class Text_Area extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+	//제목 수정용 메소드
+	public String inputBoardTitle() {
+		Scanner sc = new Scanner(System.in);
+		
+		String title = sc.nextLine();
+		
+		return title;
+	}
+    //내용 수정용 메소드
+	public String inputBoardContent() {
+		Scanner sc = new Scanner(System.in);
+		
+		String content = sc.nextLine();
+		
+		return content;
+	}
 	public static void main(String[] args) {
 		new Text_Area();
 	}
+	
+	
 }
 	
 	

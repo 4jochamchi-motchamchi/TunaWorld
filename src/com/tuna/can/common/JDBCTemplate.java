@@ -1,14 +1,5 @@
-package com.tuna.can.common;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Properties;
+package com.tuna.can.common;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -53,6 +44,7 @@ public class JDBCTemplate {
 		
 		return con;
 	}
+	
 	// preparedStatement를 닫아주지않아도 된다 Statement 로  매개변수를 받기 떄문에 상속관계
 	public static void close(Statement stmt) {
 		
