@@ -90,7 +90,7 @@ public class Main_page extends JFrame{
 		
 //------------------------------------------------		
 		
-	
+
 		
 	      //      // listPanel 설정
 	      //      listPanel.setBackground(Color.pink);

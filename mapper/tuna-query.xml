@@ -62,6 +62,45 @@ SELECT
  WHERE U.USER_NO = ?
 </entry>
 
+<entry key="selectBulletin">
+    SELECT
+	       A.TITLE
+	     , A.BOARD_CONTENTS
+	     , B.USER_NICKNAME
+	     , A.ENROLLDATE
+	     , A.LIST_NO
+      FROM BOARD_LIST A
+      JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+     WHERE A.BOARD_NO = ?
+</entry>
+
+<entry key="selectComment">
+    SELECT
+           A.COMMENT_CONTENT
+         , B.USER_NICKNAME
+      FROM COMMENT_BOARD A
+      JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+     WHERE A.BOARD_NO = ?
+</entry>
+
+<entry key="insertComment">
+    INSERT
+      INTO COMMENT_BOARD
+    ( 
+      COMMENT_NO
+    , BOARD_NO
+    , COMMENT_CONTENT
+    , USER_NO
+    )
+    VALUES
+    (
+      SQU_COMMENT.NEXTVAL
+    , ?
+    , ?
+    , ?
+    )
+</entry>
+
 <entry key="selectBoard">
 SELECT
 	   A.TITLE
@@ -71,6 +110,7 @@ SELECT
   JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
  WHERE A.BOARD_NO = ?
 </entry>
+
 <entry key="slectFriendsLIst">
 SELECT
        S.ITEM_IMG 
@@ -99,6 +139,10 @@ UPDATE
  WHERE ITEM_NO = ?
    AND USER_NO = ?
 </entry>
+
+
+
+
 </properties>
 
 

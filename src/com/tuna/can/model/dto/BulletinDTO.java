@@ -15,19 +15,41 @@ public class BulletinDTO {
 	private String boardContents;
 	private String userNickname;
 	private String enrollDate;
+	private int userNo;
+	private int listNo;
 	
 	
 	public BulletinDTO() {
 		super();
 	}
 
-
-	public BulletinDTO(String title, String boardContents, String userNickname, String enrollDate) {
+	public BulletinDTO(String title, String boardContents, String userNickname, String enrollDate, int userNo,
+			int listNo) {
 		super();
 		this.title = title;
 		this.boardContents = boardContents;
 		this.userNickname = userNickname;
 		this.enrollDate = enrollDate;
+		this.userNo = userNo;
+		this.listNo = listNo;
+	}
+
+
+	public int getListNo() {
+		return listNo;
+	}
+
+	public void setListNo(int listNo) {
+		this.listNo = listNo;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 
@@ -70,11 +92,12 @@ public class BulletinDTO {
 		this.userNickname = userNickname;
 	}
 
-
 	@Override
 	public String toString() {
-		return "BoardDTO [title=" + title + ", boardContents=" + boardContents + ", userNickname=" + userNickname
-				+ ", enrollDate=" + enrollDate + "]";
+		return "BulletinDTO [title=" + title + ", boardContents=" + boardContents + ", userNickname=" + userNickname
+				+ ", enrollDate=" + enrollDate + ", userNo=" + userNo + ", listNo=" + listNo + "]";
 	}
+
+	
 	
 }

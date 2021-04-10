@@ -8,7 +8,6 @@ import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.tuna.can.model.dto.FriendDTO;
 
@@ -69,38 +68,31 @@ public class TunaController {
 		
 	}
 	
-	
-	// 게시글 내용 조회
-	public BulletinDTO selectBulletinContent(int boardNo) {
-		
+	   // 게시글 내용 조회
+	   public BulletinDTO selectBulletinContent(int boardNo) {
+	      
+	      BulletinDTO bulletinDTO = new BulletinDTO();
+	      bulletinDTO = service.selectBulletinContent(boardNo);
+	      return bulletinDTO;
+	      
+	   }
+	   
+	   // 댓글 내용 조회
+	   public List<CommentDTO> selectComment(int commentNo) {
 
-		BoardDTO boardDTO = new BoardDTO();
-		
-		boardDTO = service.selectBoardContent(boardNo);
-		
-		return boardDTO;
+	      List<CommentDTO> comment = service.selectComment(commentNo);
+	      return comment;
+	      
+	   }
 
-		BulletinDTO bulletinDTO = new BulletinDTO();
-		bulletinDTO = service.selectBulletinContent(boardNo);
-		return bulletinDTO;
-		
-	}
-	
-	// 댓글 내용 조회
-	public List<CommentDTO> selectComment(int commentNo) {
-
-		List<CommentDTO> comment = service.selectComment(commentNo);
-		return comment;
-		
-	}
-
-	public int insertComment(String text) {
+	// 댓글 집어넣기
+	public int insertComment(CommentDTO comment) {
 
 		CommentDTO insertComment = new CommentDTO();
 		
 		int result = 0;
 		
-		result = service.insertComment(text);
+		result = service.insertComment(comment);
 		
 		return result;
 
@@ -114,6 +106,9 @@ public class TunaController {
 		friendsList = service.selectFriendsList(userInfo);
 		
 		return friendsList;
+	}
+	public void insertBoard() {
+		
 	}
 	
 	
