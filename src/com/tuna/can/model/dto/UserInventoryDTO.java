@@ -60,13 +60,11 @@ public class UserInventoryDTO {
 	public void setEquipItemYN(String equipItemYN) {
 		this.equipItemYN = equipItemYN;
 	}
-
 	@Override
 	public String toString() {
 		return "UserInventoryDTO [userNo=" + userNo + ", itemNo=" + itemNo + ", itemCategory=" + itemCategory
 				+ ", equipItemYN=" + equipItemYN + ", itemName=" + itemName + ", itemImg=" + itemImg + "]";
 	}
-
 
 	
 }

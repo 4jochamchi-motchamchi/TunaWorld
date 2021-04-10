@@ -9,7 +9,6 @@ import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.tuna.can.model.dto.FriendDTO;
 
@@ -57,19 +56,17 @@ public class TunaController {
 	}
 
 //	MyPage에 로그인한 회원의 아이템 정보 조회
-	public void selectUserInventory() {
+	public ArrayList<UserInventoryDTO> selectUserInventory() {
 		
-		UserInventoryDTO userInventory = new UserInventoryDTO();
+		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
 		
-		userInventory = service.selectUserInventory(loginMember.getUserNo());
+		invenButtonInfo = service.selectUserInventory(loginMember.getUserNo());
+		
+		return invenButtonInfo;
 		
 		
 		
 	}
-	
-
-
-
 
 	// 유저 정보에서 코인 조회
 	public int selectUSerCoin(UserDTO UserInfo) {
@@ -89,45 +86,58 @@ public class TunaController {
 		
 	}
 	
-	
-	// 게시글 내용 조회
-	public BulletinDTO selectBulletinContent(int boardNo) {
-		
-		BulletinDTO bulletinDTO = new BulletinDTO();
-		bulletinDTO = service.selectBulletinContent(boardNo);
-		return bulletinDTO;
-		
-	}
-	
-	// 댓글 내용 조회
-	public List<CommentDTO> selectComment(int commentNo) {
+	   // 게시글 내용 조회
+	   public BulletinDTO selectBulletinContent(int boardNo) {
+	      
+	      BulletinDTO bulletinDTO = new BulletinDTO();
+	      bulletinDTO = service.selectBulletinContent(boardNo);
+	      return bulletinDTO;
+	      
+	   }
+	   
+	   // 댓글 내용 조회
+	   public List<CommentDTO> selectComment(int commentNo) {
 
-		List<CommentDTO> comment = service.selectComment(commentNo);
-		return comment;
-		
-	}
+	      List<CommentDTO> comment = service.selectComment(commentNo);
+	      return comment;
+	      
+	   }
 
-	public int insertComment(String text) {
+	// 댓글 집어넣기
+	public int insertComment(CommentDTO comment) {
 
 		CommentDTO insertComment = new CommentDTO();
 		
 		int result = 0;
 		
-		result = service.insertComment(text);
+		result = service.insertComment(comment);
 		
 		return result;
+
 		
 	}
 	
 	// 친구목록에 친구닉네임, 이미지 받아오기
-	public List<FriendDTO> selectFriendsList(UserDTO userInfo) {
+	public List<FriendDTO> selectFriendsList(int userInfo) {
 			
 		List<FriendDTO> friendsList = new ArrayList<>();
-		friendsList = service.selectFriendsList(userInfo.getUserNo());
+		friendsList = service.selectFriendsList(userInfo);
 		
 		return friendsList;
+	}
+	public void insertBoard() {
 		
 	}
 	
-
+	
+	// 친구 삭제
+//	public int deleteFriend (UserDTO  UserInfo) {
+//		
+//		int friend = 0;
+//		
+//		friend = service.deleteFriend(UserInfo.getUserNo());
+//		 return friend;
+//	}
+	
+	
 }

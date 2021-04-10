@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -43,12 +42,22 @@ public class BulletinLayout extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
+		
+		
+		// 게시글 번호
+		int boardNumber = 1;
+		// 로그인
+		int userNo = 1;		
+		
+		
+		
+		
 		// 게시글 DTO
 		BulletinDTO board = new BulletinDTO();
-		board = tunaController.selectBulletinContent(1);
+		board = tunaController.selectBulletinContent(boardNumber);
 		
 		// 댓글 DTO
-		List<CommentDTO> selectComment = tunaController.selectComment(1);
+		List<CommentDTO> selectComment = tunaController.selectComment(boardNumber);
 		
 			
 //			JFrame mainFrame = new JFrame();
@@ -83,7 +92,7 @@ public class BulletinLayout extends JFrame{
 			JLabel topLabel = new JLabel(board.getTitle());							// 제목 들어갈 라벨(데이터 불러와야됨)
 			JButton backButton = new JButton(home);									// 메인으로가기 버튼
 			JLabel nickName = new JLabel(board.getUserNickname());					// 닉네임 들어갈 라벨(데이터 불러와야됨)
-			JButton plusFriend = new JButton(addfriend);								// 친구추가 들어갈 라벨
+			JButton plusFriend = new JButton(addfriend);							// 친구추가 들어갈 라벨
 			JTextArea bulletin = new JTextArea(board.getBoardContents());			// 게시글 들어갈 라벨(데이터 불러와야됨)
 //			JLabel bulletinLabel = new JLabel();
 			JLabel date = new JLabel(board.getEnrollDate());						// 게시글 작성된 날짜 들어갈 라벨(데이터 불러와야됨)
@@ -176,8 +185,6 @@ public class BulletinLayout extends JFrame{
 			
 			
 			
-			
-			
 			// 댓글목록 설정(내용 불러와야함)
 			
 			JPanel commentList = null;
@@ -185,7 +192,7 @@ public class BulletinLayout extends JFrame{
 			for(int i = 0; i < selectComment.size(); i++) {
 				
 				commentsPanel.setLayout(null);
-				commentsPanel.setPreferredSize(new Dimension(550,50*i));
+				commentsPanel.setPreferredSize(new Dimension(550,50*(i+1)));
 				commentsPanel.setBackground(Color.pink);
 				
 				commentList = new JPanel();
@@ -259,7 +266,8 @@ public class BulletinLayout extends JFrame{
 								
 					if(e.getSource() == plusFriend) {
 						JOptionPane.showMessageDialog(null,"친구요청을 보냈습니다.", "친구추가",1);	
-					}				
+					}
+					writeComment.requestFocus();
 				}
 			});
 			
@@ -277,27 +285,62 @@ public class BulletinLayout extends JFrame{
 				}
 			});
 			
-			// 댓글입력 버튼 눌렀을 때
-			inputButton.addActionListener(new ActionListener() {
+			
+			
+			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가
+			if(board.getListNo() == 2) {
 				
-				@Override
-				public void actionPerformed(ActionEvent e) {
+				writeComment.setEnabled(false);
+				inputButton.setEnabled(false);
+				
+			} else {
+				
+				
+				// 댓글입력 버튼 눌렀을 때
+				inputButton.addActionListener(new ActionListener() {
 					
-					
-					if(e.getSource() == inputButton) {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						CommentDTO comment = new CommentDTO();
+						
+						if(e.getSource() == inputButton) {
+									
+							// getText() : JTextField에서 입력한 값을 가져오는 메소드
+							String text = writeComment.getText();
+							
+							int result = 0;
+							
+							comment.setBoardNo(boardNumber);
+							comment.setCommentContent(text);
+							comment.setUserNo(userNo);
+									
+							result = tunaController.insertComment(comment);
+							
+							
+							if(result >0) {
+								System.out.println("댓글 등록 성공");
 								
-						// getText() : JTextField에서 입력한 값을 가져오는 메소드
-						String text = writeComment.getText();
-						
-						tunaController.insertComment(text);
-						
-						writeComment.requestFocus();
+								// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
+								new BulletinLayout();
+								dispose();				
 
+								
+							} else {
+								System.out.println("댓글 등록 실패");
+							}
+
+							writeComment.requestFocus();
+							
+							
+						}
+						
 					}
-
-					
-				}
-			});
+				});
+				
+				
+			}
+	
 			
 			
 			JPanel sidePanel1 = new JPanel();
