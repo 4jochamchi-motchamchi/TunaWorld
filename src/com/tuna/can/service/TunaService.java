@@ -1,15 +1,20 @@
 package com.tuna.can.service;
 
+
+import static com.tuna.can.common.JDBCTemplate.getConnection;
+
 import static com.tuna.can.common.JDBCTemplate.commit;
 import static com.tuna.can.common.JDBCTemplate.getConnection;
 import static com.tuna.can.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tuna.can.model.dao.TunaDAO;
-import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.BulletinDTO;
+import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
@@ -46,20 +51,42 @@ public class TunaService {
 	}
 	
 
-	public BoardDTO selectBoardContent(int boardNo) {
+	// boardNO 정보로 게시글 내용 SELECT
+	public BulletinDTO selectBulletinContent(int boardNo) {
 		
-		BoardDTO boardContent = new BoardDTO();
+		BulletinDTO bulletinContent = new BulletinDTO();
 		
 		Connection con = getConnection();
 		
-		boardContent = tunaDAO.selectBoardContent(con, boardNo);
+		bulletinContent = tunaDAO.selectBulletinContent(con, boardNo);
 		
-		return boardContent;
-		
-
-
+		return bulletinContent;
 
 	}
+
+
+	// commentNo 정보로 게시글 댓글 SELECT
+	public List<CommentDTO> selectComment(int commentNo) {
+		 
+		Connection con = getConnection();
+		
+		List<CommentDTO> comment = tunaDAO.selectComment(con, commentNo);
+		
+		return comment;
+	}
+
+	public int insertComment(String text) {
+
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.insertComment(con, text);
+		
+		return result;
+	}
+
+
 
 	// 유저 코인 현환
 	public int selectCoin(int userNo) {
@@ -100,4 +127,5 @@ public class TunaService {
 		friendsList = tunaDAO.selectFriendsList(con, userNo);
 		return friendsList;
 	}
+
 }

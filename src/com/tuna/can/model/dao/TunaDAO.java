@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.BulletinDTO;
+import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
@@ -104,6 +105,7 @@ public class TunaDAO {
 		
 	}
 
+
 	// 김현빈씨 파트 친구닉네임, 이미지 select하는 메소드
 	// 김현빈씨 파트 코인 획득 
 	public int selectMenberCoin(Connection con, int userNo) {
@@ -167,15 +169,15 @@ public class TunaDAO {
 		return result;
 	}
 
-	public BoardDTO selectBoardContent(Connection con, int boardNo) {
+	public BulletinDTO selectBulletinContent(Connection con, int boardNo) {
 		
-		String query = prop.getProperty("selectBoard");
+		String query = prop.getProperty("selectBulletin");
 		
 		PreparedStatement pstmt = null;
 		
 		ResultSet rset = null;
 		
-		BoardDTO boardDTO = new BoardDTO();
+		BulletinDTO bulletinDTO = new BulletinDTO();
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -185,19 +187,82 @@ public class TunaDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				boardDTO.setTitle(rset.getString("TITLE"));
-				boardDTO.setBoardContents(rset.getString("BOARD_CONTENTS"));
-				boardDTO.setUserNickname(rset.getString("USER_NICKNAME"));
+				bulletinDTO.setTitle(rset.getString("TITLE"));
+				bulletinDTO.setBoardContents(rset.getString("BOARD_CONTENTS"));
+				bulletinDTO.setUserNickname(rset.getString("USER_NICKNAME"));
+				bulletinDTO.setEnrollDate(rset.getString("ENROLLDATE"));
 			}
 			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
-		return boardDTO;
+		return bulletinDTO;
+	}
+
+	public List<CommentDTO> selectComment(Connection con, int commentNo) {
+
+		String query = prop.getProperty("selectComment");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<CommentDTO> commentList = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, commentNo);
+
+			rset = pstmt.executeQuery();
+
+			
+			commentList = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				CommentDTO comment = new CommentDTO();
+				comment.setUserNickname(rset.getString("USER_NICKNAME"));
+				comment.setCommentContent(rset.getString("COMMENT_CONTENT"));
+				
+				commentList.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return commentList;
+	}
+
+	
+	// Comment insert문 만드는 중중중중입니다.
+	public int insertComment(Connection con, String text) {
+//
+//		PreparedStatement pstmt = null;
+		int result = 0;
+//		
+//		String query = prop.getProperty("insertComment");
+//		
+//		try {
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setString(1, text.getbo());
+//			pstmt.setString(2, text.getTime());
+//			pstmt.setInt(3, text.getTotalOrderPrice());
+//			pstmt.setInt(4, text.getTotalOrderPrice());
+//			
+//			result = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//		}
+//		
+		return result;
+
 	}
 
 	
