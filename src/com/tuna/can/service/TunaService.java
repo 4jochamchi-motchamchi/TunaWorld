@@ -22,6 +22,54 @@ public class TunaService {
 	
 	TunaDAO tunaDAO = new TunaDAO();
 
+	
+	/**
+	 * <pre>
+	 * 유저 정보 등록/생성용 메소드
+	 * </pre>
+	 * @param user
+	 * @return
+	 */
+	public int registUser(UserDTO user) {
+		
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		int createResult = tunaDAO.createUser(con, user);
+		//마지막 발생한 회원번호 시퀀스 조회
+		int createdNo = tunaDAO.selectLastNo(con);
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserNo(createdNo);
+		
+		
+		if(createResult>0) {
+			commit(con);
+			result =1;
+		}else {
+			rollback(con);
+		}	
+		
+		return result;
+		
+	}
+	
+	/**
+	 * <pre>
+	 * 로그인페이지 아이디/ 비밀번호 확인하는 메소드
+	 * </pre>
+	 * @param userList
+	 * @return
+	 */
+	public int loginUser(UserDTO userList) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		int loginResult = tunaDAO.loginUser(con,userList);
+		
+		return result;
+	}
 //	MyPage 페이지 회원정보 select
 	public UserDTO selectMemberInfo(String loginMemberId) {
 		
@@ -144,6 +192,45 @@ public class TunaService {
 		List<FriendDTO> friendsList = new ArrayList<>();
 		friendsList = tunaDAO.selectFriendsList(con, userNo);
 		return friendsList;
+	}
+
+	public int updateUserInformation(UserDTO updateUserInfo) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.updateUserInformation(con, updateUserInfo);
+		
+		if(result == 1) {
+			commit(con);
+		}
+		
+		return result;
+	}
+
+	public int updateItemEquipYn(UserInventoryDTO inventory) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.updateItemEquipYn(con, inventory);
+		
+		return result;
+	}
+
+
+	public List<String> selectCategoryInvenYN(UserInventoryDTO inventory) {
+
+		List<String> equipYNList = new ArrayList<String>();
+		
+		Connection con = getConnection();
+		
+		equipYNList = tunaDAO.selectCategoryInvenYN(con, inventory);
+		
+		
+		return equipYNList;
 	}
 
 

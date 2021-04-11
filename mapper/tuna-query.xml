@@ -10,7 +10,8 @@
 	
 	<entry key="selectUserInventory">
 	SELECT
-	       U.ITEM_NO
+		   U.USER_NO
+	     , U.ITEM_NO
 	     , U.ITEM_CATEGORY
 	     , U.EQUIP_ITEM_YN
 	     , S.ITEM_NAME
@@ -18,6 +19,32 @@
 	  FROM USER_INVENTORY_LIST U
 	  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
 	 WHERE U.USER_NO = ?
+	</entry>
+	
+	<entry key="selectCategoryInvenYN">
+	SELECT
+		   EQUIP_ITEM_YN
+	  FROM USER_INVENTORY_LIST
+	 WHERE USER_NO = ?
+	   AND ITEM_CATEGORY = ?
+	
+	</entry>
+	
+	<entry key="updateUserInformation">
+	UPDATE 
+	  	   USER_INFORMATION
+	   SET USER_PWD = ?
+	     , PHONE = ?
+		 , EMAIL = ?
+	 WHERE USER_NO = ? 
+	</entry>	
+	
+	<entry key="updateItemEquipYn">
+	UPDATE
+		   USER_INVENTORY_LIST
+	   SET EQUIP_ITEM_YN = ?
+ 	 WHERE USER_NO = ?
+ 	   AND ITEM_NO = ?
 	
 	</entry>
 	
@@ -33,35 +60,22 @@
 	       INTO USER_INFORMATION
 	     VALUES
 	     (
-	       ?
+	       SQU_USER_INFORMATION.NEXTVAL
 	     , ?
 	     , ?
 	     , ?
 	     , ?
 	     , ?
-	     , ?
+	     , 0
 	     )	
 	</entry>
-<entry key="selectMemberInfo">
-SELECT
-	   *
-  FROM USER_INFORMATION
- WHERE USER_ID = ?
-</entry>
-
-<entry key="selectUserInventory">
-SELECT
-	   U.USER_NO
-     , U.ITEM_NO
-     , U.ITEM_CATEGORY
-     , U.EQUIP_ITEM_YN
-     , S.ITEM_NAME
-     , S.ITEM_IMG
-  FROM USER_INVENTORY_LIST U
-  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
- WHERE U.USER_NO = ?
-</entry>
-
+	
+	<entry key = "selectLastUserNo">
+	    SELECT
+	           SQU_USER_INFORMATION.CURRVAL
+	      FROM DUAL
+	
+	</entry>
 <entry key="selectBulletin">
     SELECT
 	       A.TITLE
@@ -114,18 +128,16 @@ SELECT
 
 <entry key="slectFriendsLIst">
 SELECT
-       S.ITEM_IMG 
-    , (SELECT 
-              UI.USER_NICKNAME
-         FROM USER_INFORMATION UI
-        WHERE UI.USER_NO = F.FRIEND_NO) FRIEND
-     , F.FRIEND_NO 
-  FROM USER_INFORMATION U
-  JOIN FRIENDS_LIST F ON (U.USER_NO = F.USER_NO)
-  JOIN USER_INVENTORY_LIST UIL ON (U.USER_NO = UIL.USER_NO)
-  JOIN STORE S ON (UIL.ITEM_CATEGORY = S.ITEM_CATEGORY)
- WHERE U.USER_NO = ?
+       S.ITEM_IMG
+     , U.USER_NICKNAME
+     , F.FRIEND_NO
+  FROM FRIENDS_LIST F
+  JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+  JOIN USER_INVENTORY_LIST UIL ON(F.FRIEND_NO = UIL.USER_NO)
+  JOIN STORE S ON(UIL.ITEM_NO = S.ITEM_NO)
+ WHERE F.USER_NO = ?
    AND UIL.ITEM_CATEGORY = 3
+   AND UIL.EQUIP_ITEM_YN = 'Y'
 </entry>
 <entry key="deleteFriend">
 DELETE
@@ -140,10 +152,22 @@ UPDATE
  WHERE ITEM_NO = ?
    AND USER_NO = ?
 </entry>
-
-
-
-
+<entry key="selectCoin">
+SELECT
+	   COIN
+  FROM USER_INFORMATION
+ WHERE USER_NO = ?
+</entry>
+<entry key="updateCoin">
+UPDATE USER_INFORMATION
+   SET COIN = ?
+ WHERE USER_NO = ?
+</entry>
+<entry key="loginUser_check">
+SELECT
+       *
+  FROM USER_INFORMATION
+ WHERE USER_ID = ?
+   AND USER_PWD= ?
+</entry>
 </properties>
-
-

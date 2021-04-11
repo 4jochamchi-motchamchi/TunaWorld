@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,12 +22,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import com.tuna.can.controller.ButtonController;
-import com.tuna.can.controller.MyPage_Button;
+import com.tuna.can.controller.InventoryButtonController;
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
@@ -33,6 +35,7 @@ import com.tuna.can.model.dto.UserInventoryDTO;
 public class MyPage extends JFrame {
 	
 	TunaController tunaController = new TunaController();
+	UserDTO member = null;
 
 	
 	public MyPage() {
@@ -49,6 +52,7 @@ public class MyPage extends JFrame {
 	
 	public void myPageMainFrame() {
 		JFrame frame = new JFrame("MyPage");
+		frame.setLocation(600, 50);
 		frame.setSize(700, 900);
 		
 		frame.setLayout(null);
@@ -65,17 +69,16 @@ public class MyPage extends JFrame {
 
 	public JPanel mypageInfo() {
 		
-		UserDTO member = new UserDTO();
+		member = new UserDTO();
 		
 		member = tunaController.selectMemberInfo("user01");
-		System.out.println(member);
 
 		JPanel bottomPanel1 = new JPanel();
 
 		bottomPanel1.setLayout(null);
 		bottomPanel1.setLocation(0, 250);
 		bottomPanel1.setSize(350, 650);
-		bottomPanel1.setBackground(Color.white);
+		bottomPanel1.setBackground(new Color(255, 240, 245));
 
 		Label infoLabel = new Label("information");
 		infoLabel.setBounds(20, 20, 200, 50);
@@ -106,6 +109,7 @@ public class MyPage extends JFrame {
 		JTextField userIdText = new JTextField(10);
 		userIdText.setBounds(130, 100, 186, 35);
 		userIdText.setText(member.getUserID());
+		userIdText.setEditable(false);
 
 		JTextField phoneText = new JTextField(10);
 		phoneText.setBounds(130, 190, 186, 35);
@@ -118,6 +122,7 @@ public class MyPage extends JFrame {
 		JTextField nicknameText = new JTextField(10);
 		nicknameText.setBounds(130, 370, 186, 35);
 		nicknameText.setText(member.getNickName());
+		nicknameText.setEditable(false);
 
 		JTextField pwdText = new JTextField(10);
 		pwdText.setBounds(130, 460, 186, 35);
@@ -125,6 +130,32 @@ public class MyPage extends JFrame {
 
 		JButton userCommit = new JButton("commit");
 		userCommit.setBounds(240, 530, 80, 40);
+		
+		userCommit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = 0;
+				UserDTO updateUserInfo = new UserDTO();
+				updateUserInfo.setUserNo(member.getUserNo());
+				updateUserInfo.setPhone(phoneText.getText());
+				updateUserInfo.setEmail(emailText.getText());
+				updateUserInfo.setUserPwd(pwdText.getText());
+				
+				result = tunaController.updateUserInformation(updateUserInfo);
+				
+				if(result > 0) {
+					JOptionPane.showMessageDialog(null, "업데이트 성공.", "업데이트 성공", 0);
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "업데이트 실패.", "업데이트 실패", 0);
+					
+				}
+				
+
+				
+			}
+		});
 
 		bottomPanel1.add(infoLabel);
 		bottomPanel1.add(userIdLabel);
@@ -184,9 +215,6 @@ public class MyPage extends JFrame {
 	}
 
 	public JPanel inventory() {
-		UserInventoryDTO userInventory = new UserInventoryDTO();
-		
-//		userInventory = tunaController.selectUserInventory();
 		
 		JPanel bottomPanel2 = new JPanel();
 
@@ -255,24 +283,40 @@ public class MyPage extends JFrame {
 		fontPanel.setLocation(0, 100);
 		fontPanel.setSize(350, 525);
 		fontPanel.setBackground(Color.green);
-
-		for (int i = 1; i < 19; i++) {
-			ButtonController button = new ButtonController(i);
-			
-			switch (button.getCategoryNumber()) {
-			case 1:
-				characterPanel.add(button);
-				break;
-			case 2:
-				backgroundPanel.add(button);
-				break;
-			case 3:
-				fontPanel.add(button);
-				break;
-
-			}
 		
+		Map<Integer, ArrayList<UserInventoryDTO>> invMap = new HashMap<Integer, ArrayList<UserInventoryDTO>>();
+		invMap = tunaController.selectUserInventory(1);
+		
+		List<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
+		equipItemList = invMap.get(4);
+
+		for(int i = 0; i < 6; i++) {
+			if(i < invMap.get(1).size()) {
+				characterPanel.add(new InventoryButtonController(invMap.get(1).get(i)));
+			} else {
+				
+			}
+			characterPanel.add(new JButton("아이템 없음"));
 		}
+		
+		for(int i = 0; i < 6; i++) {
+			if(i < invMap.get(2).size()) {
+				backgroundPanel.add(new InventoryButtonController(invMap.get(2).get(i)));
+			} else {
+				
+				backgroundPanel.add(new JButton("아이템 없음"));
+			}
+		}
+		
+		for(int i = 0; i < 6; i++) {
+			if(i < invMap.get(3).size()) {
+				fontPanel.add(new InventoryButtonController(invMap.get(3).get(i)));
+			} else {
+				
+				fontPanel.add(new JButton("아이템 없음"));
+			}
+		}
+		
 
 		bottomBottomPanel.add("character", characterPanel);
 		bottomBottomPanel.add("background", backgroundPanel);
