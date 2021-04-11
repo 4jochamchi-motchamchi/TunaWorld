@@ -25,8 +25,14 @@ public class TunaController {
 //	로그인한 USER의 개인정보를 담고있을 객체
 	private UserDTO loginMember = null;
 	private int coin;
-	
-	//회원가입 창에서 정보가져오는 메소드
+
+	/**
+	 * <pre>
+	 * 회원가입 창에서 정보가져오는 메소드
+	 * </pre>
+	 * @param newMemberInfo
+	 * @return
+	 */
 	public int registUser(Map<String, Object> newMemberInfo) {
 		UserDTO userList = new UserDTO();
 
@@ -41,6 +47,24 @@ public class TunaController {
 		
 		return result;
 		
+	}
+	/**
+	 * <pre>
+	 * 로그인 아이디/비밀번호 확인 조회
+	 * </pre>
+	 * @param loginInfo
+	 * @return
+	 */
+	public int loginUser(Map<String, String> loginInfo) {
+		
+		UserDTO userList = new UserDTO();
+
+		userList.setUserID(loginInfo.get("id").toString());
+		userList.setUserPwd(loginInfo.get("pw").toString());
+		
+		int result = service.loginUser(userList);
+		
+		return result;
 	}
 	
 //	MyPage에 로그인한 회원정보 조회
@@ -128,6 +152,8 @@ public class TunaController {
 	public void insertBoard() {
 		
 	}
+
+
 	
 	
 	// 친구 삭제

@@ -149,14 +149,13 @@ public class Signup_page extends JFrame{
 				result = tunaController.registUser(newMemberInfo);
 				
 				if(result>0) {
-					
 					JOptionPane.showConfirmDialog(null, "회원정보 등록에 성공하셨습니다. \n 로그인 창으로 이동합니다.", "성공", 0);
 					new Login_page();
 					
 					dispose();
 					
 				}else {
-					JOptionPane.showMessageDialog(null, "회원정보 등록에 실패했습니다.", "실패", 0);
+					JOptionPane.showMessageDialog(null, "중복된 닉네임/아이디로 회원정보 등록에 실패했습니다.", "실패", 0);
 				}
 				
 				}
