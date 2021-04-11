@@ -5,10 +5,13 @@ package com.tuna.can.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.tuna.can.model.dto.FriendDTO;
 
@@ -25,6 +28,11 @@ public class TunaController {
 //	로그인한 USER의 개인정보를 담고있을 객체
 	private UserDTO loginMember = null;
 	private int coin;
+
+//	아이템
+	private ArrayList<UserInventoryDTO> category1Item = new ArrayList<UserInventoryDTO>();
+	private ArrayList<UserInventoryDTO> category2Item = new ArrayList<UserInventoryDTO>();
+	private ArrayList<UserInventoryDTO> category3Item = new ArrayList<UserInventoryDTO>();
 
 	/**
 	 * <pre>
@@ -80,15 +88,72 @@ public class TunaController {
 	}
 
 //	MyPage에 로그인한 회원의 아이템 정보 조회
-	public ArrayList<UserInventoryDTO> selectUserInventory() {
+	public Map<Integer, ArrayList<UserInventoryDTO>> selectUserInventory(int userNo) {
+		
+		Map<Integer, ArrayList<UserInventoryDTO>> itemMap = new HashMap<Integer, ArrayList<UserInventoryDTO>>();
+		
+		ArrayList<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
 		
 		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
 		
-		invenButtonInfo = service.selectUserInventory(loginMember.getUserNo());
+		invenButtonInfo = service.selectUserInventory(userNo);
 		
-		return invenButtonInfo;
+		for(int i = 0; i < invenButtonInfo.size(); i++) {
+			UserInventoryDTO inventory = new UserInventoryDTO();
+			inventory = invenButtonInfo.get(i);
+			int category = inventory.getItemCategory();
+			switch (category) {
+			case 1:
+				category1Item.add(inventory);
+				break;
+			case 2:
+				category2Item.add(inventory);
+				break;
+			case 3:
+				category3Item.add(inventory);
+				break;
+			}
+		}
 		
+//		장착 아이템 분별
+		UserInventoryDTO equItem1 = null;
+		for(int i = 0; i < category1Item.size(); i++) {
+			if(category1Item.get(i).getEquipItemYN().equals("Y")) {
+				equItem1 = new UserInventoryDTO();
+				equItem1 = category1Item.get(i);
+				break;
+			}
+		}
 		
+		UserInventoryDTO equItem2 = null;
+		for(int i = 0; i < category2Item.size(); i++) {
+			if(category2Item.get(i).getEquipItemYN().equals("Y")) {
+				equItem2 = new UserInventoryDTO();
+				equItem2 = category2Item.get(i);
+				break;
+			}
+		}
+		
+		UserInventoryDTO equItem3 = null;
+		for(int i = 0; i < category3Item.size(); i++) {
+			if(category3Item.get(i).getEquipItemYN().equals("Y")) {
+				equItem3 = new UserInventoryDTO();
+				equItem3 = category3Item.get(i);
+				break;
+			}
+		}
+		
+		equipItemList.add(equItem1);
+		equipItemList.add(equItem2);
+		equipItemList.add(equItem3);
+		
+		itemMap.put(1, category1Item);
+		itemMap.put(2, category2Item);
+		itemMap.put(3, category3Item);
+		itemMap.put(4, equipItemList);
+
+		
+		return itemMap;	
 		
 	}
 
@@ -151,6 +216,85 @@ public class TunaController {
 	}
 	public void insertBoard() {
 		
+		
+		
+	}
+	
+//	유저 개인정보 변경
+	public int updateUserInformation(UserDTO updateUserInfo) {
+		
+		int result = 0;
+		
+		result = service.updateUserInformation(updateUserInfo);
+		
+//		System.out.println("업데이트 됨?"+ result);
+		
+		return result;
+		
+	}
+	
+//	아이템장착 여부 변경
+	public Map<String, Integer> updateItemEquipYn(UserInventoryDTO inventory) {
+		
+		int category = inventory.getItemCategory();
+		int result = 0;
+		boolean check = true;
+		List<String> equipYNList = new ArrayList<String>();
+		
+		equipYNList = service.selectCategoryInvenYN(inventory);
+		
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+		
+		for(int i = 0; i < equipYNList.size(); i++) {
+			if(equipYNList.get(i).equals("Y")) {
+				check = false;
+			}
+		}
+		
+		if(check) {
+			result = service.updateItemEquipYn(inventory);
+		}
+		
+		resultMap.put("result", result);
+		resultMap.put("itemNo", inventory.getItemNo());
+		
+		return resultMap;
+		
+//		switch (category) {
+//		case 1:
+//			for(int i = 0; i< category1Item.size(); i++) {
+//				UserInventoryDTO inven = new UserInventoryDTO();
+//				inven = category1Item.get(i);
+//				if(inven.getEquipItemYN().equals("Y")) {
+//					JOptionPane.showMessageDialog(null, "아이템을 해제 후 장착 부탁 드립니다.", "장착", 0);
+//					check = false;
+//				}
+//			}
+//			break;
+//			
+//		case 2:
+//			for(int i = 0; i< category2Item.size(); i++) {
+//				UserInventoryDTO inven = new UserInventoryDTO();
+//				inven = category2Item.get(i);
+//				if(inven.getEquipItemYN().equals("Y")) {
+//					JOptionPane.showMessageDialog(null, "아이템을 해제 후 장착 부탁 드립니다.", "장착", 0);
+//					check = false;
+//				}
+//			}
+//			break;
+//			
+//		case 3:
+//			for(int i = 0; i< category3Item.size(); i++) {
+//				UserInventoryDTO inven = new UserInventoryDTO();
+//				inven = category3Item.get(i);
+//				if(inven.getEquipItemYN().equals("Y")) {
+//					JOptionPane.showMessageDialog(null, "아이템을 해제 후 장착 부탁 드립니다.", "장착", 0);
+//					check = false;
+//				}
+//			}
+//			break;
+//			
+//		}
 	}
 
 

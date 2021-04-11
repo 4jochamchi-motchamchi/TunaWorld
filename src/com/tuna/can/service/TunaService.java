@@ -194,6 +194,45 @@ public class TunaService {
 		return friendsList;
 	}
 
+	public int updateUserInformation(UserDTO updateUserInfo) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.updateUserInformation(con, updateUserInfo);
+		
+		if(result == 1) {
+			commit(con);
+		}
+		
+		return result;
+	}
+
+	public int updateItemEquipYn(UserInventoryDTO inventory) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.updateItemEquipYn(con, inventory);
+		
+		return result;
+	}
+
+
+	public List<String> selectCategoryInvenYN(UserInventoryDTO inventory) {
+
+		List<String> equipYNList = new ArrayList<String>();
+		
+		Connection con = getConnection();
+		
+		equipYNList = tunaDAO.selectCategoryInvenYN(con, inventory);
+		
+		
+		return equipYNList;
+	}
+
 
 	/**
 	 * <pre>
