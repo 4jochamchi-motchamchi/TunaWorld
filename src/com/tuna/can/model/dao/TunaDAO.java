@@ -46,6 +46,7 @@ public class TunaDAO {
 	 * @param con
 	 * @param user
 	 * @return
+	 * @author Juhee Hwang
 	 */
 	public int createUser(Connection con, UserDTO user) {
 		
@@ -75,6 +76,39 @@ public class TunaDAO {
 		return result;
 		
 	}
+	
+	/**
+	 * <pre>
+	 * login 페이지 아이디/비밀번호 확인 메소드
+	 * </pre>
+	 * @param con
+	 * @param userList
+	 * @return
+	 * @author Juhee Hwang
+	 */
+	public int loginUser(Connection con, UserDTO userList) {
+		
+		PreparedStatement pstmt = null;
+		int result =0;
+		String query = prop.getProperty("loginUser_check");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, userList.getUserID());
+			pstmt.setString(2, userList.getUserPwd());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	public UserDTO selectMemberInfo(Connection con, String loginMemberId) {
 		
 		String query = prop.getProperty("selectMemberInfo");
@@ -128,6 +162,7 @@ public class TunaDAO {
 		try {
 			invenButtonInfo = new ArrayList<UserInventoryDTO>();
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -485,6 +520,104 @@ public class TunaDAO {
 			close(pstmt);
 		}
 		return bList;
+	}
+
+
+	public int updateUserInformation(Connection con, UserDTO updateUserInfo) {
+
+		String query = prop.getProperty("updateUserInformation");
+		
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, updateUserInfo.getUserPwd());
+			pstmt.setString(2, updateUserInfo.getPhone());
+			pstmt.setString(3, updateUserInfo.getEmail());
+			pstmt.setInt(4, updateUserInfo.getUserNo());
+			
+			result = pstmt.executeUpdate();					
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+
+	public int updateItemEquipYn(Connection con, UserInventoryDTO inventory) {
+
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateItemEquipYn");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, inventory.getEquipItemYN());
+			pstmt.setInt(2, inventory.getUserNo());
+			pstmt.setInt(3, inventory.getItemNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public List<String> selectCategoryInvenYN(Connection con, UserInventoryDTO inventory) {
+
+		UserInventoryDTO inven = new UserInventoryDTO();
+		
+		List<String> equipYNList = new ArrayList<String>();
+		
+		String query = prop.getProperty("selectCategoryInvenYN");
+		
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, inventory.getUserNo());
+			pstmt.setInt(2, inventory.getItemCategory());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				equipYNList.add(rset.getString(1));
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return equipYNList;
 	}
 
 

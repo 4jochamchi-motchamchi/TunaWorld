@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -35,7 +37,7 @@ import com.tuna.can.controller.Test;
  *
  */
 public class Login_page extends JFrame{
-
+	private TunaController tunaController = new TunaController();
 
 	public Login_page() {
 		super("Login page");
@@ -147,11 +149,27 @@ public class Login_page extends JFrame{
 						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!", "경고", 0);
 						idText.requestFocus();
 						return;
-					}
-					if(idText.getText().isEmpty() || pwText.getText().isEmpty()) {
+					}else if(idText.getText().isEmpty() || pwText.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "빈칸이 있습니다. \n 채워주세요!","경고",0);
 						idText.requestFocus();
 						return;
+					} else {
+						int result = 0;
+						Map<String, String> loginInfo = new HashMap<String, String>();
+						loginInfo.put("id", idText.getText());
+						loginInfo.put("pw", pwText.getText());
+						
+						result = tunaController.loginUser(loginInfo);
+						
+						if(result>0) {
+							JOptionPane.showConfirmDialog(null, "로그인에 성공하셨습니다.", "로그인 성공", 0);
+							
+							new Main_page();
+							dispose();
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "로그인 정보가 잘못되어 로그인에 실패했습니다.", "로그인 실패", 0);
+						}
 					}
 				}
 			});
@@ -166,11 +184,6 @@ public class Login_page extends JFrame{
 		
 		}
 
-//	public void setRolloverIcon(Icon rolloverIcon) {
-//		ImageIcon login = new ImageIcon("image/login.png");
-//		rolloverIcon.paintIcon(login);
-//	}
-
 	public static void main(String[] args) {
 		
 		new Login_page();
@@ -179,103 +192,3 @@ public class Login_page extends JFrame{
 
 }
 	
-//	public static void main(String[] args) {
-//		
-//		JFrame mf = new JFrame("Login Page");
-//		mf.setLayout(null);
-//		mf.setSize(700,900);
-//		try {
-//			mf.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
-//		
-//		// image 패널
-//		JPanel imagePanel = new JPanel();
-//		imagePanel.setBackground(Color.PINK);
-//		imagePanel.setLayout(null);
-//		imagePanel.setLocation(0,0);
-//		imagePanel.setSize(700,420);
-//		
-//		// id/pw 패널
-//		JPanel loginPanel = new JPanel();
-//		loginPanel.setBackground(Color.pink);
-//		loginPanel.setLayout(null);
-//		loginPanel.setLocation(0, 420);
-//		loginPanel.setSize(700,450);
-//		
-//		// 4조참치 로고
-//		ImageIcon icon = new ImageIcon("image/logoBig_ver2.PNG");
-//		JLabel imageLable = new JLabel(icon);
-//		imageLable.setBounds(30, 30, 650, 380);
-//		imagePanel.add(imageLable);
-//		
-//		//로그인 ID
-//		
-//		JLabel idLabel = new JLabel("아 이 디 : ");
-//		idLabel.setBounds(200, 100, 100, 50);
-//		idLabel.setFont(new Font("아 이 디 : ", Font.BOLD, 22));
-//		loginPanel.add(idLabel);
-//		
-//	
-//		//ID 텍스트 상자 생성
-//		JTextField idText = new JTextField(20);
-//		idText.setBounds(320, 110, 150, 40);
-//		loginPanel.add(idText);
-//		
-//		
-//	
-//		//로그인 PW
-//	
-//		JLabel pwLabel = new JLabel("비밀번호 : ",JLabel.CENTER);
-//		pwLabel.setBounds(170, 160, 150, 60);
-//		pwLabel.setFont(new Font("비밀번호 : ", Font.BOLD, 22));
-//		loginPanel.add(pwLabel);
-//		
-//		//pw 텍스트 상자 생성
-//		JPasswordField pwText = new JPasswordField(40);
-//		pwText.setBounds(320, 170, 150, 45);
-//		loginPanel.add(pwText);
-//		
-//		//로그인 버튼 생성
-//		JButton loginBtn = new JButton("로그인");
-//		loginBtn.setBounds(180, 280, 150, 40);
-//		loginBtn.setFont(new Font("로그인", Font.BOLD, 18));
-//		
-//		//회원가입 버튼 생성
-//		JButton createUserBtn = new JButton("회원가입");
-//		createUserBtn.setBounds(380, 280, 150, 40);
-//		createUserBtn.setFont(new Font("회원가입", Font.BOLD, 18));
-//		
-//		loginPanel.add(loginBtn);
-//		loginPanel.add(createUserBtn);
-//		
-//		loginBtn.addActionListener(new ActionListener() {
-//					
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				
-//				if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
-//					JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!");
-//					return;
-//				}
-//				if(idText.getText().isEmpty() || pwText.getText().isEmpty()) {
-//					JOptionPane.showMessageDialog(null, "빈칸이 있습니다. \n 채워주세요!");
-//					return;
-//				}
-//				
-//				
-//			}
-//		});
-//
-//		mf.add(imagePanel);
-//		mf.add(loginPanel);
-//		mf.setResizable(false);
-//		mf.setVisible(true);
-//		mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		
-//		
-//	
-//	}
-//
-//}

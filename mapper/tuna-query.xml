@@ -10,7 +10,8 @@
 	
 	<entry key="selectUserInventory">
 	SELECT
-	       U.ITEM_NO
+		   U.USER_NO
+	     , U.ITEM_NO
 	     , U.ITEM_CATEGORY
 	     , U.EQUIP_ITEM_YN
 	     , S.ITEM_NAME
@@ -18,6 +19,32 @@
 	  FROM USER_INVENTORY_LIST U
 	  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
 	 WHERE U.USER_NO = ?
+	</entry>
+	
+	<entry key="selectCategoryInvenYN">
+	SELECT
+		   EQUIP_ITEM_YN
+	  FROM USER_INVENTORY_LIST
+	 WHERE USER_NO = ?
+	   AND ITEM_CATEGORY = ?
+	
+	</entry>
+	
+	<entry key="updateUserInformation">
+	UPDATE 
+	  	   USER_INFORMATION
+	   SET USER_PWD = ?
+	     , PHONE = ?
+		 , EMAIL = ?
+	 WHERE USER_NO = ? 
+	</entry>	
+	
+	<entry key="updateItemEquipYn">
+	UPDATE
+		   USER_INVENTORY_LIST
+	   SET EQUIP_ITEM_YN = ?
+ 	 WHERE USER_NO = ?
+ 	   AND ITEM_NO = ?
 	
 	</entry>
 	
@@ -49,8 +76,6 @@
 	      FROM DUAL
 	
 	</entry>
-
-
 <entry key="selectBulletin">
     SELECT
 	       A.TITLE
@@ -138,6 +163,11 @@ UPDATE USER_INFORMATION
    SET COIN = ?
  WHERE USER_NO = ?
 </entry>
+<entry key="loginUser_check">
+SELECT
+       *
+  FROM USER_INFORMATION
+ WHERE USER_ID = ?
+   AND USER_PWD= ?
+</entry>
 </properties>
-
-
