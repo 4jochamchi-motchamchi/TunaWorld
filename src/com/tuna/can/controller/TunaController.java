@@ -3,6 +3,7 @@ package com.tuna.can.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
@@ -24,6 +25,23 @@ public class TunaController {
 //	로그인한 USER의 개인정보를 담고있을 객체
 	private UserDTO loginMember = null;
 	private int coin;
+	
+	//회원가입 창에서 정보가져오는 메소드
+	public int registUser(Map<String, Object> newMemberInfo) {
+		UserDTO userList = new UserDTO();
+
+		userList.setNickName(newMemberInfo.get("nickname").toString());
+		userList.setUserID(newMemberInfo.get("id").toString());
+		userList.setUserPwd(newMemberInfo.get("pw").toString());
+		userList.setPhone(newMemberInfo.get("phone").toString());
+		userList.setEmail(newMemberInfo.get("email").toString());
+
+		
+		int result = service.registUser(userList);
+		
+		return result;
+		
+	}
 	
 //	MyPage에 로그인한 회원정보 조회
 	public UserDTO selectMemberInfo(String id){

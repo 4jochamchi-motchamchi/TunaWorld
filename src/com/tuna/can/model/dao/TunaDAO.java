@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -24,7 +25,7 @@ import com.tuna.can.model.dto.UserInventoryDTO;
  *
  */
 public class TunaDAO {
-	Properties prop = new Properties();
+	private Properties prop = new Properties();
 	
 	public TunaDAO() {
 		
@@ -37,6 +38,43 @@ public class TunaDAO {
 		}
 	}
 
+	
+	/**
+	 * <pre>
+	 * 새로운 유저 입력용 메소드
+	 * </pre>
+	 * @param con
+	 * @param user
+	 * @return
+	 */
+	public int createUser(Connection con, UserDTO user) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("create_User");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, user.getNickName());
+			pstmt.setString(2, user.getUserID());
+			pstmt.setString(3, user.getUserPwd());
+			pstmt.setString(4, user.getPhone());
+			pstmt.setString(5, user.getEmail());
+
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
 	public UserDTO selectMemberInfo(Connection con, String loginMemberId) {
 		
 		String query = prop.getProperty("selectMemberInfo");
@@ -332,6 +370,33 @@ public class TunaDAO {
 		return friendsInfo;
 	}
 
+
+	// 회원번호 시퀀스 조회용 메소드
+	public int selectLastNo(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		int lastOrderNo = 0;
+		
+		String query = prop.getProperty("selectLastUserNo");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				lastOrderNo = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return lastOrderNo;
+	}
 
 	
 //	public int deleteFriend(Connection con, int userNo, int friendNo) {

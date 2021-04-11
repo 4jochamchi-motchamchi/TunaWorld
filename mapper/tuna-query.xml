@@ -33,34 +33,23 @@
 	       INTO USER_INFORMATION
 	     VALUES
 	     (
-	       ?
+	       SQU_USER_INFORMATION.NEXTVAL
 	     , ?
 	     , ?
 	     , ?
 	     , ?
 	     , ?
-	     , ?
+	     , 0
 	     )	
 	</entry>
-<entry key="selectMemberInfo">
-SELECT
-	   *
-  FROM USER_INFORMATION
- WHERE USER_ID = ?
-</entry>
+	
+	<entry key = "selectLastUserNo">
+	    SELECT
+	           SQU_USER_INFORMATION.CURRVAL
+	      FROM DUAL
+	
+	</entry>
 
-<entry key="selectUserInventory">
-SELECT
-	   U.USER_NO
-     , U.ITEM_NO
-     , U.ITEM_CATEGORY
-     , U.EQUIP_ITEM_YN
-     , S.ITEM_NAME
-     , S.ITEM_IMG
-  FROM USER_INVENTORY_LIST U
-  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
- WHERE U.USER_NO = ?
-</entry>
 
 <entry key="selectBulletin">
     SELECT
