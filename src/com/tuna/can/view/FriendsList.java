@@ -30,14 +30,15 @@ public class FriendsList extends JFrame{
 	public FriendsList() {
 		// 미니 창 이름 설정
 		super("Friends List");
-
+		
+		
+			
 			
 			Border panelborder = BorderFactory.createLineBorder(Color.BLACK, 1);
 			Border button2 = BorderFactory.createLineBorder(new Color(255, 240, 245));
 			this.setLayout(null);
 			this.setSize(700, 900);
 			this.setLocation(600, 50);
-			this.getContentPane().setBackground(Color.black);
 
 			
 			try {
@@ -45,6 +46,7 @@ public class FriendsList extends JFrame{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			this.setBackground(Color.pink);
 			
 			// 상단 판넬
 			JPanel topPanel = new JPanel();
@@ -83,14 +85,17 @@ public class FriendsList extends JFrame{
 			/*------------------------------------------------------------------------------------------*/
 			
 			JPanel middlePanel = new JPanel();
-			middlePanel.setLayout(null);
+//			middlePanel.setLayout(null);
+//			middlePanel.setBounds(0, 100, 700, 9000);
+			middlePanel.setPreferredSize(new Dimension(700,900));
+			middlePanel.setBackground(Color.pink);
 			
 			
 //			middlePanel.setPreferredSize(new Dimension(640,300));
 			List<FriendDTO> friends = new ArrayList<FriendDTO>();
 			TunaController controller = new TunaController();
 			FriendDTO friend = new FriendDTO();
-			friends = controller.selectFriendsList(1);
+			friends = controller.selectFriendsList(3);
 			
 			// 버튼 이미지 
 			ImageIcon delete = new ImageIcon("image/delete.png");
@@ -98,12 +103,12 @@ public class FriendsList extends JFrame{
 			
 			
 			// 페널 객체만들기
-			for(int i = 1; i <= 3; i++) {
+			for(int i = 0; i < friends.size(); i++) {
 				friend = friends.get(i);
 				
 				// 친구 목록 페널
 				JPanel friendsPanel = new JPanel();
-				friendsPanel.setBackground(Color.WHITE);
+//				friendsPanel.setBackground(Color.WHITE);
 				friendsPanel.setLayout(null);
 				friendsPanel.setBorder(panelborder);
 				friendsPanel.setBackground(new Color(255, 240, 245));
@@ -127,7 +132,8 @@ public class FriendsList extends JFrame{
 				imageLabel.setBounds(57,27,72,60);
 				
 				// 미드 페널 설정
-				middlePanel.setBounds(0, 100, 700, i * 100);
+//				middlePanel.setBounds(0, 100, 700, (i * 100)+100);
+////				middlePanel.setPreferredSize(new Dimension(700, (i * 100)+100));
 				middlePanel.add(new FriendsList_controller(i,friendsPanel, this, friend, nickName, button, imageLabel));
 				
 			}
@@ -141,6 +147,7 @@ public class FriendsList extends JFrame{
 			int height = scrollbar.getPreferredSize().height;
 			scrollbar.setBounds(0,100,width,height);
 			scrollbar.setBorder(pinkborder);
+			scrollbar.setBackground(Color.pink);
 
 			
 			/*------------------------------------------------------------------------------------------*/

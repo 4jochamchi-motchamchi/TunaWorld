@@ -17,7 +17,7 @@ public class MiniGame extends JFrame implements ActionListener{
 	// for문으로 받은 매개변수
 	private int buttonNum;
 
-	private static int countNum = 7;
+	private static int countNum = 5;
 	// Game_view에서 만든 Label의 주소값을 담아오기 위해
 	private JLabel can;
 	
@@ -96,8 +96,8 @@ public class MiniGame extends JFrame implements ActionListener{
 						
 						if(result == JOptionPane.YES_OPTION) {
 							
+							// 코인 증가 코드             
 							new Main_page();
-							
 							
 							
 							

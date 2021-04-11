@@ -79,7 +79,7 @@ public class BulletinLayout extends JFrame{
 				e1.printStackTrace();
 			}
 			
-			this.setBackground(Color.pink);
+//			this.setBackground(Color.pink);
 			
 			ImageIcon addfriend = new ImageIcon("image/addfriend.PNG");
 			ImageIcon send = new ImageIcon("image/send.PNG");

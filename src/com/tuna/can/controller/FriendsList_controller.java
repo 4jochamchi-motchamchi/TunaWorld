@@ -28,12 +28,13 @@ public class FriendsList_controller extends JPanel{
 
 
 		// 친구 페널 쌓기
-		friendsPanel.setBounds(0,(number * 100),685,100);
+		friendsPanel.setBounds(0,(number * 100)+100,685,100);
 
 		// 친구 닉네임 설정
+		
 		nickName.setText(friend.getFriendsNickname());
 		
-//		ImageIcon photo = new ImageIcon(friend.getImage());
+        //ImageIcon photo = new ImageIcon(friend.getImage());
 		ImageIcon photo = new ImageIcon("image/profile.png");
 		//친구 이미지 설정
 		imageLabel.setIcon(photo);
@@ -63,6 +64,7 @@ public class FriendsList_controller extends JPanel{
 		
 		// 메인프레임에 설정하기
 		myFrame.add(friendsPanel);
+//		myFrame.add(middlePanel);
 		
 		
 	}

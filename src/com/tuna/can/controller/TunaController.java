@@ -28,6 +28,7 @@ public class TunaController {
 	
 	//회원가입 창에서 정보가져오는 메소드
 	public int registUser(Map<String, Object> newMemberInfo) {
+		
 		UserDTO userList = new UserDTO();
 
 		userList.setNickName(newMemberInfo.get("nickname").toString());
