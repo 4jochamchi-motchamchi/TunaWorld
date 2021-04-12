@@ -23,9 +23,11 @@
 	
 	<entry key="login_check">
 	    SELECT
-	           USER_ID
+	    	   USER_ID
 	         , USER_PWD
 	      FROM USER_INFORMATION
+	     WHERE USER_ID = ?
+	   
 	</entry>
 	
 	<entry key="create_User">
@@ -143,14 +145,6 @@
 	UPDATE USER_INFORMATION
 	   SET COIN = ?
 	 WHERE USER_NO = ?
-	</entry>
-	
-	<entry key="loginUser_check">
-	SELECT
-	       *
-	  FROM USER_INFORMATION
-	 WHERE USER_ID = ?
-	   AND USER_PWD= ?
 	</entry>
 	
 </properties>

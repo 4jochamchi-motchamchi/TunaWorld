@@ -54,22 +54,7 @@ public class TunaService {
 		
 	}
 	
-	/**
-	 * <pre>
-	 * 로그인페이지 아이디/ 비밀번호 확인하는 메소드
-	 * </pre>
-	 * @param userList
-	 * @return
-	 */
-	public int loginUser(UserDTO userList) {
-		Connection con = getConnection();
-		
-		int result = 0;
-		
-		int loginResult = tunaDAO.loginUser(con,userList);
-		
-		return result;
-	}
+
 //	MyPage 페이지 회원정보 select
 	public UserDTO selectMemberInfo(String loginMemberId) {
 		
@@ -193,6 +178,17 @@ public class TunaService {
 		friendsList = tunaDAO.selectFriendsList(con, userNo);
 		return friendsList;
 	}
+
+
+	public UserDTO checkLoginUser(String idCheck) {
+		Connection con = getConnection();
+		UserDTO userCheck = tunaDAO.checkLoginUser(con,idCheck);
+		
+		return userCheck;
+	}
+
+
+
 
 
 	/**
