@@ -620,6 +620,43 @@ public class TunaDAO {
 		return equipYNList;
 	}
 
+	
+	// 친구인지 아닌지 확인하기 위해 친구조회
+	public List<FriendDTO> selectFriends(Connection con, int userNo) {
+		
+		
+		String query = prop.getProperty("selectFriends");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<FriendDTO> friend = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			friend = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				FriendDTO friendDTO = new FriendDTO();
+				friendDTO.setFriendsNickname(rset.getString("USER_NICKNAME"));
+				
+				friend.add(friendDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return friend;
+	}
+
 
 }
 

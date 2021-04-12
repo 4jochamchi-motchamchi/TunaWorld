@@ -2,19 +2,15 @@ package com.tuna.can.controller;
 
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
-
+import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.tuna.can.model.dto.FriendDTO;
-
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -303,7 +299,21 @@ public class TunaController {
 		resultMap.put("itemImg", inventory.getItemImg());
 		
 		return resultMap;
+	}
+	
+	
+//	public AddFriendDTO
+	
+	// PlUS_FRIEND 테이블에서 받아돈 값을 AddFriendDTO에 담아서 값을 받아온다.
+	public int RequestFriends(AddFriendDTO friend) {
+		int result = 0;
+		result = service.updateRequestFriend(friend);
 		
+		return result;
+		
+	}
+		
+
 //		switch (category) {
 //		case 1:
 //			for(int i = 0; i< category1Item.size(); i++) {
@@ -339,7 +349,6 @@ public class TunaController {
 //			break;
 //			
 //		}
-	}
 
 
 	
@@ -352,6 +361,18 @@ public class TunaController {
 //		friend = service.deleteFriend(UserInfo.getUserNo());
 //		 return friend;
 //	}
+
 	
+	
+	
+	   // 친구인지 아닌지 확인하기 위해 친구조회
+	   public List<FriendDTO> selectFriends(int userNo) {
+	      
+		  List<FriendDTO> friendDTO = new ArrayList<>();
+		  friendDTO = service.selectFriends(userNo);
+	      return friendDTO;
+	      
+	   }
 	
 }
+
