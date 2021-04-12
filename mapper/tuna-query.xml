@@ -52,10 +52,12 @@
 	    SELECT
 	    	   USER_ID
 	         , USER_PWD
+	         , USER_NICKNAME
 	      FROM USER_INFORMATION
 	     WHERE USER_ID = ?
 	   
 	</entry>
+
 	
 	<entry key="create_User">
 	     INSERT

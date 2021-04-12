@@ -503,6 +503,15 @@ public class TunaDAO {
 
 
 
+	/**
+	 * <pre>
+	 * 로그인 아이디/비밀번호 확인 메소드
+	 * </pre>
+	 * @param con
+	 * @param idCheck
+	 * @return
+	 * @author juhee hwang
+	 */
 	public UserDTO checkLoginUser(Connection con, String idCheck) {
 	
 		PreparedStatement pstmt=null;
@@ -524,6 +533,7 @@ public class TunaDAO {
 				
 				userDTO.setUserID(rset.getString("USER_ID"));
 				userDTO.setUserPwd(rset.getString("USER_PWD"));
+				userDTO.setNickName(rset.getString("USER_NICKNAME"));
 				
 			}
 		} catch (SQLException e) {

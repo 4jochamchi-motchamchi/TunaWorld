@@ -17,7 +17,7 @@ import com.tuna.can.service.TunaService;
 
 public class TunaController {
 	
-	private String loginMemberId; 
+	private static String loginMemberId; 
 	
 	private TunaService service = new TunaService();
 	
@@ -162,7 +162,7 @@ public class TunaController {
 	      BulletinDTO bulletinDTO = new BulletinDTO();
 	      bulletinDTO = service.selectBulletinContent(boardNo);
 	      return bulletinDTO;
-	      
+	     
 	   }
 	   
 	   // 댓글 내용 조회
@@ -334,9 +334,28 @@ public class TunaController {
 //		}
 
 
-	public UserDTO checkLoginUser(String idCheck) {
+	/**
+	 * <pre>
+	 * 로그인 할때 사용할 아이디/비번체크용 메소드
+	 * </pre>
+	 * @param idCheck
+	 * @return
+	 * @author Juhee Hwang
+	 * @param pwCheck 
+	 */
+	public int checkLoginUser(String idCheck, String pwCheck) {
+		int result = 0;
 		
-		return service.checkLoginUser(idCheck);
+		UserDTO userDTO = new UserDTO();
+		userDTO = service.checkLoginUser(idCheck);
+		
+		if(userDTO.getUserID().equals(idCheck)&& userDTO.getUserPwd().equals(pwCheck)) {
+			TunaController.loginMemberId = idCheck;
+			result = 1;
+		}else{
+			result = 0;
+		}
+		return result;
 	}
 
 
