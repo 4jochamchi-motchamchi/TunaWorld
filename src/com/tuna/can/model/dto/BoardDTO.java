@@ -16,6 +16,7 @@ public class BoardDTO implements Serializable {
 	private String title;
 	private String boardContent;
 	private int listNo;
+	private int userNo;
 	
 	public BoardDTO() {
 	super();
@@ -23,15 +24,33 @@ public class BoardDTO implements Serializable {
 	}
 	
 	
-	public BoardDTO(int boardNo, String title, String userId, Date boardDate, String boardContent, int listNo) {
+	
+	public BoardDTO(int boardNo, String userId, Date boardDate, String title, String boardContent, int listNo,
+			int userNo) {
 		super();
 		this.boardNo = boardNo;
-		this.title = title;
 		this.userId = userId;
 		this.boardDate = boardDate;
+		this.title = title;
 		this.boardContent = boardContent;
 		this.listNo = listNo;
+		this.userNo = userNo;
 	}
+
+
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -62,11 +81,16 @@ public class BoardDTO implements Serializable {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
+
+	
+
+
 	@Override
 	public String toString() {
-		return "BoardDTO [boardNo=" + boardNo + ", title=" + title + ", userId=" + userId + ", boardDate=" + boardDate
-				+ ", boardContent=" + boardContent + "]";
+		return "BoardDTO [boardNo=" + boardNo + ", userId=" + userId + ", boardDate=" + boardDate + ", title=" + title
+				+ ", boardContent=" + boardContent + ", listNo=" + listNo + ", userNo=" + userNo + "]";
 	}
+
 
 
 	public int getListNo() {

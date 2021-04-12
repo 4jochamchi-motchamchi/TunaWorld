@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
@@ -114,9 +115,12 @@ public class SecrectBoardList extends JFrame{
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				BoardDTO boardDTO = selectSecretList.get(i);
-				JLabel title = new JLabel(boardDTO.getTitle());
+				JButton title = new JButton(boardDTO.getTitle());
 				title.setLayout(null);
-				title.setBounds(50, 15, 600, 80);
+				title.setBounds(50, 40, 450, 30);
+				title.setBackground(Color.pink);
+				title.setBorder(pinkborder);
+				title.setHorizontalAlignment(SwingConstants.LEFT);
 				
 				subject.setLayout(null);
 			    subject.setBounds(40, 30, 600, 80);
@@ -149,7 +153,24 @@ public class SecrectBoardList extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 								
 					if(e.getSource() == deleteButton) {
-						JOptionPane.showMessageDialog(null,"삭제하시겠습까?");	
+						
+		
+						// 삭제 버튼 눌렀을 떄
+						int answer = JOptionPane.showConfirmDialog(null, "삭제하시겠습까?", "삭제",0);
+						
+						if(answer == JOptionPane.YES_OPTION){
+							//사용자가 yes를 눌렀을 떄
+							JOptionPane.showMessageDialog(null, "삭제되었습니다.", "삭제",1);
+							BoardDTO board = new BoardDTO();
+							board.setUserNo(userNo);
+							board.setTitle(boardDTO.getTitle());
+							int result = tunaController.deleteSecretBoard(board);
+							
+							new SecrectBoardList();
+							dispose();	
+							
+						}
+						
 					}				
 				}
 			});

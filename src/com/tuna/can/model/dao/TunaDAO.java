@@ -790,10 +790,9 @@ public class TunaDAO {
 			
 			BoardDTO board = new BoardDTO();
 			
-			
-//			pstmt = con.prepareStatement(query);
-//			pstmt.setString(1, title.getTitle());
-//			pstmt.setInt(2, title.getUserNo());
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, title.getTitle());
+			pstmt.setInt(2, title.getUserNo());
 			
 			result = pstmt.executeUpdate();
 			
