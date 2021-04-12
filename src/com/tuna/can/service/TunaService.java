@@ -10,8 +10,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dao.TunaDAO;
 import com.tuna.can.model.dto.AddFriendDTO;
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
@@ -286,6 +288,23 @@ public class TunaService {
 		return userCheck;
 	}
 
+
+	public int insertBoard(BoardDTO board) {
+		int result = 0;
+		BoardDao boardDao = new BoardDao();
+		Connection con = getConnection();
+		result = boardDao.insertBoard(con, board);
+		if(result > 0){
+			commit(con);
+		} else {
+			System.out.println();
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	
 
 
 

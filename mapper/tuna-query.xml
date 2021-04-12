@@ -274,5 +274,24 @@ UPDATE USER_INFORMATION
     , ?
     )
 </entry>
+<entry key="insertBoard">
+  INSERT
+      INTO BOARD_LIST
+    ( 
+      BOARD_NO
+    , LIST_NO
+    , TITLE
+    , BOARD_CONTENTS
+    , ENROLLDATE
+    )
+    VALUES
+    ( 
+      SEQ_BOARD_LIST.NEXTVAL
+    , ?
+    , ? 
+    , ?
+    , ?
+    )
+</entry>
 
 </properties>
