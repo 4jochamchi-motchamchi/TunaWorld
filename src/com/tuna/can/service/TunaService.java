@@ -272,6 +272,7 @@ public class TunaService {
 		close(con);
 		
 		return sotreItem;
+	}
 
 	// 친구요청 보내기 정보 INSERT
 	public int insertRequest(AddFriendDTO addFriend) {
@@ -308,6 +309,36 @@ public class TunaService {
 		BoardDao boardDao = new BoardDao();
 		Connection con = getConnection();
 		result = boardDao.insertBoard(con, board);
+		if(result > 0){
+			commit(con);
+		} else {
+			System.out.println();
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+
+	// 비밀게시글 목록 불러오기
+	public List<BoardDTO> selectSecretBoard(int userNo) {
+
+		Connection con = getConnection();
+		
+		List<BoardDTO> secretList = tunaDAO.selectSecretBoard(con, userNo);
+		
+		return secretList;
+	}
+
+
+	public int deleteSecretBoard(BoardDTO title) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.deleteSecretBoard(con, title);
+			
 		if(result > 0){
 			commit(con);
 		} else {

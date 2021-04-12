@@ -713,6 +713,8 @@ public class TunaDAO {
 		
 		
 		return sotreItem;
+	}
+		
 		
 	public int insertRequest(Connection con, AddFriendDTO addFriends) {
 		
@@ -739,6 +741,73 @@ public class TunaDAO {
 		}
 		
 		return result;
+	}
+
+
+	// 비밀게시글 목록 불러오기
+	public List<BoardDTO> selectSecretBoard(Connection con, int userNo) {
+		
+		String query = prop.getProperty("selectSecretBoard");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> secrettList = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			
+			secrettList = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				board.setTitle(rset.getString("TITLE"));
+				
+				secrettList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return secrettList;
+	}
+
+
+	// 비밀게시글 삭제하기
+	public int deleteSecretBoard(Connection con, BoardDTO title) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteSecretBoard");
+		
+		try {
+			
+			BoardDTO board = new BoardDTO();
+			
+			
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setString(1, title.getTitle());
+//			pstmt.setInt(2, title.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
 	}
 
 

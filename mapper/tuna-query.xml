@@ -301,4 +301,20 @@ SELECT
   FROM STORE
 </entry>
 
+<entry key="selectSecretBoard">
+    SELECT
+           TITLE
+      FROM BOARD_LIST
+     WHERE USER_NO = ?
+       AND LIST_NO = 2
+</entry>
+
+<entry key="deleteSecretBoard">
+    DELETE
+      FROM BOARD_LIST
+     WHERE TITLE = ?
+       AND USER_NO = ?
+       AND LIST_NO = 2
+</entry>
+
 </properties>

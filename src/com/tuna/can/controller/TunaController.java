@@ -458,6 +458,26 @@ public class TunaController {
 			
 
 		}
+		
+		// 비밀게시글 목록 불러오기
+		public List<BoardDTO> selectSecretBoard(int userNo) {
+			
+
+			List<BoardDTO> secretlist = service.selectSecretBoard(userNo);
+			return secretlist;
+			      
+			
+		}
+		
+		
+		public int deleteSecretBoard(BoardDTO title) {
+			
+			int result = 0;
+			
+			result = service.deleteSecretBoard(title);
+			
+			return result;
+		}
 	
 }
 
