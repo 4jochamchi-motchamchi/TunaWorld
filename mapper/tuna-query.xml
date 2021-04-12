@@ -85,6 +85,7 @@
 	     , B.USER_NICKNAME
 	     , A.ENROLLDATE
 	     , A.LIST_NO
+	     , A.USER_NO
       FROM BOARD_LIST A
       JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
      WHERE A.BOARD_NO = ?
@@ -253,11 +254,44 @@ UPDATE USER_INFORMATION
 </entry>
 
 <entry key="selectFriends">
-SELECT
-       USER_NICKNAME
-  FROM FRIENDS_LIST F
-  JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
- WHERE F.USER_NO = ?
+    SELECT
+           USER_NICKNAME
+      FROM FRIENDS_LIST F
+      JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+     WHERE F.USER_NO = ?
+</entry>
+
+<entry key="insertRequestFriend">
+    INSERT
+      INTO PLUS_FRIEND
+    ( 
+      USER_NO
+    , REQUEST_FRIEND_NO
+    )
+    VALUES
+    ( 
+      ?
+    , ?
+    )
+</entry>
+<entry key="insertBoard">
+  INSERT
+      INTO BOARD_LIST
+    ( 
+      BOARD_NO
+    , LIST_NO
+    , TITLE
+    , BOARD_CONTENTS
+    , ENROLLDATE
+    )
+    VALUES
+    ( 
+      SEQ_BOARD_LIST.NEXTVAL
+    , ?
+    , ? 
+    , ?
+    , ?
+    )
 </entry>
 
 

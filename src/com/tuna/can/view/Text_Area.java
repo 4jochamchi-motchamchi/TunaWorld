@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 
+import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.BoardDTO;
 
 
@@ -134,7 +135,7 @@ public class Text_Area extends JFrame{
 
 		
 
-        
+        BoardDTO board = new BoardDTO();
         //공개범위 라디오 버튼
         JRadioButton myself = new JRadioButton("나만");
 		JRadioButton friend= new JRadioButton("친구들");
@@ -144,10 +145,23 @@ public class Text_Area extends JFrame{
 	    range.add(myself);
 	    range.add(friend);
 	    range.add(all);
-	   
+	    int listno =0;
 	    myself.setBounds(50, 0, 60,50);
+	    if(myself.isSelected()) {
+	    	listno = 1;
+	    	board.setListNo(listno);
+	    	
+	    }
 	    friend.setBounds(105, 0, 70, 50);
+	    if(friend.isSelected()) {
+	    	listno = 2;
+	    	board.setListNo(listno);
+	    }
 	    all.setBounds(170, 0, 80, 50);
+	    if(all.isSelected()) {
+	    	listno = 3;
+	    	board.setListNo(listno);
+	    }
 
 	    bottonP.add(myself);
 	    bottonP.add(friend);
@@ -163,14 +177,38 @@ public class Text_Area extends JFrame{
 	    saveButton.addActionListener(new ActionListener() {
 			
 	    	
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(e.getSource() == saveButton) {
+			public void actionPerformed(ActionEvent e) {
+				
+				BoardDTO board = new BoardDTO();
+				
+				
+				if(e.getSource() == saveButton) {
+					
+					int result = 0;
+					
+					board.setTitle(sub);
+					board.setBoardContent(content);
+					board.setBoardDate(day);
+					board.getListNo();
+				
+					
+					TunaController controller = new TunaController();
+					
+					result =controller.insertBoard(board);
+					
+					if(result >0) {
 						JOptionPane.showMessageDialog(null,"저장되었습니다");}
 					
-						new BoardList();
-						dispose();
-				}
+			            txt.requestFocus();
+					    new BoardList();
+					     dispose();
+			
+					} else {
+						System.out.println("저장실패");
+					}
+							
+					
+			}
 			});
 	    
 	

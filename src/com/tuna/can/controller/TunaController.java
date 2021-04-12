@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dto.AddFriendDTO;
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
@@ -408,6 +410,54 @@ public class TunaController {
 		
 		
 	}
+	   // 친구요청 보내기 정보 INSERT
+	   public int insertRequest(AddFriendDTO addFriend) {
+
+		   AddFriendDTO insertRequest = new AddFriendDTO();
+			
+			int result = 0;
+			
+			result = service.insertRequest(addFriend);
+			
+			return result;
+
+			
+		}
+	   
+		// 게시글 삽입
+		public int insertBoard(BoardDTO board) {
+			
+			int result = 0;
+			
+			result = service.insertBoard(board);
+			
+			return result;
+
+			
+		}
+	   
+		
+		
+		
+		//새 게시물 등록용 메소드
+		public void insertBoardList(BoardDTO d) {
+			BoardDao bd = new BoardDao();
+			int boardNo = 0;
+			ArrayList<BoardDTO> list = bd.readBoardList();
+			if(list == null) {
+				list = new ArrayList<BoardDTO>();
+				boardNo++;
+			} else {
+				boardNo = list.get(list.size() - 1).getBoardNo() + 1;
+			}
+			d.setBoardNo(boardNo);
+			
+			list.add(d);
+		
+			int result = bd.writeBoardList(list);
+			
+
+		}
 	
 }
 
