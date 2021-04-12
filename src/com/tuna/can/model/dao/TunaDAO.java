@@ -87,28 +87,7 @@ public class TunaDAO {
 	 * @return
 	 * @author Juhee Hwang
 	 */
-	public int loginUser(Connection con, UserDTO userList) {
-		
-		PreparedStatement pstmt = null;
-		int result =0;
-		String query = prop.getProperty("loginUser_check");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, userList.getUserID());
-			pstmt.setString(2, userList.getUserPwd());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-		
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+	
 	
 	public UserDTO selectMemberInfo(Connection con, String loginMemberId) {
 		
@@ -522,6 +501,42 @@ public class TunaDAO {
 			close(pstmt);
 		}
 		return bList;
+	}
+
+
+
+	public UserDTO checkLoginUser(Connection con, String idCheck) {
+	
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		
+		UserDTO userDTO = null;
+		
+		String query = prop.getProperty("login_check");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, idCheck);
+			
+			rset = pstmt.executeQuery();
+			userDTO = new UserDTO();
+			
+			if(rset.next()) {
+				
+				userDTO.setUserID(rset.getString("USER_ID"));
+				userDTO.setUserPwd(rset.getString("USER_PWD"));
+				
+			}
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userDTO;
 	}
 
 

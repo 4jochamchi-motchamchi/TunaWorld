@@ -1,6 +1,7 @@
 package com.tuna.can.service;
 
 
+import static com.tuna.can.common.JDBCTemplate.close;
 import static com.tuna.can.common.JDBCTemplate.commit;
 import static com.tuna.can.common.JDBCTemplate.getConnection;
 import static com.tuna.can.common.JDBCTemplate.rollback;
@@ -54,22 +55,7 @@ public class TunaService {
 		
 	}
 	
-	/**
-	 * <pre>
-	 * 로그인페이지 아이디/ 비밀번호 확인하는 메소드
-	 * </pre>
-	 * @param userList
-	 * @return
-	 */
-	public int loginUser(UserDTO userList) {
-		Connection con = getConnection();
-		
-		int result = 0;
-		
-		int loginResult = tunaDAO.loginUser(con,userList);
-		
-		return result;
-	}
+
 //	MyPage 페이지 회원정보 select
 	public UserDTO selectMemberInfo(String loginMemberId) {
 		
@@ -78,6 +64,8 @@ public class TunaService {
 		Connection con = getConnection();
 		
 		member = tunaDAO.selectMemberInfo(con, loginMemberId);
+		
+		close(con);
 		
 		return member;
 	}
@@ -91,6 +79,8 @@ public class TunaService {
 		Connection con = getConnection();
 		
 		invenButtonInfo = tunaDAO.selectUserInventory(con, userNo);
+		
+		close(con);
 		
 		return invenButtonInfo;
 
@@ -204,6 +194,7 @@ public class TunaService {
 		
 		if(result == 1) {
 			commit(con);
+			close(con);
 		}
 		
 		return result;
@@ -217,7 +208,10 @@ public class TunaService {
 		
 		result = tunaDAO.updateItemEquipYn(con, inventory);
 		
-		commit(con);
+		if(result > 0) {
+			commit(con);
+			close(con);
+		}
 		
 		return result;
 	}
@@ -231,6 +225,7 @@ public class TunaService {
 		
 		equipYNList = tunaDAO.selectCategoryInvenYN(con, inventory);
 		
+		close(con);
 		
 		return equipYNList;
 	}
@@ -282,6 +277,17 @@ public class TunaService {
 		return result;
 		
 	}
+
+
+	public UserDTO checkLoginUser(String idCheck) {
+		Connection con = getConnection();
+		UserDTO userCheck = tunaDAO.checkLoginUser(con,idCheck);
+		
+		return userCheck;
+	}
+
+
+
 
 
 	/**
