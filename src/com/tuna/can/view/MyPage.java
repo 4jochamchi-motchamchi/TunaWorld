@@ -90,44 +90,47 @@ public class MyPage extends JFrame {
 		userIdLabel.setBounds(20, 100, 90, 30);
 		userIdLabel.setFont(font);
 
+		Label nicknameLabel = new Label("nickname");
+		nicknameLabel.setBounds(30, 190, 80, 30);
+		nicknameLabel.setFont(font);
+		
+		Label pwdLabel = new Label("password");
+		pwdLabel.setBounds(30, 280, 80, 30);
+		pwdLabel.setFont(font);
+		
 		Label phoneLabel = new Label("phone");
-		phoneLabel.setBounds(30, 190, 80, 30);
+		phoneLabel.setBounds(30, 370, 80, 30);
 		phoneLabel.setFont(font);
 
 		Label emailLabel = new Label("email");
-		emailLabel.setBounds(30, 280, 80, 30);
+		emailLabel.setBounds(30, 460, 80, 30);
 		emailLabel.setFont(font);
 
-		Label nicknameLabel = new Label("nickname");
-		nicknameLabel.setBounds(30, 370, 80, 30);
-		nicknameLabel.setFont(font);
 
-		Label pwdLabel = new Label("password");
-		pwdLabel.setBounds(30, 460, 80, 30);
-		pwdLabel.setFont(font);
 
 		JTextField userIdText = new JTextField(10);
 		userIdText.setBounds(130, 100, 186, 35);
 		userIdText.setText(member.getUserID());
 		userIdText.setEditable(false);
 
+		JTextField nicknameText = new JTextField(10);
+		nicknameText.setBounds(130, 190, 186, 35);
+		nicknameText.setText(member.getNickName());
+		nicknameText.setEditable(false);
+		
+		JTextField pwdText = new JTextField(10);
+		pwdText.setBounds(130, 280, 186, 35);
+		pwdText.setText(member.getUserPwd());
+		
 		JTextField phoneText = new JTextField(10);
-		phoneText.setBounds(130, 190, 186, 35);
+		phoneText.setBounds(130, 370, 186, 35);
 		phoneText.setText(member.getPhone());
 
 		JTextField emailText = new JTextField(10);
-		emailText.setBounds(130, 280, 186, 35);
+		emailText.setBounds(130, 460, 186, 35);
 		emailText.setText(member.getEmail());
 
-		JTextField nicknameText = new JTextField(10);
-		nicknameText.setBounds(130, 370, 186, 35);
-		nicknameText.setText(member.getNickName());
-		nicknameText.setEditable(false);
-
-		JTextField pwdText = new JTextField(10);
-		pwdText.setBounds(130, 460, 186, 35);
-		pwdText.setText(member.getUserPwd());
-
+		
 		JButton userCommit = new JButton("commit");
 		userCommit.setBounds(240, 530, 80, 40);
 		
@@ -288,23 +291,33 @@ public class MyPage extends JFrame {
 		
 		invMap = tunaController.selectUserInventory(1);
 		
-//		List<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
-//		
-//		equipItemList = invMap.get(4);
-//		
-//		myCharacterButton.setText(equipItemList.get(1).getItemImg());
-//		
-//		myBackgroundButton.setText(equipItemList.get(2).getItemImg());
-//		
-//		myFontButton.setText(equipItemList.get(3).getItemImg());
-
+		List<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
+		
+		equipItemList = invMap.get(4);
+		
+		
+		if(equipItemList.get(0) != null) {
+			
+			myCharacterLabel.setText(equipItemList.get(0).getItemImg());
+		}
+		if(equipItemList.get(1) != null) {
+			
+			myBackgroundLabel.setText(equipItemList.get(1).getItemImg());
+		}
+		if(equipItemList.get(2) != null) {
+			
+			myFontLabel.setText(equipItemList.get(2).getItemImg());
+		}
+		
+		
+		
 		for(int i = 0; i < 6; i++) {
 			if(i < invMap.get(1).size()) {
 				characterPanel.add(new InventoryButtonController(invMap.get(1).get(i)));
 			} else {
 				
+				characterPanel.add(new JButton("아이템 없음"));
 			}
-			characterPanel.add(new JButton("아이템 없음"));
 		}
 		
 		for(int i = 0; i < 6; i++) {

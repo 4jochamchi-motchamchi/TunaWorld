@@ -217,6 +217,8 @@ public class TunaService {
 		
 		result = tunaDAO.updateItemEquipYn(con, inventory);
 		
+		commit(con);
+		
 		return result;
 	}
 
