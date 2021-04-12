@@ -33,7 +33,6 @@ public class FriendsList extends JFrame{
 		
 		
 			
-			
 			Border panelborder = BorderFactory.createLineBorder(Color.BLACK, 1);
 			Border button2 = BorderFactory.createLineBorder(new Color(255, 240, 245));
 			this.setLayout(null);

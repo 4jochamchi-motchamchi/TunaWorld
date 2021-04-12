@@ -1,9 +1,8 @@
 package com.tuna.can.service;
 
 
-import static com.tuna.can.common.JDBCTemplate.getConnection;
-
 import static com.tuna.can.common.JDBCTemplate.commit;
+import static com.tuna.can.common.JDBCTemplate.getConnection;
 import static com.tuna.can.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -11,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tuna.can.model.dao.TunaDAO;
+import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
@@ -217,6 +217,8 @@ public class TunaService {
 		
 		result = tunaDAO.updateItemEquipYn(con, inventory);
 		
+		commit(con);
+		
 		return result;
 	}
 
@@ -233,6 +235,7 @@ public class TunaService {
 		return equipYNList;
 	}
 
+
 	
 	// 친구인지 아닌지 확인하기 위해 친구조회
 	public List<FriendDTO> selectFriends(int userNo) {
@@ -245,6 +248,18 @@ public class TunaService {
 		friend = tunaDAO.selectFriends(con, userNo);
 		
 		return friend;
+	}
+
+	public int updateRequestFriend(AddFriendDTO userInfo) {
+		
+		Connection con = getConnection();
+		// 상태 값에 따라 addFriend y, n 조건으로 나누기.
+		
+		// 1. y 일 경우
+		// 
+		
+		// 2. n 일 경우
+		return 0;
 	}
 
 
