@@ -281,9 +281,9 @@ UPDATE USER_INFORMATION
       INTO BOARD_LIST
     ( 
       BOARD_NO
-    , LIST_NO
     , TITLE
     , BOARD_CONTENTS
+    , LIST_NO
     , ENROLLDATE
     )
     VALUES
@@ -292,7 +292,7 @@ UPDATE USER_INFORMATION
     , ?
     , ? 
     , ?
-    , ?
+    , SYSDATE
     )
 </entry>
 

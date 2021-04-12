@@ -20,7 +20,7 @@ import com.tuna.can.service.TunaService;
 
 public class TunaController {
 	
-	private static String loginMemberId; 
+	public static String loginMemberId; 
 	
 	private TunaService service = new TunaService();
 	
@@ -359,6 +359,16 @@ public class TunaController {
 		}
 		return result;
 	}
+	
+	public String checkNickname(String idCheck) {
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		String nickname = userDTO.getNickName();
+		
+		return nickname;
+	}
+
 
 
 

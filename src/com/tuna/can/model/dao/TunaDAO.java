@@ -5,6 +5,7 @@ import static com.tuna.can.common.JDBCTemplate.close;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -723,6 +724,7 @@ public class TunaDAO {
 		
 		
 		return sotreItem;
+	}
 		
 	public int insertRequest(Connection con, AddFriendDTO addFriends) {
 		
@@ -751,7 +753,37 @@ public class TunaDAO {
 		return result;
 	}
 
-
+public int insertBoard(Connection con, BoardDTO board) {
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String query = prop.getProperty("insertBoard");
+		
+		int result = 0;
+		
+		try {
+			pstmt =con.prepareStatement(query);
+//			pstmt.setInt(1, board.getBoardNo());
+			pstmt.setString(1,board.getTitle());
+			pstmt.setString(2, board.getBoardContent());
+			pstmt.setInt(3, board.getListNo());
+//			pstmt.setDate(4, (Date)board.getBoardDate());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}finally {
+			
+		   
+		}
+		
+		return result;
+	
+		
+	}
 }
 
 

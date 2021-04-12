@@ -272,6 +272,7 @@ public class TunaService {
 		close(con);
 		
 		return sotreItem;
+	}
 
 	// 친구요청 보내기 정보 INSERT
 	public int insertRequest(AddFriendDTO addFriend) {
@@ -305,9 +306,9 @@ public class TunaService {
 
 	public int insertBoard(BoardDTO board) {
 		int result = 0;
-		BoardDao boardDao = new BoardDao();
+		
 		Connection con = getConnection();
-		result = boardDao.insertBoard(con, board);
+		result = tunaDAO.insertBoard(con, board);
 		if(result > 0){
 			commit(con);
 		} else {
