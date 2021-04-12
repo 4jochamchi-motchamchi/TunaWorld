@@ -1,9 +1,9 @@
 package com.tuna.can.service;
 
 
-import static com.tuna.can.common.JDBCTemplate.getConnection;
-
+import static com.tuna.can.common.JDBCTemplate.close;
 import static com.tuna.can.common.JDBCTemplate.commit;
+import static com.tuna.can.common.JDBCTemplate.getConnection;
 import static com.tuna.can.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tuna.can.model.dao.TunaDAO;
+import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
@@ -64,6 +65,8 @@ public class TunaService {
 		
 		member = tunaDAO.selectMemberInfo(con, loginMemberId);
 		
+		close(con);
+		
 		return member;
 	}
 
@@ -76,6 +79,8 @@ public class TunaService {
 		Connection con = getConnection();
 		
 		invenButtonInfo = tunaDAO.selectUserInventory(con, userNo);
+		
+		close(con);
 		
 		return invenButtonInfo;
 
@@ -177,6 +182,79 @@ public class TunaService {
 		List<FriendDTO> friendsList = new ArrayList<>();
 		friendsList = tunaDAO.selectFriendsList(con, userNo);
 		return friendsList;
+	}
+
+	public int updateUserInformation(UserDTO updateUserInfo) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.updateUserInformation(con, updateUserInfo);
+		
+		if(result == 1) {
+			commit(con);
+			close(con);
+		}
+		
+		return result;
+	}
+
+	public int updateItemEquipYn(UserInventoryDTO inventory) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.updateItemEquipYn(con, inventory);
+		
+		if(result > 0) {
+			commit(con);
+			close(con);
+		}
+		
+		return result;
+	}
+
+
+	public List<String> selectCategoryInvenYN(UserInventoryDTO inventory) {
+
+		List<String> equipYNList = new ArrayList<String>();
+		
+		Connection con = getConnection();
+		
+		equipYNList = tunaDAO.selectCategoryInvenYN(con, inventory);
+		
+		close(con);
+		
+		return equipYNList;
+	}
+
+
+	
+	// 친구인지 아닌지 확인하기 위해 친구조회
+	public List<FriendDTO> selectFriends(int userNo) {
+		
+		
+		List<FriendDTO> friend = new ArrayList<>();
+		
+		Connection con = getConnection();
+		
+		friend = tunaDAO.selectFriends(con, userNo);
+		
+		return friend;
+	}
+
+	public int updateRequestFriend(AddFriendDTO userInfo) {
+		
+		Connection con = getConnection();
+		// 상태 값에 따라 addFriend y, n 조건으로 나누기.
+		
+		// 1. y 일 경우
+		// 
+		
+		// 2. n 일 경우
+		return 0;
 	}
 
 

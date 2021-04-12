@@ -10,7 +10,6 @@ public class UserDTO {
 	private String email;
 	private int coin;
 	
-
 	public UserDTO() {
 
 	}

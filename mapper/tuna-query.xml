@@ -10,7 +10,8 @@
 	
 	<entry key="selectUserInventory">
 	SELECT
-	       U.ITEM_NO
+		   U.USER_NO
+	     , U.ITEM_NO
 	     , U.ITEM_CATEGORY
 	     , U.EQUIP_ITEM_YN
 	     , S.ITEM_NAME
@@ -18,6 +19,32 @@
 	  FROM USER_INVENTORY_LIST U
 	  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
 	 WHERE U.USER_NO = ?
+	</entry>
+	
+	<entry key="selectCategoryInvenYN">
+	SELECT
+		   EQUIP_ITEM_YN
+	  FROM USER_INVENTORY_LIST
+	 WHERE USER_NO = ?
+	   AND ITEM_CATEGORY = ?
+	
+	</entry>
+	
+	<entry key="updateUserInformation">
+	UPDATE 
+	  	   USER_INFORMATION
+	   SET USER_PWD = ?
+	     , PHONE = ?
+		 , EMAIL = ?
+	 WHERE USER_NO = ? 
+	</entry>	
+	
+	<entry key="updateItemEquipYn">
+	UPDATE
+		   USER_INVENTORY_LIST
+	   SET EQUIP_ITEM_YN = ?
+ 	 WHERE USER_NO = ?
+ 	   AND ITEM_NO = ?
 	
 	</entry>
 	
@@ -51,6 +78,17 @@
 	      FROM DUAL
 	
 	</entry>
+<entry key="selectBulletin">
+    SELECT
+	       A.TITLE
+	     , A.BOARD_CONTENTS
+	     , B.USER_NICKNAME
+	     , A.ENROLLDATE
+	     , A.LIST_NO
+      FROM BOARD_LIST A
+      JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+     WHERE A.BOARD_NO = ?
+</entry>
 
 
 	<entry key="selectBulletin">
@@ -147,6 +185,79 @@
 	 WHERE USER_NO = ?
 	</entry>
 	
+
+<entry key="insertComment">
+    INSERT
+      INTO COMMENT_BOARD
+    ( 
+      COMMENT_NO
+    , BOARD_NO
+    , COMMENT_CONTENT
+    , USER_NO
+    )
+    VALUES
+    (
+      SQU_COMMENT.NEXTVAL
+    , ?
+    , ?
+    , ?
+    )
+</entry>
+
+<entry key="selectBoard">
+SELECT
+	   A.TITLE
+	 , A.BOARD_CONTENTS
+	 , B.USER_NICKNAME
+  FROM BOARD_LIST A
+  JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+ WHERE A.BOARD_NO = ?
+</entry>
+
+<entry key="slectFriendsLIst">
+SELECT
+       S.ITEM_IMG
+     , U.USER_NICKNAME
+     , F.FRIEND_NO
+  FROM FRIENDS_LIST F
+  JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+  JOIN USER_INVENTORY_LIST UIL ON(F.FRIEND_NO = UIL.USER_NO)
+  JOIN STORE S ON(UIL.ITEM_NO = S.ITEM_NO)
+ WHERE F.USER_NO = ?
+   AND UIL.ITEM_CATEGORY = 3
+   AND UIL.EQUIP_ITEM_YN = 'Y'
+</entry>
+<entry key="deleteFriend">
+DELETE
+  FROM FRIENDS_LIST
+ WHERE USER_NO = ?
+   AND FRIEND_NO = ?
+</entry>
+<entry key="updateEquipYn">
+UPDATE
+	   USER_INVENTORY_LIST
+   SET EQUIP_ITEM_YN = ?
+ WHERE ITEM_NO = ?
+   AND USER_NO = ?
+</entry>
+<entry key="selectCoin">
+SELECT
+	   COIN
+  FROM USER_INFORMATION
+ WHERE USER_NO = ?
+</entry>
+<entry key="updateCoin">
+UPDATE USER_INFORMATION
+   SET COIN = ?
+ WHERE USER_NO = ?
+</entry>
+
+<entry key="selectFriends">
+SELECT
+       USER_NICKNAME
+  FROM FRIENDS_LIST F
+  JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+ WHERE F.USER_NO = ?
+</entry>
+
 </properties>
-
-

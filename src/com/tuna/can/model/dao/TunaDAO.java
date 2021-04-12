@@ -141,6 +141,7 @@ public class TunaDAO {
 		try {
 			invenButtonInfo = new ArrayList<UserInventoryDTO>();
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -501,6 +502,7 @@ public class TunaDAO {
 	}
 
 
+
 	public UserDTO checkLoginUser(Connection con, String idCheck) {
 	
 		PreparedStatement pstmt=null;
@@ -536,7 +538,139 @@ public class TunaDAO {
 	}
 
 
+	public int updateUserInformation(Connection con, UserDTO updateUserInfo) {
+
+		String query = prop.getProperty("updateUserInformation");
+		
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, updateUserInfo.getUserPwd());
+			pstmt.setString(2, updateUserInfo.getPhone());
+			pstmt.setString(3, updateUserInfo.getEmail());
+			pstmt.setInt(4, updateUserInfo.getUserNo());
+			
+			result = pstmt.executeUpdate();					
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+
+	public int updateItemEquipYn(Connection con, UserInventoryDTO inventory) {
+
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("updateItemEquipYn");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, inventory.getEquipItemYN());
+			pstmt.setInt(2, inventory.getUserNo());
+			pstmt.setInt(3, inventory.getItemNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public List<String> selectCategoryInvenYN(Connection con, UserInventoryDTO inventory) {
+
+		UserInventoryDTO inven = new UserInventoryDTO();
+		
+		List<String> equipYNList = new ArrayList<String>();
+		
+		String query = prop.getProperty("selectCategoryInvenYN");
+		
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, inventory.getUserNo());
+			pstmt.setInt(2, inventory.getItemCategory());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				equipYNList.add(rset.getString(1));
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return equipYNList;
+	}
+
 	
+	// 친구인지 아닌지 확인하기 위해 친구조회
+	public List<FriendDTO> selectFriends(Connection con, int userNo) {
+		
+		
+		String query = prop.getProperty("selectFriends");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<FriendDTO> friend = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			friend = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				FriendDTO friendDTO = new FriendDTO();
+				friendDTO.setFriendsNickname(rset.getString("USER_NICKNAME"));
+				
+				friend.add(friendDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return friend;
+	}
 
 
 }
