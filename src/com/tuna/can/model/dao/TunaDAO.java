@@ -211,7 +211,7 @@ public class TunaDAO {
 
 	
 	// 코인 획득
-	public int updateUserCoin(Connection con, UserDTO userInfor) {
+	public int updateUserCoin(Connection con, int userNo, int coin) {
 		String query = prop.getProperty("updateCoin");
 		PreparedStatement pstmt = null;
 		
@@ -219,8 +219,8 @@ public class TunaDAO {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, userInfor.getCoin()+1);
-			pstmt.setInt(2, userInfor.getUserNo());
+			pstmt.setInt(1, coin);
+			pstmt.setInt(2, userNo);
 			
 			result = pstmt.executeUpdate();
 			
@@ -713,6 +713,7 @@ public class TunaDAO {
 		
 		
 		return sotreItem;
+	}
 		
 	public int insertRequest(Connection con, AddFriendDTO addFriends) {
 		
@@ -737,6 +738,31 @@ public class TunaDAO {
 		} finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+
+	public int updateUserInventory(Connection con, UserInventoryDTO userInven) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateUserInventory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userInven.getUserNo());
+			pstmt.setInt(2, userInven.getItemNo());
+			pstmt.setInt(3, userInven.getItemCategory());
+			pstmt.setString(4, userInven.getEquipItemYN());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
 		
 		return result;
 	}

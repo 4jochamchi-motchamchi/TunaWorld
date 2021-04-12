@@ -294,6 +294,18 @@ UPDATE USER_INFORMATION
     )
 </entry>
 
+<entry key="updateUserInventory">
+INSERT
+  INTO USER_INVENTORY_LIST
+VALUES
+(
+  ?
+, ?
+, ?
+, ?
+)
+</entry>
+
 
 <entry key="selectStoreItem">
 SELECT

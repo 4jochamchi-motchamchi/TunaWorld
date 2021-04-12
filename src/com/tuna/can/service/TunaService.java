@@ -161,12 +161,12 @@ public class TunaService {
 		
 	}
 
-	public int updateCoin(UserDTO userInfor) {
+	public int updateCoin(int userNo, int coin) {
 		
 		int userCoin = 0;
 		Connection con = getConnection();
 		
-		userCoin = tunaDAO.updateUserCoin(con, userInfor);
+		userCoin = tunaDAO.updateUserCoin(con, userNo, coin);
 		
 		if(userCoin > 0){
 				commit(con);
@@ -272,6 +272,7 @@ public class TunaService {
 		close(con);
 		
 		return sotreItem;
+	}
 
 	// 친구요청 보내기 정보 INSERT
 	public int insertRequest(AddFriendDTO addFriend) {
@@ -315,6 +316,18 @@ public class TunaService {
 			rollback(con);
 		}
 		
+		return result;
+	}
+
+
+	public int updateUserInventory(UserInventoryDTO userInven) {
+		
+		int result = 0;
+		Connection con = getConnection();
+		result = tunaDAO.updateUserInventory(con, userInven);
+		
+		commit(con);
+		close(con);
 		return result;
 	}
 
