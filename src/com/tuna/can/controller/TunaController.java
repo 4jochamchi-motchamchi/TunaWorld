@@ -236,29 +236,71 @@ public class TunaController {
 	}
 	
 //	아이템장착 여부 변경
-	public Map<String, Integer> updateItemEquipYn(UserInventoryDTO inventory) {
+//	클릭시 우선 호출
+	public Map<String, Object> updateItemEquipYn(UserInventoryDTO inventory) {
 		
 		int category = inventory.getItemCategory();
 		int result = 0;
 		boolean check = true;
 		List<String> equipYNList = new ArrayList<String>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
+		String resultComent = "";
 		
+//		YN 여부 긁어옴
 		equipYNList = service.selectCategoryInvenYN(inventory);
+
+//		장착여부 긁어옴
+		invenButtonInfo = service.selectUserInventory(inventory.getUserNo());
 		
-		Map<String, Integer> resultMap = new HashMap<String, Integer>();
-		
-		for(int i = 0; i < equipYNList.size(); i++) {
-			if(equipYNList.get(i).equals("Y")) {
-				check = false;
+	
+//		Y로 업데이트 하려할 때 실행
+//		이미 장착된 아이템이 있으면 장착이 되면 안된다. 
+//		Y가 있는지 조회
+		if(inventory.getEquipItemYN().equals("Y")) {
+			
+			for(int i = 0; i < invenButtonInfo.size(); i++) {
+				
+//			이미 장착된 아이템이 있는지 확인, 장착된 아이템이 현재 장착하려는 아이템과 맞지 않을 경우 이미 장착된 아이템을 N으로 변경
+				if(invenButtonInfo.get(i).getItemCategory() == inventory.getItemCategory()) {
+					
+					if(invenButtonInfo.get(i).getEquipItemYN().equals("Y")) {
+						
+//						하나의 아이템만 장착되야 하므로 false로 변경
+						check = false;
+						resultComent = "한개만장착가능";
+						
+//						이미 장착된 아이템이 지금 장착하려는 아이템인지 확인
+						if(inventory.getItemNo() == invenButtonInfo.get(i).getItemNo()) {
+							resultComent = "이미장착";
+						}
+					}
+				}
+				
+				if(check) {
+					result = service.updateItemEquipYn(inventory);
+//					현재 장착된 아이템이 없으므로 Y로 업데이트  
+					if(result > 0) {
+						resultComent = "장착성공";
+					} else {
+						resultComent = "장착실패";
+					}
+				}
 			}
 		}
 		
-		if(check || inventory.getEquipItemYN().equals("N")) {
+//		아이템 장착 해제 하려 할 때.
+		if(inventory.getEquipItemYN().equals("N")) {
+			System.out.println("장착해제한다");
 			result = service.updateItemEquipYn(inventory);
+			if(result > 0) {
+				resultComent = "장착해제";
+			}
 		}
 		
-		resultMap.put("result", result);
+		resultMap.put("result", resultComent);
 		resultMap.put("itemNo", inventory.getItemNo());
+		resultMap.put("itemImg", inventory.getItemImg());
 		
 		return resultMap;
 		
