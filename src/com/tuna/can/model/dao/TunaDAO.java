@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
+import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -264,6 +266,7 @@ public class TunaDAO {
 				bulletinDTO.setUserNickname(rset.getString("USER_NICKNAME"));
 				bulletinDTO.setEnrollDate(rset.getString("ENROLLDATE"));
 				bulletinDTO.setListNo(rset.getInt("LIST_NO"));
+				bulletinDTO.setUserNo(rset.getInt("USER_NO"));
 			}
 			
 		} catch (SQLException e) {
@@ -680,6 +683,72 @@ public class TunaDAO {
 		}
 		
 		return friend;
+	}
+
+
+	public List<StoreItemDTO> selectStoreItem(Connection con) {
+
+		ResultSet rset = null;
+		
+		Statement stmt = null;
+		
+		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
+		
+		String query = prop.getProperty("selectStoreItem");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				StoreItemDTO item = new StoreItemDTO();
+				item.setItemNo(rset.getInt("ITEM_NO"));
+				item.setItemName(rset.getString("ITEM_NAME"));
+				item.setItemPrice(rset.getInt("ITEM_PRICE"));
+				item.setItemImg(rset.getString("ITEM_IMG"));
+				item.setItemCategory(rset.getInt("ITEM_CATEGORY"));
+				
+				sotreItem.add(item);
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return sotreItem;
+		
+	public int insertRequest(Connection con, AddFriendDTO addFriends) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertRequestFriend");
+		
+		try {
+			
+			AddFriendDTO addFriend = new AddFriendDTO();
+			
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, addFriends.getUserNo());
+			pstmt.setInt(2, addFriends.getRequsetFriendNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 

@@ -155,8 +155,11 @@ public class MyBoardList extends JFrame{
 			this.getContentPane().add(scrollbar);
 			
 			//글쓰러 가기 버튼
-			JButton write  = new JButton("write");
-		    write.setBounds(560, 0, 90, 50);
+			ImageIcon writee = new ImageIcon("image/write.PNG");
+			JButton write  = new JButton(writee);
+			write.setBackground(Color.pink);
+			write.setBorder(pinkborder);
+		    write.setBounds(580, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override
