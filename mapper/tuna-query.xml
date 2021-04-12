@@ -126,7 +126,7 @@ SELECT
  WHERE A.BOARD_NO = ?
 </entry>
 
-<entry key="slectFriendsLIst">
+<entry key="selectFriendsLIst">
 SELECT
        S.ITEM_IMG
      , U.USER_NICKNAME
@@ -169,5 +169,28 @@ SELECT
   FROM USER_INFORMATION
  WHERE USER_ID = ?
    AND USER_PWD= ?
+</entry>
+<entry key="selectPlus_friend">
+SELECT
+       USER_NO
+     , REQUEST_FRIEND_NO
+  FROM PLUS_FRIEND
+ WHERE USER_NO = ?
+</entry>
+<entry key="insertFriend">
+INSERT 
+  INTO FRIENDS_LIST
+VALUES
+(
+  SQU_FRIENDS_LIST.NEXTVAL
+, ?
+, ?
+)
+</entry>
+<entry key="deleteRequest">
+DELETE 
+  FROM PLUS_FRIEND
+ WHERE USER_NO = ?
+   AND REQUEST_FRIEND_NO = ?
 </entry>
 </properties>

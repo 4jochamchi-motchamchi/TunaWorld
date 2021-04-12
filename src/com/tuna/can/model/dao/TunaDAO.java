@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
@@ -354,7 +355,9 @@ public class TunaDAO {
 			pstmt.setString(2, comment.getCommentContent());
 			pstmt.setInt(3, comment.getUserNo());
 			
+			
 			result = pstmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -369,7 +372,7 @@ public class TunaDAO {
 	
 	// 친구리스트에서 이미지, 친구 닉네임 불러오기
 	public List<FriendDTO> selectFriendsList(Connection con,int userNo) {
-		String query = prop.getProperty("slectFriendsLIst");
+		String query = prop.getProperty("selectFriendsLIst");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -383,13 +386,13 @@ public class TunaDAO {
 			pstmt.setInt(1, userNo);
 			
 			rset = pstmt.executeQuery();
-//			System.out.println("rset : " +rset);
 		
 			while(rset.next()) {
 				FriendDTO friends = new FriendDTO();
 				
 				friends.setFriendsNickname(rset.getString(2));
-//				friends.setImage(rset.getString("ITEM_IMG"));
+				friends.setImage(rset.getString("ITEM_IMG"));
+				
 				
 				
 				friendsInfo.add(friends);
@@ -621,6 +624,102 @@ public class TunaDAO {
 	}
 
 
+	// plusfriend 테이블에서 신청한에 신청 받은애 값 받아오기
+	public AddFriendDTO selectAddFriend(Connection con, int userNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectPlus_friend");
+		
+		AddFriendDTO AddList = null;
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				AddList =  new AddFriendDTO();
+				
+				AddList.setUserNo(rset.getInt("USER_NO"));
+				AddList.setRequsetFriendNo(rset.getInt("REQUEST_FRIEND_NO"));
+				
+	
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return AddList;
+	}
+
+
+	// 
+	public int acceptFriend(Connection con,AddFriendDTO userInfo ) {
+		
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		
+		int result1 = 0;
+		int result2 = 0;
+		String query1 = prop.getProperty("insertFriend");
+		
+//		String query2 = prop.getProperty("insertFriend");
+		
+		try {
+			pstmt1 = con.prepareStatement(query1);
+			pstmt1.setInt(1, userInfo.getUserNo());
+			pstmt1.setInt(2, userInfo.getRequsetFriendNo());
+			result1 = pstmt1.executeUpdate();
+			
+			pstmt2 = con.prepareStatement(query1);
+			pstmt2.setInt(1,userInfo.getRequsetFriendNo());
+			pstmt2.setInt(2,userInfo.getUserNo());
+			result2 = pstmt2.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			
+			close(pstmt2);
+			close(pstmt1);
+		}
+	
+		return result1 + result2;
+	}
+
+
+	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
+		
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteRequest");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userInfo.getUserNo());
+			pstmt.setInt(2, userInfo.getRequsetFriendNo());
+			result = pstmt.executeUpdate();
+			
+ 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(pstmt);
+		}
+		System.out.println("resut in reject section : " + result);
+		return result;
+	}
 }
 
 

@@ -259,17 +259,22 @@ public class TunaController {
 		return resultMap;
 	}
 	
-	
-//	public AddFriendDTO
+	// 로그인 유저의 정보가 있는 지 확인하기 위한 select
+	public AddFriendDTO selectPlusFriend(UserDTO userInfo) {
+		AddFriendDTO list = new AddFriendDTO();
+		
+		list = service.selectAddFriend(userInfo.getUserNo());
+		return list;
+	}
 	
 	// PlUS_FRIEND 테이블에서 받아돈 값을 AddFriendDTO에 담아서 값을 받아온다.
-	public int RequestFriends(AddFriendDTO friend) {
-		int result = 0;
-		result = service.updateRequestFriend(friend);
-		
-		return result;
-		
-	}
+//	public int RequestFriends(AddFriendDTO friend) {
+//		int result = 0;
+//		result = service.insertAndDeleteRequestFriend(friend);
+//		
+//		return result;
+//		
+//	}
 		
 }
 //		switch (category) {
