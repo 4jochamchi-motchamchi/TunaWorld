@@ -331,6 +331,21 @@ public class TunaController {
 	      return friendDTO;
 	      
 	   }
+	   
+	   
+	   // 친구요청 보내기 정보 INSERT
+	   public int insertRequest(AddFriendDTO addFriend) {
+
+		   AddFriendDTO insertRequest = new AddFriendDTO();
+			
+			int result = 0;
+			
+			result = service.insertRequest(addFriend);
+			
+			return result;
+
+			
+		}
 	
 }
 

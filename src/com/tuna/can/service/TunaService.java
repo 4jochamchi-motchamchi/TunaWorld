@@ -262,6 +262,27 @@ public class TunaService {
 		return 0;
 	}
 
+	// 친구요청 보내기 정보 INSERT
+	public int insertRequest(AddFriendDTO addFriend) {
+		
+
+		int result = 0;
+			
+		Connection con = getConnection();
+			
+		result = tunaDAO.insertRequest(con, addFriend);
+			
+		if(result > 0){
+			commit(con);
+		} else {
+			System.out.println();
+			rollback(con);
+		}
+			
+		return result;
+		
+	}
+
 
 	/**
 	 * <pre>

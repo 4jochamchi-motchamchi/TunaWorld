@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
@@ -47,9 +48,9 @@ public class BulletinLayout extends JFrame{
 		
 		
 		// 게시글 번호
-		int boardNumber = 1;
+		int boardNumber = 4;
 		// 로그인
-		int userNo = 1;		
+		int userNo = 2;		
 		
 		
 		
@@ -245,22 +246,44 @@ public class BulletinLayout extends JFrame{
 			writePanel.add(inputButton);
 			
 			
-			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가, 친구추가 불가
+			JButton plusFriend = new JButton(addfriend);							// 친구추가 들어갈 라벨
+			
+			// 친구추가 설정
+			plusFriend.setLocation(600, 15);
+			plusFriend.setSize(45, 45);
+			plusFriend.setBackground(Color.pink);
+			plusFriend.setBorder(pinkborder);
+			bulletinPanel.add(plusFriend);
+			
+			
+			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가, 친구추가버튼 X
 			if(board.getListNo() == 2) {
+				
 			
 			writeComment.setEnabled(false);
 			inputButton.setEnabled(false);
 			nickName.setVisible(false);
+			plusFriend.setVisible(false);
 							
-			} else {
-				JButton plusFriend = new JButton(addfriend);							// 친구추가 들어갈 라벨
+			} else if(board.getUserNo() == userNo) {
+				// 내 게시글일 때 친구추가 불가
+				plusFriend.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						if(e.getSource() == plusFriend) {
+							
+							JOptionPane.showMessageDialog(null,"친구추가를 할 수 없는 대상입니다.", "친구추가",1);
+							writeComment.requestFocus();
+							
+						}				
+					}
+				});
 				
-				// 친구추가 설정
-				plusFriend.setLocation(600, 15);
-				plusFriend.setSize(45, 45);
-				plusFriend.setBackground(Color.pink);
-				plusFriend.setBorder(pinkborder);
-				bulletinPanel.add(plusFriend);
+				
+			} else {
+				
 				
 				// 친구추가 버튼 눌렀을 때
 				plusFriend.addActionListener(new ActionListener() {
@@ -275,9 +298,8 @@ public class BulletinLayout extends JFrame{
 							
 							BulletinDTO board = new BulletinDTO();
 							board = tunaController.selectBulletinContent(boardNumber);
-//							
-//							System.out.println(friend.getFriendsNickname());
-//							System.out.println(board.getUserNickname());
+
+							
 							boolean b = true;
 							// 만약 이미 친구 목록에 있으면 친구요청 불가
 							for(int i = 0; i < friend.size(); i++) {
@@ -290,10 +312,27 @@ public class BulletinLayout extends JFrame{
 							}
 							
 							if(b) {
+								// 친구 목록에 없을때 친구요청 보내기
 								JOptionPane.showMessageDialog(null,"친구요청을 보냈습니다.", "친구추가",1);
-							}
+								
+								int result = 0;
+								
+								AddFriendDTO addFriend = new AddFriendDTO();
+								addFriend.setUserNo(board.getUserNo());
+								addFriend.setRequsetFriendNo(userNo);
+								
+								result = tunaController.insertRequest(addFriend);
+								
+								if(result > 0) {
+									System.out.println("친구요청 성공");
+								} else {
+									System.out.println("친구요청 실패");
+								}
 								// PLUS_FRIEND_YN를 Y로 바꿔주는 UPDATE문 만들기,, 내 정보도 같이 넘어가야되는데,,,,
 								// 요청 보낼때는 INSERT 팝업 뜨고 수락하면 PLUS_FRIEND_YN N으로 바꿔주고 친구목록에 추가 & 거절하면 PLUS_FRIEND_YN N으로 바꾸고 INSERT한거 DELETE하기
+								
+								
+							}
 								
 							
 						}
