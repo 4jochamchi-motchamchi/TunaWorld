@@ -95,13 +95,9 @@ public class MiniGame extends JFrame implements ActionListener{
 						countNum = 0;
 						
 						if(result == JOptionPane.YES_OPTION) {
-							
-							// 코인 증가 코드             
+								            
+						// 코인 증가 코드 
 							new Main_page();
-							
-							
-							
-							
 							oldFrame.dispose();
 							
 						}

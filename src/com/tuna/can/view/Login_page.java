@@ -155,7 +155,20 @@ public class Login_page extends JFrame{
 						
 						idCheck = idText.getText();
 						String pwCheck = pwText.getText();
-						int result = 0;
+						UserDTO userDTO = new UserDTO();
+						int result = tunaController.checkLoginUser(idCheck, pwCheck);
+						
+						if(result > 0) {
+							System.out.println("로그인 성공");
+						} else {
+							System.out.println("로그인 실패");
+							
+						}
+						System.out.println(userDTO);
+						
+//						주희누님 수정 바래영^^
+//						int result = 0;
+						
 						result = tunaController.checkLoginUser(idCheck, pwCheck);
 						System.out.println(result);
 						

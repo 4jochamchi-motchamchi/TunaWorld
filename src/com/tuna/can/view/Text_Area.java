@@ -129,7 +129,7 @@ public class Text_Area extends JFrame{
         Date day = new Date();
         String today = day.toLocaleString();
         JLabel oneul = new JLabel(today);
-        oneul.setBounds(500, 10, 200, 30);
+        oneul.setBounds(490, 10, 200, 30);
         bottonP.add(oneul);
         b.setBoardDate(day);
 
@@ -137,28 +137,28 @@ public class Text_Area extends JFrame{
 
         BoardDTO board = new BoardDTO();
         //공개범위 라디오 버튼
-        JRadioButton myself = new JRadioButton("나만");
-		JRadioButton friend= new JRadioButton("친구들");
-		JRadioButton all = new JRadioButton("전체공개");
+        JRadioButton all = new JRadioButton("전체게시글");
+        JRadioButton myself = new JRadioButton("비밀게시글");
+		JRadioButton friend= new JRadioButton("친구게시글");
 		
 	    ButtonGroup range =new ButtonGroup();
+	    range.add(all);
 	    range.add(myself);
 	    range.add(friend);
-	    range.add(all);
 	    int listno =0;
-	    myself.setBounds(50, 0, 60,50);
-	    if(myself.isSelected()) {
+	    all.setBounds(40, 0, 100,50);
+	    if(all.isSelected()) {
 	    	listno = 1;
 	    	board.setListNo(listno);
 	    	
 	    }
-	    friend.setBounds(105, 0, 70, 50);
-	    if(friend.isSelected()) {
+	    myself.setBounds(140, 0, 100, 50);
+	    if(myself.isSelected()) {
 	    	listno = 2;
 	    	board.setListNo(listno);
 	    }
-	    all.setBounds(170, 0, 80, 50);
-	    if(all.isSelected()) {
+	    friend.setBounds(240, 0, 100, 50);
+	    if(friend.isSelected()) {
 	    	listno = 3;
 	    	board.setListNo(listno);
 	    }
@@ -172,8 +172,11 @@ public class Text_Area extends JFrame{
 	    all.setBackground(Color.pink);
 
         //저장버튼
-        JButton saveButton = new JButton(" save ");
-		saveButton.setBounds(550, 50 , 80, 50);
+	    ImageIcon save = new ImageIcon("image/save.PNG");
+        JButton saveButton = new JButton(save);
+        saveButton.setBackground(Color.pink);
+        saveButton.setBorder(pinkborder);
+		saveButton.setBounds(590, 50 , 50, 50);
 	    saveButton.addActionListener(new ActionListener() {
 			
 	    	
@@ -183,6 +186,12 @@ public class Text_Area extends JFrame{
 				
 				
 				if(e.getSource() == saveButton) {
+					
+					if(range.isSelected(null)) {
+						
+						JOptionPane.showMessageDialog(null,"게시글종류를 선택해주세요");
+						
+					} else {
 					
 					int result = 0;
 					
@@ -194,16 +203,19 @@ public class Text_Area extends JFrame{
 					
 					TunaController controller = new TunaController();
 					
-					result =controller.insertBoard(board);
+					result = controller.insertBoard(board);
 					
-					if(result >0) {
-						JOptionPane.showMessageDialog(null,"저장되었습니다");}
+					if(result > 0) {
+						JOptionPane.showMessageDialog(null,"저장되었습니다");
+					}
 					
 			            txt.requestFocus();
 					    new BoardList();
 					     dispose();
 			
-					} else {
+					}
+					
+				} else {
 						System.out.println("저장실패");
 					}
 							
