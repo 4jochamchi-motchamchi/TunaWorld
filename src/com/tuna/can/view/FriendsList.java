@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
@@ -30,8 +31,14 @@ public class FriendsList extends JFrame{
 	public FriendsList() {
 		// 미니 창 이름 설정
 		super("Friends List");
-		
-		
+//		
+//			if(true) {
+//				
+//				JOptionPane.showConfirmDialog(null,"친구 추가 요청이 왔어요!", "리얼루", 0);
+//				
+//				
+//			}
+				
 			
 			Border panelborder = BorderFactory.createLineBorder(Color.BLACK, 1);
 			Border button2 = BorderFactory.createLineBorder(new Color(255, 240, 245));
@@ -131,22 +138,22 @@ public class FriendsList extends JFrame{
 				imageLabel.setBounds(57,27,72,60);
 				
 				// 미드 페널 설정
-//				middlePanel.setBounds(0, 100, 700, (i * 100)+100);
-////				middlePanel.setPreferredSize(new Dimension(700, (i * 100)+100));
+				middlePanel.setBounds(0, 100, 700, (i * 100)+100);
+				middlePanel.setPreferredSize(new Dimension(700, (i * 100)+100));
 				middlePanel.add(new FriendsList_controller(i,friendsPanel, this, friend, nickName, button, imageLabel));
 				
 			}
 //			middlePanel.setBackground(new Color(255, 240, 245));
 			
 			// 스크롤
-			JScrollPane scrollbar = new JScrollPane(middlePanel);
-			scrollbar.setPreferredSize(new Dimension(685,700));
-			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-			int width = scrollbar.getPreferredSize().width;
-			int height = scrollbar.getPreferredSize().height;
-			scrollbar.setBounds(0,100,width,height);
-			scrollbar.setBorder(pinkborder);
-			scrollbar.setBackground(Color.pink);
+//			JScrollPane scrollbar = new JScrollPane(middlePanel);
+//			scrollbar.setPreferredSize(new Dimension(685,700));
+//			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//			int width = scrollbar.getPreferredSize().width;
+//			int height = scrollbar.getPreferredSize().height;
+//			scrollbar.setBounds(0,100,width,height);
+//			scrollbar.setBorder(pinkborder);
+//			scrollbar.setBackground(Color.pink);
 
 			
 			/*------------------------------------------------------------------------------------------*/
@@ -160,13 +167,27 @@ public class FriendsList extends JFrame{
 			bottomPanel.setBounds(0, 800, 700, 70);
 			
 			// 마이 프레임에 판넬 추가
-			this.getContentPane().add(scrollbar);
+//			this.getContentPane().add(scrollbar);
 			this.add(topPanel);
 			this.add(bottomPanel);
 			this.add(middlePanel);
 			this.setResizable(false);
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+
+			if(true) {
+				
+				int result = JOptionPane.showConfirmDialog(null, "친구 추가 요청이 왔어요!", "친구수락", 0);
+				if(result == JOptionPane.YES_OPTION) {
+					
+					
+				} else {
+					
+					
+				}
+				  
+			}
 		}
 	
 	public static void main(String[] args) {
@@ -176,5 +197,6 @@ public class FriendsList extends JFrame{
 }
 
 	
+
 
 

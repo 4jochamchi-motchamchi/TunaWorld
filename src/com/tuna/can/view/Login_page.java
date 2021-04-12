@@ -41,6 +41,7 @@ import com.tuna.can.controller.Test;
 public class Login_page extends JFrame{
 	private TunaController tunaController = new TunaController();
 	private UserDTO userdto = new UserDTO();
+	private String idCheck = null;
 
 	public Login_page() {
 		super("Login page");
@@ -111,12 +112,7 @@ public class Login_page extends JFrame{
 			loginBtn.setBorder(pinkborder);
 			loginBtn.setBounds(150, 250, 190, 90);
 			loginBtn.setRolloverIcon(rollover_login);
-			
-//			loginBtn.reshape(150, 230, 160, 90);
-			
-//			loginBtn.setPressedIcon(loginBtn);
-			
-			
+
 			//회원가입 버튼 생성
 			ImageIcon signUp = new ImageIcon("image/signUp.png");
 			ImageIcon rollover_signUp = new ImageIcon("image/rollover_signUp.PNG");
@@ -135,7 +131,6 @@ public class Login_page extends JFrame{
 			});
 			
 			loginPanel.add(loginBtn);
-//			loginPanel.add(rollover_loginBtn);
 			loginPanel.add(createUserBtn);
 			
 			
@@ -147,16 +142,18 @@ public class Login_page extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 
 					if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
+						
 						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!", "경고", 0);
 						idText.requestFocus();
 						return;
 					}else if(idText.getText().isEmpty() || pwText.getText().isEmpty()) {
+						
 						JOptionPane.showMessageDialog(null, "빈칸이 있습니다. \n 채워주세요!","경고",0);
 						idText.requestFocus();
 						return;
 					} else {
-						String idCheck = null;
-							idCheck = idText.getText();
+						
+						idCheck = idText.getText();
 						String pwCheck = pwText.getText();
 						UserDTO userDTO = new UserDTO();
 						int result = tunaController.checkLoginUser(idCheck, pwCheck);
@@ -169,20 +166,23 @@ public class Login_page extends JFrame{
 						}
 						System.out.println(userDTO);
 						
-						System.out.println(userDTO.equals(pwCheck));
+//						주희누님 수정 바래영^^
+//						int result = 0;
 						
-						if(userDTO.getUserID().equals(idCheck) && userDTO.getUserPwd().equals(pwCheck)) {
+						result = tunaController.checkLoginUser(idCheck, pwCheck);
+						System.out.println(result);
+						
+						if(result>0) {
 						JOptionPane.showConfirmDialog(null, "로그인에 성공하셨습니다.", "로그인 성공", -1);
-
 							new Main_page();
 							dispose();
 							
 						}else {
 							JOptionPane.showMessageDialog(null, "로그인 정보가 잘못되어 로그인에 실패했습니다.", "로그인 실패", 0);
+							  }
 						}
-						}
-					}
-//				}
+				}
+
 			});
 
 			this.add(imagePanel);

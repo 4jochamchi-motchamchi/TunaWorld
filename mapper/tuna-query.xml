@@ -2,297 +2,148 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="selectMemberInfo">
-	SELECT
-		   *
-	  FROM USER_INFORMATION
-	 WHERE USER_ID = ?
+		SELECT
+		*
+		FROM USER_INFORMATION
+		WHERE USER_ID = ?
 	</entry>
-	
 	<entry key="selectUserInventory">
-	SELECT
-		   U.USER_NO
-	     , U.ITEM_NO
-	     , U.ITEM_CATEGORY
-	     , U.EQUIP_ITEM_YN
-	     , S.ITEM_NAME
-	     , S.ITEM_IMG
-	  FROM USER_INVENTORY_LIST U
-	  JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
-	 WHERE U.USER_NO = ?
+		SELECT
+		U.USER_NO
+		, U.ITEM_NO
+		, U.ITEM_CATEGORY
+		, U.EQUIP_ITEM_YN
+		, S.ITEM_NAME
+		, S.ITEM_IMG
+		FROM USER_INVENTORY_LIST U
+		JOIN STORE S ON(U.ITEM_NO = S.ITEM_NO)
+		WHERE U.USER_NO = ?
 	</entry>
-	
 	<entry key="selectCategoryInvenYN">
-	SELECT
-		   EQUIP_ITEM_YN
-	  FROM USER_INVENTORY_LIST
-	 WHERE USER_NO = ?
-	   AND ITEM_CATEGORY = ?
-	
+		SELECT
+		EQUIP_ITEM_YN
+		FROM USER_INVENTORY_LIST
+		WHERE USER_NO = ?
+		AND ITEM_CATEGORY = ?
 	</entry>
-	
 	<entry key="updateUserInformation">
-	UPDATE 
-	  	   USER_INFORMATION
-	   SET USER_PWD = ?
-	     , PHONE = ?
-		 , EMAIL = ?
-	 WHERE USER_NO = ? 
-	</entry>	
-	
+		UPDATE
+		USER_INFORMATION
+		SET USER_PWD = ?
+		, PHONE = ?
+		, EMAIL = ?
+		WHERE USER_NO = ?
+	</entry>
 	<entry key="updateItemEquipYn">
-	UPDATE
-		   USER_INVENTORY_LIST
-	   SET EQUIP_ITEM_YN = ?
- 	 WHERE USER_NO = ?
- 	   AND ITEM_NO = ?
-	
+		UPDATE
+		USER_INVENTORY_LIST
+		SET EQUIP_ITEM_YN = ?
+		WHERE USER_NO = ?
+		AND ITEM_NO = ?
 	</entry>
-	
 	<entry key="login_check">
-	    SELECT
-	    	   USER_ID
-	         , USER_PWD
-	      FROM USER_INFORMATION
-	     WHERE USER_ID = ?
-	   
+		SELECT
+		USER_ID
+		, USER_PWD
+		, USER_NICKNAME
+		FROM USER_INFORMATION
+		WHERE USER_ID = ?
 	</entry>
-	
 	<entry key="create_User">
-	     INSERT
-	       INTO USER_INFORMATION
-	     VALUES
-	     (
-	       SQU_USER_INFORMATION.NEXTVAL
-	     , ?
-	     , ?
-	     , ?
-	     , ?
-	     , ?
-	     , 0
-	     )	
+		INSERT
+		INTO USER_INFORMATION
+		VALUES
+		(
+		SQU_USER_INFORMATION.NEXTVAL
+		, ?
+		, ?
+		, ?
+		, ?
+		, ?
+		, 0
+		)
 	</entry>
-	
-	<entry key = "selectLastUserNo">
-	    SELECT
-	           SQU_USER_INFORMATION.CURRVAL
-	      FROM DUAL
-	
+	<entry key="selectLastUserNo">
+		SELECT
+		SQU_USER_INFORMATION.CURRVAL
+		FROM DUAL
 	</entry>
-<entry key="selectBulletin">
-    SELECT
-	       A.TITLE
-	     , A.BOARD_CONTENTS
-	     , B.USER_NICKNAME
-	     , A.ENROLLDATE
-	     , A.LIST_NO
-	     , A.USER_NO
-      FROM BOARD_LIST A
-      JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
-     WHERE A.BOARD_NO = ?
-</entry>
-
-
 	<entry key="selectBulletin">
-	    SELECT
-		       A.TITLE
-		     , A.BOARD_CONTENTS
-		     , B.USER_NICKNAME
-		     , A.ENROLLDATE
-		     , A.LIST_NO
-	      FROM BOARD_LIST A
-	      JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
-	     WHERE A.BOARD_NO = ?
+		SELECT
+		A.TITLE
+		, A.BOARD_CONTENTS
+		, B.USER_NICKNAME
+		, A.ENROLLDATE
+		, A.LIST_NO
+		, A.USER_NO
+		FROM BOARD_LIST A
+		JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+		WHERE A.BOARD_NO = ?
 	</entry>
-	
+	<entry key="selectBulletin">
+		SELECT
+		A.TITLE
+		, A.BOARD_CONTENTS
+		, B.USER_NICKNAME
+		, A.ENROLLDATE
+		, A.LIST_NO
+		FROM BOARD_LIST A
+		JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+		WHERE A.BOARD_NO = ?
+	</entry>
 	<entry key="selectComment">
-	    SELECT
-	           A.COMMENT_CONTENT
-	         , B.USER_NICKNAME
-	      FROM COMMENT_BOARD A
-	      JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
-	     WHERE A.BOARD_NO = ?
-	     ORDER BY A.COMMENT_NO
+		SELECT
+		A.COMMENT_CONTENT
+		, B.USER_NICKNAME
+		FROM COMMENT_BOARD A
+		JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+		WHERE A.BOARD_NO = ?
+		ORDER BY A.COMMENT_NO
 	</entry>
-	
 	<entry key="insertComment">
-	    INSERT
-	      INTO COMMENT_BOARD
-	    ( 
-	      COMMENT_NO
-	    , BOARD_NO
-	    , COMMENT_CONTENT
-	    , USER_NO
-	    )
-	    VALUES
-	    (
-	      SQU_COMMENT.NEXTVAL
-	    , ?
-	    , ?
-	    , ?
-	    )
+		INSERT
+		INTO COMMENT_BOARD
+		(
+		COMMENT_NO
+		, BOARD_NO
+		, COMMENT_CONTENT
+		, USER_NO
+		)
+		VALUES
+		(
+		SQU_COMMENT.NEXTVAL
+		, ?
+		, ?
+		, ?
+		)
 	</entry>
-	
-	<entry key="selectBoard">
-	SELECT
-		   A.TITLE
-		 , A.BOARD_CONTENTS
-		 , B.USER_NICKNAME
-	  FROM BOARD_LIST A
-	  JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
-	 WHERE A.BOARD_NO = ?
-	</entry>
-	
-	<entry key="slectFriendsLIst">
-	SELECT
-	       S.ITEM_IMG 
-	    , (SELECT 
-	              UI.USER_NICKNAME
-	         FROM USER_INFORMATION UI
-	        WHERE UI.USER_NO = F.FRIEND_NO) FRIEND
-	     , F.FRIEND_NO 
-	  FROM USER_INFORMATION U
-	  JOIN FRIENDS_LIST F ON (U.USER_NO = F.USER_NO)
-	  JOIN USER_INVENTORY_LIST UIL ON (U.USER_NO = UIL.USER_NO)
-	  JOIN STORE S ON (UIL.ITEM_CATEGORY = S.ITEM_CATEGORY)
-	 WHERE U.USER_NO = ?
-	   AND UIL.ITEM_CATEGORY = 3
-	</entry>
-	
 	<entry key="deleteFriend">
-	DELETE
-	  FROM FRIENDS_LIST
-	 WHERE USER_NO = ?
-	   AND FRIEND_NO = ?
+		DELETE
+		FROM FRIENDS_LIST
+		WHERE USER_NO = ?
+		AND FRIEND_NO = ?
 	</entry>
-	
+
 	<entry key="updateEquipYn">
-	UPDATE
-		   USER_INVENTORY_LIST
-	   SET EQUIP_ITEM_YN = ?
-	 WHERE ITEM_NO = ?
-	   AND USER_NO = ?
+		UPDATE
+		USER_INVENTORY_LIST
+		SET EQUIP_ITEM_YN = ?
+		WHERE ITEM_NO = ?
+		AND USER_NO = ?
 	</entry>
-	
+
 	<entry key="selectCoin">
-	SELECT
-		   COIN
-	  FROM USER_INFORMATION
-	 WHERE USER_NO = ?
+		SELECT
+		COIN
+		FROM USER_INFORMATION
+		WHERE USER_NO = ?
 	</entry>
-	
+
 	<entry key="updateCoin">
-	UPDATE USER_INFORMATION
-	   SET COIN = ?
-	 WHERE USER_NO = ?
+		UPDATE USER_INFORMATION
+		SET COIN = ?
+		WHERE USER_NO = ?
 	</entry>
-	
-
-<entry key="insertComment">
-    INSERT
-      INTO COMMENT_BOARD
-    ( 
-      COMMENT_NO
-    , BOARD_NO
-    , COMMENT_CONTENT
-    , USER_NO
-    )
-    VALUES
-    (
-      SQU_COMMENT.NEXTVAL
-    , ?
-    , ?
-    , ?
-    )
-</entry>
-
-<entry key="selectBoard">
-SELECT
-	   A.TITLE
-	 , A.BOARD_CONTENTS
-	 , B.USER_NICKNAME
-  FROM BOARD_LIST A
-  JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
- WHERE A.BOARD_NO = ?
-</entry>
-
-<entry key="slectFriendsLIst">
-SELECT
-       S.ITEM_IMG
-     , U.USER_NICKNAME
-     , F.FRIEND_NO
-  FROM FRIENDS_LIST F
-  JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
-  JOIN USER_INVENTORY_LIST UIL ON(F.FRIEND_NO = UIL.USER_NO)
-  JOIN STORE S ON(UIL.ITEM_NO = S.ITEM_NO)
- WHERE F.USER_NO = ?
-   AND UIL.ITEM_CATEGORY = 3
-   AND UIL.EQUIP_ITEM_YN = 'Y'
-</entry>
-<entry key="deleteFriend">
-DELETE
-  FROM FRIENDS_LIST
- WHERE USER_NO = ?
-   AND FRIEND_NO = ?
-</entry>
-<entry key="updateEquipYn">
-UPDATE
-	   USER_INVENTORY_LIST
-   SET EQUIP_ITEM_YN = ?
- WHERE ITEM_NO = ?
-   AND USER_NO = ?
-</entry>
-<entry key="selectCoin">
-SELECT
-	   COIN
-  FROM USER_INFORMATION
- WHERE USER_NO = ?
-</entry>
-<entry key="updateCoin">
-UPDATE USER_INFORMATION
-   SET COIN = ?
- WHERE USER_NO = ?
-</entry>
-
-<entry key="selectFriends">
-    SELECT
-           USER_NICKNAME
-      FROM FRIENDS_LIST F
-      JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
-     WHERE F.USER_NO = ?
-</entry>
-
-<entry key="insertRequestFriend">
-    INSERT
-      INTO PLUS_FRIEND
-    ( 
-      USER_NO
-    , REQUEST_FRIEND_NO
-    )
-    VALUES
-    ( 
-      ?
-    , ?
-    )
-</entry>
-<entry key="insertBoard">
-  INSERT
-      INTO BOARD_LIST
-    ( 
-      BOARD_NO
-    , LIST_NO
-    , TITLE
-    , BOARD_CONTENTS
-    , ENROLLDATE
-    )
-    VALUES
-    ( 
-      SEQ_BOARD_LIST.NEXTVAL
-    , ?
-    , ? 
-    , ?
-    , ?
-    )
-</entry>
 
 <entry key="updateUserInventory">
 INSERT
@@ -307,10 +158,137 @@ VALUES
 </entry>
 
 
-<entry key="selectStoreItem">
-SELECT
-	   *
-  FROM STORE
-</entry>
+	<entry key="insertComment">
+		INSERT
+		INTO COMMENT_BOARD
+		(
+		COMMENT_NO
+		, BOARD_NO
+		, COMMENT_CONTENT
+		, USER_NO
+		)
+		VALUES
+		(
+		SQU_COMMENT.NEXTVAL
+		, ?
+		, ?
+		, ?
+		)
+	</entry>
 
+	<entry key="selectBoard">
+		SELECT
+		A.TITLE
+		, A.BOARD_CONTENTS
+		, B.USER_NICKNAME
+		FROM BOARD_LIST A
+		JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+		WHERE A.BOARD_NO = ?
+	</entry>
+
+	<entry key="selectFriendsLIst">
+		SELECT
+		S.ITEM_IMG
+		, U.USER_NICKNAME
+		, F.FRIEND_NO
+		FROM FRIENDS_LIST F
+		JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+		JOIN USER_INVENTORY_LIST UIL ON(F.FRIEND_NO = UIL.USER_NO)
+		JOIN STORE S ON(UIL.ITEM_NO = S.ITEM_NO)
+		WHERE F.USER_NO = ?
+		AND UIL.ITEM_CATEGORY = 3
+		AND UIL.EQUIP_ITEM_YN = 'Y'
+	</entry>
+	<entry key="deleteFriend">
+		DELETE
+		FROM FRIENDS_LIST
+		WHERE USER_NO = ?
+		AND FRIEND_NO = ?
+	</entry>
+	<entry key="updateEquipYn">
+		UPDATE
+		USER_INVENTORY_LIST
+		SET EQUIP_ITEM_YN = ?
+		WHERE ITEM_NO = ?
+		AND USER_NO = ?
+	</entry>
+	<entry key="selectCoin">
+		SELECT
+		COIN
+		FROM USER_INFORMATION
+		WHERE USER_NO = ?
+	</entry>
+	<entry key="updateCoin">
+		UPDATE USER_INFORMATION
+		SET COIN = ?
+		WHERE USER_NO = ?
+	</entry>
+
+	<entry key="selectFriends">
+		SELECT
+		USER_NICKNAME
+		FROM FRIENDS_LIST F
+		JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+		WHERE F.USER_NO = ?
+	</entry>
+	<entry key="selectPlus_friend">
+		SELECT
+		USER_NO
+		, REQUEST_FRIEND_NO
+		FROM PLUS_FRIEND
+		WHERE USER_NO = ?
+	</entry>
+	<entry key="insertFriend">
+		INSERT
+		INTO FRIENDS_LIST
+		VALUES
+		(
+		SQU_FRIENDS_LIST.NEXTVAL
+		, ?
+		, ?
+		)
+	</entry>
+	<entry key="deleteRequest">
+		DELETE
+		FROM PLUS_FRIEND
+		WHERE USER_NO = ?
+		AND REQUEST_FRIEND_NO = ?
+	</entry>
+	<entry key="insertRequestFriend">
+		INSERT
+		INTO PLUS_FRIEND
+		(
+		USER_NO
+		, REQUEST_FRIEND_NO
+		)
+		VALUES
+		(
+		?
+		, ?
+		)
+	</entry>
+	<entry key="insertBoard">
+		INSERT
+		INTO BOARD_LIST
+		(
+		BOARD_NO
+		, LIST_NO
+		, TITLE
+		, BOARD_CONTENTS
+		, ENROLLDATE
+		)
+		VALUES
+		(
+		SEQ_BOARD_LIST.NEXTVAL
+		, ?
+		, ?
+		, ?
+		, ?
+		)
+	</entry>
+	<entry key="selectStoreItem">
+		SELECT
+		*
+		FROM STORE
+	</entry>
 </properties>

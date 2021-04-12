@@ -19,8 +19,9 @@ import com.tuna.can.service.TunaService;
 public class TunaController {
 
 //	로그인 성공한 id
-	private String loginMemberId;
-
+	
+	private static String loginMemberId; 
+	
 	private TunaService service = new TunaService();
 
 //	로그인한 USER의 개인정보를 담고있을 객체
@@ -143,8 +144,19 @@ public class TunaController {
 
 		return coin;
 	}
-
+	
 	// 받아온 코인 정보값에 코인갯수 업데이트
+	public int updateCoin(UserDTO userInfo) {
+		
+		int userCoin = 0;
+		userCoin = service.updateCoin(userInfo);
+		
+		return userCoin;
+		
+	}
+	
+	// 받아온 코인 정보값에 코인갯수 업데이트
+//		   나중에 바꿀거-sw
 //	public int updateCoin(UserDTO userInfo) {
 //
 //		int userCoin = 0;
@@ -278,9 +290,15 @@ public class TunaController {
 
 		return resultMap;
 	}
-
-//	public AddFriendDTO
-
+	
+	// 로그인 유저의 정보가 있는 지 확인하기 위한 select
+	public AddFriendDTO selectPlusFriend(UserDTO userInfo) {
+		AddFriendDTO list = new AddFriendDTO();
+		
+		list = service.selectAddFriend(userInfo.getUserNo());
+		return list;
+	}
+	
 	// PlUS_FRIEND 테이블에서 받아돈 값을 AddFriendDTO에 담아서 값을 받아온다.
 	public int RequestFriends(AddFriendDTO friend) {
 		int result = 0;
@@ -289,6 +307,14 @@ public class TunaController {
 		return result;
 
 	}
+//	public int RequestFriends(AddFriendDTO friend) {
+//		int result = 0;
+//		result = service.insertAndDeleteRequestFriend(friend);
+//		
+//		return result;
+//		
+//	}
+		
 
 //		switch (category) {
 //		case 1:
@@ -326,24 +352,29 @@ public class TunaController {
 //			
 //		}
 
-	public int checkLoginUser(String idCheck, String pwd) {
 
-		UserDTO user = new UserDTO();
-		user = service.checkLoginUser(idCheck);
-
-//		실패 기본값
+	/**
+	 * <pre>
+	 * 로그인 할때 사용할 아이디/비번체크용 메소드
+	 * </pre>
+	 * @param idCheck
+	 * @return
+	 * @author Juhee Hwang
+	 * @param pwCheck 
+	 */
+	public int checkLoginUser(String idCheck, String pwCheck) {
 		int result = 0;
-
-		if (user.getUserPwd().equals(pwd)) {
-//			pw체크 후 맞으면 id를 저장
-			loginMemberId = idCheck;
-
-//			로그인성공
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO = service.checkLoginUser(idCheck);
+		
+		if(userDTO.getUserID().equals(idCheck)&& userDTO.getUserPwd().equals(pwCheck)) {
+			TunaController.loginMemberId = idCheck;
 			result = 1;
+		}else{
+			result = 0;
 		}
-
 		return result;
-
 	}
 
 	// 친구 삭제
@@ -426,7 +457,10 @@ public class TunaController {
 			userInven.setItemCategory(item.getItemCategory());
 			userInven.setEquipItemYN("N");
 			
-			service.updateCoin(user.getUserNo(), (coin - item.getItemPrice()));
+//			나중에 바꿀거 -sw
+//			service.updateCoin(user.getUserNo(), (coin - item.getItemPrice()));
+			
+			
 			result = service.updateUserInventory(userInven);
 		}
 		
@@ -445,7 +479,6 @@ public class TunaController {
 			
 			return result;
 
-			
 		}
 
 	// 게시글 삽입
