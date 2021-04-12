@@ -170,4 +170,11 @@ SELECT
  WHERE USER_ID = ?
    AND USER_PWD= ?
 </entry>
+<entry key="selectFriends">
+SELECT
+       USER_NICKNAME
+  FROM FRIENDS_LIST F
+  JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+ WHERE F.USER_NO = ?
+</entry>
 </properties>

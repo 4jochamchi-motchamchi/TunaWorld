@@ -233,6 +233,20 @@ public class TunaService {
 		return equipYNList;
 	}
 
+	
+	// 친구인지 아닌지 확인하기 위해 친구조회
+	public List<FriendDTO> selectFriends(int userNo) {
+		
+		
+		List<FriendDTO> friend = new ArrayList<>();
+		
+		Connection con = getConnection();
+		
+		friend = tunaDAO.selectFriends(con, userNo);
+		
+		return friend;
+	}
+
 
 	/**
 	 * <pre>

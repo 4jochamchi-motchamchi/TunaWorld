@@ -311,4 +311,14 @@ public class TunaController {
 //	}
 	
 	
+	
+	   // 친구인지 아닌지 확인하기 위해 친구조회
+	   public List<FriendDTO> selectFriends(int userNo) {
+	      
+		  List<FriendDTO> friendDTO = new ArrayList<>();
+		  friendDTO = service.selectFriends(userNo);
+	      return friendDTO;
+	      
+	   }
+	
 }
