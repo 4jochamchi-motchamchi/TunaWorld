@@ -286,10 +286,18 @@ public class MyPage extends JFrame {
 		fontPanel.setBackground(Color.green);
 		
 		Map<Integer, ArrayList<UserInventoryDTO>> invMap = new HashMap<Integer, ArrayList<UserInventoryDTO>>();
+		
 		invMap = tunaController.selectUserInventory(1);
 		
-		List<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
-		equipItemList = invMap.get(4);
+//		List<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
+//		
+//		equipItemList = invMap.get(4);
+//		
+//		myCharacterButton.setText(equipItemList.get(1).getItemImg());
+//		
+//		myBackgroundButton.setText(equipItemList.get(2).getItemImg());
+//		
+//		myFontButton.setText(equipItemList.get(3).getItemImg());
 
 		for(int i = 0; i < 6; i++) {
 			if(i < invMap.get(1).size()) {
