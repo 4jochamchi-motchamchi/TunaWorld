@@ -49,24 +49,7 @@ public class TunaController {
 		return result;
 		
 	}
-	/**
-	 * <pre>
-	 * 로그인 아이디/비밀번호 확인 조회
-	 * </pre>
-	 * @param loginInfo
-	 * @return
-	 */
-	public int loginUser(Map<String, String> loginInfo) {
-		
-		UserDTO userList = new UserDTO();
-
-		userList.setUserID(loginInfo.get("id").toString());
-		userList.setUserPwd(loginInfo.get("pw").toString());
-		
-		int result = service.loginUser(userList);
-		
-		return result;
-	}
+	
 	
 //	MyPage에 로그인한 회원정보 조회
 	public UserDTO selectMemberInfo(String id){
@@ -349,6 +332,14 @@ public class TunaController {
 //			break;
 //			
 //		}
+
+
+	public UserDTO checkLoginUser(String idCheck) {
+		
+		return service.checkLoginUser(idCheck);
+	}
+
+
 
 
 	

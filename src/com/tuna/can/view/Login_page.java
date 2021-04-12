@@ -8,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -25,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
-
+import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.controller.Test;
 
 
@@ -38,6 +40,7 @@ import com.tuna.can.controller.Test;
  */
 public class Login_page extends JFrame{
 	private TunaController tunaController = new TunaController();
+	private UserDTO userdto = new UserDTO();
 
 	public Login_page() {
 		super("Login page");
@@ -143,8 +146,6 @@ public class Login_page extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-										
-
 					if(idText.getText().isEmpty() && pwText.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "아이디와 비밀번호가 입력되지않았습니다. \n 입력해주세요!", "경고", 0);
 						idText.requestFocus();
@@ -154,24 +155,27 @@ public class Login_page extends JFrame{
 						idText.requestFocus();
 						return;
 					} else {
-						int result = 0;
-						Map<String, String> loginInfo = new HashMap<String, String>();
-						loginInfo.put("id", idText.getText());
-						loginInfo.put("pw", pwText.getText());
+						String idCheck = null;
+							idCheck = idText.getText();
+						String pwCheck = pwText.getText();
+						UserDTO userDTO = new UserDTO();
+						userDTO = tunaController.checkLoginUser(idCheck);
+						System.out.println(userDTO);
 						
-						result = tunaController.loginUser(loginInfo);
+						System.out.println(userDTO.equals(pwCheck));
 						
-						if(result>0) {
-							JOptionPane.showConfirmDialog(null, "로그인에 성공하셨습니다.", "로그인 성공", 0);
-							
+						if(userDTO.getUserID().equals(idCheck) && userDTO.getUserPwd().equals(pwCheck)) {
+						JOptionPane.showConfirmDialog(null, "로그인에 성공하셨습니다.", "로그인 성공", -1);
+
 							new Main_page();
 							dispose();
 							
 						}else {
 							JOptionPane.showMessageDialog(null, "로그인 정보가 잘못되어 로그인에 실패했습니다.", "로그인 실패", 0);
 						}
+						}
 					}
-				}
+//				}
 			});
 
 			this.add(imagePanel);
