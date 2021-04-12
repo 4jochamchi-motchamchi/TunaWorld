@@ -277,10 +277,11 @@ public class Main_page extends JFrame{
 	}
 	
 	public String changeNickname() {
+		String nickname = tunaController.checkNickname(TunaController.loginMemberId);
 		
 	
 		
-		return null;
+		return nickname;
 		
 	}
 }

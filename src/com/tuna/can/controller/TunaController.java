@@ -20,7 +20,7 @@ public class TunaController {
 
 //	로그인 성공한 id
 	
-	private static String loginMemberId; 
+	public static String loginMemberId; 
 	
 	private TunaService service = new TunaService();
 
@@ -376,6 +376,24 @@ public class TunaController {
 		}
 		return result;
 	}
+	
+	/**
+	 * <pre>
+	 * 닉네임만 가져오기 메소드
+	 * </pre>
+	 * @param idCheck
+	 * @return
+	 * @author Juhee Hwang
+	 */
+	public String checkNickname(String idCheck) {
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		String nickname = userDTO.getNickName();
+		
+		return nickname;
+	}
+
 
 	// 친구 삭제
 //	public int deleteFriend (UserDTO  UserInfo) {

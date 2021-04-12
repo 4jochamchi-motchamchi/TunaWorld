@@ -375,6 +375,15 @@ public class TunaService {
 	}
 
 
+	/**
+	 * <pre>
+	 * 로그인 아이디/비번 체크용
+	 * 닉네임까지 불러올때 사용가능
+	 * </pre>
+	 * @param idCheck
+	 * @return
+	 * @author Juhee Hwang
+	 */
 	public UserDTO checkLoginUser(String idCheck) {
 		Connection con = getConnection();
 		UserDTO userCheck = tunaDAO.checkLoginUser(con,idCheck);
@@ -385,9 +394,9 @@ public class TunaService {
 
 	public int insertBoard(BoardDTO board) {
 		int result = 0;
-		BoardDao boardDao = new BoardDao();
+		
 		Connection con = getConnection();
-		result = boardDao.insertBoard(con, board);
+//		result = BoardDao.insertBoard(con, board);
 		if(result > 0){
 			commit(con);
 		} else {

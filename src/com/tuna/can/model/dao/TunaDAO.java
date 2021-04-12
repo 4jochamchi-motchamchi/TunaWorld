@@ -5,6 +5,7 @@ import static com.tuna.can.common.JDBCTemplate.close;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,6 +82,7 @@ public class TunaDAO {
 	/**
 	 * <pre>
 	 * login 페이지 아이디/비밀번호 확인 메소드
+	 * 
 	 * </pre>
 	 * 
 	 * @param con
@@ -481,6 +483,7 @@ public class TunaDAO {
 	/**
 	 * <pre>
 	 * 로그인 아이디/비밀번호 확인 메소드
+	 * 추가적으로 닉네임 확인가능
 	 * </pre>
 	 * 
 	 * @param con
@@ -687,8 +690,6 @@ public class TunaDAO {
 
 		return sotreItem;
 	}
-
-	
 	
 	public int insertRequest(Connection con, AddFriendDTO addFriends) {
 
@@ -893,5 +894,6 @@ public class TunaDAO {
 		}
 		System.out.println("resut in reject section : " + result);
 		return result;
+
 	}
 }
