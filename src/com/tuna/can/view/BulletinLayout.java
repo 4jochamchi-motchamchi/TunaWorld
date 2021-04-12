@@ -45,7 +45,7 @@ public class BulletinLayout extends JFrame{
 		
 		
 		// 게시글 번호
-		int boardNumber = 1;
+		int boardNumber = 4;
 		// 로그인
 		int userNo = 1;		
 		
@@ -79,7 +79,7 @@ public class BulletinLayout extends JFrame{
 				e1.printStackTrace();
 			}
 			
-			this.setBackground(Color.pink);
+//			this.setBackground(Color.pink);
 			
 			ImageIcon addfriend = new ImageIcon("image/addfriend.PNG");
 			ImageIcon send = new ImageIcon("image/send.PNG");
@@ -92,7 +92,6 @@ public class BulletinLayout extends JFrame{
 			JLabel topLabel = new JLabel(board.getTitle());							// 제목 들어갈 라벨(데이터 불러와야됨)
 			JButton backButton = new JButton(home);									// 메인으로가기 버튼
 			JLabel nickName = new JLabel(board.getUserNickname());					// 닉네임 들어갈 라벨(데이터 불러와야됨)
-			JButton plusFriend = new JButton(addfriend);							// 친구추가 들어갈 라벨
 			JTextArea bulletin = new JTextArea(board.getBoardContents());			// 게시글 들어갈 라벨(데이터 불러와야됨)
 //			JLabel bulletinLabel = new JLabel();
 			JLabel date = new JLabel(board.getEnrollDate());						// 게시글 작성된 날짜 들어갈 라벨(데이터 불러와야됨)
@@ -133,13 +132,6 @@ public class BulletinLayout extends JFrame{
 			nickName.setSize(100, 25);
 			nickName.setHorizontalAlignment(JLabel.CENTER);
 			bulletinPanel.add(nickName);
-			
-			// 친구추가 설정
-			plusFriend.setLocation(600, 15);
-			plusFriend.setSize(45, 45);
-			plusFriend.setBackground(Color.pink);
-			plusFriend.setBorder(pinkborder);
-			bulletinPanel.add(plusFriend);
 			
 			
 			// 게시글 설정
@@ -257,44 +249,43 @@ public class BulletinLayout extends JFrame{
 			writePanel.add(inputButton);
 			
 			
-			
-			// 친구추가 버튼 눌렀을 때
-			plusFriend.addActionListener(new ActionListener() {
-							
-				@Override
-				public void actionPerformed(ActionEvent e) {
-								
-					if(e.getSource() == plusFriend) {
-						JOptionPane.showMessageDialog(null,"친구요청을 보냈습니다.", "친구추가",1);	
-					}
-					writeComment.requestFocus();
-				}
-			});
-			
-			
-			// 뒤로가기 버튼 눌렀을 때
-			backButton.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					if(e.getSource() == backButton) {
-						new Main_page();
-						dispose();		
-					}				
-				}
-			});
-			
-			
-			
-			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가
+			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가, 친구추가 불가
 			if(board.getListNo() == 2) {
-				
-				writeComment.setEnabled(false);
-				inputButton.setEnabled(false);
-				
+			
+			writeComment.setEnabled(false);
+			inputButton.setEnabled(false);
+			nickName.setVisible(false);
+							
 			} else {
+				JButton plusFriend = new JButton(addfriend);							// 친구추가 들어갈 라벨
 				
+				// 친구추가 설정
+				plusFriend.setLocation(600, 15);
+				plusFriend.setSize(45, 45);
+				plusFriend.setBackground(Color.pink);
+				plusFriend.setBorder(pinkborder);
+				bulletinPanel.add(plusFriend);
+				
+				// 친구추가 버튼 눌렀을 때
+				plusFriend.addActionListener(new ActionListener() {
+							
+					@Override
+					public void actionPerformed(ActionEvent e) {
+								
+						if(e.getSource() == plusFriend) {
+							JOptionPane.showMessageDialog(null,"친구요청을 보냈습니다.", "친구추가",1);
+							
+							// 만약 이미 친구 목록에 있으면 친구요청 불가
+							
+							// PLUS_FRIEND_YN를 Y로 바꿔주는 UPDATE문 만들기,, 내 정보도 같이 넘어가야되는데,,,,
+							// 요청 보낼때는 INSERT 팝업 뜨고 수락하면 PLUS_FRIEND_YN N으로 바꿔주고 거절하면 PLUS_FRIEND_YN N으로 바꾸고 INSERT한거 DELETE하기
+							
+							
+							
+						}
+						writeComment.requestFocus();
+					}
+				});
 				
 				// 댓글입력 버튼 눌렀을 때
 				inputButton.addActionListener(new ActionListener() {
@@ -332,15 +323,28 @@ public class BulletinLayout extends JFrame{
 
 							writeComment.requestFocus();
 							
-							
 						}
 						
 					}
 				});
-				
-				
 			}
+			
+			
+			// 뒤로가기 버튼 눌렀을 때
+			backButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					if(e.getSource() == backButton) {
+						new Main_page();
+						dispose();		
+					}				
+				}
+			});
 	
+				
+				
 			
 			
 			JPanel sidePanel1 = new JPanel();

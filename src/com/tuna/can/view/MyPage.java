@@ -28,7 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.InventoryButtonController;
-import com.tuna.can.controller.MyPage_Button;
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;

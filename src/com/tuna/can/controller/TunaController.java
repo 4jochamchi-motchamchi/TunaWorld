@@ -42,6 +42,7 @@ public class TunaController {
 	 * @return
 	 */
 	public int registUser(Map<String, Object> newMemberInfo) {
+		
 		UserDTO userList = new UserDTO();
 
 		userList.setNickName(newMemberInfo.get("nickname").toString());

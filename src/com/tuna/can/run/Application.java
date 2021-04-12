@@ -9,8 +9,8 @@ public class Application {
 	public static void main(String[] args) {
 		
 		UserDTO ud = new UserDTO();
-		ud.setUserNo(1);
-		ud.setCoin(100);
+		ud.setUserNo(2);
+		ud.setCoin(20);
 		
 		TunaController tc = new TunaController();
 		tc.selectUSerCoin(ud);
