@@ -10,9 +10,11 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
+import com.tuna.can.view.MyPage;
 
 public class InventoryButtonController extends JButton{
 	
@@ -22,28 +24,23 @@ public class InventoryButtonController extends JButton{
 	private String itemImg;
 	private int categoryNumber;
 	
-	private Map<String, Integer> resultMap = new HashMap<String, Integer>();
+	private Map<String, Object> resultMap = new HashMap<String, Object>();
 	
 	private UserInventoryDTO inventory = null;
-	private TunaController controller = new TunaController();
-	
 	
 	public InventoryButtonController(UserInventoryDTO inventory) {
+		
 		this.inventory = inventory;
+		
 		this.setText(inventory.getItemImg());
-		
-		bottonAction();
-		
-	}
-	
-	public void bottonAction() {
 		
 		this.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				TunaController controller = new TunaController();
 				
-				int result = 0;
+				String resultComent = "";
 				if(inventory.getEquipItemYN().equals("Y")) {
 					
 					inventory.setEquipItemYN("N");
@@ -53,21 +50,60 @@ public class InventoryButtonController extends JButton{
 				}
 				
 				resultMap = controller.updateItemEquipYn(inventory);
-				result = resultMap.get("result");
-				if(result > 0) {
+				
+				resultComent = resultMap.get("result").toString();
+				
+				switch (resultComent) {
+				case "장착성공":
+					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 되었습니다.", "장착성공", 0);					
+					break;
+					
+//					장착 실패시 장착여부 다시 변경
+				case "장착실패":
+					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템 장착에 실패 하였습니다.", "장착실패", 0);
 					if(inventory.getEquipItemYN().equals("Y")) {
-						JOptionPane.showMessageDialog(null, resultMap.get("itemNO") + "번 아이템이 장착 되었습니다.", "장착", 0);
+						
+						inventory.setEquipItemYN("N");
 						
 					} else {
-						JOptionPane.showMessageDialog(null, resultMap.get("itemNO") + "번 아이템이 장착 해제 되었습니다.", "장착 해제", 0);
-						
+						inventory.setEquipItemYN("Y");
 					}
 					
-				} else {
-					JOptionPane.showMessageDialog(null, "아이템은 하나만 장착 가능 합니다 ", "장착 실패", 0);
+					break;
+					
+//					이미 장착시 장착여부 다시 변경
+				case "이미장착":
+					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템은 이미 장착 중입니다.", "이미장착", 0);
+					if(inventory.getEquipItemYN().equals("Y")) {
+						
+						inventory.setEquipItemYN("N");
+						
+					} else {
+						inventory.setEquipItemYN("Y");
+					}
+					
+					break;
+					
+				case "한개만장착가능":
+					JOptionPane.showMessageDialog(null, "아이템은 카테고리별로 한개만 장착 가능합니다", "한개만장착가능", 0);
+					if(inventory.getEquipItemYN().equals("Y")) {
+						
+						inventory.setEquipItemYN("N");
+						
+					} else {
+						inventory.setEquipItemYN("Y");
+					}
+					
+					break;					
+				case "장착해제":
+					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 해제 되었습니다.", "장착해제", 0);
+					break;
 				}
 			}
 		});
+		
 	}
 
+
+	
 }

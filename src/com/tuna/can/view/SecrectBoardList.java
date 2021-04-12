@@ -155,7 +155,10 @@ public class SecrectBoardList extends JFrame{
 			this.getContentPane().add(scrollbar);
 			
 			//글쓰러 가기 버튼
-			JButton write  = new JButton("write");
+			ImageIcon writee = new ImageIcon("image/write.PNG");
+			JButton write  = new JButton(writee);
+			write.setBackground(Color.pink);
+			write.setBorder(pinkborder);
 		    write.setBounds(560, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				

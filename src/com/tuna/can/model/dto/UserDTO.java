@@ -14,7 +14,7 @@ public class UserDTO {
 
 	}
 	
-	public UserDTO(int userNo, String nickName, String userID, String userPwd, String phone, String meail,
+	public UserDTO(int userNo, String nickName, String userID, String userPwd, String phone, String email,
 			int tunaCan) {
 		super();
 		this.userNo = userNo;
@@ -22,7 +22,7 @@ public class UserDTO {
 		this.userID = userID;
 		this.userPwd = userPwd;
 		this.phone = phone;
-		this.email = meail;
+		this.email = email;
 		this.coin = tunaCan;
 	}
 
@@ -66,14 +66,14 @@ public class UserDTO {
 	public String getEmail() {
 		return email;
 	}
-	public void setEmail(String meail) {
-		this.email = meail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
 	public String toString() {
 		return "MemberDTO [userNo=" + userNo + ", nickName=" + nickName + ", userID=" + userID + ", userPwd=" + userPwd
-				+ ", phone=" + phone + ", meail=" + email + ", tunaCan=" + coin + "]";
+				+ ", phone=" + phone + ", email=" + email + ", tunaCan=" + coin + "]";
 	}
 	
 }

@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,8 +21,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.tuna.can.controller.InventoryButtonController;
+import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.StoreItemDTO;
+import com.tuna.can.model.dto.UserInventoryDTO;
+
 public class Store extends JFrame{
 
+	private TunaController controller = new TunaController();
+	
 	public Store() {
 		
 		super("Store");
@@ -29,6 +40,7 @@ public class Store extends JFrame{
 //			JFrame frame = new JFrame("Store");
 			this.setLayout(null);
 			this.setSize(700, 900);
+			this.setLocation(600, 50);
 
 			// 최상단 패널
 			JPanel topPanel = new JPanel();
@@ -108,100 +120,136 @@ public class Store extends JFrame{
 			fontPanel.setLayout(new GridLayout(3,3));
 			fontPanel.setBounds(45, 350, 600, 500);
 			fontPanel.setBackground(Color.gray);
+			TunaController controller = new TunaController();
 			
-			JButton storeButton1 = new JButton("캐릭터 1");
-			JButton storeButton2 = new JButton();
-			JButton storeButton3 = new JButton();
-			JButton storeButton4 = new JButton();
-			JButton storeButton5 = new JButton();
-			JButton storeButton6 = new JButton();
-			JButton storeButton7 = new JButton();
-			JButton storeButton8 = new JButton();
-			JButton storeButton9 = new JButton();
+			Map<Integer, ArrayList<StoreItemDTO>> storeItemMap = new HashMap<Integer, ArrayList<StoreItemDTO>>();
 			
-			JButton storeButton10 = new JButton("배경 1");
-			JButton storeButton11 = new JButton();
-			JButton storeButton12 = new JButton();
-			JButton storeButton13 = new JButton();
-			JButton storeButton14 = new JButton();
-			JButton storeButton15 = new JButton();
-			JButton storeButton16 = new JButton();
-			JButton storeButton17 = new JButton();
-			JButton storeButton18 = new JButton();
+			List<StoreItemDTO> storeItem = new ArrayList<StoreItemDTO>();
 			
-			JButton storeButton19 = new JButton("폰트 1");
-			JButton storeButton20 = new JButton();
-			JButton storeButton21 = new JButton();
-			JButton storeButton22 = new JButton();
-			JButton storeButton23 = new JButton();
-			JButton storeButton24 = new JButton();
-			JButton storeButton25 = new JButton();
-			JButton storeButton26 = new JButton();
-			JButton storeButton27 = new JButton();
+			storeItemMap = controller.selectStoreItem();
+			
+			
+//			for(int i = 0; i < 9; i++) {
+//				if(i < invMap.get(1).size()) {
+//					
+//					characterPanel.add(new InventoryButtonController(invMap.get(1).get(i)));
+//				} else {
+//					
+//					characterPanel.add(new JButton("아이템 없음"));
+//				}
+//			}
+//			
+//			for(int i = 0; i < 9; i++) {
+//				if(i < invMap.get(2).size()) {
+//					backgroundPanel.add(new InventoryButtonController(invMap.get(2).get(i)));
+//				} else {
+//					
+//					backgroundPanel.add(new JButton("아이템 없음"));
+//				}
+//			}
+//			
+//			for(int i = 0; i < 9; i++) {
+//				if(i < invMap.get(3).size()) {
+//					fontPanel.add(new InventoryButtonController(invMap.get(3).get(i)));
+//				} else {
+//					
+//					fontPanel.add(new JButton("아이템 없음"));
+//				}
+//			}
+			
+//			JButton storeButton1 = new JButton("캐릭터 1");
+//			JButton storeButton2 = new JButton();
+//			JButton storeButton3 = new JButton();
+//			JButton storeButton4 = new JButton();
+//			JButton storeButton5 = new JButton();
+//			JButton storeButton6 = new JButton();
+//			JButton storeButton7 = new JButton();
+//			JButton storeButton8 = new JButton();
+//			JButton storeButton9 = new JButton();
+//			
+//			JButton storeButton10 = new JButton("배경 1");
+//			JButton storeButton11 = new JButton();
+//			JButton storeButton12 = new JButton();
+//			JButton storeButton13 = new JButton();
+//			JButton storeButton14 = new JButton();
+//			JButton storeButton15 = new JButton();
+//			JButton storeButton16 = new JButton();
+//			JButton storeButton17 = new JButton();
+//			JButton storeButton18 = new JButton();
+//			
+//			JButton storeButton19 = new JButton("폰트 1");
+//			JButton storeButton20 = new JButton();
+//			JButton storeButton21 = new JButton();
+//			JButton storeButton22 = new JButton();
+//			JButton storeButton23 = new JButton();
+//			JButton storeButton24 = new JButton();
+//			JButton storeButton25 = new JButton();
+//			JButton storeButton26 = new JButton();
+//			JButton storeButton27 = new JButton();
 			
 //			상점 1버튼 클릭시 텍스트 입력
-			storeButton1.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					
-					buyLabel.setText(" 캐릭터 구매? ");
-				}
-				
-				
-			});
-			
-			storeButton10.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					
-					buyLabel.setText(" 배경 구매?");
-				}
-				
-				
-			});
-			
-			storeButton19.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					
-					buyLabel.setText(" 폰트 구매?");
-				}
-				
-				
-			});
-			
-			characterPanel.add(storeButton1);
-			characterPanel.add(storeButton2);
-			characterPanel.add(storeButton3);
-			characterPanel.add(storeButton4);
-			characterPanel.add(storeButton5);
-			characterPanel.add(storeButton6);
-			characterPanel.add(storeButton7);
-			characterPanel.add(storeButton8);
-			characterPanel.add(storeButton9);
-			
-			backgroundPanel.add(storeButton10);
-			backgroundPanel.add(storeButton11);
-			backgroundPanel.add(storeButton12);
-			backgroundPanel.add(storeButton13);
-			backgroundPanel.add(storeButton14);
-			backgroundPanel.add(storeButton15);
-			backgroundPanel.add(storeButton16);
-			backgroundPanel.add(storeButton17);
-			backgroundPanel.add(storeButton18);
-			
-			fontPanel.add(storeButton19);
-			fontPanel.add(storeButton20);
-			fontPanel.add(storeButton21);
-			fontPanel.add(storeButton22);
-			fontPanel.add(storeButton23);
-			fontPanel.add(storeButton24);
-			fontPanel.add(storeButton25);
-			fontPanel.add(storeButton26);
-			fontPanel.add(storeButton27);
+//			storeButton1.addMouseListener(new MouseAdapter() {
+//
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					
+//					buyLabel.setText(" 캐릭터 구매? ");
+//				}
+//				
+//				
+//			});
+//			
+//			storeButton10.addMouseListener(new MouseAdapter() {
+//
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					
+//					buyLabel.setText(" 배경 구매?");
+//				}
+//				
+//				
+//			});
+//			
+//			storeButton19.addMouseListener(new MouseAdapter() {
+//
+//				@Override
+//				public void mouseClicked(MouseEvent e) {
+//					
+//					buyLabel.setText(" 폰트 구매?");
+//				}
+//				
+//				
+//			});
+//			
+//			characterPanel.add(storeButton1);
+//			characterPanel.add(storeButton2);
+//			characterPanel.add(storeButton3);
+//			characterPanel.add(storeButton4);
+//			characterPanel.add(storeButton5);
+//			characterPanel.add(storeButton6);
+//			characterPanel.add(storeButton7);
+//			characterPanel.add(storeButton8);
+//			characterPanel.add(storeButton9);
+//			
+//			backgroundPanel.add(storeButton10);
+//			backgroundPanel.add(storeButton11);
+//			backgroundPanel.add(storeButton12);
+//			backgroundPanel.add(storeButton13);
+//			backgroundPanel.add(storeButton14);
+//			backgroundPanel.add(storeButton15);
+//			backgroundPanel.add(storeButton16);
+//			backgroundPanel.add(storeButton17);
+//			backgroundPanel.add(storeButton18);
+//			
+//			fontPanel.add(storeButton19);
+//			fontPanel.add(storeButton20);
+//			fontPanel.add(storeButton21);
+//			fontPanel.add(storeButton22);
+//			fontPanel.add(storeButton23);
+//			fontPanel.add(storeButton24);
+//			fontPanel.add(storeButton25);
+//			fontPanel.add(storeButton26);
+//			fontPanel.add(storeButton27);
 
 			botPanel.add("character", characterPanel);
 			botPanel.add("background", backgroundPanel);

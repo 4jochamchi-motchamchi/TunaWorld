@@ -36,22 +36,22 @@ public class MyPage extends JFrame {
 	
 	TunaController tunaController = new TunaController();
 	UserDTO member = null;
+	JFrame frame = null;
 
-	
 	public MyPage() {
 
 		myPageMainFrame();
 	}
 	public static void main(String[] args) {
 
-		MyPage mypage = new MyPage();
-		
-		mypage.myPageMainFrame();
+		new MyPage();
 
 	}
 	
-	public void myPageMainFrame() {
-		JFrame frame = new JFrame("MyPage");
+	public JFrame myPageMainFrame() {
+		
+		
+		frame = new JFrame("MyPage");
 		frame.setLocation(600, 50);
 		frame.setSize(700, 900);
 		
@@ -64,6 +64,8 @@ public class MyPage extends JFrame {
 		frame.setVisible(true);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		return frame;
 		
 	}
 
@@ -152,10 +154,7 @@ public class MyPage extends JFrame {
 					
 				} else {
 					JOptionPane.showMessageDialog(null, "업데이트 실패.", "업데이트 실패", 0);
-					
 				}
-				
-
 				
 			}
 		});
@@ -205,14 +204,27 @@ public class MyPage extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Main_page();
-				dispose();
+				frame.dispose();
 			}
 		});
 		backB.setBounds(30, 25, 55, 55);
 		backB.setBackground(Color.pink);
 		backB.setBorder(pinkborder);
 		topPanel.add(backB);
-
+		
+		JButton refreshButton = new JButton("새로고침");
+		refreshButton.setBounds(600, 220, 50, 20);
+		
+		refreshButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myPageMainFrame().repaint();
+			}
+		});
+		
+		topPanel.add(refreshButton);
+		
 		return topPanel;
 
 	}
@@ -229,16 +241,19 @@ public class MyPage extends JFrame {
 		Font myfont = new Font("내캐릭터 폰트", Font.BOLD, 18);
 
 		JButton myCharacterButton = new JButton();
+//		myCharacterButton = new JButton();
 		JLabel myCharacterLabel = new JLabel("내 캐릭터");
 		myCharacterButton.add(myCharacterLabel);
 		myCharacterLabel.setFont(myfont);
 
 		JButton myBackgroundButton = new JButton();
+//		myBackgroundButton = new JButton();
 		JLabel myBackgroundLabel = new JLabel("내 배경색");
 		myBackgroundButton.add(myBackgroundLabel);
 		myBackgroundLabel.setFont(myfont);
 
 		JButton myFontButton = new JButton();
+//		myFontButton = new JButton();
 		JLabel myFontLabel = new JLabel("내 폰트");
 		myFontButton.add(myFontLabel);
 		myFontLabel.setFont(myfont);
@@ -313,6 +328,7 @@ public class MyPage extends JFrame {
 		
 		for(int i = 0; i < 6; i++) {
 			if(i < invMap.get(1).size()) {
+				
 				characterPanel.add(new InventoryButtonController(invMap.get(1).get(i)));
 			} else {
 				
@@ -353,7 +369,7 @@ public class MyPage extends JFrame {
 				if (e.getSource() == myCharacterButton) {
 					card.show(bottomBottomPanel, "character");
 				}
-
+				
 			}
 		});
 		myBackgroundButton.addMouseListener(new MouseAdapter() {
@@ -361,7 +377,6 @@ public class MyPage extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				card.show(bottomBottomPanel, "background");
-
 			}
 
 		});
@@ -377,6 +392,7 @@ public class MyPage extends JFrame {
 
 		bottomPanel2.add(bottomTopPanel);
 		bottomPanel2.add(bottomBottomPanel);
+		
 		
 		return bottomPanel2;
 

@@ -1,5 +1,6 @@
 package com.tuna.can.service;
 
+import static com.tuna.can.common.JDBCTemplate.close;
 import static com.tuna.can.common.JDBCTemplate.commit;
 import static com.tuna.can.common.JDBCTemplate.getConnection;
 import static com.tuna.can.common.JDBCTemplate.rollback;
@@ -8,11 +9,14 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dao.TunaDAO;
 import com.tuna.can.model.dto.AddFriendDTO;
+import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
+import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -51,24 +55,6 @@ public class TunaService {
 
 	}
 
-	/**
-	 * <pre>
-	 * 로그인페이지 아이디/ 비밀번호 확인하는 메소드
-	 * </pre>
-	 * 
-	 * @param userList
-	 * @return
-	 */
-	public int loginUser(UserDTO userList) {
-		Connection con = getConnection();
-
-		int result = 0;
-
-		int loginResult = tunaDAO.loginUser(con, userList);
-
-		return result;
-	}
-
 //	MyPage 페이지 회원정보 select
 	public UserDTO selectMemberInfo(String loginMemberId) {
 
@@ -77,6 +63,10 @@ public class TunaService {
 		Connection con = getConnection();
 
 		member = tunaDAO.selectMemberInfo(con, loginMemberId);
+
+		
+		close(con);
+		
 
 		return member;
 	}
@@ -89,6 +79,10 @@ public class TunaService {
 		Connection con = getConnection();
 
 		invenButtonInfo = tunaDAO.selectUserInventory(con, userNo);
+
+		
+		close(con);
+		
 
 		return invenButtonInfo;
 
@@ -205,6 +199,7 @@ public class TunaService {
 
 		if (result == 1) {
 			commit(con);
+			close(con);
 		}
 
 		return result;
@@ -218,7 +213,16 @@ public class TunaService {
 
 		result = tunaDAO.updateItemEquipYn(con, inventory);
 
+
 		commit(con);
+
+
+		
+		if(result > 0) {
+			commit(con);
+			close(con);
+		}
+		
 
 		return result;
 	}
@@ -231,10 +235,17 @@ public class TunaService {
 
 		equipYNList = tunaDAO.selectCategoryInvenYN(con, inventory);
 
+		close(con);
+		
+
 		return equipYNList;
 	}
 
+
 	/**
+	 * <pre>
+	 *  친구 등록 
+	 * </pre>
 	 * @author 김현빈
 	 * @return
 	 */
@@ -267,6 +278,38 @@ public class TunaService {
 	 * @return 
 	 */
 	public int rejectRequestFriend(AddFriendDTO userInfo) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		result = tunaDAO.rejectFriend(con, userInfo);
+		
+		if (result > 0) {
+			System.out.println("성공");
+			commit(con);
+		} else {
+			System.out.println("실패");
+			rollback(con);
+		}
+		
+		return result;
+	}
+	
+	// 친구인지 아닌지 확인하기 위해 친구조회
+	public List<FriendDTO> selectFriends(int userNo) {
+		
+		
+		List<FriendDTO> friend = new ArrayList<>();
+		
+		Connection con = getConnection();
+		
+		friend = tunaDAO.selectFriends(con, userNo);
+		
+		return friend;
+	}
+
+
+	public int updateRequestFriend(AddFriendDTO userInfo) {
+
 		
 		Connection con = getConnection();
 		int result = 0;
@@ -296,6 +339,69 @@ public class TunaService {
 
 		return friendList;
 	}
+
+	public List<StoreItemDTO> selectStoreItem() {
+
+		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
+		
+		Connection con = getConnection();
+		
+		sotreItem = tunaDAO.selectStoreItem(con);
+		
+		close(con);
+		
+		return sotreItem;
+	}
+
+	// 친구요청 보내기 정보 INSERT
+	public int insertRequest(AddFriendDTO addFriend) {
+		
+
+		int result = 0;
+			
+		Connection con = getConnection();
+			
+		result = tunaDAO.insertRequest(con, addFriend);
+			
+		if(result > 0){
+			commit(con);
+		} else {
+			System.out.println();
+			rollback(con);
+		}
+			
+		return result;
+		
+	}
+
+
+	public UserDTO checkLoginUser(String idCheck) {
+		Connection con = getConnection();
+		UserDTO userCheck = tunaDAO.checkLoginUser(con,idCheck);
+		
+		return userCheck;
+	}
+
+
+	public int insertBoard(BoardDTO board) {
+		int result = 0;
+		BoardDao boardDao = new BoardDao();
+		Connection con = getConnection();
+		result = boardDao.insertBoard(con, board);
+		if(result > 0){
+			commit(con);
+		} else {
+			System.out.println();
+			rollback(con);
+		}
+		
+		return result;
+	}
+
+	
+
+
+
 
 	/**
 	 * <pre>

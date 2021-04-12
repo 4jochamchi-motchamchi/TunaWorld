@@ -18,6 +18,7 @@ import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
+import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -87,28 +88,7 @@ public class TunaDAO {
 	 * @return
 	 * @author Juhee Hwang
 	 */
-	public int loginUser(Connection con, UserDTO userList) {
-		
-		PreparedStatement pstmt = null;
-		int result =0;
-		String query = prop.getProperty("loginUser_check");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, userList.getUserID());
-			pstmt.setString(2, userList.getUserPwd());
-			
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-		
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+	
 	
 	public UserDTO selectMemberInfo(Connection con, String loginMemberId) {
 		
@@ -286,6 +266,7 @@ public class TunaDAO {
 				bulletinDTO.setUserNickname(rset.getString("USER_NICKNAME"));
 				bulletinDTO.setEnrollDate(rset.getString("ENROLLDATE"));
 				bulletinDTO.setListNo(rset.getInt("LIST_NO"));
+				bulletinDTO.setUserNo(rset.getInt("USER_NO"));
 			}
 			
 		} catch (SQLException e) {
@@ -372,7 +353,7 @@ public class TunaDAO {
 	
 	// 친구리스트에서 이미지, 친구 닉네임 불러오기
 	public List<FriendDTO> selectFriendsList(Connection con,int userNo) {
-		String query = prop.getProperty("selectFriendsLIst");
+		String query = prop.getProperty("selectFriendsList");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -526,6 +507,52 @@ public class TunaDAO {
 	}
 
 
+
+	/**
+	 * <pre>
+	 * 로그인 아이디/비밀번호 확인 메소드
+	 * </pre>
+	 * @param con
+	 * @param idCheck
+	 * @return
+	 * @author juhee hwang
+	 */
+	public UserDTO checkLoginUser(Connection con, String idCheck) {
+	
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+		
+		UserDTO userDTO = null;
+		
+		String query = prop.getProperty("login_check");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, idCheck);
+			
+			rset = pstmt.executeQuery();
+			userDTO = new UserDTO();
+			
+			if(rset.next()) {
+				
+				userDTO.setUserID(rset.getString("USER_ID"));
+				userDTO.setUserPwd(rset.getString("USER_PWD"));
+				userDTO.setNickName(rset.getString("USER_NICKNAME"));
+				
+			}
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userDTO;
+	}
+
+
 	public int updateUserInformation(Connection con, UserDTO updateUserInfo) {
 
 		String query = prop.getProperty("updateUserInformation");
@@ -623,6 +650,110 @@ public class TunaDAO {
 		return equipYNList;
 	}
 
+	
+	// 친구인지 아닌지 확인하기 위해 친구조회
+	public List<FriendDTO> selectFriends(Connection con, int userNo) {
+		
+		
+		String query = prop.getProperty("selectFriends");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<FriendDTO> friend = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			friend = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				FriendDTO friendDTO = new FriendDTO();
+				friendDTO.setFriendsNickname(rset.getString("USER_NICKNAME"));
+				
+				friend.add(friendDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return friend;
+	}
+
+
+	public List<StoreItemDTO> selectStoreItem(Connection con) {
+
+		ResultSet rset = null;
+		
+		Statement stmt = null;
+		
+		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
+		
+		String query = prop.getProperty("selectStoreItem");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				StoreItemDTO item = new StoreItemDTO();
+				item.setItemNo(rset.getInt("ITEM_NO"));
+				item.setItemName(rset.getString("ITEM_NAME"));
+				item.setItemPrice(rset.getInt("ITEM_PRICE"));
+				item.setItemImg(rset.getString("ITEM_IMG"));
+				item.setItemCategory(rset.getInt("ITEM_CATEGORY"));
+				
+				sotreItem.add(item);
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return sotreItem;
+}
+		
+	public int insertRequest(Connection con, AddFriendDTO addFriends) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertRequestFriend");
+		
+		try {
+			
+			AddFriendDTO addFriend = new AddFriendDTO();
+			
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, addFriends.getUserNo());
+			pstmt.setInt(2, addFriends.getRequsetFriendNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 	// plusfriend 테이블에서 신청한에 신청 받은애 값 받아오기
 	public AddFriendDTO selectAddFriend(Connection con, int userNo) {
@@ -702,7 +833,7 @@ public class TunaDAO {
 	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
 		
 		PreparedStatement pstmt = null;
-		String query = prop.getProperty("deleteRequest");
+		String query = prop.getProperty("deleteFriend");
 		int result = 0;
 		
 		try {
