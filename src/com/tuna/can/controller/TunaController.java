@@ -11,6 +11,7 @@ import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
+import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -24,11 +25,6 @@ public class TunaController {
 //	로그인한 USER의 개인정보를 담고있을 객체
 	private UserDTO loginMember = null;
 	private int coin;
-
-//	아이템
-	private ArrayList<UserInventoryDTO> category1Item = new ArrayList<UserInventoryDTO>();
-	private ArrayList<UserInventoryDTO> category2Item = new ArrayList<UserInventoryDTO>();
-	private ArrayList<UserInventoryDTO> category3Item = new ArrayList<UserInventoryDTO>();
 
 	/**
 	 * <pre>
@@ -88,6 +84,10 @@ public class TunaController {
 	public Map<Integer, ArrayList<UserInventoryDTO>> selectUserInventory(int userNo) {
 		
 		Map<Integer, ArrayList<UserInventoryDTO>> itemMap = new HashMap<Integer, ArrayList<UserInventoryDTO>>();
+		
+		ArrayList<UserInventoryDTO> category1Item = new ArrayList<UserInventoryDTO>();
+		ArrayList<UserInventoryDTO> category2Item = new ArrayList<UserInventoryDTO>();
+		ArrayList<UserInventoryDTO> category3Item = new ArrayList<UserInventoryDTO>();
 		
 		ArrayList<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
 		
@@ -373,6 +373,50 @@ public class TunaController {
 	      return friendDTO;
 	      
 	   }
+	   
+	   
+	public Map<Integer, ArrayList<StoreItemDTO>> selectStoreItem() {
+		
+		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
+		
+		sotreItem = service.selectStoreItem();
+		
+		
+		Map<Integer, ArrayList<StoreItemDTO>> itemMap = new HashMap<Integer, ArrayList<StoreItemDTO>>();
+		
+		ArrayList<StoreItemDTO> category1Item = new ArrayList<StoreItemDTO>();
+		ArrayList<StoreItemDTO> category2Item = new ArrayList<StoreItemDTO>();
+		ArrayList<StoreItemDTO> category3Item = new ArrayList<StoreItemDTO>();
+		
+		ArrayList<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
+		
+		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
+		
+		for(int i = 0; i < sotreItem.size(); i++) {
+			StoreItemDTO item = new StoreItemDTO();
+			item = sotreItem.get(i);
+			int category = item.getItemCategory();
+			switch (category) {
+			case 1:
+				category1Item.add(item);
+				break;
+			case 2:
+				category2Item.add(item);
+				break;
+			case 3:
+				category3Item.add(item);
+				break;
+			}
+		}
+		
+		itemMap.put(1, category1Item);
+		itemMap.put(2, category2Item);
+		itemMap.put(3, category3Item);
+		
+		return itemMap;
+		
+		
+	}
 	
 }
 

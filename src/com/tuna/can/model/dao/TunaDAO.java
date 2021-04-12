@@ -17,6 +17,7 @@ import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
+import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -655,6 +656,46 @@ public class TunaDAO {
 		}
 		
 		return friend;
+	}
+
+
+	public List<StoreItemDTO> selectStoreItem(Connection con) {
+
+		ResultSet rset = null;
+		
+		Statement stmt = null;
+		
+		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
+		
+		String query = prop.getProperty("selectStoreItem");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				StoreItemDTO item = new StoreItemDTO();
+				item.setItemNo(rset.getInt("ITEM_NO"));
+				item.setItemName(rset.getString("ITEM_NAME"));
+				item.setItemPrice(rset.getInt("ITEM_PRICE"));
+				item.setItemImg(rset.getString("ITEM_IMG"));
+				item.setItemCategory(rset.getInt("ITEM_CATEGORY"));
+				
+				sotreItem.add(item);
+				
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return sotreItem;
 	}
 
 

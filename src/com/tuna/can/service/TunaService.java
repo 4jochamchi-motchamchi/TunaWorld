@@ -15,6 +15,7 @@ import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BulletinDTO;
 import com.tuna.can.model.dto.CommentDTO;
 import com.tuna.can.model.dto.FriendDTO;
+import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
@@ -270,6 +271,19 @@ public class TunaService {
 		
 		// 2. n 일 경우
 		return 0;
+	}
+
+	public List<StoreItemDTO> selectStoreItem() {
+
+		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
+		
+		Connection con = getConnection();
+		
+		sotreItem = tunaDAO.selectStoreItem(con);
+		
+		close(con);
+		
+		return sotreItem;
 	}
 
 

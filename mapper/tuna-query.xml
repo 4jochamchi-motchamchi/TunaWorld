@@ -177,4 +177,10 @@ SELECT
   JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
  WHERE F.USER_NO = ?
 </entry>
+
+<entry key="selectStoreItem">
+SELECT
+	   *
+  FROM STORE
+</entry>
 </properties>
