@@ -131,8 +131,11 @@ public class BoardList extends JFrame{
 
 			
 		    //내게시글보기 버튼
-			JButton myboard  = new JButton("myboard");
-			myboard.setBounds(30, 0, 90, 50);
+			ImageIcon myboardd = new ImageIcon("image/myboard.PNG");
+			JButton myboard  = new JButton(myboardd);
+			myboard.setBackground(Color.pink);
+			myboard.setBorder(pinkborder);
+			myboard.setBounds(15, 0, 90, 50);
 		    myboard.addActionListener(new ActionListener() {
 				
 				@Override
@@ -146,8 +149,11 @@ public class BoardList extends JFrame{
 
 			
 			//글쓰러 가기 버튼
-			JButton write  = new JButton("write");
-		    write.setBounds(560, 0, 90, 50);
+		    ImageIcon writee = new ImageIcon("image/write.PNG");
+			JButton write  = new JButton(writee);
+			write.setBackground(Color.pink);
+			write.setBorder(pinkborder);
+		    write.setBounds(580, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override

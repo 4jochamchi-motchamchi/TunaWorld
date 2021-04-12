@@ -48,7 +48,7 @@ public class BulletinLayout extends JFrame{
 		
 		
 		// 게시글 번호
-		int boardNumber = 4;
+		int boardNumber = 3;
 		// 로그인
 		int userNo = 2;		
 		
@@ -261,6 +261,7 @@ public class BulletinLayout extends JFrame{
 				
 			
 			writeComment.setEnabled(false);
+			writeComment.setText(" 비밀글에는 댓글 입력이 불가능합니다.");
 			inputButton.setEnabled(false);
 			nickName.setVisible(false);
 			plusFriend.setVisible(false);
@@ -328,8 +329,6 @@ public class BulletinLayout extends JFrame{
 								} else {
 									System.out.println("친구요청 실패");
 								}
-								// PLUS_FRIEND_YN를 Y로 바꿔주는 UPDATE문 만들기,, 내 정보도 같이 넘어가야되는데,,,,
-								// 요청 보낼때는 INSERT 팝업 뜨고 수락하면 PLUS_FRIEND_YN N으로 바꿔주고 친구목록에 추가 & 거절하면 PLUS_FRIEND_YN N으로 바꾸고 INSERT한거 DELETE하기
 								
 								
 							}
