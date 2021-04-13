@@ -19,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
@@ -119,12 +120,30 @@ public class FriendBoardList extends JFrame{
 				subject.setLayout(null);
 				subject.setBounds(40, 30, 600, 80);
 		
-				BoardDTO boardDTO = list.get(i);
-				JLabel title = new JLabel(boardDTO.getTitle());
-				title.setBounds(50, 20, 600, 70);
-				title.setLayout(null);
-				title.setFont(new Font(null,Font.ITALIC,15));
 
+				BoardDTO boardDTO = list.get(i);
+				JButton title = new JButton(boardDTO.getTitle());
+				title.setBounds(50, 40, 450, 30);
+				title.setLayout(null);
+				title.setBackground(Color.pink);
+				title.setBorder(pinkborder);
+				title.setHorizontalAlignment(SwingConstants.LEFT);
+
+
+				// 게시글제목 눌렀을 때 게시글 내용으로 들어가기
+				title.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == title) {
+							
+							new BulletinLayout(boardDTO.getBoardNo());
+							dispose();
+							
+						}				
+					}
+				});
 
 			    
 			    allList.add(subject);
