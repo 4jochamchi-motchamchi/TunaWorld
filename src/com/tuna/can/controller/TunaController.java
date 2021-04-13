@@ -235,7 +235,7 @@ public class TunaController {
 		String resultComent = "";
 
 //		YN 여부 긁어옴
-		equipYNList = service.selectCategoryInvenYN(inventory);
+//		equipYNList = service.selectCategoryInvenYN(inventory);
 
 //		장착여부 긁어옴
 		invenButtonInfo = service.selectUserInventory(inventory.getUserNo());
@@ -247,9 +247,10 @@ public class TunaController {
 
 			for (int i = 0; i < invenButtonInfo.size(); i++) {
 
-//			이미 장착된 아이템이 있는지 확인, 장착된 아이템이 현재 장착하려는 아이템과 맞지 않을 경우 이미 장착된 아이템을 N으로 변경
+//				같은 카테고리 내에 이미 장착된 아이템이 있는지 확인, 
 				if (invenButtonInfo.get(i).getItemCategory() == inventory.getItemCategory()) {
 
+//					몇 번째 아이템이 장착되어 있는지 확인
 					if (invenButtonInfo.get(i).getEquipItemYN().equals("Y")) {
 
 //						하나의 아이템만 장착되야 하므로 false로 변경
@@ -273,11 +274,11 @@ public class TunaController {
 					}
 				}
 			}
-		}
+		} 
 
 //		아이템 장착 해제 하려 할 때.
 		if (inventory.getEquipItemYN().equals("N")) {
-			System.out.println("장착해제한다");
+
 			result = service.updateItemEquipYn(inventory);
 			if (result > 0) {
 				resultComent = "장착해제";
