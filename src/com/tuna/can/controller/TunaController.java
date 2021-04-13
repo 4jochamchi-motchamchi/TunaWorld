@@ -443,7 +443,7 @@ public class TunaController {
 		user = service.selectMemberInfo("user01");
 
 //		아이템 가격보다 보유 코인 갯수가 많을때 실행.
-		if (item.getItemPrice() < user.getCoin()) {
+		if (item.getItemPrice() <= user.getCoin()) {
 
 			userInven.setUserNo(user.getUserNo());
 			userInven.setItemNo(item.getItemNo());
