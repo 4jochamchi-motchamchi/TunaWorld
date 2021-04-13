@@ -126,24 +126,6 @@
 		WHERE USER_NO = ?
 	</entry>
 
-<entry key="insertComment">
-    INSERT
-      INTO COMMENT_BOARD
-    ( 
-      COMMENT_NO
-    , BOARD_NO
-    , COMMENT_CONTENT
-    , USER_NO
-    )
-    VALUES
-    (
-      SQU_COMMENT.NEXTVAL
-    , ?
-    , ?
-    , ?
-    )
-</entry>
-
 <entry key="selectBoard">
 SELECT
 	   A.TITLE
@@ -240,7 +222,6 @@ VALUES
 )
 
 </entry>
-
 
 
     <entry key="selectSecretBoard">
@@ -412,7 +393,7 @@ VALUES
            AND LIST_NO = 3
     </entry>
     <entry key="modifyScreteBoard">
-        SELECT
+          SELECT
 		      TITLE
 		    , BOARD_CONTENTS
 		    , LIST_NO

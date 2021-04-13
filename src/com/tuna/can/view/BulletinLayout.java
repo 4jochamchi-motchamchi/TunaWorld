@@ -43,9 +43,9 @@ public class BulletinLayout extends JFrame{
 	
 	public BulletinLayout(int boradNo) {
 		super("게시글 보기");
-//		public static void main(String[] args) 
 		
 		TunaController tunaController = new TunaController();
+		
 		
 		
 		// 게시글 번호
@@ -340,11 +340,10 @@ public class BulletinLayout extends JFrame{
 				});
 				
 				// 댓글입력 버튼 눌렀을 때
-				inputButton.addActionListener(new ActionListener() {
+				inputButton.addActionListener(new ActionListener() {					
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						
 						CommentDTO comment = new CommentDTO();
 						
 						if(e.getSource() == inputButton) {
@@ -359,7 +358,7 @@ public class BulletinLayout extends JFrame{
 							comment.setUserNo(userNo);
 									
 							result = tunaController.insertComment(comment);
-							
+
 							
 							if(result >0) {
 								System.out.println("댓글 등록 성공");
