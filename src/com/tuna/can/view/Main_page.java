@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import com.tuna.can.controller.MiniGame;
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.UserDTO;
 
@@ -251,9 +252,17 @@ public class Main_page extends JFrame{
 		// 출석게임 버튼 눌렀을 때
 		button6.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {				
+			public void mouseClicked(MouseEvent e) {	
+				
+				MiniGame hg = new MiniGame();
+				int num = hg.getCountNum();
+				
+				if(num <= 0) {
+					button6.setEnabled(false);
+				} else {
 				new Game_view();
 				dispose();				
+				}
 			}
 	
 		});

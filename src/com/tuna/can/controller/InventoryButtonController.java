@@ -1,5 +1,7 @@
 package com.tuna.can.controller;
 
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Member;
@@ -8,9 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
@@ -32,7 +38,21 @@ public class InventoryButtonController extends JButton{
 		
 		this.inventory = inventory;
 		
-		this.setText(inventory.getItemImg());
+		
+		ImageIcon itemImg = new ImageIcon("image/" + inventory.getItemImg());
+		
+		this.setIcon(itemImg);
+		
+//		this.setIcon(itemImg);
+		
+//		this.setText(inventory.getItemImg());
+		
+		
+//		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
+//		this.setBorder(pinkborder);
+		
+//
+//		JLabel imageLabel = new JLabel(new ImageIcon(icon));
 		
 		this.addActionListener(new ActionListener() {
 			

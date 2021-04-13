@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
-import com.tuna.can.controller.ResultPrinter;
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dto.BoardDTO;
@@ -84,16 +83,17 @@ public class BoardList extends JFrame{
 						dispose();
 				}
 			});
-//		    
+		    
 			backB.setBounds(30, 30, 55, 55);
 			backB.setBackground(Color.pink);
 			backB.setBorder(pinkborder);
 			topPanel.add(backB);
 			
 			//전체게시글 글씨
-			JLabel lbl = new JLabel(" 전체게시글 ");
-			lbl.setBounds(250, 40, 150, 50);
-			lbl.setFont(new Font(null,Font.BOLD,30));
+			JLabel lbl = new JLabel("전체게시글");
+			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
+			lbl.setHorizontalAlignment(JLabel.CENTER);
+			lbl.setBounds(100, 40, 500, 50);
 			topPanel.add(lbl);
 			
 			
@@ -170,8 +170,11 @@ public class BoardList extends JFrame{
 
 			
 			//글쓰러 가기 버튼
-			JButton write  = new JButton("write");
-		    write.setBounds(560, 0, 90, 50);
+			ImageIcon writee = new ImageIcon("image/write.PNG");
+			JButton write  = new JButton(writee);
+			write.setBackground(Color.pink);
+			write.setBorder(pinkborder);
+		    write.setBounds(580, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override

@@ -28,7 +28,7 @@ public class FriendsList_controller extends JPanel{
 
 
 		// 친구 페널 쌓기
-		friendsPanel.setBounds(0,(number * 100)+100,685,100);
+		friendsPanel.setBounds(0,(number * 100)+100,600,100);
 
 		// 친구 닉네임 설정
 		

@@ -294,6 +294,7 @@ VALUES
     <entry key="selectSecretBoard">
         SELECT
                TITLE
+             , BOARD_NO
           FROM BOARD_LIST
          WHERE USER_NO = ?
            AND LIST_NO = 2
@@ -320,7 +321,9 @@ VALUES
 
 	<entry key="selectFriendsLIst">
 		SELECT
-		S.ITEM_IMG
+		  F.USER_NO
+		, F.FRIEND_NO  
+		, S.ITEM_IMG
 		, U.USER_NICKNAME
 		, F.FRIEND_NO
 		FROM FRIENDS_LIST F
@@ -423,10 +426,22 @@ VALUES
 		*
 		FROM STORE
 	</entry>
+
+
+	<entry key="updateCoin">
+	UPDATE
+	       USER_INFORMATION
+	   SET COIN = ?
+     WHERE USER_NO = ?
+	</entry>
+
 	<entry key="selectAllBoard">
     SELECT
            TITLE
+         , BOARD_NO
       FROM BOARD_LIST
+     WHERE USER_NO =?
+       AND LIST_NO = 1
     
     </entry>
  
@@ -437,5 +452,23 @@ VALUES
       FROM BOARD_LIST
      WHERE USER_NO = ?
        
+    </entry>
+    
+    <entry key="selectFriendBoard">
+        SELECT
+               TITLE
+          FROM BOARD_LIST
+         WHERE USER_NO = ?
+           AND LIST_NO = 3
+    </entry>
+    <entry key="modifyScreteBoard">
+        SELECT
+		      TITLE
+		    , BOARD_CONTENTS
+		    , LIST_NO
+		    , USER_NO
+		    FROM BOARD_LIST 
+		    WHERE BOARD_NO = ?
+            
     </entry>
 </properties>

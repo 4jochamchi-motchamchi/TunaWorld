@@ -2,6 +2,7 @@
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,6 +23,7 @@ import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.BulletinDTO;
 
 /**
  * <pre>
@@ -38,6 +40,7 @@ public class SecrectBoardList extends JFrame{
 		TunaController tunaController = new TunaController();
 		
 		int userNo = 1;
+//		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
@@ -90,14 +93,20 @@ public class SecrectBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//내게시글 글씨
-			JLabel lbl = new JLabel(" 나만보는비밀게시글 ");
-			lbl.setBounds(350, 40, 150, 50);
+			JLabel lbl = new JLabel("비밀게시글");
+			lbl.setFont(new Font("휴먼둥근헤드라인",Font.PLAIN, 30));
+			lbl.setHorizontalAlignment(JLabel.CENTER);
+			lbl.setBounds(100, 40, 500, 50);
 			topPanel.add(lbl);
 			
 		    
 			//전체글 리스트 
 			JPanel allList = null;
 			List<BoardDTO> selectSecretList = tunaController.selectSecretBoard(userNo);
+			
+			
+			
+			BoardDTO board = new BoardDTO();
 			
 			for(int i = 0; i < selectSecretList.size(); i++) {
 				
@@ -116,6 +125,7 @@ public class SecrectBoardList extends JFrame{
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				BoardDTO boardDTO = selectSecretList.get(i);
+				// 게시글내용으로 들어갈 버튼
 				JButton title = new JButton(boardDTO.getTitle());
 				title.setLayout(null);
 				title.setBounds(50, 40, 450, 30);
@@ -123,10 +133,34 @@ public class SecrectBoardList extends JFrame{
 				title.setBorder(pinkborder);
 				title.setHorizontalAlignment(SwingConstants.LEFT);
 				
+				// 게시글제목 눌렀을 때 게시글 내용으로 들어가기
+				title.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == title) {
+							
+							new BulletinLayout(boardDTO.getBoardNo());
+							dispose();
+							
+						}				
+					}
+				});
+				
+				
 				subject.setLayout(null);
 			    subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
 			    allList.add(title);
+			    
+				
+				
+				
+				// 게시글 번호
+				int boardNumber = 3;
+	
+			
 			    
 			    ImageIcon edit = new ImageIcon("image/edit.PNG");
 			    JButton editButton = new JButton(edit);
@@ -139,8 +173,34 @@ public class SecrectBoardList extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == editButton) {
-							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
-						}				
+							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습까?",null,0);
+							
+							if(answer == JOptionPane.YES_OPTION){
+								
+								new ModifyTextArea();
+								dispose();
+							}
+								
+								
+								
+								
+								
+//								BoardDTO board = new BoardDTO();
+//								int userNo = board.getUserNo();
+//								int result = tunaController.modifySecretBoard(board);
+//								 
+//								if(result>0) {
+//								board.setUserNo(userNo);
+//								board.setTitle(boardDTO.getTitle());
+//									
+//									new ModifyTextArea();
+//								}
+								
+								
+							}
+							
+							
+									
 					}
 				});
 			    
@@ -162,9 +222,9 @@ public class SecrectBoardList extends JFrame{
 						if(answer == JOptionPane.YES_OPTION){
 							//사용자가 yes를 눌렀을 떄
 							JOptionPane.showMessageDialog(null, "삭제되었습니다.", "삭제",1);
-							BoardDTO board = new BoardDTO();
 							board.setUserNo(userNo);
 							board.setTitle(boardDTO.getTitle());
+							System.out.println(boardDTO.getTitle());
 							int result = tunaController.deleteSecretBoard(board);
 							
 							new SecrectBoardList();
