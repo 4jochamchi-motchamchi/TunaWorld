@@ -1,6 +1,7 @@
 package com.tuna.can.view;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;

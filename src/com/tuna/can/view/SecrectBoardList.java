@@ -29,7 +29,7 @@ import com.tuna.can.model.dto.BulletinDTO;
  * <pre>
  * 비밀게시글 목록 페이지
  * </pre>
- * @author Hyelim Jeon
+ * @author Hyelim Jeon + NaraWee
  *
  */
 public class SecrectBoardList extends JFrame{
@@ -157,12 +157,7 @@ public class SecrectBoardList extends JFrame{
 				
 				
 				
-				// 게시글 번호
-				int boardNumber = 3;
-	
-			
-			    
-			    ImageIcon edit = new ImageIcon("image/edit.PNG");
+				ImageIcon edit = new ImageIcon("image/edit.PNG");
 			    JButton editButton = new JButton(edit);
 			    editButton.setBackground(Color.pink);
 			    editButton.setBorder(pinkborder);

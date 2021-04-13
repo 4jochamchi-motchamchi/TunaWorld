@@ -139,9 +139,9 @@ public class Text_Area extends JFrame{
 
         BoardDTO board = new BoardDTO();
         //공개범위 라디오 버튼
-        JRadioButton myself = new JRadioButton("나만");
-		JRadioButton friend= new JRadioButton("친구들");
-		JRadioButton all = new JRadioButton("전체공개");
+        JRadioButton all = new JRadioButton("전체게시글");
+        JRadioButton myself = new JRadioButton("비밀게시글");
+		JRadioButton friend= new JRadioButton("친구게시글");
 		
 	    ButtonGroup range =new ButtonGroup();
 	    range.add(myself);
@@ -185,11 +185,11 @@ public class Text_Area extends JFrame{
 
 	    range.add(all);
 	    int listno =0;
-	    myself.setBounds(50, 0, 60,50);
+	    all.setBounds(50, 0, 100, 50);
+	    myself.setBounds(150, 0, 100,50);
+	    friend.setBounds(250, 0, 100, 50);
 
-	    friend.setBounds(105, 0, 70, 50);
 	   
-	    all.setBounds(170, 0, 80, 50);
 	       
 	  
 
@@ -204,13 +204,16 @@ public class Text_Area extends JFrame{
 	    int userNo =2;
 	
         //저장버튼
-        JButton saveButton = new JButton(" save ");
-		saveButton.setBounds(550, 50 , 80, 50);
+	    ImageIcon save = new ImageIcon("image/save.PNG");
+        JButton saveButton = new JButton(save);
+        saveButton.setBackground(Color.pink);
+        saveButton.setBorder(pinkborder);
+		saveButton.setBounds(580, 50 , 80, 50);
 	    saveButton.addActionListener(new ActionListener() {
 			
 	    	
 			public void actionPerformed(ActionEvent e) {
-				
+			
 				BoardDTO board = new BoardDTO();
 				
 				

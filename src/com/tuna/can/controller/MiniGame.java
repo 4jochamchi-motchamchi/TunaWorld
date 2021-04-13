@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.service.TunaService;
 import com.tuna.can.view.Main_page;
 
@@ -100,7 +101,9 @@ public class MiniGame extends JFrame implements ActionListener{
 							TunaService ts = new TunaService();		
 							TunaController tunaController = new TunaController();
 							int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
-							ts.updateCoin(userNo);
+							UserDTO userdto = new UserDTO();
+							userdto.setUserNo(userNo);
+							tunaController.updateCoin(userdto);
 							new Main_page();
 							oldFrame.dispose();
 							
