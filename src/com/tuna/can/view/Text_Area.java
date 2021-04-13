@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;    // gjr
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -29,10 +31,11 @@ import com.tuna.can.model.dto.BoardDTO;
  * <pre>
  * 게시판 글쓰기 페이지
  * </pre>
- * @author Hyelim Jeon
+ * @author Hyelim Jeon + Juhee Hwang
  *
  */
 public class Text_Area extends JFrame{
+	private TunaController tunaController = new TunaController();
 
 
 	public Text_Area() {
@@ -101,14 +104,15 @@ public class Text_Area extends JFrame{
 		topPanel.add(backB);
 		
 		Scanner sc = new Scanner(System.in);
+		BoardDTO b = new BoardDTO();
 	    //제목
 		JLabel titleT = new JLabel("제목");
         titleT.setBounds(50,10,90,25);
         TextField subject = new TextField(80);
         subject.setBounds(140,10, 500 ,25);
         String sub = subject.getText();
-        BoardDTO b = new BoardDTO();
-        b.setTitle(sub);
+        
+ 
         
  
         subP.add(titleT);
@@ -119,49 +123,75 @@ public class Text_Area extends JFrame{
         TextArea txt = new TextArea(30,70);
         txt.setBounds(40,0,600,550);
         textareaP.add(txt);
-        String content = txt.getText();
-        b.setBoardContent(content);
+ 
 
         
-        
-        
+          
 		//날짜
         Date day = new Date();
         String today = day.toLocaleString();
         JLabel oneul = new JLabel(today);
-        oneul.setBounds(490, 10, 200, 30);
+        oneul.setBounds(500, 10, 200, 30);
         bottonP.add(oneul);
-        b.setBoardDate(day);
+
 
 		
 
         BoardDTO board = new BoardDTO();
         //공개범위 라디오 버튼
-        JRadioButton all = new JRadioButton("전체게시글");
-        JRadioButton myself = new JRadioButton("비밀게시글");
-		JRadioButton friend= new JRadioButton("친구게시글");
+        JRadioButton myself = new JRadioButton("나만");
+		JRadioButton friend= new JRadioButton("친구들");
+		JRadioButton all = new JRadioButton("전체공개");
 		
 	    ButtonGroup range =new ButtonGroup();
-	    range.add(all);
 	    range.add(myself);
 	    range.add(friend);
-	    int listno =0;
+
+	    
+	    JLabel jListNo = new JLabel();
+	    jListNo.setVisible(false);
 	    all.setBounds(40, 0, 100,50);
-	    if(all.isSelected()) {
-	    	listno = 1;
-	    	board.setListNo(listno);
+	    all.addActionListener(new ActionListener() {
 	    	
-	    }
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		Integer listno = 1;
+	    	    jListNo.setText(listno.toString());
+	    		
+	    	}
+	    });
+	    	
+	    
 	    myself.setBounds(140, 0, 100, 50);
-	    if(myself.isSelected()) {
-	    	listno = 2;
-	    	board.setListNo(listno);
-	    }
+	    myself.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Integer listno = 2;
+	    	    jListNo.setText(listno.toString());				
+			}
+		});
 	    friend.setBounds(240, 0, 100, 50);
-	    if(friend.isSelected()) {
-	    	listno = 3;
-	    	board.setListNo(listno);
-	    }
+	    friend.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				Integer listno = 3;
+	    	    jListNo.setText(listno.toString());
+			}
+		});
+
+	    range.add(all);
+	    int listno =0;
+	    myself.setBounds(50, 0, 60,50);
+
+	    friend.setBounds(105, 0, 70, 50);
+	   
+	    all.setBounds(170, 0, 80, 50);
+	       
+	  
 
 	    bottonP.add(myself);
 	    bottonP.add(friend);
@@ -170,13 +200,12 @@ public class Text_Area extends JFrame{
 	    myself.setBackground(Color.pink);
 	    friend.setBackground(Color.pink);
 	    all.setBackground(Color.pink);
-
+	    
+	    int userNo =2;
+	
         //저장버튼
-	    ImageIcon save = new ImageIcon("image/save.PNG");
-        JButton saveButton = new JButton(save);
-        saveButton.setBackground(Color.pink);
-        saveButton.setBorder(pinkborder);
-		saveButton.setBounds(590, 50 , 50, 50);
+        JButton saveButton = new JButton(" save ");
+		saveButton.setBounds(550, 50 , 80, 50);
 	    saveButton.addActionListener(new ActionListener() {
 			
 	    	
@@ -187,41 +216,35 @@ public class Text_Area extends JFrame{
 				
 				if(e.getSource() == saveButton) {
 					
-					if(range.isSelected(null)) {
-						
-						JOptionPane.showMessageDialog(null,"게시글종류를 선택해주세요");
-						
-					} else {
-					
-					int result = 0;
-					
-					board.setTitle(sub);
-					board.setBoardContent(content);
-					board.setBoardDate(day);
-					board.getListNo();
 				
+					int result = 0;
+					Map<String, Object> newInputContent = new HashMap<String, Object>();
+
+					newInputContent.put("listNo", Integer.parseInt(jListNo.getText()));
+					newInputContent.put("title", subject.getText());
+					newInputContent.put("content", txt.getText());
+					newInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
+					result = tunaController.insertBoard(newInputContent);
+
 					
-					TunaController controller = new TunaController();
-					
-					result = controller.insertBoard(board);
-					
+//					int result =controller.insertBoard(board);
+
 					if(result > 0) {
-						JOptionPane.showMessageDialog(null,"저장되었습니다");
-					}
-					
-			            txt.requestFocus();
+						JOptionPane.showConfirmDialog(null,"저장되었습니다","성공!!",-1);
+//						txt.requestFocus();
+
 					    new BoardList();
 					     dispose();
+					}else {
+						JOptionPane.showMessageDialog(null,"게시글 저장에 실패했습니다", "실패",-1);
+						  }
+					}
+					
+				} 
 			
-					}
 					
-				} else {
-						System.out.println("저장실패");
-					}
-							
-					
-			}
-			});
+
+	    });
 	    
 	
 		bottonP.add(saveButton);
@@ -237,22 +260,7 @@ public class Text_Area extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-	//제목 수정용 메소드
-	public String inputBoardTitle() {
-		Scanner sc = new Scanner(System.in);
-		
-		String title = sc.nextLine();
-		
-		return title;
-	}
-    //내용 수정용 메소드
-	public String inputBoardContent() {
-		Scanner sc = new Scanner(System.in);
-		
-		String content = sc.nextLine();
-		
-		return content;
-	}
+
 	public static void main(String[] args) {
 		new Text_Area();
 	}

@@ -43,11 +43,9 @@
 	</entry>
 	<entry key="login_check">
 		SELECT
-		USER_ID
-		, USER_PWD
-		, USER_NICKNAME
-		FROM USER_INFORMATION
-		WHERE USER_ID = ?
+			   *
+		  FROM USER_INFORMATION
+		 WHERE USER_ID = ?
 	</entry>
 	<entry key="create_User">
 		INSERT
@@ -66,6 +64,12 @@
 	<entry key="selectLastUserNo">
 		SELECT
 		SQU_USER_INFORMATION.CURRVAL
+		FROM DUAL
+	</entry>
+	
+	<entry key="selectLastContentNo">
+		SELECT
+		SQU_BOARD_LIST.CURRVAL
 		FROM DUAL
 	</entry>
 	<entry key="selectBulletin">
@@ -232,23 +236,25 @@ UPDATE USER_INFORMATION
     , ?
     )
 </entry>
-<entry key="insertBoard">
+<entry key="insertBoard1">
   INSERT
       INTO BOARD_LIST
     ( 
       BOARD_NO
     , TITLE
     , BOARD_CONTENTS
+    , USER_NO
     , LIST_NO
     , ENROLLDATE
     )
     VALUES
     ( 
-      SEQ_BOARD_LIST.NEXTVAL
+      SQU_BOARD_LIST.NEXTVAL
     , ?
     , ? 
     , ?
-    , SYSDATE
+    , ?
+    , DEFAULT
     )
 </entry>
 
@@ -288,6 +294,7 @@ VALUES
     <entry key="selectSecretBoard">
         SELECT
                TITLE
+             , BOARD_NO
           FROM BOARD_LIST
          WHERE USER_NO = ?
            AND LIST_NO = 2
@@ -314,7 +321,9 @@ VALUES
 
 	<entry key="selectFriendsLIst">
 		SELECT
-		S.ITEM_IMG
+		  F.USER_NO
+		, F.FRIEND_NO  
+		, S.ITEM_IMG
 		, U.USER_NICKNAME
 		, F.FRIEND_NO
 		FROM FRIENDS_LIST F
@@ -417,10 +426,46 @@ VALUES
 		*
 		FROM STORE
 	</entry>
+
+
 	<entry key="updateCoin">
 	UPDATE
 	       USER_INFORMATION
 	   SET COIN = ?
      WHERE USER_NO = ?
 	</entry>
+
+	<entry key="selectAllBoard">
+    SELECT
+           TITLE
+      FROM BOARD_LIST
+    
+    </entry>
+ 
+
+    <entry key= "selectMyBoard">
+    SELECT
+           TITLE
+      FROM BOARD_LIST
+     WHERE USER_NO = ?
+       
+    </entry>
+    
+    <entry key="selectFriendBoard">
+        SELECT
+               TITLE
+          FROM BOARD_LIST
+         WHERE USER_NO = ?
+           AND LIST_NO = 3
+    </entry>
+    <entry key="modifyScreteBoard">
+        SELECT
+		      TITLE
+		    , BOARD_CONTENTS
+		    , LIST_NO
+		    , USER_NO
+		    FROM BOARD_LIST 
+		    WHERE BOARD_NO = ?
+            
+    </entry>
 </properties>

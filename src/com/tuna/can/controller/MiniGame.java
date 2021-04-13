@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import com.tuna.can.service.TunaService;
 import com.tuna.can.view.Main_page;
 
 public class MiniGame extends JFrame implements ActionListener{
@@ -51,7 +52,6 @@ public class MiniGame extends JFrame implements ActionListener{
 		this.button = button;
 		this.can = can;
 		this.oldFrame = oldFrame;
-		
 	}
 
 	@Override
@@ -96,7 +96,11 @@ public class MiniGame extends JFrame implements ActionListener{
 						
 						if(result == JOptionPane.YES_OPTION) {
 								            
-						// 코인 증가 코드 
+							
+							TunaService ts = new TunaService();		
+							TunaController tunaController = new TunaController();
+							int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+							ts.updateCoin(userNo);
 							new Main_page();
 							oldFrame.dispose();
 							
