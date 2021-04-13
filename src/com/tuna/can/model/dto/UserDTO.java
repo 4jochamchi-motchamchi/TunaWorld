@@ -72,7 +72,7 @@ public class UserDTO {
 
 	@Override
 	public String toString() {
-		return "MemberDTO [userNo=" + userNo + ", nickName=" + nickName + ", userID=" + userID + ", userPwd=" + userPwd
+		return "UserDTO [userNo=" + userNo + ", nickName=" + nickName + ", userID=" + userID + ", userPwd=" + userPwd
 				+ ", phone=" + phone + ", email=" + email + ", coin=" + coin + "]";
 	}
 	
