@@ -27,21 +27,25 @@ import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
-public class Store extends JFrame{
+public class Store{
 
 	private TunaController controller = new TunaController();
 	
-	public Store() {
+	public static void main(String[] args) {
 		
-		super("Store");
+		new Store();
+	}
+	
+	public Store() {
+		JFrame frame = new JFrame();
 		
 //		public static void main(String[] args) {
 			Font font = new Font("상점폰트", Font.BOLD, 50);
 
 //			JFrame frame = new JFrame("Store");
-			this.setLayout(null);
-			this.setSize(700, 900);
-			this.setLocation(600, 50);
+			frame.setLayout(null);
+			frame.setSize(700, 900);
+			frame.setLocation(600, 50);
 
 			// 최상단 패널
 			JPanel topPanel = new JPanel();
@@ -64,13 +68,40 @@ public class Store extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					new Main_page();
-						dispose();
+					frame.dispose();
 				}
 			});
 			backB.setBounds(30, 25, 55, 55);
 			backB.setBackground(Color.pink);
 			backB.setBorder(pinkborder);
 			topPanel.add(backB);
+			
+			//////////////////////////////////////////
+			
+//			코인 넣자
+			int coin = 0;
+//			coin = controller.selectUSerCoin(controller.loginMember.getUserNo());
+			coin = controller.selectUSerCoin(1);
+			JLabel coinLabel = new JLabel();
+			coinLabel.setBounds(565, 55, 100, 30);
+			coinLabel.setText("보유 코인 " + coin);
+			topPanel.add(coinLabel);
+			
+//			새로고침 넣자
+			JButton refreshButton = new JButton("코인 확인");
+			refreshButton.setBounds(550, 90, 100, 30);
+			
+			refreshButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					new Store();
+					frame.dispose();
+					
+				}
+			});
+			
+			topPanel.add(refreshButton);
 
 			//////////////////////////////////////////
 
@@ -90,12 +121,6 @@ public class Store extends JFrame{
 			midPanel.add(backgroundButton);
 			midPanel.add(fontButton);
 			
-			JLabel buyLabel = new JLabel("gdgdgddd");
-			buyLabel.setBounds(300, 300, 300, 50);
-			buyLabel.setFont(new Font("구매폰트", Font.BOLD, 20));
-			this.add(buyLabel);
-			
-
 			////////////////////////////////////////
 
 			// 하단 패널
@@ -195,19 +220,15 @@ public class Store extends JFrame{
 				}
 			});
 
-			this.add(topPanel);
-			this.add(midPanel);
-			this.add(botPanel);
+			frame.add(topPanel);
+			frame.add(midPanel);
+			frame.add(botPanel);
 
-			this.setVisible(true);
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		}
 	
-	public static void main(String[] args) {
-		
-		new Store();
-	}
 }
 	
 	

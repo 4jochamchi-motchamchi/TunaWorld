@@ -1,5 +1,7 @@
 package com.tuna.can.controller;
 
+
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public class TunaController {
 	private TunaService service = new TunaService();
 
 //	로그인한 USER의 개인정보를 담고있을 객체
-	private UserDTO loginMember = null;
+	public static UserDTO loginMember = null;
 	private int coin;
 
 	/**
@@ -36,6 +38,7 @@ public class TunaController {
 	 * @param newMemberInfo
 	 * @return
 	 */
+	
 	public int registUser(Map<String, Object> newMemberInfo) {
 
 		UserDTO userList = new UserDTO();
@@ -138,12 +141,13 @@ public class TunaController {
 	}
 
 	// 유저 정보에서 코인 조회
-	public int selectUSerCoin(UserDTO UserInfo) {
+	public int selectUSerCoin(int userNo) {
 
-		coin = service.selectCoin(UserInfo.getUserNo());
+		coin = service.selectCoin(userNo);
 
 		return coin;
 	}
+	
 	
 	// 받아온 코인 정보값에 코인갯수 업데이트
 	public int updateCoin(UserDTO userInfo) {
@@ -155,17 +159,8 @@ public class TunaController {
 		
 	}
 	
-	// 받아온 코인 정보값에 코인갯수 업데이트
-//		   나중에 바꿀거-sw
-//	public int updateCoin(UserDTO userInfo) {
-//
-//		int userCoin = 0;
-//		userCoin = service.updateCoin(userInfo);
-//
-//		return userCoin;
-//
-//	}
 
+	
 	// 게시글 내용 조회
 	public BulletinDTO selectBulletinContent(int boardNo) {
 
@@ -374,6 +369,8 @@ public class TunaController {
 		if(userDTO.getUserID().equals(idCheck)&& userDTO.getUserPwd().equals(pwCheck)) {
 			TunaController.loginMemberId = idCheck;
 			result = 1;
+			
+			loginMember = selectMemberInfo(loginMemberId);
 		}else{
 			result = 0;
 		}
@@ -467,11 +464,15 @@ public class TunaController {
 
 	}
 
-	public int storeItemBuy(StoreItemDTO item) {
+	public Map<String, Integer> storeItemBuy(StoreItemDTO item) {
+		
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
 		
 		int result = 0;
 		
 		int coin = 0;
+		
+		int coinUpdateResult = 0;
 		
 		UserInventoryDTO userInven = new UserInventoryDTO();
 		
@@ -487,12 +488,22 @@ public class TunaController {
 			userInven.setEquipItemYN("N");
 			
 			result = service.updateUserInventory(userInven);
-		} else {
 			
+			coin = user.getCoin() - item.getItemPrice();
+			coinUpdateResult = service.updateCoin(user.getUserNo(), coin);
+			
+			System.out.println(result + "Result");
+			System.out.println(coinUpdateResult + "coinUpdateResult");
 		}
 		
-		return result;
+		resultMap.put("invenUpdateresult", result);
+		resultMap.put("coinUpdateResult", coinUpdateResult);
+		resultMap.put("coin", coin);
+		
+		return resultMap;
 	}
+	
+	
 	
 	
 	   // 친구요청 보내기 정보 INSERT
