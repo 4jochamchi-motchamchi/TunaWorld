@@ -2,6 +2,7 @@
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -38,7 +39,6 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-		int boardNo = 3;
 		int userNo = 1;
 //		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
@@ -93,8 +93,10 @@ public class SecrectBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//내게시글 글씨
-			JLabel lbl = new JLabel(" 나만보는비밀게시글 ");
-			lbl.setBounds(350, 40, 150, 50);
+			JLabel lbl = new JLabel("비밀게시글");
+			lbl.setFont(new Font("휴먼둥근헤드라인",Font.PLAIN, 30));
+			lbl.setHorizontalAlignment(JLabel.CENTER);
+			lbl.setBounds(100, 40, 500, 50);
 			topPanel.add(lbl);
 			
 		    

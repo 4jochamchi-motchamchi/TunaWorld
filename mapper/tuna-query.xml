@@ -426,10 +426,22 @@ VALUES
 		*
 		FROM STORE
 	</entry>
+
+
+	<entry key="updateCoin">
+	UPDATE
+	       USER_INFORMATION
+	   SET COIN = ?
+     WHERE USER_NO = ?
+	</entry>
+
 	<entry key="selectAllBoard">
     SELECT
            TITLE
+         , BOARD_NO
       FROM BOARD_LIST
+     WHERE USER_NO =?
+       AND LIST_NO = 1
     
     </entry>
  

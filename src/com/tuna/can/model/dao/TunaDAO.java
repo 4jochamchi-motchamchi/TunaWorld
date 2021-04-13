@@ -440,6 +440,7 @@ public class TunaDAO {
 			
 			try {
 				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, userNo);
 
 				rset = pstmt.executeQuery();
 
@@ -451,6 +452,7 @@ public class TunaDAO {
 					BoardDTO board = new BoardDTO();
 					
 					board.setTitle(rset.getString("TITLE"));
+					board.setBoardNo(rset.getInt("BOARD_NO"));
 					
 					allBoardlist.add(board);
 				}
@@ -460,7 +462,8 @@ public class TunaDAO {
 				close(rset);
 				close(pstmt);
 			}
-			return allBoardlist;
+			return allBoardlist;		
+			
 		}
 	/**
 	 * <pre>
@@ -722,7 +725,7 @@ public class TunaDAO {
 			
 
 		} catch(SQLIntegrityConstraintViolationException e) {
-			result = 2;
+			result = 3;
 			
 		} catch (SQLException e) {
 
@@ -1177,6 +1180,27 @@ public class TunaDAO {
 			close(pstmt);
 		}
 
+		return result;
+	}
+
+	public int updateCoin(Connection con, int userNo, int coin) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateCoin");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, coin);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 }
