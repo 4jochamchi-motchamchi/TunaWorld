@@ -52,8 +52,8 @@ public class BulletinLayout extends JFrame{
 		int boardNumber = boradNo;
 		
 		// 로그인
-//		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
-		int userNo = 1;		
+		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
+//		int userNo = 1;		
 		
 		// 게시글 DTO
 		BulletinDTO board = new BulletinDTO();
@@ -255,7 +255,7 @@ public class BulletinLayout extends JFrame{
 			plusFriend.setBorder(pinkborder);
 			bulletinPanel.add(plusFriend);
 			
-			
+
 			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가, 친구추가버튼 X
 			if(board.getListNo() == 2) {
 				
@@ -426,7 +426,7 @@ public class BulletinLayout extends JFrame{
 		
 	public static void main(String[] args) {
 		
-		new BulletinLayout();
+		new BulletinLayout(1);
 	}
 	
 }

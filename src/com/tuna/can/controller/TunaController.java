@@ -151,11 +151,16 @@ public class TunaController {
 	public int updateCoin(UserDTO userInfo) {
 
 		int userCoin = 0;
-		userCoin = service.updateCoin(userInfo.getUserNo());
 
+		userCoin = service.updateCoinHB(userInfo.getUserNo(), userInfo.getCoin());
+		
 		return userCoin;
-
+		
 	}
+	
+
+
+	
 
 	// 게시글 내용 조회
 	public BulletinDTO selectBulletinContent(int boardNo) {
@@ -194,10 +199,6 @@ public class TunaController {
 		friendsList = service.selectFriendsList(userInfo);
 
 		return friendsList;
-	}
-
-	public void insertBoard() {
-
 	}
 
 //	유저 개인정보 변경
@@ -284,10 +285,13 @@ public class TunaController {
 	}
 
 	// 로그인 유저의 정보가 있는 지 확인하기 위한 select
-	public AddFriendDTO selectPlusFriend(UserDTO userInfo) {
+	public AddFriendDTO selectPlusFriend(int userNo) {
 		AddFriendDTO list = new AddFriendDTO();
 
-		list = service.selectAddFriend(userInfo.getUserNo());
+		
+		list = service.selectAddFriend(userNo);
+
+
 		return list;
 	}
 
@@ -301,49 +305,15 @@ public class TunaController {
 
 	}
 
-//	public int RequestFriends(AddFriendDTO friend) {
-//		int result = 0;
-//		result = service.insertAndDeleteRequestFriend(friend);
-//		
-//		return result;
-//		
-//	}
+	public int rejectRequest(AddFriendDTO friend) {
+		int result = 0;
+		result = service.rejectRequestFriend(friend);
+		
+		return result;
+		
+	}
 
-//		switch (category) {
-//		case 1:
-//			for(int i = 0; i< category1Item.size(); i++) {
-//				UserInventoryDTO inven = new UserInventoryDTO();
-//				inven = category1Item.get(i);
-//				if(inven.getEquipItemYN().equals("Y")) {
-//					JOptionPane.showMessageDialog(null, "아이템을 해제 후 장착 부탁 드립니다.", "장착", 0);
-//					check = false;
-//				}
-//			}
-//			break;
-//			
-//		case 2:
-//			for(int i = 0; i< category2Item.size(); i++) {
-//				UserInventoryDTO inven = new UserInventoryDTO();
-//				inven = category2Item.get(i);
-//				if(inven.getEquipItemYN().equals("Y")) {
-//					JOptionPane.showMessageDialog(null, "아이템을 해제 후 장착 부탁 드립니다.", "장착", 0);
-//					check = false;
-//				}
-//			}
-//			break;
-//			
-//		case 3:
-//			for(int i = 0; i< category3Item.size(); i++) {
-//				UserInventoryDTO inven = new UserInventoryDTO();
-//				inven = category3Item.get(i);
-//				if(inven.getEquipItemYN().equals("Y")) {
-//					JOptionPane.showMessageDialog(null, "아이템을 해제 후 장착 부탁 드립니다.", "장착", 0);
-//					check = false;
-//				}
-//			}
-//			break;
-//			
-//		}
+
 
 	/**
 	 * <pre>
@@ -404,15 +374,6 @@ public class TunaController {
 	}
 	
 
-	// 친구 삭제
-//	public int deleteFriend (UserDTO  UserInfo) {
-//		
-//		int friend = 0;
-//		
-//		friend = service.deleteFriend(UserInfo.getUserNo());
-//		 return friend;
-//	}
-	
 
 	// 친구인지 아닌지 확인하기 위해 친구조회
 	public List<FriendDTO> selectFriends(int userNo) {
@@ -599,5 +560,6 @@ public class TunaController {
 		return result;
 
 	}
+
 
 }

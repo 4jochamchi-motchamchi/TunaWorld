@@ -158,17 +158,17 @@ public class TunaService {
 	 * @param userInfor
 	 * @return
 	 */
-	public int updateCoin(int userInfor) {
+	public int updateCoinHB(int userInfor, int coin) {
 
 		int userCoin = 0;
 		Connection con = getConnection();
 		
-//		userCoin = tunaDAO.updateUserCoin(con, userNo, coin);
+		userCoin = tunaDAO.updateUserCoin(con, userInfor, coin);
 
 		if (userCoin > 0) {
 			commit(con);
+			
 		} else {
-			System.out.println();
 			rollback(con);
 		}
 

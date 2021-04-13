@@ -19,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
@@ -30,7 +31,7 @@ import com.tuna.can.model.dto.FriendDTO;
  * <pre>
  * 게시판 목록 페이지
  * </pre>
- * @author Hyelim Jeon
+ * @author Hyelim Jeon + NaraWee
  *
  */
 public class BoardList extends JFrame{
@@ -39,6 +40,10 @@ public class BoardList extends JFrame{
 		super("BoardsList");
 		
 
+		TunaController tunaController = new TunaController();
+			int userNo =1;
+//			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+			
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
 			this.setSize(700, 900);
@@ -100,8 +105,6 @@ public class BoardList extends JFrame{
 			//전체글 리스트 
 			JPanel allList = null;
 
-			TunaController tunaController = new TunaController();
-			int userNo =1;
 		    List<BoardDTO> list = tunaController.selectallBoard(userNo);
 
 			for(int i = 0; i < list.size(); i++) {
@@ -124,12 +127,30 @@ public class BoardList extends JFrame{
 				subject.setBounds(40, 30, 600, 80);
 		
 				BoardDTO boardDTO = list.get(i);
-				JLabel title = new JLabel(boardDTO.getTitle());
-				title.setBounds(50, 20, 600, 70);
+				JButton title = new JButton(boardDTO.getTitle());
+				title.setBounds(50, 40, 450, 30);
 				title.setLayout(null);
-				title.setFont(new Font(null,Font.ITALIC,15));
+				title.setBackground(Color.pink);
+				title.setBorder(pinkborder);
+				title.setHorizontalAlignment(SwingConstants.LEFT);
 
 
+				// 게시글제목 눌렀을 때 게시글 내용으로 들어가기
+				title.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == title) {
+							
+							new BulletinLayout(boardDTO.getBoardNo());
+							dispose();
+							
+						}				
+					}
+				});
+
+				
 			    
 			    allList.add(subject);
 			    allList.add(title);
@@ -155,8 +176,11 @@ public class BoardList extends JFrame{
 
 			
 		    //내게시글보기 버튼
-			JButton myboard  = new JButton("myboard");
-			myboard.setBounds(30, 0, 90, 50);
+			ImageIcon myboardd = new ImageIcon("image/myboard.PNG");
+			JButton myboard  = new JButton(myboardd);
+			myboard.setBackground(Color.pink);
+			myboard.setBorder(pinkborder);
+			myboard.setBounds(20, 0, 50, 50);
 		    myboard.addActionListener(new ActionListener() {
 				
 				@Override
