@@ -24,11 +24,15 @@ public class StoreItemButtonController extends JButton{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
 				int result = controller.storeItemBuy(item);
 				
-				if(result > 0) {
+				if(result == 1) {
 					JOptionPane.showMessageDialog(null, "템 구매 성공", "구매성공", 0);
+				} else if(result == 2){
+					JOptionPane.showMessageDialog(null, "이미 소유한 아이템 입니다..", "구매성공", 0);
+				} else {
+					JOptionPane.showMessageDialog(null, "보유 코인 부족", "구매성공", 0);
 				}
 				
 			}

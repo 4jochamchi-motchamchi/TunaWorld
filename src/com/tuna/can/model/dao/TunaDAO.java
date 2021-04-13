@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -729,12 +730,21 @@ public class TunaDAO {
 			pstmt.setInt(2, userInven.getItemNo());
 			pstmt.setInt(3, userInven.getItemCategory());
 			pstmt.setString(4, userInven.getEquipItemYN());
-
+			
+			
 			result = pstmt.executeUpdate();
 
+			
+
+		} catch(SQLIntegrityConstraintViolationException e) {
+			result = 2;
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}  
+		finally {
+			close(pstmt);
 		}
 
 		return result;
