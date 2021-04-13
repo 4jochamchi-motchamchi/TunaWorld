@@ -1,10 +1,12 @@
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -16,7 +18,11 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+
+import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.BoardDTO;
 
 /**
  * <pre>
@@ -89,8 +95,11 @@ public class MyBoardList extends JFrame{
 		    
 			//전체글 리스트 
 			JPanel allList = null;
+			TunaController tunaController = new TunaController();
+			int userNo =1;
+		    List<BoardDTO> selectMyBoard= tunaController.selectMyBoard(userNo);
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i < selectMyBoard.size(); i++) {
 				
 				midlePanel.setLayout(null);
 				midlePanel.setPreferredSize(new Dimension(660,100*i));
@@ -107,9 +116,18 @@ public class MyBoardList extends JFrame{
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				subject.setLayout(null);
-
-			    subject.setBounds(40, 30, 600, 80);
+                subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
+			    
+				BoardDTO boardDTO = selectMyBoard.get(i);
+			    JButton title = new JButton(boardDTO.getTitle());
+				title.setBounds(50, 20, 450, 70);
+				title.setLayout(null);
+				title.setFont(new Font(null,Font.ITALIC,15));
+				title.setBorder(pinkborder);
+				title.setBackground(Color.pink);
+				title.setHorizontalAlignment(SwingConstants.LEFT);
+				allList.add(title);
 			    
 			    JButton editButton = new JButton("수정");
 			    editButton.setBounds(500,25,70,40);
@@ -119,7 +137,14 @@ public class MyBoardList extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == editButton) {
-							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
+							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습니?", "예",0);	
+							
+							if(answer == JOptionPane.YES_OPTION){
+							
+							
+							
+						}
+						
 						}				
 					}
 				});
@@ -155,11 +180,8 @@ public class MyBoardList extends JFrame{
 			this.getContentPane().add(scrollbar);
 			
 			//글쓰러 가기 버튼
-			ImageIcon writee = new ImageIcon("image/write.PNG");
-			JButton write  = new JButton(writee);
-			write.setBackground(Color.pink);
-			write.setBorder(pinkborder);
-		    write.setBounds(580, 0, 90, 50);
+			JButton write  = new JButton("write");
+		    write.setBounds(560, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override

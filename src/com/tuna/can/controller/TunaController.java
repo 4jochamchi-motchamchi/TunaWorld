@@ -549,4 +549,20 @@ public class TunaController {
 		
 		return result;
 	}
+	
+	// 전체게시 목록 불러오기
+	public List<BoardDTO> selectallBoard(int userNo) {
+		
+		
+		List<BoardDTO> allBoard = service.selectAllBoard(userNo);
+		return allBoard;
+		
+		
+	}
+
+//내가쓴 게시물목록 불러오기
+	public List<BoardDTO> selectMyBoard(int userNo) {
+		List<BoardDTO> myBoardList = service.selectMyBoard(userNo);
+		return myBoardList;
+	}
 }

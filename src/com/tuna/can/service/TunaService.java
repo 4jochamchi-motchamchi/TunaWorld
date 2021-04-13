@@ -452,6 +452,19 @@ public class TunaService {
 
 	
 
+	public List<BoardDTO> selectAllBoard(int userNo) {
+		Connection con =  getConnection();
+		List<BoardDTO> allBoardlist  = tunaDAO.allBoardList(con,userNo);
+		return allBoardlist;
+		
+	}
+
+
+	public List<BoardDTO> selectMyBoard(int userNo) {
+		Connection con =  getConnection();
+		List<BoardDTO> myBoardList  = tunaDAO.selectMyBoard(con,userNo);
+		return myBoardList;
+	}
 
 
 

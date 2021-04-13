@@ -1,10 +1,12 @@
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -17,6 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
+
+import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.BoardDTO;
 
 /**
  * <pre>
@@ -89,6 +94,9 @@ public class FriendBoardList extends JFrame{
 		    
 			//전체글 리스트 
 			JPanel allList = null;
+			TunaController tunaController = new TunaController();
+			int userNo =1;
+		    List<BoardDTO> list = tunaController.selectallBoard(userNo);
 			
 			for(int i = 0; i <= 10; i++) {
 				
@@ -110,7 +118,13 @@ public class FriendBoardList extends JFrame{
 			    subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
 			    
-			    JLabel friendnick = new JLabel("닉네임");
+				BoardDTO boardDTO = list.get(i);
+				JLabel title = new JLabel(boardDTO.getTitle());
+				title.setBounds(50, 20, 400, 70);
+				title.setLayout(null);
+				title.setFont(new Font(null,Font.ITALIC,15));
+			    
+			    JLabel friendnick = new JLabel(boardDTO.getUserId());
 			    friendnick.setBounds(500,25,70,40);
 			    allList.add(friendnick);
 

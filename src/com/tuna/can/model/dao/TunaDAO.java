@@ -446,41 +446,40 @@ public class TunaDAO {
 		return result;
 	}
 
-	// 전체글 불러오기
-	public List<BoardDTO> allBoardList(Connection con, int boardno) {
+	//전체글 불러오기
+		public List<BoardDTO> allBoardList(Connection con, int userNo) {
 
-		String query = prop.getProperty("allBoardList");
+			String query = prop.getProperty("selectAllBoard");
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			List<BoardDTO> allBoardlist = null;
+			
+			try {
+				pstmt = con.prepareStatement(query);
 
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+				rset = pstmt.executeQuery();
 
-		List<BoardDTO> bList = null;
+				
+				allBoardlist = new ArrayList<>();
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, boardno);
-
-			rset = pstmt.executeQuery();
-
-			bList = new ArrayList<>();
-
-			while (rset.next()) {
-
-				BoardDTO board = new BoardDTO();
-				board.setUserId(rset.getString("USER_NICKNAME"));
-				board.setTitle(rset.getString("TITLE"));
-
-				bList.add(board);
+				while(rset.next()) {
+					
+					BoardDTO board = new BoardDTO();
+					
+					board.setTitle(rset.getString("TITLE"));
+					
+					allBoardlist.add(board);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
+			return allBoardlist;
 		}
-		return bList;
-	}
-
 	/**
 	 * <pre>
 	 * 로그인 아이디/비밀번호 확인 메소드
@@ -905,5 +904,41 @@ public class TunaDAO {
 		System.out.println("resut in reject section : " + result);
 		return result;
 
+	}
+	
+	public List<BoardDTO> selectMyBoard(Connection con, int userNo) {
+		String query = prop.getProperty("selectMyBoard");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> allMyBoard = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			allMyBoard = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				
+				board.setTitle(rset.getString("TITLE"));
+				
+				allMyBoard.add(board);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return allMyBoard;
 	}
 }
