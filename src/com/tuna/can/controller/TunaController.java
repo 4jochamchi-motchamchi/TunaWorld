@@ -149,7 +149,7 @@ public class TunaController {
 	public int updateCoin(UserDTO userInfo) {
 		
 		int userCoin = 0;
-		userCoin = service.updateCoin(userInfo);
+		userCoin = service.updateCoin(userInfo.getUserNo());
 		
 		return userCoin;
 		
@@ -302,11 +302,13 @@ public class TunaController {
 	// PlUS_FRIEND 테이블에서 받아돈 값을 AddFriendDTO에 담아서 값을 받아온다.
 	public int RequestFriends(AddFriendDTO friend) {
 		int result = 0;
-		result = service.updateRequestFriend(friend);
 
+		result = service.insertRequestFriend(friend);
+		
 		return result;
-
+		
 	}
+
 //	public int RequestFriends(AddFriendDTO friend) {
 //		int result = 0;
 //		result = service.insertAndDeleteRequestFriend(friend);
@@ -314,6 +316,7 @@ public class TunaController {
 //		return result;
 //		
 //	}
+
 		
 
 //		switch (category) {
@@ -393,6 +396,15 @@ public class TunaController {
 		
 		return nickname;
 	}
+	   public int checkUserNo(String userNoCheck) {
+		      
+		      UserDTO userDTO = new UserDTO();
+		      userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		      int userNo = userDTO.getUserNo();
+		      System.out.println(userDTO);
+		      System.out.println(userNo);
+		      return userNo;
+		   }
 
 
 	// 친구 삭제
@@ -497,11 +509,16 @@ public class TunaController {
 		}
 
 	// 게시글 삽입
-	public int insertBoard(BoardDTO board) {
+	public int insertBoard(Map<String, Object> newInputContent) {
 
-		int result = 0;
+		BoardDTO boardDTO= new BoardDTO();
+		
+		boardDTO.setTitle(newInputContent.get("title").toString());
+		boardDTO.setBoardContent(newInputContent.get("content").toString());
+		boardDTO.setUserNo((Integer)newInputContent.get("userNo"));
+		boardDTO.setListNo((Integer)(newInputContent.get("listNo")));
 
-		result = service.insertBoard(board);
+		int result = service.insertBoard(boardDTO);
 
 		return result;
 

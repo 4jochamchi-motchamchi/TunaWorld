@@ -1,3 +1,4 @@
+
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;

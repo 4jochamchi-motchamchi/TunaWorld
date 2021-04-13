@@ -158,7 +158,7 @@ public class TunaService {
 	 * @param userInfor
 	 * @return
 	 */
-	public int updateCoin(UserDTO userInfor) {
+	public int updateCoin(int userInfor) {
 
 		int userCoin = 0;
 		Connection con = getConnection();
@@ -392,15 +392,28 @@ public class TunaService {
 	}
 
 
+	/**
+	 * <pre>
+	 * 전체 게시글 db 입력하기
+	 * </pre>
+	 * @param board
+	 * @return
+	 */
 	public int insertBoard(BoardDTO board) {
-		int result = 0;
-		
 		Connection con = getConnection();
-//		result = BoardDao.insertBoard(con, board);
-		if(result > 0){
+		
+		int result = 0;
+		int insertResult = tunaDAO.insertBoard(con, board);
+		int insertContentNo = tunaDAO.selectLastContentNo(con);
+		
+		BoardDTO boardDTO =new BoardDTO();
+		boardDTO.setBoardNo(insertContentNo);
+		
+		if(insertResult > 0){
 			commit(con);
+			result =1;
 		} else {
-			System.out.println();
+//			System.out.println();
 			rollback(con);
 		}
 		
@@ -495,22 +508,23 @@ public class TunaService {
 	 * @param userNo
 	 * @return
 	 */
-//	public int deleteFriend(int userNo, int friends) {
-//		
-//		Connection con = getConnection();
-//		
-//		int friendNo = 0;
-//		
-//		friendNo = tunaDAO.deleteFriend(con, userNo, friends);
-//		
-//		if(friendNo > 0){
-//				commit(con);
-//		} else {
-//			System.out.println();
-//				rollback(con);
-//		}
-//		
-//		return friendNo;
-//	}
+	public int deleteFriend(int userNO, int fNo) {
+		
+		Connection con = getConnection();
+		
+		int friendNo = 0;
+		
+		friendNo = tunaDAO.deleteFriend(con, userNO, fNo);
+		
+		if(friendNo > 0){
+				commit(con);
+
+		} else {
+			System.out.println();
+				rollback(con);
+		}
+		
+		return friendNo;
+	}
 
 }

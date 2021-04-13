@@ -22,7 +22,7 @@ public class Application {
 		AddFriendDTO ad = new AddFriendDTO();
 		ad.setUserNo(1);
 		ad.setRequsetFriendNo(4);
-//		tc.RequestFriends(ad);
+		tc.RequestFriends(ad);
 		
 //		tc.RequestFriends(ad);
 	}
