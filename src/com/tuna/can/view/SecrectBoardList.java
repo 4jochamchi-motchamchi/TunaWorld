@@ -163,46 +163,31 @@ public class SecrectBoardList extends JFrame{
 			
 			    
 			    ImageIcon edit = new ImageIcon("image/edit.PNG");
-			    JButton editButton = new JButton(edit);
+			    JButton editButton = new JButton(boardDTO.getTitle());
 			    editButton.setBackground(Color.pink);
 			    editButton.setBorder(pinkborder);
 			    editButton.setBounds(530,28,50,40);
-			    editButton.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-									
-						if(e.getSource() == editButton) {
-							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습까?",null,0);
-							
-							if(answer == JOptionPane.YES_OPTION){
-								
-								new ModifyTextArea();
-								dispose();
-							}
-								
-								
-								
-								
-								
-//								BoardDTO board = new BoardDTO();
-//								int userNo = board.getUserNo();
-//								int result = tunaController.modifySecretBoard(board);
-//								 
-//								if(result>0) {
-//								board.setUserNo(userNo);
-//								board.setTitle(boardDTO.getTitle());
+//
+//			    editButton.addActionListener(new ActionListener() {
+//							
+//			    @Override
+//				public void actionPerformed(ActionEvent e) {
+//											
+//				if(e.getSource() == editButton) {
 //									
-//									new ModifyTextArea();
+//				new ModifyTextArea(boardDTO.getBoardNo());
+//					dispose();
+//			
 //								}
-								
-								
-							}
+//								
+//								}				
+//							
+//						});
+//								
+//							}
 							
 							
-									
-					}
-				});
+				
 			    
 			    ImageIcon delete = new ImageIcon("image/delete.PNG");
 				JButton deleteButton = new JButton(delete);

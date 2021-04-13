@@ -462,7 +462,7 @@ VALUES
            AND LIST_NO = 3
     </entry>
     <entry key="modifyScreteBoard">
-        SELECT
+          SELECT
 		      TITLE
 		    , BOARD_CONTENTS
 		    , LIST_NO

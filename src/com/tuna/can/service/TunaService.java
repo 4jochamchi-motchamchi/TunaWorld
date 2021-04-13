@@ -499,17 +499,17 @@ public class TunaService {
 		return FriendBoard;
 	}
 
-	public int modifySecretBoard(BoardDTO boardDTO2) {
-		int result =0;
-        BoardDTO boardDTO= new BoardDTO();
+	public BoardDTO modifySecretBoard(int boardNo) {
+		
+        BoardDTO boardDTO = new BoardDTO();
 		
 		Connection con = getConnection();
 		
-		result = tunaDAO.modifySecretBoard(con, boardDTO2);
+		boardDTO = tunaDAO.modifySecretBoard(con, boardNo);
 			
 		
 		
-		return result;
+		return boardDTO;
 	}
 
 

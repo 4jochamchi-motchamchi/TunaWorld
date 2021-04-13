@@ -601,11 +601,11 @@ public class TunaController {
 	}
 
 	//수정하러 가는 글
-	public int modifySecretBoard(BoardDTO boardDTO) {
-		 int result =0;
-		
-		result = service.modifySecretBoard(boardDTO);
-		return result  ;
+	public BoardDTO modifySecretBoard(int boardNo) {
+		 
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO = service.modifySecretBoard(boardNo);
+		return boardDTO ;
 	
 	}
 	

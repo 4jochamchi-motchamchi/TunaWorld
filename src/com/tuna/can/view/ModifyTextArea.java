@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
@@ -36,11 +37,20 @@ import com.tuna.can.model.dto.BoardDTO;
 public class ModifyTextArea extends JFrame{
 
 
-	public ModifyTextArea() {
+	public ModifyTextArea() {}
+	public ModifyTextArea(int boardNo) {
+		super("수정하기");
 		
-		super("ModifyTextArea");
 		
-
+		TunaController tunaController = new TunaController();
+		BoardDTO board = new BoardDTO();
+		
+		int boardNum = boardNo;
+		int userNo = 2;
+		
+		
+		board = tunaController.modifySecretBoard(boardNum);
+	
 
 		this.setLayout(null);
 		this.setSize(700, 900);
@@ -79,7 +89,7 @@ public class ModifyTextArea extends JFrame{
 	
 
 		//글쓰기 	글씨
-		JLabel lbl = new JLabel(" 글쓰기 ");
+		JLabel lbl = new JLabel("  수정하기 ");
 		lbl.setBounds(350, 40, 150, 50);
 		topPanel.add(lbl);
 
@@ -106,11 +116,10 @@ public class ModifyTextArea extends JFrame{
 	    //제목
 		JLabel titleT = new JLabel("제목");
         titleT.setBounds(50,10,90,25);
-        TextField subject = new TextField(80);
+        JTextField subject = new JTextField(board.getTitle());
         subject.setBounds(140,10, 500 ,25);
         String sub = subject.getText();
-        
- //       b.setTitle(sub);
+        b.setTitle(sub);
         
  
         subP.add(titleT);
@@ -118,11 +127,13 @@ public class ModifyTextArea extends JFrame{
     
         
         //게시글
-        TextArea txt = new TextArea(30,70);
+        TextArea txt = new TextArea(board.getBoardContent());
         txt.setBounds(40,0,600,550);
         textareaP.add(txt);
-        String content = txt.getText();
-     //   b.setBoardContent(content);
+        String content  = txt.getText();
+        b.setBoardContent(content);
+       
+    
 
         
         
@@ -133,11 +144,11 @@ public class ModifyTextArea extends JFrame{
         JLabel oneul = new JLabel(today);
         oneul.setBounds(500, 10, 200, 30);
         bottonP.add(oneul);
-   //     b.setBoardDate(day);
+  
 
 		
 
-        BoardDTO board = new BoardDTO();
+   
         //공개범위 라디오 버튼
         JRadioButton myself = new JRadioButton("나만");
 		JRadioButton friend= new JRadioButton("친구들");
@@ -175,7 +186,7 @@ public class ModifyTextArea extends JFrame{
 	    friend.setBackground(Color.pink);
 	    all.setBackground(Color.pink);
 	    
-	    int userNo =2;
+	  
 	
         //저장버튼
         JButton saveButton = new JButton(" save ");
