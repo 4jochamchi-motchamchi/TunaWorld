@@ -423,4 +423,19 @@ VALUES
 		*
 		FROM STORE
 	</entry>
+	<entry key="selectAllBoard">
+    SELECT
+           TITLE
+      FROM BOARD_LIST
+    
+    </entry>
+ 
+
+    <entry key= "selectMyBoard">
+    SELECT
+           TITLE
+      FROM BOARD_LIST
+     WHERE USER_NO = ?
+       
+    </entry>
 </properties>

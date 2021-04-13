@@ -471,24 +471,21 @@ public class TunaController {
 		int coin = 0;
 		
 		UserInventoryDTO userInven = new UserInventoryDTO();
+		
 		UserDTO user = new UserDTO();
+		user = service.selectMemberInfo("user01");
 		
-		coin = service.selectCoin(1);
-		
-		if(item.getItemPrice() < coin) {
+//		아이템 가격보다 보유 코인 갯수가 많을때 실행.
+		if(item.getItemPrice() < user.getCoin()) {
 			
-			user = service.selectMemberInfo(loginMemberId);
-			
-			userInven.setUserNo(user.getCoin());
+			userInven.setUserNo(user.getUserNo());
 			userInven.setItemNo(item.getItemNo());
 			userInven.setItemCategory(item.getItemCategory());
 			userInven.setEquipItemYN("N");
 			
-//			나중에 바꿀거 -sw
-//			service.updateCoin(user.getUserNo(), (coin - item.getItemPrice()));
-			
-			
 			result = service.updateUserInventory(userInven);
+		} else {
+			
 		}
 		
 		return result;
@@ -565,5 +562,21 @@ public class TunaController {
 		result = service.deleteSecretBoard(title);
 		
 		return result;
+	}
+	
+	// 전체게시 목록 불러오기
+	public List<BoardDTO> selectallBoard(int userNo) {
+		
+		
+		List<BoardDTO> allBoard = service.selectAllBoard(userNo);
+		return allBoard;
+		
+		
+	}
+
+//내가쓴 게시물목록 불러오기
+	public List<BoardDTO> selectMyBoard(int userNo) {
+		List<BoardDTO> myBoardList = service.selectMyBoard(userNo);
+		return myBoardList;
 	}
 }

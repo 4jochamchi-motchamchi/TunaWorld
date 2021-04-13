@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -445,41 +446,40 @@ public class TunaDAO {
 		return result;
 	}
 
-	// 전체글 불러오기
-	public List<BoardDTO> allBoardList(Connection con, int boardno) {
+	//전체글 불러오기
+		public List<BoardDTO> allBoardList(Connection con, int userNo) {
 
-		String query = prop.getProperty("allBoardList");
+			String query = prop.getProperty("selectAllBoard");
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			List<BoardDTO> allBoardlist = null;
+			
+			try {
+				pstmt = con.prepareStatement(query);
 
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+				rset = pstmt.executeQuery();
 
-		List<BoardDTO> bList = null;
+				
+				allBoardlist = new ArrayList<>();
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, boardno);
-
-			rset = pstmt.executeQuery();
-
-			bList = new ArrayList<>();
-
-			while (rset.next()) {
-
-				BoardDTO board = new BoardDTO();
-				board.setUserId(rset.getString("USER_NICKNAME"));
-				board.setTitle(rset.getString("TITLE"));
-
-				bList.add(board);
+				while(rset.next()) {
+					
+					BoardDTO board = new BoardDTO();
+					
+					board.setTitle(rset.getString("TITLE"));
+					
+					allBoardlist.add(board);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
+			return allBoardlist;
 		}
-		return bList;
-	}
-
 	/**
 	 * <pre>
 	 * 로그인 아이디/비밀번호 확인 메소드
@@ -733,12 +733,21 @@ public class TunaDAO {
 			pstmt.setInt(2, userInven.getItemNo());
 			pstmt.setInt(3, userInven.getItemCategory());
 			pstmt.setString(4, userInven.getEquipItemYN());
-
+			
+			
 			result = pstmt.executeUpdate();
 
+			
+
+		} catch(SQLIntegrityConstraintViolationException e) {
+			result = 2;
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}  
+		finally {
+			close(pstmt);
 		}
 
 		return result;
@@ -900,7 +909,18 @@ public class TunaDAO {
 		return result;
 
 	}
-	//전체 게세글 삽입하는 메소드
+
+	
+	/**
+	 * <pre>
+	 * 전체 게세글 db에 삽입하는 메소드
+	 * </pre>
+	 * @param con
+	 * @param board
+	 * @return
+	 * 
+	 * @author Juhee Hwang
+	 */
 	public int insertBoard(Connection con, BoardDTO board) {
 		
 		PreparedStatement pstmt = null;
@@ -917,7 +937,6 @@ public class TunaDAO {
 			pstmt.setString(2, board.getBoardContent());
 			pstmt.setInt(3, board.getUserNo());
 			pstmt.setInt(4, board.getListNo());
-//			pstmt.setDate(4, (Date)board.getBoardDate());
 			
 			result = pstmt.executeUpdate();
 			
@@ -934,6 +953,13 @@ public class TunaDAO {
 		
 	}
 
+	/**
+	 * <pre>
+	 * 전체 게시글 마지막 등록된 번호 가져오는 메소드
+	 * </pre>
+	 * @param con
+	 * @return
+	 */
 	public int selectLastContentNo(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -958,6 +984,42 @@ public class TunaDAO {
 		}
 
 		return lastContentNo;
+	}
+	
+	public List<BoardDTO> selectMyBoard(Connection con, int userNo) {
+		String query = prop.getProperty("selectMyBoard");
 		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> allMyBoard = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			allMyBoard = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				
+				board.setTitle(rset.getString("TITLE"));
+				
+				allMyBoard.add(board);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return allMyBoard;
+
 	}
 }
