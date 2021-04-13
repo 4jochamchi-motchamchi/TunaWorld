@@ -105,23 +105,6 @@
 		WHERE A.BOARD_NO = ?
 		ORDER BY A.COMMENT_NO
 	</entry>
-	<entry key="insertComment">
-		INSERT
-		INTO COMMENT_BOARD
-		(
-		COMMENT_NO
-		, BOARD_NO
-		, COMMENT_CONTENT
-		, USER_NO
-		)
-		VALUES
-		(
-		SQU_COMMENT.NEXTVAL
-		, ?
-		, ?
-		, ?
-		)
-	</entry>
 	<entry key="updateEquipYn">
 		UPDATE
 		USER_INVENTORY_LIST
@@ -239,6 +222,7 @@ VALUES
 )
 
 </entry>
+
 
     <entry key="selectSecretBoard">
         SELECT
@@ -409,7 +393,7 @@ VALUES
            AND LIST_NO = 3
     </entry>
     <entry key="modifyScreteBoard">
-        SELECT
+          SELECT
 		      TITLE
 		    , BOARD_CONTENTS
 		    , LIST_NO

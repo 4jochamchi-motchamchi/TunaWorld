@@ -210,7 +210,7 @@ public class MyPage extends JFrame {
 		topPanel.setSize(700, 250);
 		topPanel.setBackground(Color.pink);
 
-		Image defaultImage = new ImageIcon("image/logoBig.png").getImage().getScaledInstance(200, 200, 0);
+		Image defaultImage = new ImageIcon("image/basicprofile.png").getImage().getScaledInstance(200, 200, 0);
 		ImageIcon icon = new ImageIcon(defaultImage);
 		
 		imageLabel = new JLabel();

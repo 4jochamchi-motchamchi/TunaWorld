@@ -130,28 +130,43 @@ public class MyBoardList extends JFrame{
 				title.setBackground(Color.pink);
 				title.setHorizontalAlignment(SwingConstants.LEFT);
 				allList.add(title);
+				
+			//	 게시글제목 눌렀을 때 게시글 내용으로 들어가기
+				title.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == title) {
+							
+							new BulletinLayout(boardDTO.getBoardNo());
+							dispose();
+							
+						}				
+					}
+				});
 			    
 			    ImageIcon edit = new ImageIcon("image/edit.PNG");
-			    JButton editButton = new JButton(edit);
+			    JButton editButton = new JButton(boardDTO.getTitle());
 			    editButton.setBackground(Color.pink);
 			    editButton.setBorder(pinkborder);
 			    editButton.setBounds(530,28,50,40);
+			    
 			    editButton.addActionListener(new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == editButton) {
-							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습니?", "예",0);	
 							
-							if(answer == JOptionPane.YES_OPTION){
-							
+							new ModifyTextArea(boardDTO.getBoardNo());
+							dispose();
 							
 							
 						}
 						
 						}				
-					}
+					
 				});
 			    ImageIcon delete = new ImageIcon("image/delete.PNG");
 				JButton deleteButton = new JButton(delete);
@@ -196,12 +211,12 @@ public class MyBoardList extends JFrame{
 		    write.setBounds(580, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
-					@Override
-					public void actionPerformed(ActionEvent e) {
-							new Text_Area();
-							dispose();
-					}
-				});
+				@Override
+				public void actionPerformed(ActionEvent e) {
+						new Text_Area();
+						dispose();
+				}
+			});
 		    bottomPanel.add(write);
 
 
