@@ -1,3 +1,4 @@
+
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -87,18 +88,19 @@ public class FriendBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//전체게시글 글씨
-			JLabel lbl = new JLabel(" 친구게시글 ");
-			lbl.setBounds(350, 40, 150, 50);
+			JLabel lbl = new JLabel(" 친 구 게 시 글 ");
+			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
+			lbl.setBounds(200, 40, 250, 50);
 			topPanel.add(lbl);
 			
 		    
 			//전체글 리스트 
 			JPanel allList = null;
 			TunaController tunaController = new TunaController();
-			int userNo =1;
-		    List<BoardDTO> list = tunaController.selectallBoard(userNo);
+			int userNo =3;
+		    List<BoardDTO> list = tunaController.selectFriendBoard(userNo);
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i <list.size(); i++) {
 				
 				midlePanel.setLayout(null);
 				midlePanel.setPreferredSize(new Dimension(660,100*i));
@@ -110,25 +112,26 @@ public class FriendBoardList extends JFrame{
 				
 			    allList.setBounds(0,(i * 100),680,100);
 				allList.setBorder(pinkborder);
+	
 				
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				subject.setLayout(null);
-
-			    subject.setBounds(40, 30, 600, 80);
-			    allList.add(subject);
-			    
+				subject.setBounds(40, 30, 600, 80);
+		
 				BoardDTO boardDTO = list.get(i);
 				JLabel title = new JLabel(boardDTO.getTitle());
-				title.setBounds(50, 20, 400, 70);
+				title.setBounds(50, 20, 600, 70);
 				title.setLayout(null);
 				title.setFont(new Font(null,Font.ITALIC,15));
-			    
-			    JLabel friendnick = new JLabel(boardDTO.getUserId());
-			    friendnick.setBounds(500,25,70,40);
-			    allList.add(friendnick);
 
-				
+
+			    
+			    allList.add(subject);
+			    allList.add(title);
+
+			    
+			    
 			    midlePanel.add(allList);
 			    
 				

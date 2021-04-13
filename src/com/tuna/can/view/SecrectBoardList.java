@@ -2,6 +2,7 @@
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,6 +23,7 @@ import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.BulletinDTO;
 
 /**
  * <pre>
@@ -37,7 +39,6 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-		int boardNo = 3;
 		int userNo = 1;
 //		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
@@ -92,8 +93,10 @@ public class SecrectBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//내게시글 글씨
-			JLabel lbl = new JLabel(" 나만보는비밀게시글 ");
-			lbl.setBounds(350, 40, 150, 50);
+			JLabel lbl = new JLabel("비밀게시글");
+			lbl.setFont(new Font("휴먼둥근헤드라인",Font.PLAIN, 30));
+			lbl.setHorizontalAlignment(JLabel.CENTER);
+			lbl.setBounds(100, 40, 500, 50);
 			topPanel.add(lbl);
 			
 		    
@@ -151,6 +154,14 @@ public class SecrectBoardList extends JFrame{
 			    allList.add(subject);
 			    allList.add(title);
 			    
+				
+				
+				
+				// 게시글 번호
+				int boardNumber = 3;
+	
+			
+			    
 			    ImageIcon edit = new ImageIcon("image/edit.PNG");
 			    JButton editButton = new JButton(edit);
 			    editButton.setBackground(Color.pink);
@@ -162,8 +173,34 @@ public class SecrectBoardList extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == editButton) {
-							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
-						}				
+							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습까?",null,0);
+							
+							if(answer == JOptionPane.YES_OPTION){
+								
+								new ModifyTextArea();
+								dispose();
+							}
+								
+								
+								
+								
+								
+//								BoardDTO board = new BoardDTO();
+//								int userNo = board.getUserNo();
+//								int result = tunaController.modifySecretBoard(board);
+//								 
+//								if(result>0) {
+//								board.setUserNo(userNo);
+//								board.setTitle(boardDTO.getTitle());
+//									
+//									new ModifyTextArea();
+//								}
+								
+								
+							}
+							
+							
+									
 					}
 				});
 			    

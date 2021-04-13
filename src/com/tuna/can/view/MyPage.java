@@ -255,7 +255,7 @@ public class MyPage extends JFrame {
 		JLabel myCharacterLabel = new JLabel("내 캐릭터");
 		myCharacterButton.add(myCharacterLabel);
 		myCharacterLabel.setFont(myfont);
-
+		
 		JButton myBackgroundButton = new JButton();
 //		myBackgroundButton = new JButton();
 		JLabel myBackgroundLabel = new JLabel("내 배경색");
@@ -312,6 +312,7 @@ public class MyPage extends JFrame {
 		fontPanel.setSize(350, 525);
 		fontPanel.setBackground(Color.green);
 		
+		
 		Map<Integer, ArrayList<UserInventoryDTO>> invMap = new HashMap<Integer, ArrayList<UserInventoryDTO>>();
 		
 		invMap = tunaController.selectUserInventory(1);
@@ -323,14 +324,23 @@ public class MyPage extends JFrame {
 		
 		if(equipItemList.get(0) != null) {
 			
+//			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(0).getItemImg());
+//			myCharacterLabel.setIcon(itemImg);
 			myCharacterLabel.setText(equipItemList.get(0).getItemImg());
+				
 		}
 		if(equipItemList.get(1) != null) {
 			
+//			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(1).getItemImg());
+				
 			myBackgroundLabel.setText(equipItemList.get(1).getItemImg());
+			
+			
 		}
 		if(equipItemList.get(2) != null) {
 			
+//			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(2).getItemImg());
+				
 			myFontLabel.setText(equipItemList.get(2).getItemImg());
 		}
 		

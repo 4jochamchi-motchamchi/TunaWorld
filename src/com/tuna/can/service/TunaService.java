@@ -464,6 +464,20 @@ public class TunaService {
 	}
 
 	
+//	업데이트코인
+	public int updateCoin(int userNo, int coin) {
+		int result = 0;
+		Connection con = getConnection();
+		
+		result = tunaDAO.updateCoin(con, userNo, coin);
+		
+		commit(con);
+		close(con);
+		
+		return result;
+	}
+
+	
 
 	public List<BoardDTO> selectAllBoard(int userNo) {
 		Connection con =  getConnection();
@@ -477,6 +491,25 @@ public class TunaService {
 		Connection con =  getConnection();
 		List<BoardDTO> myBoardList  = tunaDAO.selectMyBoard(con,userNo);
 		return myBoardList;
+	}
+
+	public List<BoardDTO> selectFriendBoard(int userNo) {
+		Connection con =  getConnection();
+		List<BoardDTO> FriendBoard  = tunaDAO.SelectFriendBoard (con,userNo);
+		return FriendBoard;
+	}
+
+	public int modifySecretBoard(BoardDTO boardDTO2) {
+		int result =0;
+        BoardDTO boardDTO= new BoardDTO();
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.modifySecretBoard(con, boardDTO2);
+			
+		
+		
+		return result;
 	}
 
 

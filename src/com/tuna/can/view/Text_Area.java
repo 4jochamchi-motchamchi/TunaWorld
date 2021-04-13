@@ -260,22 +260,7 @@ public class Text_Area extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-	//제목 수정용 메소드
-	public String inputBoardTitle() {
-		Scanner sc = new Scanner(System.in);
-		
-		String title = sc.nextLine();
-		
-		return title;
-	}
-    //내용 수정용 메소드
-	public String inputBoardContent() {
-		Scanner sc = new Scanner(System.in);
-		
-		String content = sc.nextLine();
-		
-		return content;
-	}
+
 	public static void main(String[] args) {
 		new Text_Area();
 	}
