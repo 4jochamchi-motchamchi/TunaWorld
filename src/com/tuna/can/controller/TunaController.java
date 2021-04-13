@@ -37,7 +37,7 @@ public class TunaController {
 	 * @param newMemberInfo
 	 * @return
 	 */
-
+	
 	public int registUser(Map<String, Object> newMemberInfo) {
 
 		UserDTO userList = new UserDTO();
@@ -526,15 +526,16 @@ public class TunaController {
 	public int deleteSecretBoard(BoardDTO title) {
 
 		int result = 0;
-
+		
 		result = service.deleteSecretBoard(title);
-
+		
 		return result;
 	}
-
+	
 	// 전체게시물 목록 불러오기
 	public List<BoardDTO> selectallBoard(int userNo) {
-
+		
+		
 		List<BoardDTO> allBoard = service.selectAllBoard(userNo);
 		return allBoard;
 
@@ -552,7 +553,6 @@ public class TunaController {
 		return friendBoard;
 	}
 
-<<<<<<< HEAD
 	//수정하러 가는 글
 	public BoardDTO modifySecretBoard(int boardNo) {
 		 
@@ -560,16 +560,6 @@ public class TunaController {
 		boardDTO = service.modifySecretBoard(boardNo);
 		return boardDTO ;
 	
-=======
-	// 수정하러 가는 글
-	public int modifySecretBoard(BoardDTO boardDTO) {
-		int result = 0;
-
-		result = service.modifySecretBoard(boardDTO);
-		return result;
-
->>>>>>> branch 'master' of https://github.com/4jochamchi-motchamchi/Mini_Project.git
 	}
-
-
+	
 }
