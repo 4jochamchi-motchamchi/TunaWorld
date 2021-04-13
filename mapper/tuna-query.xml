@@ -417,4 +417,10 @@ VALUES
 		*
 		FROM STORE
 	</entry>
+	<entry key="updateCoin">
+	UPDATE
+	       USER_INFORMATION
+	   SET COIN = ?
+     WHERE USER_NO = ?
+	</entry>
 </properties>
