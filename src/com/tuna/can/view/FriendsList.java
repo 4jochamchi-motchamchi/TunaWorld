@@ -100,9 +100,10 @@ public class FriendsList extends JFrame{
 //			middlePanel.setPreferredSize(new Dimension(640,300));
 			List<FriendDTO> friends = new ArrayList<FriendDTO>();
 			TunaController controller = new TunaController();
-			FriendDTO friend = new FriendDTO();
-			friends = controller.selectFriendsList(userNo);
-		
+//			FriendDTO friend = new FriendDTO();
+			friends = controller.selectFriendsList(controller.loginMember.getUserNo());
+			controller.loginMember.getUserNo();
+			
 			
 			// 버튼 이미지 
 			ImageIcon delete = new ImageIcon("image/delete.png");
@@ -160,7 +161,6 @@ public class FriendsList extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						int result = JOptionPane.showConfirmDialog(null, "정말 친구를 삭제하시겠습니까? \n 정말요?", "친구 목록 삭제",0);
 						if(result == JOptionPane.YES_OPTION) {
-							
 							// 딜리트
 							TunaService ts = new TunaService();
 //							System.out.println(Integer.parseInt(userNo.getText()) + " : " + Integer.parseInt(friendNo.getText()));
@@ -254,7 +254,7 @@ public class FriendsList extends JFrame{
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			AddFriendDTO list = new AddFriendDTO();
-			list = tunaController.selectPlusFriend(userNo);
+			list = tunaController.selectPlusFriend(controller.loginMember.getUserNo());
 			int resultaa =0;
 			
 			
@@ -262,11 +262,11 @@ public class FriendsList extends JFrame{
 				
 				int result = JOptionPane.showConfirmDialog(null, "친구 추가 요청이 왔어요!", "친구수락", 0);
 				if(result == JOptionPane.YES_OPTION) {
-					resultaa = tunaController.RequestFriends(list);
-					System.out.println("resultaa" + resultaa);
-					
+					tunaController.RequestFriends(list);
+					new FriendsList();
+					dispose();
 				} else {
-					
+					tunaController.rejectRequest(list);
 					
 				}
 				  

@@ -354,7 +354,6 @@ public class TunaDAO {
 
 				friends.setUserNO(rset.getInt("USER_NO"));
 				friends.setFriendsNo(rset.getInt("FRIEND_NO"));
-				friends.setImage(rset.getString("ITEM_IMG"));
 				friends.setFriendsNickname(rset.getString("USER_NICKNAME"));
 
 
@@ -370,6 +369,7 @@ public class TunaDAO {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println("여기 친구 정보있어요 : " + friendsInfo);
 		return friendsInfo;
 	}
 
@@ -834,7 +834,7 @@ public class TunaDAO {
 			close(pstmt);
 			close(rset);
 		}
-		System.out.println("AddList : " +AddList);
+//		System.out.println("AddList : " +AddList);
 		return AddList;
 	}
 
@@ -1064,7 +1064,7 @@ public class TunaDAO {
 	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
 		
 		PreparedStatement pstmt = null;
-		String query = prop.getProperty("deleteFriend");
+		String query = prop.getProperty("deleteRequest");
 		int result = 0;
 		
 		try {

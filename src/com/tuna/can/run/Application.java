@@ -14,7 +14,7 @@ public class Application {
 		ud.setCoin(20);
 		
 		TunaController tc = new TunaController();
-		tc.selectUSerCoin(ud);
+//		tc.selectUSerCoin(ud);
 		tc.updateCoin(ud);
 		
 //		tc.selectPlusFriend(ud);

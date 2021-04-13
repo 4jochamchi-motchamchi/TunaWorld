@@ -300,13 +300,13 @@ public class TunaController {
 		
 	}
 
-//	public int RequestFriends(AddFriendDTO friend) {
-//		int result = 0;
-//		result = service.insertAndDeleteRequestFriend(friend);
-//		
-//		return result;
-//		
-//	}
+	public int rejectRequest(AddFriendDTO friend) {
+		int result = 0;
+		result = service.rejectRequestFriend(friend);
+		
+		return result;
+		
+	}
 
 		
 
@@ -401,13 +401,7 @@ public class TunaController {
 
 
 	// 친구 삭제
-//	public int deleteFriend (UserDTO  UserInfo) {
-//		
-//		int friend = 0;
-//		
-//		friend = service.deleteFriend(UserInfo.getUserNo());
-//		 return friend;
-//	}
+
 
 	// 친구인지 아닌지 확인하기 위해 친구조회
 	public List<FriendDTO> selectFriends(int userNo) {
@@ -604,5 +598,6 @@ public class TunaController {
 		return result  ;
 	
 	}
+
 	
 }
