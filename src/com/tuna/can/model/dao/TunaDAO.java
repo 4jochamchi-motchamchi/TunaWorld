@@ -440,6 +440,7 @@ public class TunaDAO {
 			
 			try {
 				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, userNo);
 
 				rset = pstmt.executeQuery();
 
@@ -451,6 +452,7 @@ public class TunaDAO {
 					BoardDTO board = new BoardDTO();
 					
 					board.setTitle(rset.getString("TITLE"));
+					board.setBoardNo(rset.getInt("BOARD_NO"));
 					
 					allBoardlist.add(board);
 				}
@@ -460,7 +462,8 @@ public class TunaDAO {
 				close(rset);
 				close(pstmt);
 			}
-			return allBoardlist;
+			return allBoardlist;		
+			
 		}
 	/**
 	 * <pre>
