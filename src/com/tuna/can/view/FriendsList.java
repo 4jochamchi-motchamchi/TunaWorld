@@ -22,27 +22,33 @@ import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.service.TunaService;
 
 
 public class FriendsList extends JFrame{
+	
+	TunaController tunaController = new TunaController();
+	int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 	public FriendsList() {
+		
 		// 미니 창 이름 설정
 		super("Friends List");
-				
 			
 			Border panelborder = BorderFactory.createLineBorder(Color.BLACK, 1);
 			Border button2 = BorderFactory.createLineBorder(new Color(255, 240, 245));
 			this.setLayout(null);
 			this.setSize(700, 900);
 			this.setLocation(600, 50);
-
 			
 			try {
+				
 				this.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
+				
 			} catch (IOException e) {
+				
 				e.printStackTrace();
 			}
 			this.setBackground(Color.pink);
@@ -95,7 +101,8 @@ public class FriendsList extends JFrame{
 			List<FriendDTO> friends = new ArrayList<FriendDTO>();
 			TunaController controller = new TunaController();
 			FriendDTO friend = new FriendDTO();
-			friends = controller.selectFriendsList(3);
+			friends = controller.selectFriendsList(userNo);
+		
 			
 			// 버튼 이미지 
 			ImageIcon delete = new ImageIcon("image/delete.png");
@@ -103,6 +110,7 @@ public class FriendsList extends JFrame{
 			JPanel friendsPanel = null;
 			JLabel nickName = null;
 			JLabel imageLabel = null;
+			
 			// 페널 객체만들기
 			for(int i = 0; i <friends.size(); i++) {
 				
@@ -245,12 +253,17 @@ public class FriendsList extends JFrame{
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
-
-			if(true) {
+			AddFriendDTO list = new AddFriendDTO();
+			list = tunaController.selectPlusFriend(userNo);
+			int resultaa =0;
+			
+			
+			if(list != null) {
 				
 				int result = JOptionPane.showConfirmDialog(null, "친구 추가 요청이 왔어요!", "친구수락", 0);
 				if(result == JOptionPane.YES_OPTION) {
-					
+					resultaa = tunaController.RequestFriends(list);
+					System.out.println("resultaa" + resultaa);
 					
 				} else {
 					

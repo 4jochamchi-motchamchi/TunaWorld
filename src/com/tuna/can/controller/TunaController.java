@@ -149,7 +149,7 @@ public class TunaController {
 	public int updateCoin(UserDTO userInfo) {
 		
 		int userCoin = 0;
-		userCoin = service.updateCoin(userInfo.getUserNo());
+		userCoin = service.updateCoin(userInfo.getUserNo(), userInfo.getCoin());
 		
 		return userCoin;
 		
@@ -203,10 +203,6 @@ public class TunaController {
 		friendsList = service.selectFriendsList(userInfo);
 
 		return friendsList;
-	}
-
-	public void insertBoard() {
-
 	}
 
 //	유저 개인정보 변경
@@ -292,10 +288,10 @@ public class TunaController {
 	}
 	
 	// 로그인 유저의 정보가 있는 지 확인하기 위한 select
-	public AddFriendDTO selectPlusFriend(UserDTO userInfo) {
+	public AddFriendDTO selectPlusFriend(int userNo) {
 		AddFriendDTO list = new AddFriendDTO();
 		
-		list = service.selectAddFriend(userInfo.getUserNo());
+		list = service.selectAddFriend(userNo);
 		return list;
 	}
 	

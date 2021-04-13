@@ -215,7 +215,7 @@ public class TunaDAO {
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, coin);
+			pstmt.setInt(1, coin +1);
 			pstmt.setInt(2, userNo);
 
 			result = pstmt.executeUpdate();
@@ -352,13 +352,11 @@ public class TunaDAO {
 			while (rset.next()) {
 				FriendDTO friends = new FriendDTO();
 
-				friends.setUserNO(rset.getInt(1));
-				friends.setFriendsNo(rset.getInt(2));
-				friends.setFriendsNickname(rset.getString(3));
-
-				friends.setFriendsNickname(rset.getString(2));
-
+				friends.setUserNO(rset.getInt("USER_NO"));
+				friends.setFriendsNo(rset.getInt("FRIEND_NO"));
 				friends.setImage(rset.getString("ITEM_IMG"));
+				friends.setFriendsNickname(rset.getString("USER_NICKNAME"));
+
 
 				friendsInfo.add(friends);
 
@@ -806,7 +804,7 @@ public class TunaDAO {
 
 	// plusfriend 테이블에서 신청한에 신청 받은애 값 받아오기
 	public AddFriendDTO selectAddFriend(Connection con, int userNo) {
-
+		System.out.println("userNo : " + userNo);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectPlus_friend");
@@ -833,7 +831,7 @@ public class TunaDAO {
 			close(pstmt);
 			close(rset);
 		}
-
+		System.out.println("AddList : " +AddList);
 		return AddList;
 	}
 
