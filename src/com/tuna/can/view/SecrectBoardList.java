@@ -1,3 +1,4 @@
+
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -5,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -12,11 +14,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+
+import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.BoardDTO;
 
 /**
  * <pre>
@@ -30,6 +35,9 @@ public class SecrectBoardList extends JFrame{
 	public SecrectBoardList() {
 		super("SecrectBoardList");
 		
+		TunaController tunaController = new TunaController();
+		
+		int userNo = 1;
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
@@ -89,8 +97,9 @@ public class SecrectBoardList extends JFrame{
 		    
 			//전체글 리스트 
 			JPanel allList = null;
+			List<BoardDTO> selectSecretList = tunaController.selectSecretBoard(userNo);
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i < selectSecretList.size(); i++) {
 				
 				midlePanel.setLayout(null);
 				midlePanel.setPreferredSize(new Dimension(660,100*i));
@@ -106,13 +115,24 @@ public class SecrectBoardList extends JFrame{
 				
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
+				BoardDTO boardDTO = selectSecretList.get(i);
+				JButton title = new JButton(boardDTO.getTitle());
+				title.setLayout(null);
+				title.setBounds(50, 40, 450, 30);
+				title.setBackground(Color.pink);
+				title.setBorder(pinkborder);
+				title.setHorizontalAlignment(SwingConstants.LEFT);
+				
 				subject.setLayout(null);
-
 			    subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
+			    allList.add(title);
 			    
-			    JButton editButton = new JButton("수정");
-			    editButton.setBounds(500,25,70,40);
+			    ImageIcon edit = new ImageIcon("image/edit.PNG");
+			    JButton editButton = new JButton(edit);
+			    editButton.setBackground(Color.pink);
+			    editButton.setBorder(pinkborder);
+			    editButton.setBounds(530,28,50,40);
 			    editButton.addActionListener(new ActionListener() {
 					
 					@Override
@@ -123,14 +143,35 @@ public class SecrectBoardList extends JFrame{
 						}				
 					}
 				});
-				JButton deleteButton = new JButton("삭제");
-				deleteButton.setBounds(580,25,70,40);
+			    
+			    ImageIcon delete = new ImageIcon("image/delete.PNG");
+				JButton deleteButton = new JButton(delete);
+				deleteButton.setBackground(Color.pink);
+				deleteButton.setBorder(pinkborder);
+				deleteButton.setBounds(580,28,50,40);
 				deleteButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 								
 					if(e.getSource() == deleteButton) {
-						JOptionPane.showMessageDialog(null,"삭제하시겠습까?");	
+						
+		
+						// 삭제 버튼 눌렀을 떄
+						int answer = JOptionPane.showConfirmDialog(null, "삭제하시겠습까?", "삭제",0);
+						
+						if(answer == JOptionPane.YES_OPTION){
+							//사용자가 yes를 눌렀을 떄
+							JOptionPane.showMessageDialog(null, "삭제되었습니다.", "삭제",1);
+							BoardDTO board = new BoardDTO();
+							board.setUserNo(userNo);
+							board.setTitle(boardDTO.getTitle());
+							int result = tunaController.deleteSecretBoard(board);
+							
+							new SecrectBoardList();
+							dispose();	
+							
+						}
+						
 					}				
 				}
 			});
@@ -159,7 +200,7 @@ public class SecrectBoardList extends JFrame{
 			JButton write  = new JButton(writee);
 			write.setBackground(Color.pink);
 			write.setBorder(pinkborder);
-		    write.setBounds(560, 0, 90, 50);
+		    write.setBounds(580, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override
@@ -168,6 +209,7 @@ public class SecrectBoardList extends JFrame{
 							dispose();
 					}
 				});
+		    
 		    bottomPanel.add(write);
 
 
@@ -191,3 +233,6 @@ public class SecrectBoardList extends JFrame{
 	
 	
 }
+
+
+

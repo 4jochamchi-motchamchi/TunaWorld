@@ -40,11 +40,14 @@ public class MyPage extends JFrame {
 
 	public MyPage() {
 
-		myPageMainFrame();
+		JFrame frame = myPageMainFrame();
+		
 	}
+	
 	public static void main(String[] args) {
 
 		new MyPage();
+		
 
 	}
 	
@@ -56,6 +59,10 @@ public class MyPage extends JFrame {
 		frame.setSize(700, 900);
 		
 		frame.setLayout(null);
+		
+//		JPanel tp = topPanel();
+//		JPanel mp = mypageInfo();
+//		JPanel ip = inventory();
 		
 		frame.add(topPanel());
 		frame.add(mypageInfo());
@@ -207,6 +214,7 @@ public class MyPage extends JFrame {
 				frame.dispose();
 			}
 		});
+		
 		backB.setBounds(30, 25, 55, 55);
 		backB.setBackground(Color.pink);
 		backB.setBorder(pinkborder);
@@ -219,7 +227,9 @@ public class MyPage extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				myPageMainFrame().repaint();
+				new MyPage();
+				frame.dispose();
+				
 			}
 		});
 		

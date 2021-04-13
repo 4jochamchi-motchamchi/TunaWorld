@@ -59,14 +59,14 @@ public class Login_page extends JFrame{
 			
 			// image 패널
 			JPanel imagePanel = new JPanel();
-			imagePanel.setBackground(Color.PINK);
+			imagePanel.setBackground(new Color(204,51,102));
 			imagePanel.setLayout(null);
 			imagePanel.setLocation(0,0);
 			imagePanel.setSize(700,420);
 			
 			// id/pw 패널
 			JPanel loginPanel = new JPanel();
-			loginPanel.setBackground(Color.pink);
+			loginPanel.setBackground(new Color(204,51,102));
 			loginPanel.setLayout(null);
 			loginPanel.setLocation(0, 420);
 			loginPanel.setSize(700,450);
@@ -155,7 +155,20 @@ public class Login_page extends JFrame{
 						
 						idCheck = idText.getText();
 						String pwCheck = pwText.getText();
-						int result = 0;
+						UserDTO userDTO = new UserDTO();
+						int result = tunaController.checkLoginUser(idCheck, pwCheck);
+						
+						if(result > 0) {
+							System.out.println("로그인 성공");
+						} else {
+							System.out.println("로그인 실패");
+							
+						}
+						System.out.println(userDTO);
+						
+//						주희누님 수정 바래영^^
+//						int result = 0;
+						
 						result = tunaController.checkLoginUser(idCheck, pwCheck);
 						System.out.println(result);
 						

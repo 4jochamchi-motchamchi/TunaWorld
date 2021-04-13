@@ -58,6 +58,7 @@ public class InventoryButtonController extends JButton{
 					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 되었습니다.", "장착성공", 0);					
 					break;
 					
+					
 //					장착 실패시 장착여부 다시 변경
 				case "장착실패":
 					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템 장착에 실패 하였습니다.", "장착실패", 0);
@@ -70,6 +71,7 @@ public class InventoryButtonController extends JButton{
 					}
 					
 					break;
+					
 					
 //					이미 장착시 장착여부 다시 변경
 				case "이미장착":

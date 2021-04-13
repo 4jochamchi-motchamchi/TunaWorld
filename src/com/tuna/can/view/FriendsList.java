@@ -157,6 +157,8 @@ public class FriendsList extends JFrame{
 							TunaService ts = new TunaService();
 //							System.out.println(Integer.parseInt(userNo.getText()) + " : " + Integer.parseInt(friendNo.getText()));
 							ts.deleteFriend(Integer.parseInt(userNo.getText()), Integer.parseInt(friendNo.getText()));
+							new FriendsList();
+							dispose();
 							
 						} else {
 							System.out.println("삭제 취소");
@@ -265,6 +267,7 @@ public class FriendsList extends JFrame{
 }
 
 	
+
 
 
 
