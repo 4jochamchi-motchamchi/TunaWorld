@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;    // gjr
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -197,7 +198,7 @@ public class ModifyTextArea extends JFrame{
 					
 					TunaController controller = new TunaController();
 					
-					int result =controller.insertBoard(board);
+					int result =controller.insertBoard((Map<String, Object>) board);
 					
 					if(result >0) {
 						JOptionPane.showMessageDialog(null,"저장되었습니다");}
@@ -228,23 +229,10 @@ public class ModifyTextArea extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-	//제목 수정용 메소드
-	public String inputBoardTitle() {
-		Scanner sc = new Scanner(System.in);
-		
-		String title = sc.nextLine();
-		
-		return title;
-	}
-    //내용 수정용 메소드
-	public String inputBoardContent() {
-		Scanner sc = new Scanner(System.in);
-		
-		String content = sc.nextLine();
-		
-		return content;
-	}
+
+	
 	public static void main(String[] args) {
+		
 		new ModifyTextArea();
 	}
 	

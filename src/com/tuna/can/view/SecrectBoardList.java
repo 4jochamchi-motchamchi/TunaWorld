@@ -174,16 +174,31 @@ public class SecrectBoardList extends JFrame{
 							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습까?",null,0);
 							
 							if(answer == JOptionPane.YES_OPTION){
-								BoardDTO board = new BoardDTO();
-								board.setUserNo(userNo);
-								board.setTitle(boardDTO.getTitle());
 								
-//								int result = tunaController.modifySecretBoard(userNo);
+								new ModifyTextArea();
+								dispose();
+							}
+								
+								
+								
+								
+								
+//								BoardDTO board = new BoardDTO();
+//								int userNo = board.getUserNo();
+//								int result = tunaController.modifySecretBoard(board);
+//								 
+//								if(result>0) {
+//								board.setUserNo(userNo);
+//								board.setTitle(boardDTO.getTitle());
+//									
+//									new ModifyTextArea();
+//								}
+								
 								
 							}
 							
 							
-						}				
+									
 					}
 				});
 			    
