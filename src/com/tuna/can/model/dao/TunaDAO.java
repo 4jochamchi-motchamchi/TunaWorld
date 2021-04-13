@@ -262,7 +262,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+//			close(pstmt);
 		}
 
 		return bulletinDTO;
@@ -298,7 +298,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+//			close(pstmt);
 		}
 
 		return commentList;
@@ -313,9 +313,7 @@ public class TunaDAO {
 		String query = prop.getProperty("insertComment");
 
 		try {
-
-			CommentDTO comments = new CommentDTO();
-
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, comment.getBoardNo());
 			pstmt.setString(2, comment.getCommentContent());
