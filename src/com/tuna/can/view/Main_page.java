@@ -81,13 +81,13 @@ public class Main_page extends JFrame{
 		profilePanel.setBackground(Color.pink);
 		
 		// profileImage 설정
-		imageLabel.setBounds(50, 30, 600, 220);
+		imageLabel.setBounds(50, 25, 600, 220);
 		imageLabel.setBackground(Color.pink);
 		profilePanel.add(imageLabel);
 		
 		// nickName 설정
-		nickName.setBounds(200, 250, 300, 50);
-		nickName.setFont(new Font("",Font.BOLD,20));
+		nickName.setBounds(200, 235, 300, 50);
+		nickName.setFont(new Font("",Font.BOLD,30));
 		nickName.setHorizontalAlignment(JLabel.CENTER);
 		profilePanel.add(nickName);
 		
