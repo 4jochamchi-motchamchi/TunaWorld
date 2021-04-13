@@ -37,7 +37,9 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
+		int boardNo = 3;
 		int userNo = 1;
+//		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
@@ -99,6 +101,10 @@ public class SecrectBoardList extends JFrame{
 			JPanel allList = null;
 			List<BoardDTO> selectSecretList = tunaController.selectSecretBoard(userNo);
 			
+			
+			
+			BoardDTO board = new BoardDTO();
+			
 			for(int i = 0; i < selectSecretList.size(); i++) {
 				
 				midlePanel.setLayout(null);
@@ -116,12 +122,29 @@ public class SecrectBoardList extends JFrame{
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				BoardDTO boardDTO = selectSecretList.get(i);
+				// 게시글내용으로 들어갈 버튼
 				JButton title = new JButton(boardDTO.getTitle());
 				title.setLayout(null);
 				title.setBounds(50, 40, 450, 30);
 				title.setBackground(Color.pink);
 				title.setBorder(pinkborder);
 				title.setHorizontalAlignment(SwingConstants.LEFT);
+				
+				// 게시글제목 눌렀을 때 게시글 내용으로 들어가기
+				title.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == title) {
+							
+							new BulletinLayout(boardDTO.getBoardNo());
+							dispose();
+							
+						}				
+					}
+				});
+				
 				
 				subject.setLayout(null);
 			    subject.setBounds(40, 30, 600, 80);
@@ -162,9 +185,9 @@ public class SecrectBoardList extends JFrame{
 						if(answer == JOptionPane.YES_OPTION){
 							//사용자가 yes를 눌렀을 떄
 							JOptionPane.showMessageDialog(null, "삭제되었습니다.", "삭제",1);
-							BoardDTO board = new BoardDTO();
 							board.setUserNo(userNo);
 							board.setTitle(boardDTO.getTitle());
+							System.out.println(boardDTO.getTitle());
 							int result = tunaController.deleteSecretBoard(board);
 							
 							new SecrectBoardList();

@@ -778,6 +778,7 @@ public class TunaDAO {
 				
 				BoardDTO board = new BoardDTO();
 				board.setTitle(rset.getString("TITLE"));
+				board.setBoardNo(rset.getInt("BOARD_NO"));
 				
 				secrettList.add(board);
 			}
