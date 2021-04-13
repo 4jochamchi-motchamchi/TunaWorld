@@ -50,8 +50,6 @@ public class MiniGame extends JFrame implements ActionListener{
 		this.buttonNum = buttonNum;
 		this.button = button;
 		this.can = can;
-		this.oldFrame = oldFrame;
-		
 	}
 
 	@Override
@@ -97,6 +95,7 @@ public class MiniGame extends JFrame implements ActionListener{
 						if(result == JOptionPane.YES_OPTION) {
 								            
 						// 코인 증가 코드 
+							
 							new Main_page();
 							oldFrame.dispose();
 							
