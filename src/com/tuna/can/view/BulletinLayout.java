@@ -43,17 +43,17 @@ public class BulletinLayout extends JFrame{
 	
 	public BulletinLayout(int boradNo) {
 		super("게시글 보기");
-//		public static void main(String[] args) 
 		
 		TunaController tunaController = new TunaController();
+		
 		
 		
 		// 게시글 번호
 		int boardNumber = boradNo;
 		
 		// 로그인
-//		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
-		int userNo = 1;		
+		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
+//		int userNo = 1;		
 		
 		// 게시글 DTO
 		BulletinDTO board = new BulletinDTO();
@@ -255,7 +255,7 @@ public class BulletinLayout extends JFrame{
 			plusFriend.setBorder(pinkborder);
 			bulletinPanel.add(plusFriend);
 			
-			
+
 			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가, 친구추가버튼 X
 			if(board.getListNo() == 2) {
 				
@@ -340,11 +340,10 @@ public class BulletinLayout extends JFrame{
 				});
 				
 				// 댓글입력 버튼 눌렀을 때
-				inputButton.addActionListener(new ActionListener() {
+				inputButton.addActionListener(new ActionListener() {					
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						
 						CommentDTO comment = new CommentDTO();
 						
 						if(e.getSource() == inputButton) {
@@ -359,7 +358,7 @@ public class BulletinLayout extends JFrame{
 							comment.setUserNo(userNo);
 									
 							result = tunaController.insertComment(comment);
-							
+
 							
 							if(result >0) {
 								System.out.println("댓글 등록 성공");
@@ -426,7 +425,7 @@ public class BulletinLayout extends JFrame{
 		
 	public static void main(String[] args) {
 		
-		new BulletinLayout();
+		new BulletinLayout(1);
 	}
 	
 }

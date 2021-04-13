@@ -91,6 +91,7 @@
 		, B.USER_NICKNAME
 		, A.ENROLLDATE
 		, A.LIST_NO
+		, B.USER_NO
 		FROM BOARD_LIST A
 		JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
 		WHERE A.BOARD_NO = ?
@@ -121,13 +122,6 @@
 		, ?
 		)
 	</entry>
-	<entry key="deleteFriend">
-		DELETE
-		FROM FRIENDS_LIST
-		WHERE USER_NO = ?
-		AND FRIEND_NO = ?
-	</entry>
-
 	<entry key="updateEquipYn">
 		UPDATE
 		USER_INVENTORY_LIST
@@ -148,24 +142,6 @@
 		SET COIN = ?
 		WHERE USER_NO = ?
 	</entry>
-
-<entry key="insertComment">
-    INSERT
-      INTO COMMENT_BOARD
-    ( 
-      COMMENT_NO
-    , BOARD_NO
-    , COMMENT_CONTENT
-    , USER_NO
-    )
-    VALUES
-    (
-      SQU_COMMENT.NEXTVAL
-    , ?
-    , ?
-    , ?
-    )
-</entry>
 
 <entry key="selectBoard">
 SELECT
@@ -188,13 +164,6 @@ SELECT
   JOIN STORE S ON(UIL.ITEM_NO = S.ITEM_NO)
  WHERE F.USER_NO = ?
    AND UIL.ITEM_CATEGORY = 3
-   AND UIL.EQUIP_ITEM_YN = 'Y'
-</entry>
-<entry key="deleteFriend">
-DELETE
-  FROM FRIENDS_LIST
- WHERE USER_NO = ?
-   AND FRIEND_NO = ?
 </entry>
 <entry key="updateEquipYn">
 UPDATE
@@ -271,26 +240,6 @@ VALUES
 
 </entry>
 
-
-	<entry key="insertComment">
-		INSERT
-		INTO COMMENT_BOARD
-		(
-		COMMENT_NO
-		, BOARD_NO
-		, COMMENT_CONTENT
-		, USER_NO
-		)
-		VALUES
-		(
-		SQU_COMMENT.NEXTVAL
-		, ?
-		, ?
-		, ?
-		)
-	</entry>
-
-
     <entry key="selectSecretBoard">
         SELECT
                TITLE
@@ -331,8 +280,6 @@ VALUES
 		JOIN USER_INVENTORY_LIST UIL ON(F.FRIEND_NO = UIL.USER_NO)
 		JOIN STORE S ON(UIL.ITEM_NO = S.ITEM_NO)
 		WHERE F.USER_NO = ?
-		AND UIL.ITEM_CATEGORY = 3
-		AND UIL.EQUIP_ITEM_YN = 'Y'
 	</entry>
 	<entry key="deleteFriend">
 		DELETE

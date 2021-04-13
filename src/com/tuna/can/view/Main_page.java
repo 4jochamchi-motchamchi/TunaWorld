@@ -53,11 +53,11 @@ public class Main_page extends JFrame{
 		
 		Font font = new Font(null, Font.BOLD, 20);
 		
-		ImageIcon profileImage = new ImageIcon("image/basicprofile.PNG");		// 프로필 이미지
+//		ImageIcon profileImage = new ImageIcon("image/basicprofile.PNG");		// 프로필 이미지
 		ImageIcon store = new ImageIcon("image/store.PNG");
 		ImageIcon logout = new ImageIcon("image/logout.PNG");
 		ImageIcon logoutred = new ImageIcon("image/logoutred.PNG");
-		JLabel imageLabel = new JLabel(profileImage);	// 이미지 들어갈 라벨
+		JLabel imageLabel = new JLabel(MyPage.myCharacterImage);	// 이미지 들어갈 라벨
 		JLabel nickName = new JLabel(changeNickname());			// 닉네임 들어갈 라벨
 		JButton button1 = new JButton("전체글보기");		// 전체글보기 버튼
 		JButton button2 = new JButton("비밀글보기");		// 비밀글보기 버튼
@@ -82,13 +82,13 @@ public class Main_page extends JFrame{
 		profilePanel.setBackground(Color.pink);
 		
 		// profileImage 설정
-		imageLabel.setBounds(50, 30, 600, 220);
+		imageLabel.setBounds(50, 25, 600, 220);
 		imageLabel.setBackground(Color.pink);
 		profilePanel.add(imageLabel);
 		
 		// nickName 설정
-		nickName.setBounds(200, 250, 300, 50);
-		nickName.setFont(new Font("",Font.BOLD,20));
+		nickName.setBounds(200, 235, 300, 50);
+		nickName.setFont(new Font("",Font.BOLD,30));
 		nickName.setHorizontalAlignment(JLabel.CENTER);
 		profilePanel.add(nickName);
 		

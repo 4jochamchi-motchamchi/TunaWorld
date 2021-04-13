@@ -29,7 +29,7 @@ import com.tuna.can.model.dto.BulletinDTO;
  * <pre>
  * 비밀게시글 목록 페이지
  * </pre>
- * @author Hyelim Jeon
+ * @author Hyelim Jeon + NaraWee
  *
  */
 public class SecrectBoardList extends JFrame{
@@ -39,8 +39,8 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-		int userNo = 1;
-//		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+//		int userNo = 1;
+		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
@@ -157,6 +157,7 @@ public class SecrectBoardList extends JFrame{
 				
 				
 				
+<<<<<<< HEAD
 				// 게시글 번호
 				int boardNumber = 3;
 	
@@ -164,6 +165,10 @@ public class SecrectBoardList extends JFrame{
 			    
 			    ImageIcon edit = new ImageIcon("image/edit.PNG");
 			    JButton editButton = new JButton(boardDTO.getTitle());
+=======
+				ImageIcon edit = new ImageIcon("image/edit.PNG");
+			    JButton editButton = new JButton(edit);
+>>>>>>> branch 'master' of https://github.com/4jochamchi-motchamchi/Mini_Project.git
 			    editButton.setBackground(Color.pink);
 			    editButton.setBorder(pinkborder);
 			    editButton.setBounds(530,28,50,40);

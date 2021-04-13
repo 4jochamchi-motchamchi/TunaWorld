@@ -1,6 +1,7 @@
 package com.tuna.can.view;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -59,14 +60,14 @@ public class Login_page extends JFrame{
 			
 			// image 패널
 			JPanel imagePanel = new JPanel();
-			imagePanel.setBackground(new Color(204,51,102));
+			imagePanel.setBackground(Color.pink);
 			imagePanel.setLayout(null);
 			imagePanel.setLocation(0,0);
 			imagePanel.setSize(700,420);
 			
 			// id/pw 패널
 			JPanel loginPanel = new JPanel();
-			loginPanel.setBackground(new Color(204,51,102));
+			loginPanel.setBackground(Color.pink);
 			loginPanel.setLayout(null);
 			loginPanel.setLocation(0, 420);
 			loginPanel.setSize(700,450);

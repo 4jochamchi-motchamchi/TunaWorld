@@ -215,7 +215,7 @@ public class TunaDAO {
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, coin);
+			pstmt.setInt(1, coin +1);
 			pstmt.setInt(2, userNo);
 
 			result = pstmt.executeUpdate();
@@ -262,7 +262,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+//			close(pstmt);
 		}
 
 		return bulletinDTO;
@@ -298,7 +298,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+//			close(pstmt);
 		}
 
 		return commentList;
@@ -313,9 +313,7 @@ public class TunaDAO {
 		String query = prop.getProperty("insertComment");
 
 		try {
-
-			CommentDTO comments = new CommentDTO();
-
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, comment.getBoardNo());
 			pstmt.setString(2, comment.getCommentContent());
@@ -352,13 +350,10 @@ public class TunaDAO {
 			while (rset.next()) {
 				FriendDTO friends = new FriendDTO();
 
-				friends.setUserNO(rset.getInt(1));
-				friends.setFriendsNo(rset.getInt(2));
-				friends.setFriendsNickname(rset.getString(3));
+				friends.setUserNO(rset.getInt("USER_NO"));
+				friends.setFriendsNo(rset.getInt("FRIEND_NO"));
+				friends.setFriendsNickname(rset.getString("USER_NICKNAME"));
 
-				friends.setFriendsNickname(rset.getString(2));
-
-				friends.setImage(rset.getString("ITEM_IMG"));
 
 				friendsInfo.add(friends);
 
@@ -372,6 +367,7 @@ public class TunaDAO {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println("여기 친구 정보있어요 : " + friendsInfo);
 		return friendsInfo;
 	}
 
@@ -809,7 +805,7 @@ public class TunaDAO {
 
 	// plusfriend 테이블에서 신청한에 신청 받은애 값 받아오기
 	public AddFriendDTO selectAddFriend(Connection con, int userNo) {
-
+		System.out.println("userNo : " + userNo);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectPlus_friend");
@@ -836,7 +832,7 @@ public class TunaDAO {
 			close(pstmt);
 			close(rset);
 		}
-
+//		System.out.println("AddList : " +AddList);
 		return AddList;
 	}
 
@@ -1066,7 +1062,7 @@ public class TunaDAO {
 	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
 		
 		PreparedStatement pstmt = null;
-		String query = prop.getProperty("deleteFriend");
+		String query = prop.getProperty("deleteRequest");
 		int result = 0;
 		
 		try {
@@ -1189,6 +1185,7 @@ public class TunaDAO {
 		return boardDTO;
 	}
 
+//	웅이꺼
 	public int updateCoin(Connection con, int userNo, int coin) {
 		int result = 0;
 		PreparedStatement pstmt = null;
