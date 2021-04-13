@@ -941,4 +941,68 @@ public class TunaDAO {
 		
 		return allMyBoard;
 	}
+
+	public List<BoardDTO> SelectFriendBoard(Connection con, int userNo) {
+		String query = prop.getProperty("selectFriendBoard");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> friendBoard = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			friendBoard = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				
+				board.setTitle(rset.getString("TITLE"));
+				
+				friendBoard.add(board);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return friendBoard;
+	}
+
+	public int modifySecretBoard(Connection con, BoardDTO boardDTO) {
+		
+		String query = prop.getProperty("modifyScreteBoard");
+		PreparedStatement pstmt = null;
+		
+		int result =0;
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, boardDTO.getUserNo());
+		
+				boardDTO.setTitle(boardDTO.getTitle());
+				boardDTO.setBoardContent(boardDTO.getBoardContent());
+				boardDTO.setListNo(boardDTO.getListNo());
+				boardDTO.setUserNo(boardDTO.getUserNo());
+			
+				result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+		
+			close(pstmt);
+		}
+
+		return result;
+	}
 }

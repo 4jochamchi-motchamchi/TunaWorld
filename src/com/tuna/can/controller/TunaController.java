@@ -550,7 +550,7 @@ public class TunaController {
 		return result;
 	}
 	
-	// 전체게시 목록 불러오기
+	// 전체게시물 목록 불러오기
 	public List<BoardDTO> selectallBoard(int userNo) {
 		
 		
@@ -560,9 +560,25 @@ public class TunaController {
 		
 	}
 
-//내가쓴 게시물목록 불러오기
+     //내가 쓴 게시물목록 불러오기
 	public List<BoardDTO> selectMyBoard(int userNo) {
 		List<BoardDTO> myBoardList = service.selectMyBoard(userNo);
 		return myBoardList;
 	}
+
+	//친구가 쓴 게시물 목록 불러오기
+	public List<BoardDTO> selectFriendBoard(int userNo) {
+		List<BoardDTO> friendBoard = service.selectFriendBoard(userNo);
+		return friendBoard ;
+	}
+
+	//수정하러 가는 글
+	public int modifySecretBoard(BoardDTO boardDTO) {
+		 int result =0;
+		
+		result = service.modifySecretBoard(boardDTO);
+		return result  ;
+	
+	}
+	
 }

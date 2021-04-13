@@ -466,6 +466,25 @@ public class TunaService {
 		return myBoardList;
 	}
 
+	public List<BoardDTO> selectFriendBoard(int userNo) {
+		Connection con =  getConnection();
+		List<BoardDTO> FriendBoard  = tunaDAO.SelectFriendBoard (con,userNo);
+		return FriendBoard;
+	}
+
+	public int modifySecretBoard(BoardDTO boardDTO2) {
+		int result =0;
+        BoardDTO boardDTO= new BoardDTO();
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.modifySecretBoard(con, boardDTO2);
+			
+		
+		
+		return result;
+	}
+
 
 
 	/**
