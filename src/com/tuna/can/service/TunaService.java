@@ -465,6 +465,7 @@ public class TunaService {
 
 	
 //	업데이트코인
+//	웅이꺼
 	public int updateCoin(int userNo, int coin) {
 		int result = 0;
 		Connection con = getConnection();
