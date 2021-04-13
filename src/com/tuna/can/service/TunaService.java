@@ -411,22 +411,22 @@ public class TunaService {
 	 * @param userNo
 	 * @return
 	 */
-//	public int deleteFriend(int userNo, int friends) {
-//		
-//		Connection con = getConnection();
-//		
-//		int friendNo = 0;
-//		
-//		friendNo = tunaDAO.deleteFriend(con, userNo, friends);
-//		
-//		if(friendNo > 0){
-//				commit(con);
-//		} else {
-//			System.out.println();
-//				rollback(con);
-//		}
-//		
-//		return friendNo;
-//	}
+	public int deleteFriend(int userNO, int fNo) {
+		
+		Connection con = getConnection();
+		
+		int friendNo = 0;
+		
+		friendNo = tunaDAO.deleteFriend(con, userNO, fNo);
+		
+		if(friendNo > 0){
+				commit(con);
+		} else {
+			System.out.println();
+				rollback(con);
+		}
+		
+		return friendNo;
+	}
 
 }

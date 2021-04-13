@@ -21,9 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
-import com.tuna.can.controller.FriendsList_controller;
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.FriendDTO;
+import com.tuna.can.service.TunaService;
 
 
 public class FriendsList extends JFrame{
@@ -31,13 +31,6 @@ public class FriendsList extends JFrame{
 	public FriendsList() {
 		// 미니 창 이름 설정
 		super("Friends List");
-//		
-//			if(true) {
-//				
-//				JOptionPane.showConfirmDialog(null,"친구 추가 요청이 왔어요!", "리얼루", 0);
-//				
-//				
-//			}
 				
 			
 			Border panelborder = BorderFactory.createLineBorder(Color.BLACK, 1);
@@ -72,6 +65,7 @@ public class FriendsList extends JFrame{
 			
 			// 뒤로 가기 버튼
 			
+			Border lightgrayborder = BorderFactory.createLineBorder(Color.lightGray, 1);
 			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
 			ImageIcon home = new ImageIcon("image/home.PNG");
 			JButton backB = new JButton(home);
@@ -91,10 +85,10 @@ public class FriendsList extends JFrame{
 			/*------------------------------------------------------------------------------------------*/
 			
 			JPanel middlePanel = new JPanel();
-//			middlePanel.setLayout(null);
+			middlePanel.setLayout(null);
 //			middlePanel.setBounds(0, 100, 700, 9000);
-			middlePanel.setPreferredSize(new Dimension(700,900));
-			middlePanel.setBackground(Color.pink);
+//			middlePanel.setBackground(Color.BLACK);
+//			middlePanel.setPreferredSize(new Dimension(700,900));
 			
 			
 //			middlePanel.setPreferredSize(new Dimension(640,300));
@@ -106,54 +100,128 @@ public class FriendsList extends JFrame{
 			// 버튼 이미지 
 			ImageIcon delete = new ImageIcon("image/delete.png");
 			ImageIcon deletered = new ImageIcon("image/deleteRed.png");
-			
-			
+			JPanel friendsPanel = null;
+			JLabel nickName = null;
+			JLabel imageLabel = null;
 			// 페널 객체만들기
-			for(int i = 0; i < friends.size(); i++) {
-				friend = friends.get(i);
+			for(int i = 0; i <friends.size(); i++) {
 				
-				// 친구 목록 페널
-				JPanel friendsPanel = new JPanel();
-//				friendsPanel.setBackground(Color.WHITE);
+				middlePanel.setLayout(null);
+				middlePanel.setPreferredSize(new Dimension(660, 100*(i+1)));
+				
+				// 친구 페널
+				friendsPanel = new JPanel();
 				friendsPanel.setLayout(null);
-				friendsPanel.setBorder(panelborder);
+//				friendsPanel.setLocation(0,200);
+//				friendsPanel.setPreferredSize(new Dimension(600,100));
+				friendsPanel.setBounds(0,i*100,670,100);
 				friendsPanel.setBackground(new Color(255, 240, 245));
+				friendsPanel.setBorder(lightgrayborder);
+			
 				
-				// 삭제 버튼
+				// 닉네임
+				nickName = new JLabel();
+				Integer no = friends.get(i).getUserNO();
+				JLabel userNo = new JLabel(no.toString());
+				userNo.setVisible(false);
+				nickName.setLayout(null);
+				Integer fno = friends.get(i).getFriendsNo();
+				JLabel friendNo = new JLabel(fno.toString());
+			    friendNo.setVisible(false);
+				nickName.setBounds(310, 27, 700, 50);
+				// 객체 연결용
+				nickName.setText(friends.get(i).getFriendsNickname());
+//				nickName.setText("다라미");
+				// 이미지 용
+				
+				imageLabel = new JLabel();
+				imageLabel.setLayout(null);
+				imageLabel.setBounds(57,27,72,60);
+//				ImageIcon photo = new ImageIcon("image/profile.png");
+//				imageLabel.setIcon(friend.getImage());
+				
 				JButton button = new JButton(delete);
 				button.setLayout(null);
 				button.setBackground(new Color(255, 240, 245));
 				button.setBorder(button2);
 				button.setBounds(550,27,90,40);
 				button.setRolloverIcon(deletered);
+				button.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						int result = JOptionPane.showConfirmDialog(null, "정말 친구를 삭제하시겠습니까? \n 정말요?", "친구 목록 삭제",0);
+						if(result == JOptionPane.YES_OPTION) {
+							
+							// 딜리트
+							TunaService ts = new TunaService();
+//							System.out.println(Integer.parseInt(userNo.getText()) + " : " + Integer.parseInt(friendNo.getText()));
+							ts.deleteFriend(Integer.parseInt(userNo.getText()), Integer.parseInt(friendNo.getText()));
+							
+						} else {
+							System.out.println("삭제 취소");
+						}						
+					}
+				});
 				
-				// 친구 닉네임 라벨
-				JLabel nickName = new JLabel();
-				nickName.setLayout(null);
-				nickName.setBounds(310, 27, 700, 50);
 				
-				// 친구 이미지
-				JLabel imageLabel = new JLabel();
-				imageLabel.setLayout(null);
-				imageLabel.setBounds(57,27,72,60);
+				friendsPanel.add(button);
+				friendsPanel.add(imageLabel);
+				friendsPanel.add(nickName);
+				middlePanel.add(friendsPanel);
 				
-				// 미드 페널 설정
-				middlePanel.setBounds(0, 100, 700, (i * 100)+100);
-				middlePanel.setPreferredSize(new Dimension(700, (i * 100)+100));
-				middlePanel.add(new FriendsList_controller(i,friendsPanel, this, friend, nickName, button, imageLabel));
-				
-			}
+				}
+			
+			
+			
+	
+//			for(int i = 0; i < friends.size(); i++) {
+//				friend = friends.get(i);
+//				
+//				// 친구 목록 페널
+//				friendsPanel = new JPanel();
+////				friendsPanel.setBackground(Color.WHITE);
+//				friendsPanel.setLayout(null);
+//				friendsPanel.setBorder(panelborder);
+//				friendsPanel.setBackground(new Color(255, 240, 245));
+//				
+//				// 삭제 버튼
+//				JButton button = new JButton(delete);
+//				button.setLayout(null);
+//				button.setBackground(new Color(255, 240, 245));
+//				button.setBorder(button2);
+//				button.setBounds(550,27,90,40);
+//				button.setRolloverIcon(deletered);
+//				
+//				// 친구 닉네임 라벨
+//				JLabel nickName = new JLabel();
+//				nickName.setLayout(null);
+//				nickName.setBounds(310, 27, 700, 50);
+//				
+//				// 친구 이미지
+//				JLabel imageLabel = new JLabel();
+//				imageLabel.setLayout(null);
+//				imageLabel.setBounds(57,27,72,60);
+//				
+//				// 미드 페널 설정
+//				middlePanel.setLocation(0, 100);
+//				middlePanel.setPreferredSize(new Dimension(665,100*(i+1)));
+////				middlePanel.setBounds(0, 100, 700, (i * 100)+100);
+////				middlePanel.setPreferredSize(new Dimension(700, (i * 100)+100));
+//				middlePanel.add(new FriendsList_controller(i,friendsPanel, this, friend, nickName, button, imageLabel));
+//				
+//			}
 //			middlePanel.setBackground(new Color(255, 240, 245));
 			
 			// 스크롤
-//			JScrollPane scrollbar = new JScrollPane(middlePanel);
-//			scrollbar.setPreferredSize(new Dimension(685,700));
-//			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//			int width = scrollbar.getPreferredSize().width;
-//			int height = scrollbar.getPreferredSize().height;
-//			scrollbar.setBounds(0,100,width,height);
-//			scrollbar.setBorder(pinkborder);
-//			scrollbar.setBackground(Color.pink);
+			JScrollPane scrollbar = new JScrollPane(middlePanel);
+			scrollbar.setPreferredSize(new Dimension(685,700));
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			int width = scrollbar.getPreferredSize().width;
+			int height = scrollbar.getPreferredSize().height;
+			scrollbar.setBounds(0,100,width,height);
+			scrollbar.setBorder(pinkborder);
+			scrollbar.setBackground(Color.pink);
 
 			
 			/*------------------------------------------------------------------------------------------*/
@@ -167,10 +235,10 @@ public class FriendsList extends JFrame{
 			bottomPanel.setBounds(0, 800, 700, 70);
 			
 			// 마이 프레임에 판넬 추가
-//			this.getContentPane().add(scrollbar);
 			this.add(topPanel);
 			this.add(bottomPanel);
-			this.add(middlePanel);
+//			this.add(middlePanel);
+			this.getContentPane().add(scrollbar);
 			this.setResizable(false);
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

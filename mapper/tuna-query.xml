@@ -176,7 +176,9 @@
 
 	<entry key="selectFriendsLIst">
 		SELECT
-		S.ITEM_IMG
+		  F.USER_NO
+		, F.FRIEND_NO  
+		, S.ITEM_IMG
 		, U.USER_NICKNAME
 		, F.FRIEND_NO
 		FROM FRIENDS_LIST F

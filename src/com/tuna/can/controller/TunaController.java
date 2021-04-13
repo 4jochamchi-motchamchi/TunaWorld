@@ -295,13 +295,13 @@ public class TunaController {
 	}
 	
 	// PlUS_FRIEND 테이블에서 받아돈 값을 AddFriendDTO에 담아서 값을 받아온다.
-//	public int RequestFriends(AddFriendDTO friend) {
-//		int result = 0;
-//		result = service.insertAndDeleteRequestFriend(friend);
-//		
-//		return result;
-//		
-//	}
+	public int RequestFriends(AddFriendDTO friend) {
+		int result = 0;
+		result = service.insertRequestFriend(friend);
+		
+		return result;
+		
+	}
 		
 
 //		switch (category) {

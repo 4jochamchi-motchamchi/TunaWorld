@@ -353,11 +353,10 @@ public class TunaDAO {
 	
 	// 친구리스트에서 이미지, 친구 닉네임 불러오기
 	public List<FriendDTO> selectFriendsList(Connection con,int userNo) {
-		String query = prop.getProperty("selectFriendsList");
+		String query = prop.getProperty("selectFriendsLIst");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-//		System.out.println("userNo : " + userNo );
 		List<FriendDTO> friendsInfo = null;
 		
 		try {
@@ -371,7 +370,9 @@ public class TunaDAO {
 			while(rset.next()) {
 				FriendDTO friends = new FriendDTO();
 				
-				friends.setFriendsNickname(rset.getString(2));
+				friends.setUserNO(rset.getInt(1));
+				friends.setFriendsNo(rset.getInt(2));
+				friends.setFriendsNickname(rset.getString(3));
 				friends.setImage(rset.getString("ITEM_IMG"));
 				
 				
@@ -383,8 +384,8 @@ public class TunaDAO {
 			e.printStackTrace();
 		}
 		finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		return friendsInfo;
 	}
@@ -418,32 +419,6 @@ public class TunaDAO {
 	}
 
 	
-//	public int deleteFriend(Connection con, int userNo, int friendNo) {
-//		String query = prop.getProperty("deleteFriend");
-//		PreparedStatement pstmt = null;
-//		
-//		int result = 0;
-//		
-//		try {
-//			pstmt = con.prepareStatement(query);
-//			pstmt.setInt(1, userNo);
-//			pstmt.setInt(2, friendNo);
-//			
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			
-//			e.printStackTrace();
-//		}
-//		finally {
-//			
-//			close(pstmt);
-//			
-//		}
-//		
-//		
-//		return result;
-//	}
 
 	public int updateEquipYn(Connection con, int userNo, int itemNo, String equipYn) {
 		
@@ -795,6 +770,15 @@ public class TunaDAO {
 
 
 	// 
+	/**
+	 * <pre>
+	 *   친구 수락 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userInfo
+	 * @return
+	 */
 	public int acceptFriend(Connection con,AddFriendDTO userInfo ) {
 		
 		PreparedStatement pstmt1 = null;
@@ -830,6 +814,15 @@ public class TunaDAO {
 	}
 
 
+	/**
+	 * <pre>
+	 *  친구 수락 거절 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userInfo
+	 * @return
+	 */
 	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
 		
 		PreparedStatement pstmt = null;
@@ -850,6 +843,37 @@ public class TunaDAO {
 		}
 		System.out.println("resut in reject section : " + result);
 		return result;
+	}
+
+
+	public int deleteFriend(Connection con, int userNo, int friendsNo) {
+		
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		int result1 = 0; 
+		int result2 = 0;
+		String query = prop.getProperty("deleteFriend");
+		
+		try {
+			pstmt1 = con.prepareStatement(query);
+			pstmt1.setInt(1, friendsNo);
+			pstmt1.setInt(2, userNo);
+			result1 = pstmt1.executeUpdate();
+			
+			pstmt2 = con.prepareStatement(query);
+			pstmt2.setInt(1, userNo);
+			pstmt2.setInt(2, friendsNo);
+			result2 = pstmt2.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt1);
+			close(pstmt2);
+		}
+		
+	
+		return result1 + result2;
 	}
 }
 
