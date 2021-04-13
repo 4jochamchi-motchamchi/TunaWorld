@@ -50,7 +50,7 @@ public class BulletinLayout extends JFrame{
 		
 		// 게시글 번호
 		int boardNumber = boradNo;
-//		int boardNumber = 3;
+		
 		// 로그인
 //		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
 		int userNo = 1;		
