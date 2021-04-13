@@ -39,9 +39,7 @@ public class InventoryButtonController extends JButton{
 		this.inventory = inventory;
 		
 		
-//		ImageIcon itemImg = new ImageIcon("image/" + inventory.getItemImg());
-		
-		ImageIcon itemImg = new ImageIcon("image/하늘색.png");
+		ImageIcon itemImg = new ImageIcon("image/" + inventory.getItemImg());
 		
 		this.setIcon(itemImg);
 		

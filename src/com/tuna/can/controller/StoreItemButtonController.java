@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -19,8 +20,12 @@ public class StoreItemButtonController extends JButton{
 	private TunaController controller = new TunaController();
 
 	public StoreItemButtonController(StoreItemDTO item) {
+		
+		ImageIcon itemImg = new ImageIcon("image/" + item.getItemImg());
+		
+		this.setIcon(itemImg);
 
-		this.setText(item.getItemImg());
+//		this.setText(item.getItemImg());
 		
 		this.addActionListener(new ActionListener() {
 			
