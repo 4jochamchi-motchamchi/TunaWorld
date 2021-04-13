@@ -158,7 +158,7 @@ public class TunaService {
 	 * @param userInfor
 	 * @return
 	 */
-	public int updateCoin(UserDTO userInfor) {
+	public int updateCoin(int userInfor) {
 
 		int userCoin = 0;
 		Connection con = getConnection();
@@ -479,6 +479,25 @@ public class TunaService {
 		return myBoardList;
 	}
 
+	public List<BoardDTO> selectFriendBoard(int userNo) {
+		Connection con =  getConnection();
+		List<BoardDTO> FriendBoard  = tunaDAO.SelectFriendBoard (con,userNo);
+		return FriendBoard;
+	}
+
+	public int modifySecretBoard(BoardDTO boardDTO2) {
+		int result =0;
+        BoardDTO boardDTO= new BoardDTO();
+		
+		Connection con = getConnection();
+		
+		result = tunaDAO.modifySecretBoard(con, boardDTO2);
+			
+		
+		
+		return result;
+	}
+
 
 
 	/**
@@ -489,22 +508,23 @@ public class TunaService {
 	 * @param userNo
 	 * @return
 	 */
-//	public int deleteFriend(int userNo, int friends) {
-//		
-//		Connection con = getConnection();
-//		
-//		int friendNo = 0;
-//		
-//		friendNo = tunaDAO.deleteFriend(con, userNo, friends);
-//		
-//		if(friendNo > 0){
-//				commit(con);
-//		} else {
-//			System.out.println();
-//				rollback(con);
-//		}
-//		
-//		return friendNo;
-//	}
+	public int deleteFriend(int userNO, int fNo) {
+		
+		Connection con = getConnection();
+		
+		int friendNo = 0;
+		
+		friendNo = tunaDAO.deleteFriend(con, userNO, fNo);
+		
+		if(friendNo > 0){
+				commit(con);
+
+		} else {
+			System.out.println();
+				rollback(con);
+		}
+		
+		return friendNo;
+	}
 
 }

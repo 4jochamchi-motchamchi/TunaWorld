@@ -23,6 +23,7 @@ import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.BoardDTO;
+import com.tuna.can.model.dto.BulletinDTO;
 
 /**
  * <pre>
@@ -153,6 +154,14 @@ public class SecrectBoardList extends JFrame{
 			    allList.add(subject);
 			    allList.add(title);
 			    
+				
+				
+				
+				// 게시글 번호
+				int boardNumber = 3;
+	
+			
+			    
 			    ImageIcon edit = new ImageIcon("image/edit.PNG");
 			    JButton editButton = new JButton(edit);
 			    editButton.setBackground(Color.pink);
@@ -164,7 +173,18 @@ public class SecrectBoardList extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == editButton) {
-							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
+							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습까?",null,0);
+							
+							if(answer == JOptionPane.YES_OPTION){
+								BoardDTO board = new BoardDTO();
+								board.setUserNo(userNo);
+								board.setTitle(boardDTO.getTitle());
+								
+//								int result = tunaController.modifySecretBoard(userNo);
+								
+							}
+							
+							
 						}				
 					}
 				});

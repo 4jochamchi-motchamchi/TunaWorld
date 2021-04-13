@@ -1,3 +1,4 @@
+
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -88,8 +89,9 @@ public class MyBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//내게시글 글씨
-			JLabel lbl = new JLabel(" 내게시글 ");
-			lbl.setBounds(350, 40, 150, 50);
+			JLabel lbl = new JLabel(" 내 게 시 글 ");
+			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
+			lbl.setBounds(240, 40, 350, 50);
 			topPanel.add(lbl);
 			
 		    
@@ -121,7 +123,7 @@ public class MyBoardList extends JFrame{
 			    
 				BoardDTO boardDTO = selectMyBoard.get(i);
 			    JButton title = new JButton(boardDTO.getTitle());
-				title.setBounds(50, 20, 450, 70);
+				title.setBounds(50, 20, 450, 50);
 				title.setLayout(null);
 				title.setFont(new Font(null,Font.ITALIC,15));
 				title.setBorder(pinkborder);
@@ -129,8 +131,11 @@ public class MyBoardList extends JFrame{
 				title.setHorizontalAlignment(SwingConstants.LEFT);
 				allList.add(title);
 			    
-			    JButton editButton = new JButton("수정");
-			    editButton.setBounds(500,25,70,40);
+			    ImageIcon edit = new ImageIcon("image/edit.PNG");
+			    JButton editButton = new JButton(edit);
+			    editButton.setBackground(Color.pink);
+			    editButton.setBorder(pinkborder);
+			    editButton.setBounds(530,28,50,40);
 			    editButton.addActionListener(new ActionListener() {
 					
 					@Override
@@ -148,8 +153,12 @@ public class MyBoardList extends JFrame{
 						}				
 					}
 				});
-				JButton deleteButton = new JButton("삭제");
-				deleteButton.setBounds(580,25,70,40);
+			    ImageIcon delete = new ImageIcon("image/delete.PNG");
+				JButton deleteButton = new JButton(delete);
+				deleteButton.setBackground(Color.pink);
+				deleteButton.setBorder(pinkborder);
+				deleteButton.setBounds(580,28,50,40);
+			
 				deleteButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -180,8 +189,11 @@ public class MyBoardList extends JFrame{
 			this.getContentPane().add(scrollbar);
 			
 			//글쓰러 가기 버튼
-			JButton write  = new JButton("write");
-		    write.setBounds(560, 0, 90, 50);
+			ImageIcon writee = new ImageIcon("image/write.PNG");
+			JButton write  = new JButton(writee);
+			write.setBackground(Color.pink);
+			write.setBorder(pinkborder);
+		    write.setBounds(580, 0, 90, 50);
 		    write.addActionListener(new ActionListener() {
 				
 					@Override
