@@ -1179,6 +1179,7 @@ public class TunaDAO {
 		return result;
 	}
 
+//	웅이꺼
 	public int updateCoin(Connection con, int userNo, int coin) {
 		int result = 0;
 		PreparedStatement pstmt = null;
