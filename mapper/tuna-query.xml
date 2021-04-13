@@ -294,6 +294,7 @@ VALUES
     <entry key="selectSecretBoard">
         SELECT
                TITLE
+             , BOARD_NO
           FROM BOARD_LIST
          WHERE USER_NO = ?
            AND LIST_NO = 2
