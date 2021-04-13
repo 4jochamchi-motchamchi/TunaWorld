@@ -39,21 +39,21 @@ import com.tuna.can.model.dto.FriendDTO;
  */
 public class BulletinLayout extends JFrame{
 
-	public BulletinLayout() {
+	public BulletinLayout() {}
+	
+	public BulletinLayout(int boradNo) {
 		super("게시글 보기");
 //		public static void main(String[] args) 
 		
 		TunaController tunaController = new TunaController();
 		
 		
-		
 		// 게시글 번호
-		int boardNumber = 3;
+		int boardNumber = boradNo;
+		
 		// 로그인
-		int userNo = 2;		
-		
-		
-		
+//		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
+		int userNo = 1;		
 		
 		// 게시글 DTO
 		BulletinDTO board = new BulletinDTO();
@@ -365,7 +365,7 @@ public class BulletinLayout extends JFrame{
 								System.out.println("댓글 등록 성공");
 								
 								// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
-								new BulletinLayout();
+								new BulletinLayout(boradNo);
 								dispose();				
 
 								

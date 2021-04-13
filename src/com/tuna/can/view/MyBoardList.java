@@ -1,10 +1,13 @@
+
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -16,7 +19,11 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+
+import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.BoardDTO;
 
 /**
  * <pre>
@@ -82,15 +89,19 @@ public class MyBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//내게시글 글씨
-			JLabel lbl = new JLabel(" 내게시글 ");
-			lbl.setBounds(350, 40, 150, 50);
+			JLabel lbl = new JLabel(" 내 게 시 글 ");
+			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
+			lbl.setBounds(240, 40, 350, 50);
 			topPanel.add(lbl);
 			
 		    
 			//전체글 리스트 
 			JPanel allList = null;
+			TunaController tunaController = new TunaController();
+			int userNo =1;
+		    List<BoardDTO> selectMyBoard= tunaController.selectMyBoard(userNo);
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i < selectMyBoard.size(); i++) {
 				
 				midlePanel.setLayout(null);
 				midlePanel.setPreferredSize(new Dimension(660,100*i));
@@ -107,24 +118,47 @@ public class MyBoardList extends JFrame{
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				subject.setLayout(null);
-
-			    subject.setBounds(40, 30, 600, 80);
+                subject.setBounds(40, 30, 600, 80);
 			    allList.add(subject);
 			    
-			    JButton editButton = new JButton("수정");
-			    editButton.setBounds(500,25,70,40);
+				BoardDTO boardDTO = selectMyBoard.get(i);
+			    JButton title = new JButton(boardDTO.getTitle());
+				title.setBounds(50, 20, 450, 50);
+				title.setLayout(null);
+				title.setFont(new Font(null,Font.ITALIC,15));
+				title.setBorder(pinkborder);
+				title.setBackground(Color.pink);
+				title.setHorizontalAlignment(SwingConstants.LEFT);
+				allList.add(title);
+			    
+			    ImageIcon edit = new ImageIcon("image/edit.PNG");
+			    JButton editButton = new JButton(edit);
+			    editButton.setBackground(Color.pink);
+			    editButton.setBorder(pinkborder);
+			    editButton.setBounds(530,28,50,40);
 			    editButton.addActionListener(new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == editButton) {
-							JOptionPane.showMessageDialog(null,"수정하시겠습까?");	
+							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습니?", "예",0);	
+							
+							if(answer == JOptionPane.YES_OPTION){
+							
+							
+							
+						}
+						
 						}				
 					}
 				});
-				JButton deleteButton = new JButton("삭제");
-				deleteButton.setBounds(580,25,70,40);
+			    ImageIcon delete = new ImageIcon("image/delete.PNG");
+				JButton deleteButton = new JButton(delete);
+				deleteButton.setBackground(Color.pink);
+				deleteButton.setBorder(pinkborder);
+				deleteButton.setBounds(580,28,50,40);
+			
 				deleteButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

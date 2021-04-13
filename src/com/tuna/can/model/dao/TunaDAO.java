@@ -5,9 +5,11 @@ import static com.tuna.can.common.JDBCTemplate.close;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,7 @@ public class TunaDAO {
 	/**
 	 * <pre>
 	 * login 페이지 아이디/비밀번호 확인 메소드
+	 * 
 	 * </pre>
 	 * 
 	 * @param con
@@ -332,11 +335,10 @@ public class TunaDAO {
 
 	// 친구리스트에서 이미지, 친구 닉네임 불러오기
 	public List<FriendDTO> selectFriendsList(Connection con, int userNo) {
-		String query = prop.getProperty("selectFriendsList");
+		String query = prop.getProperty("selectFriendsLIst");
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-//		System.out.println("userNo : " + userNo );
 		List<FriendDTO> friendsInfo = null;
 
 		try {
@@ -350,7 +352,12 @@ public class TunaDAO {
 			while (rset.next()) {
 				FriendDTO friends = new FriendDTO();
 
+				friends.setUserNO(rset.getInt(1));
+				friends.setFriendsNo(rset.getInt(2));
+				friends.setFriendsNickname(rset.getString(3));
+
 				friends.setFriendsNickname(rset.getString(2));
+
 				friends.setImage(rset.getString("ITEM_IMG"));
 
 				friendsInfo.add(friends);
@@ -358,9 +365,12 @@ public class TunaDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		} finally {
 			close(pstmt);
+
 			close(rset);
+			close(pstmt);
 		}
 		return friendsInfo;
 	}
@@ -392,32 +402,7 @@ public class TunaDAO {
 		return lastOrderNo;
 	}
 
-//	public int deleteFriend(Connection con, int userNo, int friendNo) {
-//		String query = prop.getProperty("deleteFriend");
-//		PreparedStatement pstmt = null;
-//		
-//		int result = 0;
-//		
-//		try {
-//			pstmt = con.prepareStatement(query);
-//			pstmt.setInt(1, userNo);
-//			pstmt.setInt(2, friendNo);
-//			
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			
-//			e.printStackTrace();
-//		}
-//		finally {
-//			
-//			close(pstmt);
-//			
-//		}
-//		
-//		
-//		return result;
-//	}
+
 
 	public int updateEquipYn(Connection con, int userNo, int itemNo, String equipYn) {
 
@@ -443,44 +428,47 @@ public class TunaDAO {
 		return result;
 	}
 
-	// 전체글 불러오기
-	public List<BoardDTO> allBoardList(Connection con, int boardno) {
+	//전체글 불러오기
+		public List<BoardDTO> allBoardList(Connection con, int userNo) {
 
-		String query = prop.getProperty("allBoardList");
+			String query = prop.getProperty("selectAllBoard");
+			
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			
+			List<BoardDTO> allBoardlist = null;
+			
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, userNo);
 
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+				rset = pstmt.executeQuery();
 
-		List<BoardDTO> bList = null;
+				
+				allBoardlist = new ArrayList<>();
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, boardno);
-
-			rset = pstmt.executeQuery();
-
-			bList = new ArrayList<>();
-
-			while (rset.next()) {
-
-				BoardDTO board = new BoardDTO();
-				board.setUserId(rset.getString("USER_NICKNAME"));
-				board.setTitle(rset.getString("TITLE"));
-
-				bList.add(board);
+				while(rset.next()) {
+					
+					BoardDTO board = new BoardDTO();
+					
+					board.setTitle(rset.getString("TITLE"));
+					board.setBoardNo(rset.getInt("BOARD_NO"));
+					
+					allBoardlist.add(board);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
+			return allBoardlist;		
+			
 		}
-		return bList;
-	}
-
 	/**
 	 * <pre>
 	 * 로그인 아이디/비밀번호 확인 메소드
+	 * 추가적으로 닉네임 확인가능
 	 * </pre>
 	 * 
 	 * @param con
@@ -510,6 +498,10 @@ public class TunaDAO {
 				userDTO.setUserID(rset.getString("USER_ID"));
 				userDTO.setUserPwd(rset.getString("USER_PWD"));
 				userDTO.setNickName(rset.getString("USER_NICKNAME"));
+				userDTO.setUserNo(rset.getInt("USER_NO"));
+				userDTO.setCoin(rset.getInt("COIN"));
+				userDTO.setPhone(rset.getString("PHONE"));
+				userDTO.setEmail(rset.getString("EMAIL"));
 
 			}
 		} catch (SQLException e) {
@@ -687,9 +679,7 @@ public class TunaDAO {
 
 		return sotreItem;
 	}
-
-
-
+	
 	public int insertRequest(Connection con, AddFriendDTO addFriends) {
 
 		PreparedStatement pstmt = null;
@@ -720,7 +710,7 @@ public class TunaDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updateUserInventory");
-
+		
 		try {
 			pstmt = con.prepareStatement(query);
 
@@ -728,16 +718,94 @@ public class TunaDAO {
 			pstmt.setInt(2, userInven.getItemNo());
 			pstmt.setInt(3, userInven.getItemCategory());
 			pstmt.setString(4, userInven.getEquipItemYN());
-
+			
+			
 			result = pstmt.executeUpdate();
 
+			
+
+		} catch(SQLIntegrityConstraintViolationException e) {
+			result = 3;
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}  
+		finally {
+			close(pstmt);
 		}
 
 		return result;
 	}
+
+	
+	
+	// 비밀게시글 목록 불러오기
+	public List<BoardDTO> selectSecretBoard(Connection con, int userNo) {
+		
+		String query = prop.getProperty("selectSecretBoard");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> secrettList = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			
+			secrettList = new ArrayList<>();
+
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				board.setTitle(rset.getString("TITLE"));
+				board.setBoardNo(rset.getInt("BOARD_NO"));
+				
+				secrettList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return secrettList;
+	}
+
+
+	// 비밀게시글 삭제하기
+	public int deleteSecretBoard(Connection con, BoardDTO title) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteSecretBoard");
+		
+		try {
+			
+			BoardDTO board = new BoardDTO();
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, title.getTitle());
+			pstmt.setInt(2, title.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
 
 	// plusfriend 테이블에서 신청한에 신청 받은애 값 받아오기
 	public AddFriendDTO selectAddFriend(Connection con, int userNo) {
@@ -773,57 +841,366 @@ public class TunaDAO {
 	}
 
 	//
-	public int acceptFriend(Connection con, AddFriendDTO userInfo) {
+//	public int acceptFriend(Connection con, AddFriendDTO userInfo) {
+//
+//		PreparedStatement pstmt1 = null;
+//		PreparedStatement pstmt2 = null;
+//
+//		int result1 = 0;
+//		int result2 = 0;
+//		String query1 = prop.getProperty("insertFriend");
+//
+////		String query2 = prop.getProperty("insertFriend");
+//
+//		try {
+//			pstmt1 = con.prepareStatement(query1);
+//			pstmt1.setInt(1, userInfo.getUserNo());
+//			pstmt1.setInt(2, userInfo.getRequsetFriendNo());
+//			result1 = pstmt1.executeUpdate();
+//
+//			pstmt2 = con.prepareStatement(query1);
+//			pstmt2.setInt(1, userInfo.getRequsetFriendNo());
+//			pstmt2.setInt(2, userInfo.getUserNo());
+//			result2 = pstmt2.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//
+//			close(pstmt2);
+//			close(pstmt1);
+//		}
+//
+//		return result1 + result2;
+//	}
+//
+//	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
+//
+//		PreparedStatement pstmt = null;
+//		String query = prop.getProperty("deleteFriend");
+//		int result = 0;
+//
+//		try {
+//			pstmt = con.prepareStatement(query);
+//			pstmt.setInt(1, userInfo.getUserNo());
+//			pstmt.setInt(2, userInfo.getRequsetFriendNo());
+//			result = pstmt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//		}
+//		System.out.println("resut in reject section : " + result);
+//		return result;
+//
+//	}
 
+	
+	/**
+	 * <pre>
+	 * 전체 게세글 db에 삽입하는 메소드
+	 * </pre>
+	 * @param con
+	 * @param board
+	 * @return
+	 * 
+	 * @author Juhee Hwang
+	 */
+	public int insertBoard(Connection con, BoardDTO board) {
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String query = prop.getProperty("insertBoard1");
+		
+		int result = 0;
+		
+		try {
+			pstmt =con.prepareStatement(query);
+
+			pstmt.setString(1,board.getTitle());
+			pstmt.setString(2, board.getBoardContent());
+			pstmt.setInt(3, board.getUserNo());
+			pstmt.setInt(4, board.getListNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}finally {
+			
+		   close(pstmt);
+		}
+		
+		return result;
+	
+		
+	}
+
+	/**
+	 * <pre>
+	 * 전체 게시글 마지막 등록된 번호 가져오는 메소드
+	 * </pre>
+	 * @param con
+	 * @return
+	 */
+	public int selectLastContentNo(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		int lastContentNo = 0;
+
+		String query = prop.getProperty("selectLastContentNo");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				lastContentNo = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return lastContentNo;
+	}
+	
+	public List<BoardDTO> selectMyBoard(Connection con, int userNo) {
+		String query = prop.getProperty("selectMyBoard");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> allMyBoard = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			allMyBoard = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				
+				board.setTitle(rset.getString("TITLE"));
+				
+				allMyBoard.add(board);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+
+		}
+		
+		
+		return allMyBoard;
+	}
+
+
+	// 
+	/**
+	 * <pre>
+	 *   친구 수락 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userInfo
+	 * @return
+	 */
+	public int acceptFriend(Connection con,AddFriendDTO userInfo ) {
+		
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
-
+		
 		int result1 = 0;
 		int result2 = 0;
 		String query1 = prop.getProperty("insertFriend");
-
+		
 //		String query2 = prop.getProperty("insertFriend");
-
+		
 		try {
 			pstmt1 = con.prepareStatement(query1);
 			pstmt1.setInt(1, userInfo.getUserNo());
 			pstmt1.setInt(2, userInfo.getRequsetFriendNo());
 			result1 = pstmt1.executeUpdate();
-
+			
 			pstmt2 = con.prepareStatement(query1);
-			pstmt2.setInt(1, userInfo.getRequsetFriendNo());
-			pstmt2.setInt(2, userInfo.getUserNo());
+			pstmt2.setInt(1,userInfo.getRequsetFriendNo());
+			pstmt2.setInt(2,userInfo.getUserNo());
 			result2 = pstmt2.executeUpdate();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-
+		}
+		finally {
+			
 			close(pstmt2);
 			close(pstmt1);
 		}
-
+	
 		return result1 + result2;
 	}
 
-	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
 
+	/**
+	 * <pre>
+	 *  친구 수락 거절 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userInfo
+	 * @return
+	 */
+	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
+		
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("deleteFriend");
 		int result = 0;
-
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userInfo.getUserNo());
 			pstmt.setInt(2, userInfo.getRequsetFriendNo());
 			result = pstmt.executeUpdate();
+			
+ 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
 
+			close(pstmt);
+			
+		}
+		
+		return result;
+
+	}
+
+
+	public int deleteFriend(Connection con, int userNo, int friendsNo) {
+		
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		int result1 = 0; 
+		int result2 = 0;
+		String query = prop.getProperty("deleteFriend");
+		
+		try {
+			pstmt1 = con.prepareStatement(query);
+			pstmt1.setInt(1, friendsNo);
+			pstmt1.setInt(2, userNo);
+			result1 = pstmt1.executeUpdate();
+			
+			pstmt2 = con.prepareStatement(query);
+			pstmt2.setInt(1, userNo);
+			pstmt2.setInt(2, friendsNo);
+			result2 = pstmt2.executeUpdate();
+			
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt1);
+			close(pstmt2);
+		}
+		
+	
+		return result1 + result2;
+	}
+
+	public List<BoardDTO> SelectFriendBoard(Connection con, int userNo) {
+		String query = prop.getProperty("selectFriendBoard");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BoardDTO> friendBoard = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			friendBoard = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				BoardDTO board = new BoardDTO();
+				
+				board.setTitle(rset.getString("TITLE"));
+				
+				friendBoard.add(board);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return friendBoard;
+	}
+
+	public int modifySecretBoard(Connection con, BoardDTO boardDTO) {
+		
+		String query = prop.getProperty("modifyScreteBoard");
+		PreparedStatement pstmt = null;
+		
+		int result =0;
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, boardDTO.getUserNo());
+		
+				boardDTO.setTitle(boardDTO.getTitle());
+				boardDTO.setBoardContent(boardDTO.getBoardContent());
+				boardDTO.setListNo(boardDTO.getListNo());
+				boardDTO.setUserNo(boardDTO.getUserNo());
+			
+				result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+		
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateCoin(Connection con, int userNo, int coin) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateCoin");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, coin);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("resut in reject section : " + result);
+		
 		return result;
 	}
 }

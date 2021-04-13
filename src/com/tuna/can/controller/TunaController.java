@@ -1,5 +1,7 @@
 package com.tuna.can.controller;
 
+
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +22,12 @@ public class TunaController {
 
 //	로그인 성공한 id
 	
-	private static String loginMemberId; 
+	public static String loginMemberId; 
 	
 	private TunaService service = new TunaService();
 
 //	로그인한 USER의 개인정보를 담고있을 객체
-	private UserDTO loginMember = null;
+	public static UserDTO loginMember = null;
 	private int coin;
 
 	/**
@@ -36,6 +38,7 @@ public class TunaController {
 	 * @param newMemberInfo
 	 * @return
 	 */
+	
 	public int registUser(Map<String, Object> newMemberInfo) {
 
 		UserDTO userList = new UserDTO();
@@ -138,34 +141,26 @@ public class TunaController {
 	}
 
 	// 유저 정보에서 코인 조회
-	public int selectUSerCoin(UserDTO UserInfo) {
+	public int selectUSerCoin(int userNo) {
 
-		coin = service.selectCoin(UserInfo.getUserNo());
+		coin = service.selectCoin(userNo);
 
 		return coin;
 	}
+	
 	
 	// 받아온 코인 정보값에 코인갯수 업데이트
 	public int updateCoin(UserDTO userInfo) {
 		
 		int userCoin = 0;
-		userCoin = service.updateCoin(userInfo);
+		userCoin = service.updateCoin(userInfo.getUserNo());
 		
 		return userCoin;
 		
 	}
 	
-	// 받아온 코인 정보값에 코인갯수 업데이트
-//		   나중에 바꿀거-sw
-//	public int updateCoin(UserDTO userInfo) {
-//
-//		int userCoin = 0;
-//		userCoin = service.updateCoin(userInfo);
-//
-//		return userCoin;
-//
-//	}
 
+	
 	// 게시글 내용 조회
 	public BulletinDTO selectBulletinContent(int boardNo) {
 
@@ -303,11 +298,13 @@ public class TunaController {
 	// PlUS_FRIEND 테이블에서 받아돈 값을 AddFriendDTO에 담아서 값을 받아온다.
 	public int RequestFriends(AddFriendDTO friend) {
 		int result = 0;
-		result = service.updateRequestFriend(friend);
 
+		result = service.insertRequestFriend(friend);
+		
 		return result;
-
+		
 	}
+
 //	public int RequestFriends(AddFriendDTO friend) {
 //		int result = 0;
 //		result = service.insertAndDeleteRequestFriend(friend);
@@ -315,6 +312,7 @@ public class TunaController {
 //		return result;
 //		
 //	}
+
 		
 
 //		switch (category) {
@@ -372,11 +370,40 @@ public class TunaController {
 		if(userDTO.getUserID().equals(idCheck)&& userDTO.getUserPwd().equals(pwCheck)) {
 			TunaController.loginMemberId = idCheck;
 			result = 1;
+			
+			loginMember = selectMemberInfo(loginMemberId);
 		}else{
 			result = 0;
 		}
 		return result;
 	}
+	
+	/**
+	 * <pre>
+	 * 닉네임만 가져오기 메소드
+	 * </pre>
+	 * @param idCheck
+	 * @return
+	 * @author Juhee Hwang
+	 */
+	public String checkNickname(String idCheck) {
+		
+		UserDTO userDTO = new UserDTO();
+		userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		String nickname = userDTO.getNickName();
+		
+		return nickname;
+	}
+	   public int checkUserNo(String userNoCheck) {
+		      
+		      UserDTO userDTO = new UserDTO();
+		      userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		      int userNo = userDTO.getUserNo();
+		      System.out.println(userDTO);
+		      System.out.println(userNo);
+		      return userNo;
+		   }
+
 
 	// 친구 삭제
 //	public int deleteFriend (UserDTO  UserInfo) {
@@ -438,35 +465,46 @@ public class TunaController {
 
 	}
 
-	public int storeItemBuy(StoreItemDTO item) {
+	public Map<String, Integer> storeItemBuy(StoreItemDTO item) {
+		
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
 		
 		int result = 0;
 		
 		int coin = 0;
 		
+		int coinUpdateResult = 0;
+		
 		UserInventoryDTO userInven = new UserInventoryDTO();
+		
 		UserDTO user = new UserDTO();
+		user = service.selectMemberInfo("user01");
 		
-		coin = service.selectCoin(1);
-		
-		if(item.getItemPrice() < coin) {
+//		아이템 가격보다 보유 코인 갯수가 많을때 실행.
+		if(item.getItemPrice() < user.getCoin()) {
 			
-			user = service.selectMemberInfo(loginMemberId);
-			
-			userInven.setUserNo(user.getCoin());
+			userInven.setUserNo(user.getUserNo());
 			userInven.setItemNo(item.getItemNo());
 			userInven.setItemCategory(item.getItemCategory());
 			userInven.setEquipItemYN("N");
 			
-//			나중에 바꿀거 -sw
-//			service.updateCoin(user.getUserNo(), (coin - item.getItemPrice()));
-			
-			
 			result = service.updateUserInventory(userInven);
+			
+			coin = user.getCoin() - item.getItemPrice();
+			coinUpdateResult = service.updateCoin(user.getUserNo(), coin);
+			
+			System.out.println(result + "Result");
+			System.out.println(coinUpdateResult + "coinUpdateResult");
 		}
 		
-		return result;
+		resultMap.put("invenUpdateresult", result);
+		resultMap.put("coinUpdateResult", coinUpdateResult);
+		resultMap.put("coin", coin);
+		
+		return resultMap;
 	}
+	
+	
 	
 	
 	   // 친구요청 보내기 정보 INSERT
@@ -483,11 +521,16 @@ public class TunaController {
 		}
 
 	// 게시글 삽입
-	public int insertBoard(BoardDTO board) {
+	public int insertBoard(Map<String, Object> newInputContent) {
 
-		int result = 0;
+		BoardDTO boardDTO= new BoardDTO();
+		
+		boardDTO.setTitle(newInputContent.get("title").toString());
+		boardDTO.setBoardContent(newInputContent.get("content").toString());
+		boardDTO.setUserNo((Integer)newInputContent.get("userNo"));
+		boardDTO.setListNo((Integer)(newInputContent.get("listNo")));
 
-		result = service.insertBoard(board);
+		int result = service.insertBoard(boardDTO);
 
 		return result;
 
@@ -504,6 +547,10 @@ public class TunaController {
 		} else {
 			boardNo = list.get(list.size() - 1).getBoardNo() + 1;
 		}
+
+		
+	
+
 		d.setBoardNo(boardNo);
 
 		list.add(d);
@@ -512,4 +559,55 @@ public class TunaController {
 
 	}
 
+	// 비밀게시글 목록 불러오기
+	public List<BoardDTO> selectSecretBoard(int userNo) {
+		
+		
+		List<BoardDTO> secretlist = service.selectSecretBoard(userNo);
+		return secretlist;
+		
+		
+	}
+	
+	
+	public int deleteSecretBoard(BoardDTO title) {
+		
+		int result = 0;
+		
+		result = service.deleteSecretBoard(title);
+		
+		return result;
+	}
+	
+	// 전체게시물 목록 불러오기
+	public List<BoardDTO> selectallBoard(int userNo) {
+		
+		
+		List<BoardDTO> allBoard = service.selectAllBoard(userNo);
+		return allBoard;
+		
+		
+	}
+
+     //내가 쓴 게시물목록 불러오기
+	public List<BoardDTO> selectMyBoard(int userNo) {
+		List<BoardDTO> myBoardList = service.selectMyBoard(userNo);
+		return myBoardList;
+	}
+
+	//친구가 쓴 게시물 목록 불러오기
+	public List<BoardDTO> selectFriendBoard(int userNo) {
+		List<BoardDTO> friendBoard = service.selectFriendBoard(userNo);
+		return friendBoard ;
+	}
+
+	//수정하러 가는 글
+	public int modifySecretBoard(BoardDTO boardDTO) {
+		 int result =0;
+		
+		result = service.modifySecretBoard(boardDTO);
+		return result  ;
+	
+	}
+	
 }

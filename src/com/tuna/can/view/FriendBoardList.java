@@ -1,10 +1,13 @@
+
 package com.tuna.can.view;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -17,6 +20,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
+
+import com.tuna.can.controller.TunaController;
+import com.tuna.can.model.dto.BoardDTO;
 
 /**
  * <pre>
@@ -82,15 +88,19 @@ public class FriendBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//전체게시글 글씨
-			JLabel lbl = new JLabel(" 친구게시글 ");
-			lbl.setBounds(350, 40, 150, 50);
+			JLabel lbl = new JLabel(" 친 구 게 시 글 ");
+			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
+			lbl.setBounds(200, 40, 250, 50);
 			topPanel.add(lbl);
 			
 		    
 			//전체글 리스트 
 			JPanel allList = null;
+			TunaController tunaController = new TunaController();
+			int userNo =3;
+		    List<BoardDTO> list = tunaController.selectFriendBoard(userNo);
 			
-			for(int i = 0; i <= 10; i++) {
+			for(int i = 0; i <list.size(); i++) {
 				
 				midlePanel.setLayout(null);
 				midlePanel.setPreferredSize(new Dimension(660,100*i));
@@ -102,19 +112,26 @@ public class FriendBoardList extends JFrame{
 				
 			    allList.setBounds(0,(i * 100),680,100);
 				allList.setBorder(pinkborder);
+	
 				
 				ImageIcon underline =new ImageIcon("image/List.PNG");
 				JLabel subject = new JLabel(underline);
 				subject.setLayout(null);
+				subject.setBounds(40, 30, 600, 80);
+		
+				BoardDTO boardDTO = list.get(i);
+				JLabel title = new JLabel(boardDTO.getTitle());
+				title.setBounds(50, 20, 600, 70);
+				title.setLayout(null);
+				title.setFont(new Font(null,Font.ITALIC,15));
 
-			    subject.setBounds(40, 30, 600, 80);
-			    allList.add(subject);
+
 			    
-			    JLabel friendnick = new JLabel("닉네임");
-			    friendnick.setBounds(500,25,70,40);
-			    allList.add(friendnick);
+			    allList.add(subject);
+			    allList.add(title);
 
-				
+			    
+			    
 			    midlePanel.add(allList);
 			    
 				
