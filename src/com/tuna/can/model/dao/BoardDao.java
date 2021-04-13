@@ -72,38 +72,37 @@ public class BoardDao {
 		
 		return result;
 	}
-//	//글삽입하는 메소드
-//	public int insertBoard(Connection con, BoardDTO board) {
-//		
-//		PreparedStatement pstmt = null;
-//		
-//		
-//		String query = prop.getProperty("insertBoard");
-//		
-//		int result = 0;
-//		
-//		try {
-//			pstmt =con.prepareStatement(query);
-////			pstmt.setInt(1, board.getBoardNo());
-//			pstmt.setInt(1, board.getListNo());
-//			pstmt.setString(2,board.getTitle());
-//			pstmt.setString(3, board.getBoardContent());
+	//글삽입하는 메소드
+	public int insertBoard(Connection con, BoardDTO board) {
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String query = prop.getProperty("insertBoard");
+		
+		int result = 0;
+		
+		try {
+			pstmt =con.prepareStatement(query);
+//			pstmt.setInt(1, board.getBoardNo());
+			pstmt.setInt(1, board.getListNo());
+			pstmt.setString(2,board.getTitle());
+			pstmt.setString(3, board.getBoardContent());
 //			pstmt.setDate(4, (Date) board.getBoardDate());
-//			
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//		
-//			e.printStackTrace();
-//		}finally {
-//			
-//		   
-//		}
-//		
-//		return result;
-//	
-//		
-//	}
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}finally {
+			
+		}
+		
+		return result;
+	
+		
+	}
 
 	
 	

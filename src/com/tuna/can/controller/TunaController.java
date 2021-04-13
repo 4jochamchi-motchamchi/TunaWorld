@@ -393,6 +393,15 @@ public class TunaController {
 		
 		return nickname;
 	}
+	   public int checkUserNo(String userNoCheck) {
+		      
+		      UserDTO userDTO = new UserDTO();
+		      userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		      int userNo = userDTO.getUserNo();
+		      System.out.println(userDTO);
+		      System.out.println(userNo);
+		      return userNo;
+		   }
 
 
 	// 친구 삭제
@@ -500,11 +509,16 @@ public class TunaController {
 		}
 
 	// 게시글 삽입
-	public int insertBoard(BoardDTO board) {
+	public int insertBoard(Map<String, Object> newInputContent) {
 
-		int result = 0;
+		BoardDTO boardDTO= new BoardDTO();
+		
+		boardDTO.setTitle(newInputContent.get("title").toString());
+		boardDTO.setBoardContent(newInputContent.get("content").toString());
+		boardDTO.setUserNo((Integer)newInputContent.get("userNo"));
+		boardDTO.setListNo((Integer)(newInputContent.get("listNo")));
 
-		result = service.insertBoard(board);
+		int result = service.insertBoard(boardDTO);
 
 		return result;
 

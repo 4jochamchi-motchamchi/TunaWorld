@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;    // gjr
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -33,6 +35,7 @@ import com.tuna.can.model.dto.BoardDTO;
  *
  */
 public class Text_Area extends JFrame{
+	private TunaController tunaController = new TunaController();
 
 
 	public Text_Area() {
@@ -106,9 +109,9 @@ public class Text_Area extends JFrame{
         titleT.setBounds(50,10,90,25);
         TextField subject = new TextField(80);
         subject.setBounds(140,10, 500 ,25);
-        String sub = subject.getText();
-        BoardDTO b = new BoardDTO();
-        b.setTitle(sub);
+//        String sub = subject.getText();
+//        BoardDTO b = new BoardDTO();
+//        b.setTitle(sub);
         
  
         subP.add(titleT);
@@ -119,8 +122,8 @@ public class Text_Area extends JFrame{
         TextArea txt = new TextArea(30,70);
         txt.setBounds(40,0,600,550);
         textareaP.add(txt);
-        String content = txt.getText();
-        b.setBoardContent(content);
+//        String content = txt.getText();
+//        b.setBoardContent(content);
 
         
         
@@ -131,7 +134,7 @@ public class Text_Area extends JFrame{
         JLabel oneul = new JLabel(today);
         oneul.setBounds(490, 10, 200, 30);
         bottonP.add(oneul);
-        b.setBoardDate(day);
+//        b.setBoardDate(day);
 
 		
 
@@ -145,23 +148,43 @@ public class Text_Area extends JFrame{
 	    range.add(all);
 	    range.add(myself);
 	    range.add(friend);
-	    int listno =0;
+	    
+	    JLabel jListNo = new JLabel();
+	    jListNo.setVisible(false);
 	    all.setBounds(40, 0, 100,50);
-	    if(all.isSelected()) {
-	    	listno = 1;
-	    	board.setListNo(listno);
+	    all.addActionListener(new ActionListener() {
 	    	
-	    }
+	    	@Override
+	    	public void actionPerformed(ActionEvent e) {
+	    		Integer listno = 1;
+	    	    jListNo.setText(listno.toString());
+	    		//board.setListNo(listno);
+	    		//System.out.println(board.getListNo());
+	    		
+	    	}
+	    });
+	    	
+	    
 	    myself.setBounds(140, 0, 100, 50);
-	    if(myself.isSelected()) {
-	    	listno = 2;
-	    	board.setListNo(listno);
-	    }
+	    myself.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Integer listno = 2;
+	    	    jListNo.setText(listno.toString());				
+			}
+		});
 	    friend.setBounds(240, 0, 100, 50);
-	    if(friend.isSelected()) {
-	    	listno = 3;
-	    	board.setListNo(listno);
-	    }
+	    friend.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				Integer listno = 3;
+	    	    jListNo.setText(listno.toString());
+			}
+		});
 
 	    bottonP.add(myself);
 	    bottonP.add(friend);
@@ -194,32 +217,25 @@ public class Text_Area extends JFrame{
 					} else {
 					
 					int result = 0;
-					
-					board.setTitle(sub);
-					board.setBoardContent(content);
-					board.setBoardDate(day);
-					board.getListNo();
-				
-					
-					TunaController controller = new TunaController();
-					
-					result = controller.insertBoard(board);
+					Map<String, Object> newInputContent = new HashMap<String, Object>();
+
+					newInputContent.put("listNo", Integer.parseInt(jListNo.getText()));
+					newInputContent.put("title", subject.getText());
+					newInputContent.put("content", txt.getText());
+					newInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
+					result = tunaController.insertBoard(newInputContent);
 					
 					if(result > 0) {
-						JOptionPane.showMessageDialog(null,"저장되었습니다");
-					}
-					
-			            txt.requestFocus();
+						JOptionPane.showConfirmDialog(null,"저장되었습니다","성공!!",-1);
+//						txt.requestFocus();
 					    new BoardList();
 					     dispose();
-			
+					}else {
+						JOptionPane.showMessageDialog(null,"게시글 저장에 실패했습니다", "실패",-1);
+						  }
 					}
 					
-				} else {
-						System.out.println("저장실패");
-					}
-							
-					
+				} 
 			}
 			});
 	    

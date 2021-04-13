@@ -513,6 +513,10 @@ public class TunaDAO {
 				userDTO.setUserID(rset.getString("USER_ID"));
 				userDTO.setUserPwd(rset.getString("USER_PWD"));
 				userDTO.setNickName(rset.getString("USER_NICKNAME"));
+				userDTO.setUserNo(rset.getInt("USER_NO"));
+				userDTO.setCoin(rset.getInt("COIN"));
+				userDTO.setPhone(rset.getString("PHONE"));
+				userDTO.setEmail(rset.getString("EMAIL"));
 
 			}
 		} catch (SQLException e) {
@@ -895,5 +899,65 @@ public class TunaDAO {
 		System.out.println("resut in reject section : " + result);
 		return result;
 
+	}
+	//전체 게세글 삽입하는 메소드
+	public int insertBoard(Connection con, BoardDTO board) {
+		
+		PreparedStatement pstmt = null;
+		
+		
+		String query = prop.getProperty("insertBoard1");
+		
+		int result = 0;
+		
+		try {
+			pstmt =con.prepareStatement(query);
+
+			pstmt.setString(1,board.getTitle());
+			pstmt.setString(2, board.getBoardContent());
+			pstmt.setInt(3, board.getUserNo());
+			pstmt.setInt(4, board.getListNo());
+//			pstmt.setDate(4, (Date)board.getBoardDate());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}finally {
+			
+		   close(pstmt);
+		}
+		
+		return result;
+	
+		
+	}
+
+	public int selectLastContentNo(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		int lastContentNo = 0;
+
+		String query = prop.getProperty("selectLastContentNo");
+
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+
+			if (rset.next()) {
+				lastContentNo = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return lastContentNo;
+		
 	}
 }
