@@ -43,9 +43,9 @@ public class BulletinLayout extends JFrame{
 	
 	public BulletinLayout(int boradNo) {
 		super("게시글 보기");
-//		public static void main(String[] args) 
 		
 		TunaController tunaController = new TunaController();
+		
 		
 		
 		// 게시글 번호
@@ -69,6 +69,8 @@ public class BulletinLayout extends JFrame{
 			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);	
 			Border whiteborder = BorderFactory.createLineBorder(Color.white, 1);	
 			Border lightgrayborder = BorderFactory.createLineBorder(Color.lightGray, 1);	
+			Border bbb = BorderFactory.createLineBorder(MyPage.backgroundColor, 2);	
+			
 			
 			ImageIcon home = new ImageIcon("image/home.PNG");
 			
@@ -137,17 +139,38 @@ public class BulletinLayout extends JFrame{
 			bulletinPanel.add(nickName);
 			
 			
-			// 게시글 설정
-			JPanel bulletinLabel = new JPanel();
-			bulletinLabel.setLocation(50, 60);
-			bulletinLabel.setSize(600, 350);
-			bulletinLabel.setBackground(Color.white);
-			bulletinLabel.setBorder(border2);
-			bulletinPanel.add(bulletinLabel);
+//			JPanel bulletinLabel = new JPanel();
+//			bulletinLabel.setLocation(50, 60);
+//			bulletinLabel.setSize(600, 350);
+//			if(MyPage.backgroundColor == null) {
+//				bulletinLabel.setBackground(Color.white);
+//			} else {
+//				bulletinLabel.setBackground(MyPage.backgroundColor);
+//				bulletinLabel.setBorder(bbb);
+//			}
+//			if(MyPage.font == null) {
+//			} else {
+//				bulletinLabel.setFont(MyPage.font);
+//			}
+//			bulletinLabel.setBorder(border2);
+//			bulletinPanel.add(bulletinLabel);
+			
+			
+			
 
-		    bulletin.setLocation(60, 70);
-		    bulletin.setSize(580, 330);
-		    bulletin.setBackground(Color.white);
+			// 게시글 설정
+		    bulletin.setLocation(50, 60);
+		    bulletin.setSize(600, 350);
+		    if(MyPage.backgroundColor == null) {
+		    	bulletin.setBackground(Color.white);
+			} else {
+				bulletin.setBackground(MyPage.backgroundColor);
+				bulletin.setBorder(bbb);
+			}
+		    if(MyPage.font == null) {
+			} else {
+				bulletin.setFont(MyPage.font);
+			}
 		    bulletinPanel.add(bulletin);
 		    
 	        JScrollPane scrollPane = new JScrollPane(bulletin);
@@ -219,7 +242,6 @@ public class BulletinLayout extends JFrame{
 			
 			
 			
-			
 			// writePanel 설정값
 			writePanel.setLayout(null);
 			writePanel.setLocation(0, 750);
@@ -259,7 +281,6 @@ public class BulletinLayout extends JFrame{
 			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가, 친구추가버튼 X
 			if(board.getListNo() == 2) {
 				
-			
 			writeComment.setEnabled(false);
 			writeComment.setText(" 비밀글에는 댓글 입력이 불가능합니다.");
 			inputButton.setEnabled(false);
@@ -268,6 +289,7 @@ public class BulletinLayout extends JFrame{
 							
 			} else if(board.getUserNo() == userNo) {
 				// 내 게시글일 때 친구추가 불가
+				System.out.println(2);
 				plusFriend.addActionListener(new ActionListener() {
 					
 					@Override
@@ -284,7 +306,7 @@ public class BulletinLayout extends JFrame{
 				
 				
 			} else {
-				
+				System.out.println(3);
 				
 				// 친구추가 버튼 눌렀을 때
 				plusFriend.addActionListener(new ActionListener() {
@@ -339,48 +361,47 @@ public class BulletinLayout extends JFrame{
 					}
 				});
 				
-				// 댓글입력 버튼 눌렀을 때
-				inputButton.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						
-						CommentDTO comment = new CommentDTO();
-						
-						if(e.getSource() == inputButton) {
-									
-							// getText() : JTextField에서 입력한 값을 가져오는 메소드
-							String text = writeComment.getText();
-							
-							int result = 0;
-							
-							comment.setBoardNo(boardNumber);
-							comment.setCommentContent(text);
-							comment.setUserNo(userNo);
-									
-							result = tunaController.insertComment(comment);
-							
-							
-							if(result >0) {
-								System.out.println("댓글 등록 성공");
-								
-								// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
-								new BulletinLayout(boradNo);
-								dispose();				
-
-								
-							} else {
-								System.out.println("댓글 등록 실패");
-							}
-
-							writeComment.requestFocus();
-							
-						}
-						
-					}
-				});
 			}
 			
+			// 댓글입력 버튼 눌렀을 때
+			inputButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					CommentDTO comment = new CommentDTO();
+					
+					if(e.getSource() == inputButton) {
+								
+						// getText() : JTextField에서 입력한 값을 가져오는 메소드
+						String text = writeComment.getText();
+						
+						int result = 0;
+						
+						comment.setBoardNo(boardNumber);
+						comment.setCommentContent(text);
+						comment.setUserNo(userNo);
+								
+						result = tunaController.insertComment(comment);
+						
+						
+						if(result >0) {
+							System.out.println("댓글 등록 성공");
+							
+							// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
+							new BulletinLayout(boradNo);
+							dispose();				
+
+							
+						} else {
+							System.out.println("댓글 등록 실패");
+						}
+
+						writeComment.requestFocus();
+				
+					}
+					
+				}
+			});
 			
 			// 뒤로가기 버튼 눌렀을 때
 			backButton.addActionListener(new ActionListener() {
@@ -395,7 +416,8 @@ public class BulletinLayout extends JFrame{
 				}
 			});
 	
-				
+			
+			
 				
 			
 			

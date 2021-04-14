@@ -53,11 +53,12 @@ public class Main_page extends JFrame{
 		
 		Font font = new Font(null, Font.BOLD, 20);
 		
-		ImageIcon profileImage = new ImageIcon("image/basicprofile.PNG");		// 프로필 이미지
+		
+		
+		ImageIcon basicIcon = new ImageIcon("image/basicprofile.PNG");
 		ImageIcon store = new ImageIcon("image/store.PNG");
 		ImageIcon logout = new ImageIcon("image/logout.PNG");
 		ImageIcon logoutred = new ImageIcon("image/logoutred.PNG");
-		JLabel imageLabel = new JLabel(profileImage);	// 이미지 들어갈 라벨
 		JLabel nickName = new JLabel(changeNickname());			// 닉네임 들어갈 라벨
 		JButton button1 = new JButton("전체글보기");		// 전체글보기 버튼
 		JButton button2 = new JButton("비밀글보기");		// 비밀글보기 버튼
@@ -69,6 +70,18 @@ public class Main_page extends JFrame{
 		JButton logoutButton = new JButton(logout);		// 로그아웃 버튼
 		logoutButton.setRolloverIcon(logoutred);
 		
+		if(MyPage.myCharacterImage != null) {
+			JLabel imageLabel1 = new JLabel(MyPage.myCharacterImage);
+			// profileImage 설정
+			imageLabel1.setBounds(50, 25, 600, 220);
+			imageLabel1.setBackground(Color.pink);
+			profilePanel.add(imageLabel1);
+		}else {
+		JLabel imageLabel = new JLabel(basicIcon);	
+		imageLabel.setBounds(50, 25, 600, 220);
+		imageLabel.setBackground(Color.pink);
+		profilePanel.add(imageLabel);
+		}// 이미지 들어갈 라벨
 		button1.setFont(font);
 		button2.setFont(font);
 		button3.setFont(font);
@@ -81,10 +94,10 @@ public class Main_page extends JFrame{
 		profilePanel.setBounds(0, 0, 700, 300);
 		profilePanel.setBackground(Color.pink);
 		
-		// profileImage 설정
-		imageLabel.setBounds(50, 25, 600, 220);
-		imageLabel.setBackground(Color.pink);
-		profilePanel.add(imageLabel);
+
+//		imageLabel.setBounds(50, 25, 600, 220);
+//		imageLabel.setBackground(Color.pink);
+//		profilePanel.add(imageLabel);
 		
 		// nickName 설정
 		nickName.setBounds(200, 235, 300, 50);

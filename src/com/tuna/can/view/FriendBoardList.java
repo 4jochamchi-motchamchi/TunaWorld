@@ -19,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
@@ -90,14 +91,14 @@ public class FriendBoardList extends JFrame{
 			//전체게시글 글씨
 			JLabel lbl = new JLabel(" 친 구 게 시 글 ");
 			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
-			lbl.setBounds(200, 40, 250, 50);
+			lbl.setBounds(210, 40, 250, 50);
 			topPanel.add(lbl);
 			
 		    
 			//전체글 리스트 
 			JPanel allList = null;
 			TunaController tunaController = new TunaController();
-			int userNo =3;
+			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 		    List<BoardDTO> list = tunaController.selectFriendBoard(userNo);
 			
 			for(int i = 0; i <list.size(); i++) {
@@ -119,12 +120,31 @@ public class FriendBoardList extends JFrame{
 				subject.setLayout(null);
 				subject.setBounds(40, 30, 600, 80);
 		
-				BoardDTO boardDTO = list.get(i);
-				JLabel title = new JLabel(boardDTO.getTitle());
-				title.setBounds(50, 20, 600, 70);
-				title.setLayout(null);
-				title.setFont(new Font(null,Font.ITALIC,15));
 
+				BoardDTO boardDTO = list.get(i);
+				JButton title = new JButton(boardDTO.getTitle());
+				title.setBounds(50, 40, 450, 30);
+				title.setLayout(null);
+				title.setBackground(Color.pink);
+				title.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 20));
+				title.setBorder(pinkborder);
+				title.setHorizontalAlignment(SwingConstants.LEFT);
+
+
+				// 게시글제목 눌렀을 때 게시글 내용으로 들어가기
+				title.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+									
+						if(e.getSource() == title) {
+							
+							new BulletinLayout(boardDTO.getBoardNo());
+							dispose();
+							
+						}				
+					}
+				});
 
 			    
 			    allList.add(subject);

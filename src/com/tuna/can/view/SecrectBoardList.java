@@ -29,7 +29,7 @@ import com.tuna.can.model.dto.BulletinDTO;
  * <pre>
  * 비밀게시글 목록 페이지
  * </pre>
- * @author Hyelim Jeon + NaraWee
+ * @author Hyelim Jeon
  *
  */
 public class SecrectBoardList extends JFrame{
@@ -39,8 +39,8 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-		int userNo = 1;
-//		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+     	//	int userNo = 1;
+		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
@@ -101,13 +101,13 @@ public class SecrectBoardList extends JFrame{
 			
 		    
 			//전체글 리스트 
+			BoardDTO board = new BoardDTO();
+		//	int userNo = board.getUserNo();
+			
 			JPanel allList = null;
 			List<BoardDTO> selectSecretList = tunaController.selectSecretBoard(userNo);
 			
-			
-			
-			BoardDTO board = new BoardDTO();
-			
+		
 			for(int i = 0; i < selectSecretList.size(); i++) {
 				
 				midlePanel.setLayout(null);
@@ -131,6 +131,7 @@ public class SecrectBoardList extends JFrame{
 				title.setBounds(50, 40, 450, 30);
 				title.setBackground(Color.pink);
 				title.setBorder(pinkborder);
+				title.setFont(new Font("휴먼둥근헤드라인" ,Font.ITALIC, 20));
 				title.setHorizontalAlignment(SwingConstants.LEFT);
 				
 				// 게시글제목 눌렀을 때 게시글 내용으로 들어가기
@@ -157,47 +158,10 @@ public class SecrectBoardList extends JFrame{
 				
 				
 				
-				ImageIcon edit = new ImageIcon("image/edit.PNG");
-			    JButton editButton = new JButton(edit);
-			    editButton.setBackground(Color.pink);
-			    editButton.setBorder(pinkborder);
-			    editButton.setBounds(530,28,50,40);
-			    editButton.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-									
-						if(e.getSource() == editButton) {
-							int answer = JOptionPane.showConfirmDialog(null, "수정하시겠습까?",null,0);
-							
-							if(answer == JOptionPane.YES_OPTION){
-								
-								new ModifyTextArea();
-								dispose();
-							}
-								
-								
-								
-								
-								
-//								BoardDTO board = new BoardDTO();
-//								int userNo = board.getUserNo();
-//								int result = tunaController.modifySecretBoard(board);
-//								 
-//								if(result>0) {
-//								board.setUserNo(userNo);
-//								board.setTitle(boardDTO.getTitle());
-//									
-//									new ModifyTextArea();
-//								}
-								
-								
-							}
+
 							
 							
-									
-					}
-				});
+				
 			    
 			    ImageIcon delete = new ImageIcon("image/delete.PNG");
 				JButton deleteButton = new JButton(delete);
@@ -231,6 +195,30 @@ public class SecrectBoardList extends JFrame{
 				}
 			});
 				
+				
+				ImageIcon edit = new ImageIcon("image/edit.PNG");
+			    JButton editButton = new JButton(edit);
+			    editButton.setBackground(Color.pink);
+			    editButton.setBorder(pinkborder);
+			    editButton.setBounds(530,28,50,40);
+
+			    editButton.addActionListener(new ActionListener() {
+							
+			    @Override
+				public void actionPerformed(ActionEvent e) {
+											
+				if(e.getSource() == editButton) {
+									
+				new ModifyTextArea(boardDTO.getBoardNo());
+					dispose();
+			
+								     }
+								
+								}				
+							
+						});
+								
+							
 				allList.add(editButton);
 			    allList.add(deleteButton);
 

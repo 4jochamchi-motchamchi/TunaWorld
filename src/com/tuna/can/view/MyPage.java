@@ -12,11 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -85,6 +88,12 @@ public class MyPage extends JFrame {
 		frame.setVisible(true);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	      try {
+	    	  frame.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
+	       } catch (IOException e1) {
+	          e1.printStackTrace();
+	       }
 		
 		return frame;
 		
@@ -210,7 +219,7 @@ public class MyPage extends JFrame {
 		topPanel.setSize(700, 250);
 		topPanel.setBackground(Color.pink);
 
-		Image defaultImage = new ImageIcon("image/logoBig.png").getImage().getScaledInstance(200, 200, 0);
+		Image defaultImage = new ImageIcon("image/basicprofile.png").getImage().getScaledInstance(200, 200, 0);
 		ImageIcon icon = new ImageIcon(defaultImage);
 		
 		imageLabel = new JLabel();
@@ -343,12 +352,12 @@ public class MyPage extends JFrame {
 		
 		equipItemList = invMap.get(4);
 		
-		
+	
 		if(equipItemList.get(0) != null) {
 //			myCharacterLabel.setText(equipItemList.get(0).getItemImg());
 //			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(0).getItemImg());
 
-			Image image = new ImageIcon("image/" + equipItemList.get(0).getItemImg()).getImage().getScaledInstance(80, 70, 0);
+			Image image = new ImageIcon("image/" + equipItemList.get(0).getItemImg()).getImage().getScaledInstance(85, 75, 0);
 			ImageIcon itemImg = new ImageIcon(image);
 			myCharacterLabel.setIcon(itemImg);
 			
@@ -364,7 +373,7 @@ public class MyPage extends JFrame {
 //			myBackgroundLabel.setText(equipItemList.get(1).getItemImg());
 //			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(1).getItemImg());
 			
-			Image image = new ImageIcon("image/" + equipItemList.get(1).getItemImg()).getImage().getScaledInstance(80, 70, 0);
+			Image image = new ImageIcon("image/" + equipItemList.get(1).getItemImg()).getImage().getScaledInstance(85, 75, 0);
 			ImageIcon itemImg = new ImageIcon(image);
 			
 			myBackgroundLabel.setIcon(itemImg);
@@ -380,7 +389,7 @@ public class MyPage extends JFrame {
 //			myFontLabel.setText(equipItemList.get(2).getItemImg());
 //			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(2).getItemImg());
 			
-			Image image = new ImageIcon("image/" + equipItemList.get(2).getItemImg()).getImage().getScaledInstance(80, 70, 0);
+			Image image = new ImageIcon("image/" + equipItemList.get(2).getItemImg()).getImage().getScaledInstance(85, 75, 0);
 			ImageIcon itemImg = new ImageIcon(image);			
 			
 			myFontLabel.setIcon(itemImg);
@@ -396,7 +405,7 @@ public class MyPage extends JFrame {
 		for(int i = 0; i < 6; i++) {
 			if(i < invMap.get(1).size()) {
 				
-				characterPanel.add(new InventoryButtonController(invMap.get(1).get(i)));
+				characterPanel.add(new InventoryButtonController(invMap.get(1).get(i), frame));
 			} else {
 				
 				characterPanel.add(new JButton("아이템 없음"));
@@ -405,7 +414,7 @@ public class MyPage extends JFrame {
 		
 		for(int i = 0; i < 6; i++) {
 			if(i < invMap.get(2).size()) {
-				backgroundPanel.add(new InventoryButtonController(invMap.get(2).get(i)));
+				backgroundPanel.add(new InventoryButtonController(invMap.get(2).get(i), frame));
 			} else {
 				
 				backgroundPanel.add(new JButton("아이템 없음"));
@@ -414,7 +423,7 @@ public class MyPage extends JFrame {
 		
 		for(int i = 0; i < 6; i++) {
 			if(i < invMap.get(3).size()) {
-				fontPanel.add(new InventoryButtonController(invMap.get(3).get(i)));
+				fontPanel.add(new InventoryButtonController(invMap.get(3).get(i), frame));
 			} else {
 				
 				fontPanel.add(new JButton("아이템 없음"));

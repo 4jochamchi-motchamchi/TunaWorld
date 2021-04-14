@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
-import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.FriendDTO;
 
@@ -41,8 +40,8 @@ public class BoardList extends JFrame{
 		
 
 		TunaController tunaController = new TunaController();
-			int userNo =1;
-//			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+			//int userNo =1;
+			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 			
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
@@ -95,7 +94,7 @@ public class BoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//전체게시글 글씨
-			JLabel lbl = new JLabel("전체게시글");
+			JLabel lbl = new JLabel(" 전 체 게 시 글 ");
 			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
 			lbl.setHorizontalAlignment(JLabel.CENTER);
 			lbl.setBounds(100, 40, 500, 50);
@@ -105,7 +104,7 @@ public class BoardList extends JFrame{
 			//전체글 리스트 
 			JPanel allList = null;
 
-		    List<BoardDTO> list = tunaController.selectallBoard(userNo);
+		    List<BoardDTO> list = tunaController.selectallBoard(tunaController.loginMember.getUserNo());
 
 			for(int i = 0; i < list.size(); i++) {
 				
@@ -125,9 +124,11 @@ public class BoardList extends JFrame{
 				JLabel subject = new JLabel(underline);
 				subject.setLayout(null);
 				subject.setBounds(40, 30, 600, 80);
+				
 		
 				BoardDTO boardDTO = list.get(i);
 				JButton title = new JButton(boardDTO.getTitle());
+				title.setFont(new Font("휴먼둥근헤드라인" ,Font.ITALIC, 20));
 				title.setBounds(50, 40, 450, 30);
 				title.setLayout(null);
 				title.setBackground(Color.pink);
@@ -142,7 +143,7 @@ public class BoardList extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == title) {
-							
+						
 							new BulletinLayout(boardDTO.getBoardNo());
 							dispose();
 							
