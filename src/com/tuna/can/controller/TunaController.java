@@ -485,7 +485,7 @@ public class TunaController {
 		UserInventoryDTO userInven = new UserInventoryDTO();
 
 		UserDTO user = new UserDTO();
-		user = service.selectMemberInfo("user01");
+		user = service.selectMemberInfo(loginMember.getUserID());
 
 //		아이템 가격보다 보유 코인 갯수가 많을때 실행.
 		if (item.getItemPrice() <= user.getCoin()) {
