@@ -146,11 +146,11 @@ public class TunaController {
 	}
 
 	// 받아온 코인 정보값에 코인갯수 업데이트
-	public int updateCoin(UserDTO userInfo) {
+	public int updateCoin(int userNo,int coin) {
 
 		int userCoin = 0;
 
-		userCoin = service.updateCoinHB(userInfo.getUserNo(), userInfo.getCoin());
+		userCoin = service.updateCoinHB(userNo, coin);
 		
 		return userCoin;
 		
@@ -597,13 +597,23 @@ public class TunaController {
 		return boardDTO ;
 	
 	}
+
+
 	
-	
-	
+	public AddFriendDTO selectNickName(int userNo) {
+		
+		AddFriendDTO af = new AddFriendDTO();
+		
+		af = service.selectFriendNickName(userNo);
+		return af;
+	}
+
+
      //
 	public int updateBoard(Map<String, Object> updateInputContent) {
 	
 			BoardDTO boardDTO = new BoardDTO();
+
 
 			boardDTO.setTitle(updateInputContent.get("title").toString());
 			boardDTO.setBoardContent(updateInputContent.get("content").toString());

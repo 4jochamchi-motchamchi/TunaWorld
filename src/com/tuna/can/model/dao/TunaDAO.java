@@ -189,9 +189,6 @@ public class TunaDAO {
 			if (rset.next()) {
 
 				coin = rset.getInt("COIN");
-				String str = rset.getString("USER_NICKNAME");
-				System.out.println(str);
-
 			}
 
 		} catch (SQLException e) {
@@ -207,16 +204,18 @@ public class TunaDAO {
 	}
 
 	// 코인 획득
-	public int updateUserCoin(Connection con, int userNo, int coin) {
+	public int updateUserCoin(Connection con,int userNo ,int coin) {
 		String query = prop.getProperty("updateCoin");
 		PreparedStatement pstmt = null;
-
+		 System.out.println("여기에 코인이 찍힐 겁니다. : " + coin);
+		 System.out.println("여기에는 유저 넘버가 찍힐거고요  : " + userNo);
 		int result = 0;
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, coin +1);
+			pstmt.setInt(1, (coin+1));
 			pstmt.setInt(2, userNo);
+	
 
 			result = pstmt.executeUpdate();
 
@@ -226,6 +225,7 @@ public class TunaDAO {
 			close(pstmt);
 		}
 
+		System.out.println("여기에는 증가된 코인이 찍힐까요? " + coin);
 		return result;
 	}
 
@@ -1025,7 +1025,7 @@ public class TunaDAO {
 		int result2 = 0;
 		String query1 = prop.getProperty("insertFriend");
 		
-//		String query2 = prop.getProperty("insertFriend");
+
 		
 		try {
 			pstmt1 = con.prepareStatement(query1);
@@ -1209,6 +1209,36 @@ public class TunaDAO {
 		
 		return result;
 	}
+
+
+	public AddFriendDTO selectRequestFriendNickName(Connection con, int requestFriendNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selecrRequestUserNickName");
+		
+		AddFriendDTO ad = new AddFriendDTO();
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestFriendNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				
+				ad.setRequestFriendNickName(rset.getString("USER_NICKNAME"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return ad;
+	}
+
 //게시글 수정
 	public int updatetBoard(Connection con, BoardDTO board) {
 		PreparedStatement pstmt = null;
@@ -1235,6 +1265,7 @@ public class TunaDAO {
 		return result;
 
 	}
+
 
 
 }
