@@ -143,6 +143,7 @@
 	<entry key="selectBoard">
 		SELECT
 		A.TITLE
+		, A.LIST_NO
 		, A.BOARD_CONTENTS
 		, B.USER_NICKNAME
 		FROM BOARD_LIST A
@@ -410,4 +411,12 @@
 		, DEFAULT
 		)
 	</entry>
+    <entry key="updateBoard">
+        UPDATE BOARD_LIST
+           SET
+               TITLE = ?
+             , BOARD_CONTENTS = ?
+             , ENROLLDATE = DEFAULT
+         WHERE BOARD_NO = ?    
+    </entry>
 </properties>

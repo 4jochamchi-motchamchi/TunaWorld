@@ -46,8 +46,8 @@ public class ModifyTextArea extends JFrame{
 		super("수정하기");
 
 		
-		int boardNum = boardNo;
 		//int userNo = 1;
+		int boardNum = boardNo;
 
 		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
 		//게시글 DTO
@@ -153,71 +153,41 @@ public class ModifyTextArea extends JFrame{
 		bottonP.add(oneul);
 
 
+		JLabel listCheckLabel = new JLabel();
+		listCheckLabel.setBounds(150, 0, 90, 50);
+		
+		int listNo = board.getListNo();
+		
+		switch(listNo) {
+		case 1:
+			listCheckLabel.setText("전체 게시글");
+			break;
+			
+		case 2:
+			listCheckLabel.setText("비밀 게시글");
+			break;
+		case 3:
+			listCheckLabel.setText("친구 게시글");
+			break;		
+		
+		}
+		
+		
 
 
 
-		//공개범위 라디오 버튼
-		JRadioButton myself = new JRadioButton("비밀게시글");
-		JRadioButton friend= new JRadioButton("친구게시글");
-		JRadioButton all = new JRadioButton("전체게시글");
-
-		ButtonGroup range =new ButtonGroup();
-		range.add(myself);
-		range.add(friend);
-		range.add(all);
+		
 		JLabel jListNo = new JLabel();
+		
 		jListNo.setVisible(false);
-		all.setBounds(40, 0, 100,50);
-		all.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Integer listno = 1;
-				jListNo.setText(listno.toString());
-
-			}
-		});
-
-
-		myself.setBounds(150, 0, 90, 50);
-		myself.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				Integer listno = 2;
-				jListNo.setText(listno.toString());				
-			}
-		});
-		friend.setBounds(240, 0, 100, 50);
-		friend.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				Integer listno = 3;
-				jListNo.setText(listno.toString());
-			}
-		});
-
-		range.add(all);
-		int listno =0;
-		all.setBounds(40, 0, 100, 50);
-		myself.setBounds(140, 0, 100,50);
-		friend.setBounds(240, 0, 100, 50);
+		
 
 
 
-		bottonP.add(myself);
-		bottonP.add(friend);
-		bottonP.add(all);
 
-		myself.setBackground(Color.pink);
-		friend.setBackground(Color.pink);
-		all.setBackground(Color.pink);
-
-
-
+		
+		
+		
 		//저장버튼
 		ImageIcon save = new ImageIcon("image/save.PNG");
 		JButton saveButton = new JButton(save);
@@ -229,30 +199,28 @@ public class ModifyTextArea extends JFrame{
 
 			public void actionPerformed(ActionEvent e) {
 
-				BoardDTO board = new BoardDTO();
-
 
 				if(e.getSource() == saveButton) {
 
-
 					int result = 0;
+					
 					Map<String, Object> updateInputContent = new HashMap<String, Object>();
-
-					updateInputContent.put("listNo", Integer.parseInt(jListNo.getText()));
+					
+					updateInputContent.put("boardNo", boardNo);
 					updateInputContent.put("title", subject.getText());
 					updateInputContent.put("content", txt.getText());
-					updateInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
+					
+					
 					result = tunaController.updateBoard(updateInputContent);
 
 
-					//						int result =controller.insertBoard(board);
 
 					if(result > 0) {
 						JOptionPane.showConfirmDialog(null,"저장되었습니다","성공!!",-1);
-						//							txt.requestFocus();
 
 						new BoardList();
 						dispose();
+						
 					}else {
 						JOptionPane.showMessageDialog(null,"게시글 저장에 실패했습니다", "실패",-1);
 					}
@@ -265,7 +233,8 @@ public class ModifyTextArea extends JFrame{
 		});
 
 
-
+		bottonP.add(listCheckLabel);
+		
 		bottonP.add(saveButton);
 
 
