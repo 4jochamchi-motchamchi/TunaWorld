@@ -31,7 +31,6 @@ import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.controller.Test;
 
-
 /**
  * <pre>
  * 로그인 할 수 있는 페이지
@@ -192,8 +191,6 @@ public class Login_page extends JFrame{
 			this.setVisible(true);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
-			
-		
 		}
 
 	public static void main(String[] args) {
