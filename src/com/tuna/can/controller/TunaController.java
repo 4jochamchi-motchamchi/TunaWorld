@@ -407,7 +407,14 @@ public class TunaController {
 	}
 	
 
-//	체크 유저 번호
+
+	/**
+	 * <pre>
+	 * 체크 유저번호 based on 로그인 유저 아이디
+	 * </pre>
+	 * @param userNoCheck
+	 * @return
+	 */
 	public int checkUserNo(String userNoCheck) {
 
 		UserDTO userDTO = new UserDTO();
@@ -529,7 +536,15 @@ public class TunaController {
 
 	}
 
-	// 게시글 삽입
+
+	/**
+	 * <pre>
+	 * 게시글 삽입 메소드(전체/ 친구/ 비밀 모두 기입가능)
+	 * </pre>
+	 * @param newInputContent
+	 * @return
+	 * @author Juhee Hwang
+	 */
 	public int insertBoard(Map<String, Object> newInputContent) {
 
 		BoardDTO boardDTO = new BoardDTO();
@@ -555,11 +570,11 @@ public class TunaController {
 
 	}
     //게시글 삭제하기
-	public int deleteSecretBoard(BoardDTO title) {
+	public int deleteAllBoard(BoardDTO title) {
 
 		int result = 0;
 		
-		result = service.deleteSecretBoard(title);
+		result = service.deleteAllBoard(title);
 		
 		return result;
 	}
@@ -624,5 +639,14 @@ public class TunaController {
 		
 		return result;
 	}
+	
+	   public int deleteSecretBoard(BoardDTO title) {
+
+		      int result = 0;
+		      
+		      result = service.deleteSecretBoard(title);
+		      
+		      return result;
+		   }
 	
 }

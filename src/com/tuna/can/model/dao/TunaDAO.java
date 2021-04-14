@@ -125,8 +125,8 @@ public class TunaDAO {
 
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		return member;
 
@@ -164,6 +164,9 @@ public class TunaDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 
 		return invenButtonInfo;
@@ -195,8 +198,8 @@ public class TunaDAO {
 
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 
 		return coin;
@@ -262,7 +265,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-//			close(pstmt);
+			close(pstmt); /// 오류
 		}
 
 		return bulletinDTO;
@@ -298,7 +301,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-//			close(pstmt);
+			close(pstmt);
 		}
 
 		return commentList;
@@ -362,7 +365,6 @@ public class TunaDAO {
 			e.printStackTrace();
 
 		} finally {
-			close(pstmt);
 
 			close(rset);
 			close(pstmt);
@@ -419,6 +421,8 @@ public class TunaDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 
 		return result;
@@ -596,8 +600,8 @@ public class TunaDAO {
 
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 
 		return equipYNList;
@@ -775,22 +779,39 @@ public class TunaDAO {
 
 
 	// 비밀게시글 삭제하기
-	public int deleteSecretBoard(Connection con, BoardDTO title) {
+	public int deleteAllBoard(Connection con, BoardDTO title) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
+		int result2 = 0;
+		PreparedStatement pstmt2 = null;
 		
-		String query = prop.getProperty("deleteSecretBoard");
-		
+		String query = prop.getProperty("deleteAllBoard");
+		String comentQuery = prop.getProperty("deleteComment");
 		try {
+			
+			pstmt2 = con.prepareStatement(comentQuery);
+			
+			pstmt2.setInt(1, title.getBoardNo());
+			result2 = pstmt2.executeUpdate();
+			if(result2 > 0) {
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
+				con.commit();
+			}
 			
 			BoardDTO board = new BoardDTO();
 			
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, title.getTitle());
-			pstmt.setInt(2, title.getUserNo());
+			pstmt.setInt(2, title.getBoardNo());
 			
 			result = pstmt.executeUpdate();
+			
+			
+			
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -829,8 +850,8 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 //		System.out.println("AddList : " +AddList);
 		return AddList;
@@ -895,7 +916,7 @@ public class TunaDAO {
 	
 	/**
 	 * <pre>
-	 * 전체 게세글 db에 삽입하는 메소드
+	 * (전체/친구/비밀) 게시글 db에 삽입하는 메소드
 	 * </pre>
 	 * @param con
 	 * @param board
@@ -941,6 +962,7 @@ public class TunaDAO {
 	 * </pre>
 	 * @param con
 	 * @return
+	 * @author Juhee Hwang
 	 */
 	public int selectLastContentNo(Connection con) {
 		Statement stmt = null;
@@ -955,7 +977,7 @@ public class TunaDAO {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				lastContentNo = rset.getInt("CURRVAL");
+				lastContentNo = rset.getInt("CURRENT");
 			}
 		} catch (SQLException e) {
 
@@ -964,7 +986,6 @@ public class TunaDAO {
 			close(rset);
 			close(stmt);
 		}
-
 		return lastContentNo;
 	}
 	
@@ -998,7 +1019,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-
+			close(pstmt);
 		}
 		
 		
@@ -1108,8 +1129,8 @@ public class TunaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt1);
 			close(pstmt2);
+			close(pstmt1);
 		}
 		
 	
@@ -1265,6 +1286,34 @@ public class TunaDAO {
 		return result;
 
 	}
+	
+	   // 비밀게시글 삭제하기
+	   public int deleteSecretBoard(Connection con, BoardDTO title) {
+	      
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      
+	      String query = prop.getProperty("deleteSecretBoard");
+	      
+	      try {
+	         
+	         BoardDTO board = new BoardDTO();
+	         
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setString(1, title.getTitle());
+	         pstmt.setInt(2, title.getUserNo());
+	         
+	         result = pstmt.executeUpdate();
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(pstmt);
+	      }
+	      
+	      return result;
+	      
+	   }
 
 
 

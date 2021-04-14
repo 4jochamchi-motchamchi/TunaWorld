@@ -59,10 +59,12 @@ public class Main_page extends JFrame{
 		ImageIcon store = new ImageIcon("image/store.PNG");
 		ImageIcon logout = new ImageIcon("image/logout.PNG");
 		ImageIcon logoutred = new ImageIcon("image/logoutred.PNG");
+
+		
 		JLabel nickName = new JLabel(changeNickname());			// 닉네임 들어갈 라벨
-		JButton button1 = new JButton("전체글보기");		// 전체글보기 버튼
-		JButton button2 = new JButton("비밀글보기");		// 비밀글보기 버튼
-		JButton button3 = new JButton("친구글보기");		// 친구글보기 버튼
+		JButton button1 = new JButton("전체 글보기");		// 전체글보기 버튼
+		JButton button2 = new JButton("비밀 글보기");		// 비밀글보기 버튼
+		JButton button3 = new JButton("친구 글보기");		// 친구글보기 버튼
 		JButton button4 = new JButton("친구 목록");		// 친구목록 버튼
 		JButton button5 = new JButton("마이페이지");		// 마이페이지 버튼
 		JButton button6 = new JButton("출석게임");		// 미니게임 출석하기 버튼
@@ -82,6 +84,8 @@ public class Main_page extends JFrame{
 		imageLabel.setBackground(Color.pink);
 		profilePanel.add(imageLabel);
 		}// 이미지 들어갈 라벨
+
+	
 		button1.setFont(font);
 		button2.setFont(font);
 		button3.setFont(font);
@@ -171,6 +175,7 @@ public class Main_page extends JFrame{
 		storeButton.setBorder(pinkborder);
 		storePanel.add(storeButton);
 		
+
 		// storeButton 설정
 		logoutButton.setBounds(600, 30, 60, 60);
 		logoutButton.setBackground(Color.pink);

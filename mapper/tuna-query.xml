@@ -240,11 +240,11 @@
 		WHERE USER_NO = ?
 		AND LIST_NO = 2
 	</entry>
-	<entry key="deleteSecretBoard">
+	<entry key="deleteAllBoard">
 		DELETE
 		FROM BOARD_LIST
 		WHERE TITLE = ?
-		AND USER_NO = ?
+		AND BOARD_NO = ?
 	</entry>
 	<entry key="selectBoard">
 		SELECT
@@ -391,13 +391,50 @@
 		WHERE
 		P.USER_NO = ?
 	</entry>
-
 	<entry key="updateBoard">
 		UPDATE BOARD_LIST
-		SET
-		TITLE = ?
+		   SET
+		  TITLE = ?
 		, BOARD_CONTENTS = ?
 		, ENROLLDATE = DEFAULT
+
 		WHERE BOARD_NO = ?
 	</entry>
+	<entry key="deleteComment">
+		DELETE 
+		FROM COMMENT_BOARD
+	   WHERE BOARD_NO = ?
+	</entry>
+	   <entry key="deleteSecretBoard">
+      DELETE
+      FROM BOARD_LIST
+      WHERE TITLE = ?
+      AND USER_NO = ?
+	WHERE BOARD_NO = ?            
+    </entry>
+    <entry key="updateBoard">
+        UPDATE BOARD_LIST
+           SET
+               TITLE = ?
+             , BOARD_CONTENTS = ?
+             , LIST_NO = ?
+             , ENROLLDATE = DEFAULT
+         WHERE USER_NO = ?    
+
+
+               TITLE
+             , BOARD_CONTENTS
+             , USER_NO
+             , LIST_NO
+             , ENROLLDATE
+             )
+              VALUES
+             ( 
+                ?
+              , ? 
+              , ?
+              , ?
+              , DEFAULT
+              )
+    </entry>
 </properties>

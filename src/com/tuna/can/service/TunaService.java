@@ -30,22 +30,23 @@ public class TunaService {
 	 * 
 	 * @param user
 	 * @return
+	 * @author Juhee Hwang
 	 */
 	public int registUser(UserDTO user) {
 
 		Connection con = getConnection();
 
-		int result = 0;
+		int result =  tunaDAO.createUser(con, user);
 
-		int createResult = tunaDAO.createUser(con, user);
+//		int createResult = tunaDAO.createUser(con, user);
 		// 마지막 발생한 회원번호 시퀀스 조회
-		int createdNo = tunaDAO.selectLastNo(con);
-		UserDTO userDTO = new UserDTO();
-		userDTO.setUserNo(createdNo);
+//		int createdNo = tunaDAO.selectLastNo(con);
+//		UserDTO userDTO = new UserDTO();
+//		userDTO.setUserNo(createdNo);
 
-		if (createResult > 0) {
+		if (result > 0) {
 			commit(con);
-			result = 1;
+			
 		} else {
 			rollback(con);
 		}
@@ -413,24 +414,20 @@ public class TunaService {
 
 	/**
 	 * <pre>
-	 * 전체 게시글 db 입력하기
+	 * (전체/친구/비밀) 게시글 저장하기
 	 * </pre>
 	 * @param board
 	 * @return
+	 * @author Juhee Hwang
 	 */
 	public int insertBoard(BoardDTO board) {
 		Connection con = getConnection();
 		
-		int result = 0;
-		int insertResult = tunaDAO.insertBoard(con, board);
-		int insertContentNo = tunaDAO.selectLastContentNo(con);
-		
-		BoardDTO boardDTO =new BoardDTO();
-		boardDTO.setBoardNo(insertContentNo);
-		
-		if(insertResult > 0){
+		int result = tunaDAO.insertBoard(con, board);
+
+		if(result > 0){
 			commit(con);
-			result =1;
+//			result =1;
 		} else {
 //			System.out.println();
 			rollback(con);
@@ -454,18 +451,17 @@ public class TunaService {
 	}
 
 
-	public int deleteSecretBoard(BoardDTO title) {
+	public int deleteAllBoard(BoardDTO title) {
 		
 		int result = 0;
 		
 		Connection con = getConnection();
 		
-		result = tunaDAO.deleteSecretBoard(con, title);
+		result = tunaDAO.deleteAllBoard(con, title);
 			
 		if(result > 0){
 			commit(con);
 		} else {
-			System.out.println();
 			rollback(con);
 		}
 		close(con);
@@ -610,5 +606,22 @@ public class TunaService {
 		
 
 	}
+	   public int deleteSecretBoard(BoardDTO title) {
+		      
+		      int result = 0;
+		      
+		      Connection con = getConnection();
+		      
+		      result = tunaDAO.deleteSecretBoard(con, title);
+		         
+		      if(result > 0){
+		         commit(con);
+		      } else {
+		         System.out.println();
+		         rollback(con);
+		      }
+		      
+		      return result;
+		   }
 
 }

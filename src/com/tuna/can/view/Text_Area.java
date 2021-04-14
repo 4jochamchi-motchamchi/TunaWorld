@@ -237,7 +237,7 @@ public class Text_Area extends JFrame{
 					newInputContent.put("content", txt.getText());
 					newInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
 					result = tunaController.insertBoard(newInputContent);
-
+				
 					
 //					int result =controller.insertBoard(board);
 
