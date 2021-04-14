@@ -80,7 +80,7 @@ public class InventoryButtonController extends JButton{
 				
 				switch (resultComent) {
 				case "장착성공":
-					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 되었습니다.", "장착성공", 0);
+					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 되었습니다.", "장착성공", 1);
 
 					
 					break;
@@ -88,7 +88,7 @@ public class InventoryButtonController extends JButton{
 					
 //					장착 실패시 장착여부 다시 변경
 				case "장착실패":
-					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템 장착에 실패 하였습니다.", "장착실패", 0);
+					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템 장착에 실패 하였습니다.", "장착실패", 1);
 //					if(inventory.getEquipItemYN().equals("Y")) {
 //						
 //						inventory.setEquipItemYN("N");
@@ -100,7 +100,7 @@ public class InventoryButtonController extends JButton{
 					break;
 					
 				case "한개만장착가능":
-					JOptionPane.showMessageDialog(null, "아이템은 카테고리별로 한개만 장착 가능합니다", "한개만장착가능", 0);
+					JOptionPane.showMessageDialog(null, "아이템은 카테고리별로 한개만 장착 가능합니다", "한개만장착가능", 1);
 //					if(inventory.getEquipItemYN().equals("Y")) {
 //						
 //						inventory.setEquipItemYN("N");
@@ -111,7 +111,7 @@ public class InventoryButtonController extends JButton{
 					
 					break;					
 				case "장착해제":
-					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 해제 되었습니다.", "장착해제", 0);
+					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 해제 되었습니다.", "장착해제", 1);
 					
 					break;
 				}

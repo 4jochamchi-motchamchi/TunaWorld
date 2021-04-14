@@ -407,7 +407,14 @@ public class TunaController {
 	}
 	
 
-//	체크 유저 번호
+
+	/**
+	 * <pre>
+	 * 체크 유저번호 based on 로그인 유저 아이디
+	 * </pre>
+	 * @param userNoCheck
+	 * @return
+	 */
 	public int checkUserNo(String userNoCheck) {
 
 		UserDTO userDTO = new UserDTO();
@@ -529,7 +536,15 @@ public class TunaController {
 
 	}
 
-	// 게시글 삽입
+
+	/**
+	 * <pre>
+	 * 게시글 삽입 메소드(전체/ 친구/ 비밀 모두 기입가능)
+	 * </pre>
+	 * @param newInputContent
+	 * @return
+	 * @author Juhee Hwang
+	 */
 	public int insertBoard(Map<String, Object> newInputContent) {
 
 		BoardDTO boardDTO = new BoardDTO();

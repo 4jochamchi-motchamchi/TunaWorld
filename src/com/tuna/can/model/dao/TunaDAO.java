@@ -916,7 +916,7 @@ public class TunaDAO {
 	
 	/**
 	 * <pre>
-	 * 전체 게세글 db에 삽입하는 메소드
+	 * (전체/친구/비밀) 게시글 db에 삽입하는 메소드
 	 * </pre>
 	 * @param con
 	 * @param board
@@ -962,6 +962,7 @@ public class TunaDAO {
 	 * </pre>
 	 * @param con
 	 * @return
+	 * @author Juhee Hwang
 	 */
 	public int selectLastContentNo(Connection con) {
 		Statement stmt = null;
@@ -976,7 +977,7 @@ public class TunaDAO {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				lastContentNo = rset.getInt("CURRVAL");
+				lastContentNo = rset.getInt("CURRENT");
 			}
 		} catch (SQLException e) {
 
@@ -985,7 +986,6 @@ public class TunaDAO {
 			close(rset);
 			close(stmt);
 		}
-
 		return lastContentNo;
 	}
 	
