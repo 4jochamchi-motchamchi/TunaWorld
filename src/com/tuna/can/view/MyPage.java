@@ -343,7 +343,7 @@ public class MyPage extends JFrame {
 		
 		equipItemList = invMap.get(4);
 		
-		
+	
 		if(equipItemList.get(0) != null) {
 //			myCharacterLabel.setText(equipItemList.get(0).getItemImg());
 //			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(0).getItemImg());
