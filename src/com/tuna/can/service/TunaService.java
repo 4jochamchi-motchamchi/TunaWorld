@@ -508,7 +508,7 @@ public class TunaService {
 		
 		boardDTO = tunaDAO.modifySecretBoard(con, boardNo);
 			
-		
+		close(con);
 		
 		return boardDTO;
 	}
@@ -546,19 +546,15 @@ public class TunaService {
 		Connection con = getConnection();
 		
 		int result = 0;
-		int insertResult = tunaDAO.updatetBoard(con, board);
-		int insertContentNo = tunaDAO.selectLastContentNo(con);
 		
-		BoardDTO boardDTO =new BoardDTO();
-		boardDTO.setBoardNo(insertContentNo);
+		result = tunaDAO.updatetBoard(con, board);
+//		int insertContentNo = tunaDAO.selectLastContentNo(con);
 		
-		if(insertResult > 0){
+		
+		if(result > 0){
 			commit(con);
-			result =1;
-		} else {
-
-			rollback(con);
-		}
+			close(con);
+		} 
 		
 		return result;
 		

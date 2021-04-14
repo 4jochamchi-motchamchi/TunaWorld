@@ -262,6 +262,7 @@ VALUES
 	<entry key="selectBoard">
 		SELECT
 		A.TITLE
+		, A.LIST_NO
 		, A.BOARD_CONTENTS
 		, B.USER_NICKNAME
 		FROM BOARD_LIST A
@@ -407,29 +408,9 @@ VALUES
     <entry key="updateBoard">
         UPDATE BOARD_LIST
            SET
-<<<<<<< HEAD
                TITLE = ?
              , BOARD_CONTENTS = ?
-             , LIST_NO = ?
              , ENROLLDATE = DEFAULT
-         WHERE USER_NO = ?    
-
-=======
-               TITLE
-             , BOARD_CONTENTS
-             , USER_NO
-             , LIST_NO
-             , ENROLLDATE
-             )
-              VALUES
-             ( 
-                ?
-              , ? 
-              , ?
-              , ?
-              , DEFAULT
-              )
-    
->>>>>>> branch 'master' of https://github.com/4jochamchi-motchamchi/Mini_Project.git
+         WHERE BOARD_NO = ?    
     </entry>
 </properties>

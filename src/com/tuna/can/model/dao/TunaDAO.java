@@ -1169,6 +1169,7 @@ public class TunaDAO {
 			rset = pstmt.executeQuery();
 		
 			if(rset.next()) {
+				boardDTO.setListNo(rset.getInt("LIST_NO"));
 				boardDTO.setTitle(rset.getString("TITLE"));
 				boardDTO.setBoardContent(rset.getString("BOARD_CONTENTS"));
 				boardDTO.setListNo(rset.getInt("LIST_NO"));
@@ -1220,8 +1221,7 @@ public class TunaDAO {
 
 			pstmt.setString(1,board.getTitle());
 			pstmt.setString(2, board.getBoardContent());
-			pstmt.setInt(3, board.getUserNo());
-			pstmt.setInt(4, board.getListNo());
+			pstmt.setInt(3, board.getBoardNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

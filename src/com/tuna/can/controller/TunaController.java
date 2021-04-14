@@ -580,14 +580,21 @@ public class TunaController {
 		return friendBoard;
 	}
 
+	
+	
 	//수정 할 게시물 불러오기
 	public BoardDTO modifySecretBoard(int boardNo) {
 		 
 		BoardDTO boardDTO = new BoardDTO();
+		
 		boardDTO = service.modifySecretBoard(boardNo);
+		
 		return boardDTO ;
 	
 	}
+	
+	
+	
      //
 	public int updateBoard(Map<String, Object> updateInputContent) {
 	
@@ -595,9 +602,8 @@ public class TunaController {
 
 			boardDTO.setTitle(updateInputContent.get("title").toString());
 			boardDTO.setBoardContent(updateInputContent.get("content").toString());
-			boardDTO.setUserNo((Integer) updateInputContent.get("userNo"));
-			boardDTO.setListNo((Integer) (updateInputContent.get("listNo")));
-
+			boardDTO.setBoardNo((int)updateInputContent.get("boardNo"));
+			
 			int result = service.updatetBoard(boardDTO);
 
 		
