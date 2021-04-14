@@ -388,29 +388,7 @@
 		JOIN USER_INFORMATION UI ON (P.REQUEST_FRIEND_NO = UI.USER_NO)
 		WHERE P.USER_NO = ?
 	</entry>
-	<entry key="updateBoard">
-		UPDATE BOARD_LIST
-		SET
-		TITLE = ?
-		, BOARD_CONTENTS = ?
-		, LIST_NO = ?
-		, ENROLLDATE = DEFAULT
-		WHERE USER_NO = ?
-		TITLE
-		, BOARD_CONTENTS
-		, USER_NO
-		, LIST_NO
-		, ENROLLDATE
-		)
-		VALUES
-		(
-		?
-		, ?
-		, ?
-		, ?
-		, DEFAULT
-		)
-	</entry>
+
     <entry key="updateBoard">
         UPDATE BOARD_LIST
            SET
