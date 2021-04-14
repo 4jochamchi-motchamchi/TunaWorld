@@ -63,7 +63,7 @@ public class FriendsList extends JFrame{
 			JLabel topLabel = new JLabel("친구 목록");
 			topLabel.setLayout(null);
 			topLabel.setBounds(270, 27, 700, 50);
-			topLabel.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 30));
+			topLabel.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
 			
 			
 			// 상단 판넬에 라벨 
