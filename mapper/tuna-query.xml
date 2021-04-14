@@ -407,14 +407,13 @@ VALUES
     <entry key="updateBoard">
         UPDATE BOARD_LIST
            SET
-<<<<<<< HEAD
                TITLE = ?
              , BOARD_CONTENTS = ?
              , LIST_NO = ?
              , ENROLLDATE = DEFAULT
          WHERE USER_NO = ?    
 
-=======
+
                TITLE
              , BOARD_CONTENTS
              , USER_NO
@@ -430,6 +429,5 @@ VALUES
               , DEFAULT
               )
     
->>>>>>> branch 'master' of https://github.com/4jochamchi-motchamchi/Mini_Project.git
     </entry>
 </properties>
