@@ -245,7 +245,6 @@
 		FROM BOARD_LIST
 		WHERE TITLE = ?
 		AND USER_NO = ?
-		AND LIST_NO = 2
 	</entry>
 	<entry key="selectBoard">
 		SELECT
