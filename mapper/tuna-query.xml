@@ -45,13 +45,14 @@
 		USER_NO = ?
 		AND ITEM_NO = ?
 	</entry>
-		<entry key="insertComment">
+	<entry key="insertComment">
 		INSERT
 		INTO COMMENT_BOARD
 		(
 		COMMENT_NO
 		, BOARD_NO
-		, COMMENT_CONTENT
+		,
+		COMMENT_CONTENT
 		, USER_NO
 		)
 		VALUES
@@ -145,28 +146,27 @@
 		A.TITLE
 		, A.LIST_NO
 		, A.BOARD_CONTENTS
-		, B.USER_NICKNAME
+		,
+		B.USER_NICKNAME
 		FROM BOARD_LIST A
-		JOIN USER_INFORMATION B ON(A.USER_NO = B.USER_NO)
+		JOIN USER_INFORMATION B ON(A.USER_NO =
+		B.USER_NO)
 		WHERE A.BOARD_NO = ?
 	</entry>
 	<entry key="slectFriendsLIst">
 		SELECT
-		S.ITEM_IMG
+		U.USER_NO
 		, U.USER_NICKNAME
 		, F.FRIEND_NO
 		FROM FRIENDS_LIST F
 		JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
-		JOIN USER_INVENTORY_LIST UIL ON(F.FRIEND_NO = UIL.USER_NO)
-		JOIN STORE S ON(UIL.ITEM_NO = S.ITEM_NO)
 		WHERE F.USER_NO = ?
-		AND UIL.ITEM_CATEGORY = 3
 	</entry>
 	<entry key="updateEquipYn">
 		UPDATE USER_INVENTORY_LIST
-		   SET EQUIP_ITEM_YN = ?
-	     WHERE ITEM_NO = ?
-		   AND USER_NO = ?
+		SET EQUIP_ITEM_YN = ?
+		WHERE ITEM_NO = ?
+		AND USER_NO = ?
 	</entry>
 	<entry key="selectCoin">
 		SELECT
@@ -183,7 +183,8 @@
 		SELECT
 		USER_NICKNAME
 		FROM FRIENDS_LIST F
-		JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
+		JOIN
+		USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
 		WHERE F.USER_NO = ?
 	</entry>
 	<entry key="insertRequestFriend">
@@ -195,7 +196,7 @@
 		)
 		VALUES
 		(
-		  ?
+		?
 		, ?
 		)
 	</entry>
@@ -262,7 +263,8 @@
 		F.USER_NO
 		, U.USER_NICKNAME
 		, F.FRIEND_NO
-		FROM FRIENDS_LIST F
+		FROM
+		FRIENDS_LIST F
 		JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
 		WHERE F.USER_NO = ?
 	</entry>
@@ -378,23 +380,26 @@
 		, BOARD_CONTENTS
 		, LIST_NO
 		, USER_NO
-		FROM BOARD_LIST
+		FROM
+		BOARD_LIST
 		WHERE BOARD_NO = ?
 	</entry>
 	<entry key="selecrRequestUserNickName">
 		SELECT
 		UI.USER_NICKNAME
 		FROM PLUS_FRIEND P
-		JOIN USER_INFORMATION UI ON (P.REQUEST_FRIEND_NO = UI.USER_NO)
-		WHERE P.USER_NO = ?
+		JOIN
+		USER_INFORMATION UI ON (P.REQUEST_FRIEND_NO = UI.USER_NO)
+		WHERE
+		P.USER_NO = ?
 	</entry>
 
-    <entry key="updateBoard">
-        UPDATE BOARD_LIST
-           SET
-               TITLE = ?
-             , BOARD_CONTENTS = ?
-             , ENROLLDATE = DEFAULT
-         WHERE BOARD_NO = ?    
-    </entry>
+	<entry key="updateBoard">
+		UPDATE BOARD_LIST
+		SET
+		TITLE = ?
+		, BOARD_CONTENTS = ?
+		, ENROLLDATE = DEFAULT
+		WHERE BOARD_NO = ?
+	</entry>
 </properties>
