@@ -394,10 +394,37 @@
 
 	<entry key="updateBoard">
 		UPDATE BOARD_LIST
-		SET
-		TITLE = ?
+		   SET
+		  TITLE = ?
 		, BOARD_CONTENTS = ?
 		, ENROLLDATE = DEFAULT
-		WHERE BOARD_NO = ?
-	</entry>
+		WHERE BOARD_NO = ?            
+    </entry>
+    <entry key="updateBoard">
+        UPDATE BOARD_LIST
+           SET
+               TITLE = ?
+             , BOARD_CONTENTS = ?
+             , LIST_NO = ?
+             , ENROLLDATE = DEFAULT
+         WHERE USER_NO = ?    
+
+
+               TITLE
+             , BOARD_CONTENTS
+             , USER_NO
+             , LIST_NO
+             , ENROLLDATE
+             )
+              VALUES
+             ( 
+                ?
+              , ? 
+              , ?
+              , ?
+              , DEFAULT
+              )
+    
+    </entry>
+
 </properties>

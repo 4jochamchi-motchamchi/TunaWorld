@@ -18,11 +18,11 @@ public class BoardDTO implements Serializable {
 	private int listNo;
 	private int userNo;
 	
+	
 	public BoardDTO() {
 	super();
 		
 	}
-	
 	
 	
 	public BoardDTO(int boardNo, String userId, Date boardDate, String title, String boardContent, int listNo,
@@ -36,7 +36,6 @@ public class BoardDTO implements Serializable {
 		this.listNo = listNo;
 		this.userNo = userNo;
 	}
-
 
 
 	public int getUserNo() {
