@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.Date;    // gjr
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -77,9 +76,7 @@ public class Text_Area extends JFrame{
 		bottonP.setLayout(null);
 		bottonP.setBounds(0, 725, 700, 175);
 		bottonP.setBackground(Color.pink);
-	
-		
-	
+
 
 		//글쓰기 	글씨
 		JLabel lbl = new JLabel(" 글쓰기 ");
@@ -107,8 +104,6 @@ public class Text_Area extends JFrame{
 		backB.setBounds(30, 30, 55, 55);
 		topPanel.add(backB);
 		
-		Scanner sc = new Scanner(System.in);
-		BoardDTO b = new BoardDTO();
 	    //제목
 		JLabel titleT = new JLabel("제목");
         titleT.setBounds(50,10,90,25);
@@ -116,10 +111,7 @@ public class Text_Area extends JFrame{
 		lbl.setHorizontalAlignment(JLabel.CENTER);
         TextField subject = new TextField(80);
         subject.setBounds(140,10, 500 ,25);
-        String sub = subject.getText();
-        
- 
-        
+
  
         subP.add(titleT);
         subP.add(subject);
@@ -190,7 +182,7 @@ public class Text_Area extends JFrame{
 		});
 
 	    range.add(all);
-	    int listno =0;
+//	    int listno =0;
 	    all.setBounds(40, 0, 100, 50);
 	    myself.setBounds(140, 0, 100,50);
 	    friend.setBounds(240, 0, 100, 50);
@@ -207,7 +199,9 @@ public class Text_Area extends JFrame{
 	    friend.setBackground(Color.pink);
 	    all.setBackground(Color.pink);
 	    
-	    int userNo =2;
+
+	    int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
+
 	
         //저장버튼
 	    ImageIcon save = new ImageIcon("image/save.PNG");

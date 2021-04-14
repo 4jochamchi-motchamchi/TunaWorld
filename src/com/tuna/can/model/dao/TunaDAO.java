@@ -989,6 +989,7 @@ public class TunaDAO {
 				BoardDTO board = new BoardDTO();
 				
 				board.setTitle(rset.getString("TITLE"));
+				board.setBoardNo(rset.getInt("BOARD_NO"));
 				
 				allMyBoard.add(board);
 			}
@@ -1136,6 +1137,7 @@ public class TunaDAO {
 				BoardDTO board = new BoardDTO();
 				
 				board.setTitle(rset.getString("TITLE"));
+				board.setBoardNo(rset.getInt("BOARD_NO"));
 				
 				friendBoard.add(board);
 			}
@@ -1206,4 +1208,33 @@ public class TunaDAO {
 		
 		return result;
 	}
+//게시글 수정
+	public int updatetBoard(Connection con, BoardDTO board) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateBoard");
+		
+        int result = 0;
+		
+		try {
+			pstmt =con.prepareStatement(query);
+
+			pstmt.setString(1,board.getTitle());
+			pstmt.setString(2, board.getBoardContent());
+			pstmt.setInt(3, board.getUserNo());
+			pstmt.setInt(4, board.getListNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+		   close(pstmt);
+		}
+		
+		return result;
+
+	}
+
+
 }

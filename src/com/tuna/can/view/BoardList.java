@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
-import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.FriendDTO;
 
@@ -41,8 +40,8 @@ public class BoardList extends JFrame{
 		
 
 		TunaController tunaController = new TunaController();
-			int userNo =1;
-//			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+			//int userNo =1;
+			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 			
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);

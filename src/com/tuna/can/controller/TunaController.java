@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
@@ -541,25 +540,7 @@ public class TunaController {
 
 	}
 
-	// 새 게시물 등록용 메소드
-	public void insertBoardList(BoardDTO d) {
-		BoardDao bd = new BoardDao();
-		int boardNo = 0;
-		ArrayList<BoardDTO> list = bd.readBoardList();
-		if (list == null) {
-			list = new ArrayList<BoardDTO>();
-			boardNo++;
-		} else {
-			boardNo = list.get(list.size() - 1).getBoardNo() + 1;
-		}
 
-		d.setBoardNo(boardNo);
-
-		list.add(d);
-
-		int result = bd.writeBoardList(list);
-
-	}
 
 	// 비밀게시글 목록 불러오기
 	public List<BoardDTO> selectSecretBoard(int userNo) {
@@ -568,7 +549,7 @@ public class TunaController {
 		return secretlist;
 
 	}
-
+    //게시글 삭제하기
 	public int deleteSecretBoard(BoardDTO title) {
 
 		int result = 0;
@@ -599,13 +580,28 @@ public class TunaController {
 		return friendBoard;
 	}
 
-	//수정하러 가는 글
+	//수정 할 게시물 불러오기
 	public BoardDTO modifySecretBoard(int boardNo) {
 		 
 		BoardDTO boardDTO = new BoardDTO();
 		boardDTO = service.modifySecretBoard(boardNo);
 		return boardDTO ;
 	
+	}
+     //
+	public int updateBoard(Map<String, Object> updateInputContent) {
+	
+			BoardDTO boardDTO = new BoardDTO();
+
+			boardDTO.setTitle(updateInputContent.get("title").toString());
+			boardDTO.setBoardContent(updateInputContent.get("content").toString());
+			boardDTO.setUserNo((Integer) updateInputContent.get("userNo"));
+			boardDTO.setListNo((Integer) (updateInputContent.get("listNo")));
+
+			int result = service.updatetBoard(boardDTO);
+
+		
+		return result;
 	}
 	
 }

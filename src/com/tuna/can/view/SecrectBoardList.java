@@ -39,7 +39,7 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-//		int userNo = 1;
+     	//	int userNo = 1;
 		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
@@ -101,13 +101,13 @@ public class SecrectBoardList extends JFrame{
 			
 		    
 			//전체글 리스트 
+			BoardDTO board = new BoardDTO();
+		//	int userNo = board.getUserNo();
+			
 			JPanel allList = null;
 			List<BoardDTO> selectSecretList = tunaController.selectSecretBoard(userNo);
 			
-			
-			
-			BoardDTO board = new BoardDTO();
-			
+		
 			for(int i = 0; i < selectSecretList.size(); i++) {
 				
 				midlePanel.setLayout(null);
@@ -197,7 +197,7 @@ public class SecrectBoardList extends JFrame{
 				
 				
 				ImageIcon edit = new ImageIcon("image/edit.PNG");
-			    JButton editButton = new JButton(boardDTO.getTitle());
+			    JButton editButton = new JButton(edit);
 			    editButton.setBackground(Color.pink);
 			    editButton.setBorder(pinkborder);
 			    editButton.setBounds(530,28,50,40);

@@ -98,7 +98,7 @@ public class FriendBoardList extends JFrame{
 			//전체글 리스트 
 			JPanel allList = null;
 			TunaController tunaController = new TunaController();
-			int userNo =3;
+			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 		    List<BoardDTO> list = tunaController.selectFriendBoard(userNo);
 			
 			for(int i = 0; i <list.size(); i++) {
