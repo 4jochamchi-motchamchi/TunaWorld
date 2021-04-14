@@ -362,46 +362,46 @@ public class BulletinLayout extends JFrame{
 					}
 				});
 				
-				// 댓글입력 버튼 눌렀을 때
-				inputButton.addActionListener(new ActionListener() {					
+			}
+			// 댓글입력 버튼 눌렀을 때
+			inputButton.addActionListener(new ActionListener() {					
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					CommentDTO comment = new CommentDTO();
 					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						CommentDTO comment = new CommentDTO();
+					if(e.getSource() == inputButton) {
 						
-						if(e.getSource() == inputButton) {
-									
-							// getText() : JTextField에서 입력한 값을 가져오는 메소드
-							String text = writeComment.getText();
+						// getText() : JTextField에서 입력한 값을 가져오는 메소드
+						String text = writeComment.getText();
+						
+						int result = 0;
+						
+						comment.setBoardNo(boardNumber);
+						comment.setCommentContent(text);
+						comment.setUserNo(userNo);
+						
+						result = tunaController.insertComment(comment);
+						
+						
+						if(result >0) {
+							System.out.println("댓글 등록 성공");
 							
-							int result = 0;
+							// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
+							new BulletinLayout(boradNo);
+							dispose();				
 							
-							comment.setBoardNo(boardNumber);
-							comment.setCommentContent(text);
-							comment.setUserNo(userNo);
-									
-							result = tunaController.insertComment(comment);
-
 							
-							if(result >0) {
-								System.out.println("댓글 등록 성공");
-								
-								// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
-								new BulletinLayout(boradNo);
-								dispose();				
-
-								
-							} else {
-								System.out.println("댓글 등록 실패");
-							}
-
-							writeComment.requestFocus();
-							
+						} else {
+							System.out.println("댓글 등록 실패");
 						}
 						
+						writeComment.requestFocus();
+						
 					}
-				});
-			}
+					
+				}
+			});
 			
 			
 			// 뒤로가기 버튼 눌렀을 때
