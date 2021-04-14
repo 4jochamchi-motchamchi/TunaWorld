@@ -125,7 +125,7 @@ public class MyBoardList extends JFrame{
 			    JButton title = new JButton(boardDTO.getTitle());
 				title.setBounds(50, 20, 450, 50);
 				title.setLayout(null);
-				title.setFont(new Font(null,Font.ITALIC,15));
+				title.setFont(new Font("휴먼둥근헤드라인" ,Font.ITALIC, 20));
 				title.setBorder(pinkborder);
 				title.setBackground(Color.pink);
 				title.setHorizontalAlignment(SwingConstants.LEFT);
@@ -147,7 +147,7 @@ public class MyBoardList extends JFrame{
 				});
 			    
 			    ImageIcon edit = new ImageIcon("image/edit.PNG");
-			    JButton editButton = new JButton(boardDTO.getTitle());
+			    JButton editButton = new JButton(edit);
 			    editButton.setBackground(Color.pink);
 			    editButton.setBorder(pinkborder);
 			    editButton.setBounds(530,28,50,40);
@@ -173,16 +173,32 @@ public class MyBoardList extends JFrame{
 				deleteButton.setBackground(Color.pink);
 				deleteButton.setBorder(pinkborder);
 				deleteButton.setBounds(580,28,50,40);
-			
 				deleteButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-								
+									
 					if(e.getSource() == deleteButton) {
-						JOptionPane.showMessageDialog(null,"삭제하시겠습까?");	
-					}				
-				}
-			});
+							
+			
+						// 삭제 버튼 눌렀을 떄
+						int answer = JOptionPane.showConfirmDialog(null, "삭제하시겠습까?", "삭제",0);
+							
+						if(answer == JOptionPane.YES_OPTION){
+						//사용자가 yes를 눌렀을 떄
+						JOptionPane.showMessageDialog(null, "삭제되었습니다.", "삭제",1);
+						boardDTO.setUserNo(userNo);
+						boardDTO.setTitle(boardDTO.getTitle());
+						System.out.println(boardDTO.getTitle());
+						int result = tunaController.deleteSecretBoard(boardDTO);
+								
+						new SecrectBoardList();
+							dispose();	
+								
+							}
+							
+						}				
+					}
+				});
 				
 				allList.add(editButton);
 			    allList.add(deleteButton);

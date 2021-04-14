@@ -95,7 +95,7 @@ public class BoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//전체게시글 글씨
-			JLabel lbl = new JLabel("전체게시글");
+			JLabel lbl = new JLabel(" 전 체 게 시 글 ");
 			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
 			lbl.setHorizontalAlignment(JLabel.CENTER);
 			lbl.setBounds(100, 40, 500, 50);
@@ -125,9 +125,11 @@ public class BoardList extends JFrame{
 				JLabel subject = new JLabel(underline);
 				subject.setLayout(null);
 				subject.setBounds(40, 30, 600, 80);
+				
 		
 				BoardDTO boardDTO = list.get(i);
 				JButton title = new JButton(boardDTO.getTitle());
+				title.setFont(new Font("휴먼둥근헤드라인" ,Font.ITALIC, 20));
 				title.setBounds(50, 40, 450, 30);
 				title.setLayout(null);
 				title.setBackground(Color.pink);
@@ -142,7 +144,7 @@ public class BoardList extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 									
 						if(e.getSource() == title) {
-							
+						
 							new BulletinLayout(boardDTO.getBoardNo());
 							dispose();
 							
