@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tuna.can.model.dao.BoardDao;
+
 import com.tuna.can.model.dao.TunaDAO;
 import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BoardDTO;
@@ -540,6 +540,28 @@ public class TunaService {
 		}
 		
 		return friendNo;
+	}
+
+	public int updatetBoard(BoardDTO board) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		int insertResult = tunaDAO.updatetBoard(con, board);
+		int insertContentNo = tunaDAO.selectLastContentNo(con);
+		
+		BoardDTO boardDTO =new BoardDTO();
+		boardDTO.setBoardNo(insertContentNo);
+		
+		if(insertResult > 0){
+			commit(con);
+			result =1;
+		} else {
+
+			rollback(con);
+		}
+		
+		return result;
+		
 	}
 
 }

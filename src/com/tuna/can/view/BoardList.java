@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
-import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.FriendDTO;
 

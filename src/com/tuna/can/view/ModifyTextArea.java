@@ -236,13 +236,13 @@ public class ModifyTextArea extends JFrame{
 
 
 					int result = 0;
-					Map<String, Object> newInputContent = new HashMap<String, Object>();
+					Map<String, Object> updateInputContent = new HashMap<String, Object>();
 
-					newInputContent.put("listNo", Integer.parseInt(jListNo.getText()));
-					newInputContent.put("title", subject.getText());
-					newInputContent.put("content", txt.getText());
-					newInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
-					result = tunaController.insertBoard(newInputContent);
+					updateInputContent.put("listNo", Integer.parseInt(jListNo.getText()));
+					updateInputContent.put("title", subject.getText());
+					updateInputContent.put("content", txt.getText());
+					updateInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
+					result = tunaController.updateBoard(updateInputContent);
 
 
 					//						int result =controller.insertBoard(board);

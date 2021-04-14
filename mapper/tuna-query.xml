@@ -350,25 +350,8 @@ VALUES
 		, ?
 		)
 	</entry>
-	<entry key="insertBoard">
-		INSERT
-		INTO BOARD_LIST
-		(
-		BOARD_NO
-		, LIST_NO
-		, TITLE
-		, BOARD_CONTENTS
-		, ENROLLDATE
-		)
-		VALUES
-		(
-		SEQ_BOARD_LIST.NEXTVAL
-		, ?
-		, ?
-		, ?
-		, ?
-		)
-	</entry>
+
+
 	<entry key="selectStoreItem">
 		SELECT
 		*
@@ -412,13 +395,32 @@ VALUES
            AND LIST_NO = 3
     </entry>
     <entry key="modifyScreteBoard">
-          SELECT
+       SELECT
 		      TITLE
 		    , BOARD_CONTENTS
 		    , LIST_NO
 		    , USER_NO
-		    FROM BOARD_LIST 
-		    WHERE BOARD_NO = ?
+		 FROM BOARD_LIST 
+		WHERE BOARD_NO = ?
             
+    </entry>
+    <entry key="updateBoard">
+        UPDATE BOARD_LIST
+           SET
+               TITLE
+             , BOARD_CONTENTS
+             , USER_NO
+             , LIST_NO
+             , ENROLLDATE
+             )
+              VALUES
+             ( 
+                ?
+              , ? 
+              , ?
+              , ?
+              , DEFAULT
+              )
+    
     </entry>
 </properties>
