@@ -497,12 +497,17 @@ public class TunaController {
 
 			result = service.updateUserInventory(userInven);
 
-			coin = user.getCoin() - item.getItemPrice();
-			coinUpdateResult = service.updateCoin(user.getUserNo(), coin);
 
-			System.out.println(result + "Result");
-			System.out.println(coinUpdateResult + "coinUpdateResult");
+//			System.out.println(result + "Result");
+//			System.out.println(coinUpdateResult + "coinUpdateResult");
 		}
+		
+		if(result == 1) {
+			coin = (user.getCoin() - item.getItemPrice());
+			coinUpdateResult = service.updateCoin(user.getUserNo(), coin);
+		}
+		
+		
 
 		resultMap.put("invenUpdateresult", result);
 		resultMap.put("coinUpdateResult", coinUpdateResult);

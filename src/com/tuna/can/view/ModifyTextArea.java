@@ -172,18 +172,12 @@ public class ModifyTextArea extends JFrame{
 		
 		}
 		
-		
-
-
 
 		
 		JLabel jListNo = new JLabel();
 		
 		jListNo.setVisible(false);
 		
-
-
-
 
 		
 		
