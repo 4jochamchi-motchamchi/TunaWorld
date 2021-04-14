@@ -41,6 +41,23 @@
 		WHERE USER_NO = ?
 		AND ITEM_NO = ?
 	</entry>
+	<entry key="insertComment">
+      INSERT
+      INTO COMMENT_BOARD
+      (
+      COMMENT_NO
+      , BOARD_NO
+      , COMMENT_CONTENT
+      , USER_NO
+      )
+      VALUES
+      (
+      SQU_COMMENT.NEXTVAL
+      , ?
+      , ?
+      , ?
+      )
+   </entry>
 	<entry key="login_check">
 		SELECT
 			   *
