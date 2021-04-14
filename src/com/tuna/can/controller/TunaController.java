@@ -128,7 +128,6 @@ public class TunaController {
 		equipItemList.add(equItem1);
 		equipItemList.add(equItem2);
 		equipItemList.add(equItem3);
-		System.out.println(equipItemList);
 
 		itemMap.put(1, category1Item);
 		itemMap.put(2, category2Item);
@@ -263,6 +262,7 @@ public class TunaController {
 		if(check == 0) {
 			inventory.setEquipItemYN("Y");
 			result = service.updateItemEquipYn(inventory);
+			
 			if(result > 0) {
 				resultComent = "장착성공";
 			}

@@ -62,8 +62,8 @@ public class InventoryButtonController extends JButton{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TunaController controller = new TunaController();
-				System.out.println(inventory);
-				System.out.println(inventory.getEquipItemYN() + "체크체크 제발체크");
+//				System.out.println(inventory);
+//				System.out.println(inventory.getEquipItemYN() + "체크체크 제발체크");
 				String resultComent = "";
 //				if(inventory.getEquipItemYN().equals("Y")) {
 //					
