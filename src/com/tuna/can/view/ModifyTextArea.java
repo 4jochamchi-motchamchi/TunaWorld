@@ -45,10 +45,11 @@ public class ModifyTextArea extends JFrame{
 	public ModifyTextArea(int boardNo) {
 		super("수정하기");
 
+		
 		int boardNum = boardNo;
 		//int userNo = 1;
 
-		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
+		//int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
 		//게시글 DTO
 		BoardDTO board = new BoardDTO();
 		board = tunaController.modifySecretBoard(boardNum);
@@ -91,8 +92,8 @@ public class ModifyTextArea extends JFrame{
 
 
 		//글쓰기 	글씨
-		JLabel lbl = new JLabel(" 수 정 하 기  ");
-		lbl.setBounds(230, 40, 300, 50);
+		JLabel lbl = new JLabel(" 내 글 수 정  ");
+		lbl.setBounds(220, 40, 300, 50);
 		lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
 		topPanel.add(lbl);
 

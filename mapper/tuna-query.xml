@@ -397,6 +397,7 @@ VALUES
     <entry key= "selectMyBoard">
     SELECT
            TITLE
+         , BOARD_NO  
       FROM BOARD_LIST
      WHERE USER_NO = ?
        
@@ -405,6 +406,7 @@ VALUES
     <entry key="selectFriendBoard">
         SELECT
                TITLE
+             , BOARD_NO 
           FROM BOARD_LIST
          WHERE USER_NO = ?
            AND LIST_NO = 3

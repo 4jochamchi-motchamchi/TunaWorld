@@ -39,8 +39,8 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-//		int userNo = 1;
-		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+     	//	int userNo = 1;
+		//int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);
@@ -101,13 +101,13 @@ public class SecrectBoardList extends JFrame{
 			
 		    
 			//전체글 리스트 
+			BoardDTO board = new BoardDTO();
+			int userNo = board.getUserNo();
+			
 			JPanel allList = null;
 			List<BoardDTO> selectSecretList = tunaController.selectSecretBoard(userNo);
 			
-			
-			
-			BoardDTO board = new BoardDTO();
-			
+		
 			for(int i = 0; i < selectSecretList.size(); i++) {
 				
 				midlePanel.setLayout(null);
