@@ -4,6 +4,7 @@ public class AddFriendDTO {
 
 	private int userNo;
 	private int requsetFriendNo;
+	private String requestFriendNickName;
 	
 	
 	public AddFriendDTO() {
@@ -11,10 +12,21 @@ public class AddFriendDTO {
 	}
 
 
-	public AddFriendDTO(int userNo, int requsetFriendNo) {
+	public AddFriendDTO(int userNo, int requsetFriendNo ,String requestFriendNickName) {
 		super();
 		this.userNo = userNo;
 		this.requsetFriendNo = requsetFriendNo;
+		this.requestFriendNickName = requestFriendNickName;
+	}
+
+
+	public String getRequestFriendNickName() {
+		return requestFriendNickName;
+	}
+
+
+	public void setRequestFriendNickName(String requestFriendNickName) {
+		this.requestFriendNickName = requestFriendNickName;
 	}
 
 

@@ -98,12 +98,10 @@ public class MiniGame extends JFrame implements ActionListener{
 						if(result == JOptionPane.YES_OPTION) {
 								            
 							
-							TunaService ts = new TunaService();		
+								
 							TunaController tunaController = new TunaController();
-							int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
-							UserDTO userdto = new UserDTO();
-							userdto.setUserNo(userNo);
-							tunaController.updateCoin(userdto);
+							
+							tunaController.updateCoin(tunaController.loginMember.getUserNo(), tunaController.loginMember.getCoin());
 							new Main_page();
 							oldFrame.dispose();
 							
