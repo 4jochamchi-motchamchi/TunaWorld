@@ -131,6 +131,7 @@ public class SecrectBoardList extends JFrame{
 				title.setBounds(50, 40, 450, 30);
 				title.setBackground(Color.pink);
 				title.setBorder(pinkborder);
+				title.setFont(new Font("휴먼둥근헤드라인" ,Font.ITALIC, 20));
 				title.setHorizontalAlignment(SwingConstants.LEFT);
 				
 				// 게시글제목 눌렀을 때 게시글 내용으로 들어가기
@@ -157,29 +158,7 @@ public class SecrectBoardList extends JFrame{
 				
 				
 				
-				ImageIcon edit = new ImageIcon("image/edit.PNG");
-			    JButton editButton = new JButton(boardDTO.getTitle());
-			    editButton.setBackground(Color.pink);
-			    editButton.setBorder(pinkborder);
-			    editButton.setBounds(530,28,50,40);
-//
-//			    editButton.addActionListener(new ActionListener() {
-//							
-//			    @Override
-//				public void actionPerformed(ActionEvent e) {
-//											
-//				if(e.getSource() == editButton) {
-//									
-//				new ModifyTextArea(boardDTO.getBoardNo());
-//					dispose();
-//			
-//								}
-//								
-//								}				
-//							
-//						});
-//								
-//							}
+
 							
 							
 				
@@ -216,6 +195,30 @@ public class SecrectBoardList extends JFrame{
 				}
 			});
 				
+				
+				ImageIcon edit = new ImageIcon("image/edit.PNG");
+			    JButton editButton = new JButton(boardDTO.getTitle());
+			    editButton.setBackground(Color.pink);
+			    editButton.setBorder(pinkborder);
+			    editButton.setBounds(530,28,50,40);
+
+			    editButton.addActionListener(new ActionListener() {
+							
+			    @Override
+				public void actionPerformed(ActionEvent e) {
+											
+				if(e.getSource() == editButton) {
+									
+				new ModifyTextArea(boardDTO.getBoardNo());
+					dispose();
+			
+								     }
+								
+								}				
+							
+						});
+								
+							
 				allList.add(editButton);
 			    allList.add(deleteButton);
 

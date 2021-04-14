@@ -1,5 +1,6 @@
 package com.tuna.can.view;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -82,8 +83,11 @@ public class Text_Area extends JFrame{
 
 		//글쓰기 	글씨
 		JLabel lbl = new JLabel(" 글쓰기 ");
-		lbl.setBounds(350, 40, 150, 50);
+		lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
+		lbl.setHorizontalAlignment(JLabel.CENTER);
+		lbl.setBounds(100, 40, 500, 50);
 		topPanel.add(lbl);
+		
 
 		// 뒤로가기 버튼
 		ImageIcon home = new ImageIcon("image/home.PNG");
@@ -108,6 +112,8 @@ public class Text_Area extends JFrame{
 	    //제목
 		JLabel titleT = new JLabel("제목");
         titleT.setBounds(50,10,90,25);
+        titleT.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 20));
+		lbl.setHorizontalAlignment(JLabel.CENTER);
         TextField subject = new TextField(80);
         subject.setBounds(140,10, 500 ,25);
         String sub = subject.getText();
@@ -162,7 +168,7 @@ public class Text_Area extends JFrame{
 	    });
 	    	
 	    
-	    myself.setBounds(140, 0, 100, 50);
+	    myself.setBounds(150, 0, 90, 50);
 	    myself.addActionListener(new ActionListener() {
 			
 			@Override
@@ -185,9 +191,9 @@ public class Text_Area extends JFrame{
 
 	    range.add(all);
 	    int listno =0;
-	    all.setBounds(50, 0, 100, 50);
-	    myself.setBounds(150, 0, 100,50);
-	    friend.setBounds(250, 0, 100, 50);
+	    all.setBounds(40, 0, 100, 50);
+	    myself.setBounds(140, 0, 100,50);
+	    friend.setBounds(240, 0, 100, 50);
 
 	   
 	       
