@@ -436,7 +436,7 @@ public class TunaDAO {
 			
 			try {
 				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, userNo);
+//				pstmt.setInt(1, userNo);
 
 				rset = pstmt.executeQuery();
 

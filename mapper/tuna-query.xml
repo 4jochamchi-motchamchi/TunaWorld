@@ -355,8 +355,7 @@
 		TITLE
 		, BOARD_NO
 		FROM BOARD_LIST
-		WHERE USER_NO =?
-		AND LIST_NO = 1
+		WHERE LIST_NO = 1
 	</entry>
 	<entry key="selectMyBoard">
 		SELECT
