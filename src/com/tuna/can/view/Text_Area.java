@@ -107,7 +107,7 @@ public class Text_Area extends JFrame{
 		backB.setBounds(30, 30, 55, 55);
 		topPanel.add(backB);
 		
-		Scanner sc = new Scanner(System.in);
+//		Scanner sc = new Scanner(System.in);
 		BoardDTO b = new BoardDTO();
 	    //제목
 		JLabel titleT = new JLabel("제목");
@@ -116,7 +116,7 @@ public class Text_Area extends JFrame{
 		lbl.setHorizontalAlignment(JLabel.CENTER);
         TextField subject = new TextField(80);
         subject.setBounds(140,10, 500 ,25);
-        String sub = subject.getText();
+//        String sub = subject.getText();
         
  
         
