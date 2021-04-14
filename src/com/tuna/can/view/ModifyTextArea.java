@@ -45,6 +45,7 @@ public class ModifyTextArea extends JFrame{
 	public ModifyTextArea(int boardNo) {
 		super("수정하기");
 
+		
 		int boardNum = boardNo;
 		//int userNo = 1;
 
@@ -91,8 +92,8 @@ public class ModifyTextArea extends JFrame{
 
 
 		//글쓰기 	글씨
-		JLabel lbl = new JLabel(" 수 정 하 기  ");
-		lbl.setBounds(230, 40, 300, 50);
+		JLabel lbl = new JLabel(" 내 글 수 정  ");
+		lbl.setBounds(220, 40, 300, 50);
 		lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
 		topPanel.add(lbl);
 
@@ -156,9 +157,9 @@ public class ModifyTextArea extends JFrame{
 
 
 		//공개범위 라디오 버튼
-		JRadioButton myself = new JRadioButton("나만");
-		JRadioButton friend= new JRadioButton("친구들");
-		JRadioButton all = new JRadioButton("전체공개");
+		JRadioButton myself = new JRadioButton("비밀게시글");
+		JRadioButton friend= new JRadioButton("친구게시글");
+		JRadioButton all = new JRadioButton("전체게시글");
 
 		ButtonGroup range =new ButtonGroup();
 		range.add(myself);
@@ -166,7 +167,7 @@ public class ModifyTextArea extends JFrame{
 		range.add(all);
 		JLabel jListNo = new JLabel();
 		jListNo.setVisible(false);
-		all.setBounds(40, 0, 80,50);
+		all.setBounds(40, 0, 100,50);
 		all.addActionListener(new ActionListener() {
 
 			@Override
@@ -178,7 +179,7 @@ public class ModifyTextArea extends JFrame{
 		});
 
 
-		myself.setBounds(140, 0, 50, 50);
+		myself.setBounds(150, 0, 90, 50);
 		myself.addActionListener(new ActionListener() {
 
 			@Override
@@ -188,7 +189,7 @@ public class ModifyTextArea extends JFrame{
 				jListNo.setText(listno.toString());				
 			}
 		});
-		friend.setBounds(200, 0, 100, 50);
+		friend.setBounds(240, 0, 100, 50);
 		friend.addActionListener(new ActionListener() {
 
 			@Override
@@ -201,9 +202,9 @@ public class ModifyTextArea extends JFrame{
 
 		range.add(all);
 		int listno =0;
-		all.setBounds(50, 0, 80, 50);
-		myself.setBounds(140, 0, 50,50);
-		friend.setBounds(200, 0, 100, 50);
+		all.setBounds(40, 0, 100, 50);
+		myself.setBounds(140, 0, 100,50);
+		friend.setBounds(240, 0, 100, 50);
 
 
 
@@ -235,13 +236,13 @@ public class ModifyTextArea extends JFrame{
 
 
 					int result = 0;
-					Map<String, Object> newInputContent = new HashMap<String, Object>();
+					Map<String, Object> updateInputContent = new HashMap<String, Object>();
 
-					newInputContent.put("listNo", Integer.parseInt(jListNo.getText()));
-					newInputContent.put("title", subject.getText());
-					newInputContent.put("content", txt.getText());
-					newInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
-					result = tunaController.insertBoard(newInputContent);
+					updateInputContent.put("listNo", Integer.parseInt(jListNo.getText()));
+					updateInputContent.put("title", subject.getText());
+					updateInputContent.put("content", txt.getText());
+					updateInputContent.put("userNo", tunaController.checkUserNo(tunaController.loginMemberId));
+					result = tunaController.updateBoard(updateInputContent);
 
 
 					//						int result =controller.insertBoard(board);

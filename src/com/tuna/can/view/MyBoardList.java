@@ -98,7 +98,7 @@ public class MyBoardList extends JFrame{
 			//전체글 리스트 
 			JPanel allList = null;
 			TunaController tunaController = new TunaController();
-			int userNo =1;
+			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 		    List<BoardDTO> selectMyBoard= tunaController.selectMyBoard(userNo);
 			
 			for(int i = 0; i < selectMyBoard.size(); i++) {
@@ -191,7 +191,7 @@ public class MyBoardList extends JFrame{
 						System.out.println(boardDTO.getTitle());
 						int result = tunaController.deleteSecretBoard(boardDTO);
 								
-						new SecrectBoardList();
+						new MyBoardList();
 							dispose();	
 								
 							}

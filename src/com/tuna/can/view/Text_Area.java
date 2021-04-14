@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.Date;    // gjr
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -200,7 +199,9 @@ public class Text_Area extends JFrame{
 	    friend.setBackground(Color.pink);
 	    all.setBackground(Color.pink);
 	    
-//	    int userNo =2;
+
+	    int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
+
 	
         //저장버튼
 	    ImageIcon save = new ImageIcon("image/save.PNG");
