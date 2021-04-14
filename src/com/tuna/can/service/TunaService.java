@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.tuna.can.model.dao.TunaDAO;
 import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BoardDTO;
@@ -158,12 +157,12 @@ public class TunaService {
 	 * @param userInfor
 	 * @return
 	 */
-	public int updateCoinHB(int userInfor, int coin) {
+	public int updateCoinHB(int userNo ,int coin) {
 
 		int userCoin = 0;
 		Connection con = getConnection();
 		
-		userCoin = tunaDAO.updateUserCoin(con, userInfor, coin);
+		userCoin = tunaDAO.updateUserCoin(con, userNo, coin);
 
 		if (userCoin > 0) {
 			commit(con);
@@ -508,7 +507,7 @@ public class TunaService {
 		
 		boardDTO = tunaDAO.modifySecretBoard(con, boardNo);
 			
-		
+		close(con);
 		
 		return boardDTO;
 	}
@@ -542,26 +541,34 @@ public class TunaService {
 		return friendNo;
 	}
 
+
+	public AddFriendDTO selectFriendNickName(int userNo) {
+		Connection con = getConnection();
+		
+		AddFriendDTO ad = new AddFriendDTO();
+		
+		ad = tunaDAO.selectRequestFriendNickName(con, userNo);
+		
+		return ad;
+	}
+
 	public int updatetBoard(BoardDTO board) {
 		Connection con = getConnection();
 		
 		int result = 0;
-		int insertResult = tunaDAO.updatetBoard(con, board);
-		int insertContentNo = tunaDAO.selectLastContentNo(con);
 		
-		BoardDTO boardDTO =new BoardDTO();
-		boardDTO.setBoardNo(insertContentNo);
+		result = tunaDAO.updatetBoard(con, board);
+//		int insertContentNo = tunaDAO.selectLastContentNo(con);
 		
-		if(insertResult > 0){
+		
+		if(result > 0){
 			commit(con);
-			result =1;
-		} else {
-
-			rollback(con);
-		}
+			close(con);
+		} 
 		
 		return result;
 		
+
 	}
 
 }

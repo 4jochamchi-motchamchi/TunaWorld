@@ -40,8 +40,8 @@ public class BoardList extends JFrame{
 		
 
 		TunaController tunaController = new TunaController();
-			int userNo =1;
-//			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
+			//int userNo =1;
+			int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 			
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
 			this.setLayout(null);

@@ -31,6 +31,7 @@ import javax.swing.border.Border;
 
 import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.UserDTO;
+import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.controller.Test;
 
 
@@ -184,6 +185,8 @@ public class Login_page extends JFrame{
 
 						if(result>0) {
 							JOptionPane.showConfirmDialog(null, "로그인에 성공하셨습니다.", "로그인 성공", -1);
+
+							new MyPage().frame.dispose();
 							new Main_page();
 							dispose();
 
@@ -196,6 +199,7 @@ public class Login_page extends JFrame{
 		});
 
 		loginBtn.addActionListener(new ActionListener() {
+
 
 
 			@Override
@@ -254,6 +258,8 @@ public class Login_page extends JFrame{
 
 
 	}
+
+
 
 	public static void main(String[] args) {
 

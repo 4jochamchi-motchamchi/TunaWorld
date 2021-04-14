@@ -242,7 +242,6 @@ public class BulletinLayout extends JFrame{
 			
 			
 			
-			
 			// writePanel 설정값
 			writePanel.setLayout(null);
 			writePanel.setLocation(0, 750);
@@ -282,7 +281,6 @@ public class BulletinLayout extends JFrame{
 			// LIST_NO 가 2 일때 비밀 게시글이므로 댓글 입력 불가, 친구추가버튼 X
 			if(board.getListNo() == 2) {
 				
-			
 			writeComment.setEnabled(false);
 			writeComment.setText(" 비밀글에는 댓글 입력이 불가능합니다.");
 			inputButton.setEnabled(false);
@@ -291,6 +289,7 @@ public class BulletinLayout extends JFrame{
 							
 			} else if(board.getUserNo() == userNo) {
 				// 내 게시글일 때 친구추가 불가
+				System.out.println(2);
 				plusFriend.addActionListener(new ActionListener() {
 					
 					@Override
@@ -307,7 +306,7 @@ public class BulletinLayout extends JFrame{
 				
 				
 			} else {
-				
+				System.out.println(3);
 				
 				// 친구추가 버튼 눌렀을 때
 				plusFriend.addActionListener(new ActionListener() {
@@ -363,15 +362,16 @@ public class BulletinLayout extends JFrame{
 				});
 				
 			}
+			
 			// 댓글입력 버튼 눌렀을 때
-			inputButton.addActionListener(new ActionListener() {					
+			inputButton.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					CommentDTO comment = new CommentDTO();
 					
 					if(e.getSource() == inputButton) {
-						
+								
 						// getText() : JTextField에서 입력한 값을 가져오는 메소드
 						String text = writeComment.getText();
 						
@@ -380,7 +380,7 @@ public class BulletinLayout extends JFrame{
 						comment.setBoardNo(boardNumber);
 						comment.setCommentContent(text);
 						comment.setUserNo(userNo);
-						
+								
 						result = tunaController.insertComment(comment);
 						
 						
@@ -390,19 +390,18 @@ public class BulletinLayout extends JFrame{
 							// 댓글 추가 후 Insert시 반영하기 위해 refresh작업
 							new BulletinLayout(boradNo);
 							dispose();				
-							
+
 							
 						} else {
 							System.out.println("댓글 등록 실패");
 						}
-						
+
 						writeComment.requestFocus();
-						
+				
 					}
 					
 				}
 			});
-			
 			
 			// 뒤로가기 버튼 눌렀을 때
 			backButton.addActionListener(new ActionListener() {
@@ -417,7 +416,8 @@ public class BulletinLayout extends JFrame{
 				}
 			});
 	
-				
+			
+			
 				
 			
 			
