@@ -43,9 +43,9 @@ public class BulletinLayout extends JFrame{
 	
 	public BulletinLayout(int boradNo) {
 		super("게시글 보기");
-//		public static void main(String[] args) 
 		
 		TunaController tunaController = new TunaController();
+		
 		
 		
 		// 게시글 번호
@@ -69,6 +69,8 @@ public class BulletinLayout extends JFrame{
 			Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);	
 			Border whiteborder = BorderFactory.createLineBorder(Color.white, 1);	
 			Border lightgrayborder = BorderFactory.createLineBorder(Color.lightGray, 1);	
+			Border bbb = BorderFactory.createLineBorder(MyPage.backgroundColor, 2);	
+			
 			
 			ImageIcon home = new ImageIcon("image/home.PNG");
 			
@@ -137,17 +139,38 @@ public class BulletinLayout extends JFrame{
 			bulletinPanel.add(nickName);
 			
 			
-			// 게시글 설정
-			JPanel bulletinLabel = new JPanel();
-			bulletinLabel.setLocation(50, 60);
-			bulletinLabel.setSize(600, 350);
-			bulletinLabel.setBackground(Color.white);
-			bulletinLabel.setBorder(border2);
-			bulletinPanel.add(bulletinLabel);
+//			JPanel bulletinLabel = new JPanel();
+//			bulletinLabel.setLocation(50, 60);
+//			bulletinLabel.setSize(600, 350);
+//			if(MyPage.backgroundColor == null) {
+//				bulletinLabel.setBackground(Color.white);
+//			} else {
+//				bulletinLabel.setBackground(MyPage.backgroundColor);
+//				bulletinLabel.setBorder(bbb);
+//			}
+//			if(MyPage.font == null) {
+//			} else {
+//				bulletinLabel.setFont(MyPage.font);
+//			}
+//			bulletinLabel.setBorder(border2);
+//			bulletinPanel.add(bulletinLabel);
+			
+			
+			
 
-		    bulletin.setLocation(60, 70);
-		    bulletin.setSize(580, 330);
-		    bulletin.setBackground(Color.white);
+			// 게시글 설정
+		    bulletin.setLocation(50, 60);
+		    bulletin.setSize(600, 350);
+		    if(MyPage.backgroundColor == null) {
+		    	bulletin.setBackground(Color.white);
+			} else {
+				bulletin.setBackground(MyPage.backgroundColor);
+				bulletin.setBorder(bbb);
+			}
+		    if(MyPage.font == null) {
+			} else {
+				bulletin.setFont(MyPage.font);
+			}
 		    bulletinPanel.add(bulletin);
 		    
 	        JScrollPane scrollPane = new JScrollPane(bulletin);
@@ -338,9 +361,7 @@ public class BulletinLayout extends JFrame{
 					}
 				});
 				
-				
 			}
-			
 			
 			// 댓글입력 버튼 눌렀을 때
 			inputButton.addActionListener(new ActionListener() {

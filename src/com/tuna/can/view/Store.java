@@ -81,7 +81,7 @@ public class Store{
 //			코인 넣자
 			int coin = 0;
 //			coin = controller.selectUSerCoin(controller.loginMember.getUserNo());
-			coin = controller.selectUSerCoin(1);
+			coin = controller.selectUSerCoin(controller.loginMember.getUserNo());
 			JLabel coinLabel = new JLabel();
 			coinLabel.setBounds(565, 55, 100, 30);
 			coinLabel.setText("보유 코인 " + coin);

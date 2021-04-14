@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.tuna.can.model.dao.BoardDao;
 import com.tuna.can.model.dto.AddFriendDTO;
 import com.tuna.can.model.dto.BoardDTO;
 import com.tuna.can.model.dto.BulletinDTO;
@@ -37,7 +36,7 @@ public class TunaController {
 	 * @param newMemberInfo
 	 * @return
 	 */
-
+	
 	public int registUser(Map<String, Object> newMemberInfo) {
 
 		UserDTO userList = new UserDTO();
@@ -128,7 +127,6 @@ public class TunaController {
 		equipItemList.add(equItem1);
 		equipItemList.add(equItem2);
 		equipItemList.add(equItem3);
-		System.out.println(equipItemList);
 
 		itemMap.put(1, category1Item);
 		itemMap.put(2, category2Item);
@@ -220,7 +218,8 @@ public class TunaController {
 
 		int category = inventory.getItemCategory();
 		int result = 0;
-		boolean check = true;
+		int check = 0;
+		boolean sameCheck = false;
 		List<String> equipYNList = new ArrayList<String>();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
@@ -231,57 +230,103 @@ public class TunaController {
 
 //		장착여부 긁어옴
 		invenButtonInfo = service.selectUserInventory(inventory.getUserNo());
-
-//		Y로 업데이트 하려할 때 실행
-//		이미 장착된 아이템이 있으면 장착이 되면 안된다. 
-//		Y가 있는지 조회
-		if (inventory.getEquipItemYN().equals("Y")) {
-
-			for (int i = 0; i < invenButtonInfo.size(); i++) {
-
-//				같은 카테고리 내에 이미 장착된 아이템이 있는지 확인, 
-				if (invenButtonInfo.get(i).getItemCategory() == inventory.getItemCategory()) {
-
-//					몇 번째 아이템이 장착되어 있는지 확인
-					if (invenButtonInfo.get(i).getEquipItemYN().equals("Y")) {
-
-//						하나의 아이템만 장착되야 하므로 false로 변경
-						check = false;
-						resultComent = "한개만장착가능";
-
-//						이미 장착된 아이템이 지금 장착하려는 아이템인지 확인
-						if (inventory.getItemNo() == invenButtonInfo.get(i).getItemNo()) {
-							resultComent = "이미장착";
-						}
-					}
-				}
-
-				if (check) {
-					result = service.updateItemEquipYn(inventory);
-//					현재 장착된 아이템이 없으므로 Y로 업데이트  
-					if (result > 0) {
-						resultComent = "장착성공";
-					} else {
-						resultComent = "장착실패";
-					}
+		
+//		장착하려는 아이템과 같은 카테고리의 아이템들만 equipCategory 에 저장
+		ArrayList<UserInventoryDTO> equipCategory = new ArrayList<UserInventoryDTO>();
+		for(int i = 0; i < invenButtonInfo.size(); i++) {
+			if(invenButtonInfo.get(i).getItemCategory() == category) {
+				equipCategory.add(invenButtonInfo.get(i));
+			}
+		}
+		
+		for(int i = 0; i < equipCategory.size(); i++) {
+//			장착한것이 하나라도 있을 경우 카운트로 변경
+			if(equipCategory.get(i).getEquipItemYN().equals("Y")) {
+				check++;
+				resultComent = "한개만장착가능";
+				
+//				작창하려는 아이템 번호가
+//				이미 장착중인 아이템 번호와 같을때
+				if(inventory.getItemNo() == equipCategory.get(i).getItemNo()) {
+					sameCheck = true;
 				}
 			}
 		}
-
-//		아이템 장착 해제 하려 할 때.
-		if (inventory.getEquipItemYN().equals("N")) {
-
+		
+//		if(sameCheck) {
+//			inventory.setEquipItemYN("N");
+//			result = service.updateItemEquipYn(inventory);
+//		}
+		
+		if(check == 0) {
+			inventory.setEquipItemYN("Y");
 			result = service.updateItemEquipYn(inventory);
-			if (result > 0) {
+			
+			if(result > 0) {
+				resultComent = "장착성공";
+			}
+			
+		} else if (sameCheck) {
+			inventory.setEquipItemYN("N");
+			result = service.updateItemEquipYn(inventory);
+			
+			if(result > 0) {
 				resultComent = "장착해제";
 			}
 		}
-
+		
+		
 		resultMap.put("result", resultComent);
 		resultMap.put("itemNo", inventory.getItemNo());
 		resultMap.put("itemImg", inventory.getItemImg());
-
+		
 		return resultMap;
+		
+//		아이템 장착 해제 하려 할 때.
+//		if (inventory.getEquipItemYN().equals("N")) {
+//			
+//			result = service.updateItemEquipYn(inventory);
+//			if (result > 0) {
+//				resultComent = "장착해제";
+//			}
+//		}
+		
+//		Y로 업데이트 하려할 때 실행
+//		이미 장착된 아이템이 있으면 장착이 되면 안된다. 
+//		Y가 있는지 조회
+//		if (inventory.getEquipItemYN().equals("N")) {
+//
+//			for (int i = 0; i < invenButtonInfo.size(); i++) {
+//
+////				같은 카테고리만 조회
+//				if (invenButtonInfo.get(i).getItemCategory() == inventory.getItemCategory()) {
+//
+////					장착되어 있는 아이템이 있는지 확인
+//					if (invenButtonInfo.get(i).getEquipItemYN().equals("Y")) {
+//
+////						하나의 아이템만 장착되야 하므로 false로 변경
+//						check = false;
+//						resultComent = "한개만장착가능";
+//
+////						이미 장착된 아이템이 지금 장착하려는 아이템인지 확인
+//						if (inventory.getItemNo() == invenButtonInfo.get(i).getItemNo()) {
+//							resultComent = "이미장착";
+//						}
+//					}
+//				}
+//
+//				if (check) {
+//					result = service.updateItemEquipYn(inventory);
+////					현재 장착된 아이템이 없으므로 Y로 업데이트  
+//					if (result > 0) {
+//						resultComent = "장착성공";
+//					} else {
+//						resultComent = "장착실패";
+//					}
+//				}
+//			}
+//		}
+
 	}
 
 	// 로그인 유저의 정보가 있는 지 확인하기 위한 select
@@ -495,25 +540,7 @@ public class TunaController {
 
 	}
 
-	// 새 게시물 등록용 메소드
-	public void insertBoardList(BoardDTO d) {
-		BoardDao bd = new BoardDao();
-		int boardNo = 0;
-		ArrayList<BoardDTO> list = bd.readBoardList();
-		if (list == null) {
-			list = new ArrayList<BoardDTO>();
-			boardNo++;
-		} else {
-			boardNo = list.get(list.size() - 1).getBoardNo() + 1;
-		}
 
-		d.setBoardNo(boardNo);
-
-		list.add(d);
-
-		int result = bd.writeBoardList(list);
-
-	}
 
 	// 비밀게시글 목록 불러오기
 	public List<BoardDTO> selectSecretBoard(int userNo) {
@@ -522,19 +549,20 @@ public class TunaController {
 		return secretlist;
 
 	}
-
+    //게시글 삭제하기
 	public int deleteSecretBoard(BoardDTO title) {
 
 		int result = 0;
-
+		
 		result = service.deleteSecretBoard(title);
-
+		
 		return result;
 	}
-
+	
 	// 전체게시물 목록 불러오기
 	public List<BoardDTO> selectallBoard(int userNo) {
-
+		
+		
 		List<BoardDTO> allBoard = service.selectAllBoard(userNo);
 		return allBoard;
 
@@ -552,14 +580,15 @@ public class TunaController {
 		return friendBoard;
 	}
 
-	// 수정하러 가는 글
-	public int modifySecretBoard(BoardDTO boardDTO) {
-		int result = 0;
-
-		result = service.modifySecretBoard(boardDTO);
-		return result;
-
+	//수정 할 게시물 불러오기
+	public BoardDTO modifySecretBoard(int boardNo) {
+		 
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO = service.modifySecretBoard(boardNo);
+		return boardDTO ;
+	
 	}
+
 	
 	public AddFriendDTO selectNickName(int userNo) {
 		
@@ -569,5 +598,21 @@ public class TunaController {
 		return af;
 	}
 
+     //
+	public int updateBoard(Map<String, Object> updateInputContent) {
+	
+			BoardDTO boardDTO = new BoardDTO();
 
+
+			boardDTO.setTitle(updateInputContent.get("title").toString());
+			boardDTO.setBoardContent(updateInputContent.get("content").toString());
+			boardDTO.setUserNo((Integer) updateInputContent.get("userNo"));
+			boardDTO.setListNo((Integer) (updateInputContent.get("listNo")));
+
+			int result = service.updatetBoard(boardDTO);
+
+		
+		return result;
+	}
+	
 }

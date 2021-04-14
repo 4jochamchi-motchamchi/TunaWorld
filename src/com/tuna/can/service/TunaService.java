@@ -499,17 +499,17 @@ public class TunaService {
 		return FriendBoard;
 	}
 
-	public int modifySecretBoard(BoardDTO boardDTO2) {
-		int result =0;
-        BoardDTO boardDTO= new BoardDTO();
+	public BoardDTO modifySecretBoard(int boardNo) {
+		
+        BoardDTO boardDTO = new BoardDTO();
 		
 		Connection con = getConnection();
 		
-		result = tunaDAO.modifySecretBoard(con, boardDTO2);
+		boardDTO = tunaDAO.modifySecretBoard(con, boardNo);
 			
 		
 		
-		return result;
+		return boardDTO;
 	}
 
 
@@ -541,6 +541,7 @@ public class TunaService {
 		return friendNo;
 	}
 
+
 	public AddFriendDTO selectFriendNickName(int userNo) {
 		Connection con = getConnection();
 		
@@ -549,6 +550,29 @@ public class TunaService {
 		ad = tunaDAO.selectRequestFriendNickName(con, userNo);
 		
 		return ad;
+	}
+
+	public int updatetBoard(BoardDTO board) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		int insertResult = tunaDAO.updatetBoard(con, board);
+		int insertContentNo = tunaDAO.selectLastContentNo(con);
+		
+		BoardDTO boardDTO =new BoardDTO();
+		boardDTO.setBoardNo(insertContentNo);
+		
+		if(insertResult > 0){
+			commit(con);
+			result =1;
+		} else {
+
+			rollback(con);
+		}
+		
+		return result;
+		
+
 	}
 
 }
