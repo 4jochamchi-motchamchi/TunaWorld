@@ -125,8 +125,8 @@ public class TunaDAO {
 
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 		return member;
 
@@ -164,6 +164,9 @@ public class TunaDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 
 		return invenButtonInfo;
@@ -195,8 +198,8 @@ public class TunaDAO {
 
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 
 		return coin;
@@ -262,7 +265,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-//			close(pstmt);
+			close(pstmt); /// 오류
 		}
 
 		return bulletinDTO;
@@ -298,7 +301,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-//			close(pstmt);
+			close(pstmt);
 		}
 
 		return commentList;
@@ -362,7 +365,6 @@ public class TunaDAO {
 			e.printStackTrace();
 
 		} finally {
-			close(pstmt);
 
 			close(rset);
 			close(pstmt);
@@ -419,6 +421,8 @@ public class TunaDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 
 		return result;
@@ -596,8 +600,8 @@ public class TunaDAO {
 
 			e.printStackTrace();
 		} finally {
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 
 		return equipYNList;
@@ -829,8 +833,8 @@ public class TunaDAO {
 			e.printStackTrace();
 		} finally {
 
-			close(pstmt);
 			close(rset);
+			close(pstmt);
 		}
 //		System.out.println("AddList : " +AddList);
 		return AddList;
@@ -998,7 +1002,7 @@ public class TunaDAO {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-
+			close(pstmt);
 		}
 		
 		
@@ -1108,8 +1112,8 @@ public class TunaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(pstmt1);
 			close(pstmt2);
+			close(pstmt1);
 		}
 		
 	
