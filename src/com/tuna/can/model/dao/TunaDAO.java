@@ -779,22 +779,39 @@ public class TunaDAO {
 
 
 	// 비밀게시글 삭제하기
-	public int deleteSecretBoard(Connection con, BoardDTO title) {
+	public int deleteAllBoard(Connection con, BoardDTO title) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
+		int result2 = 0;
+		PreparedStatement pstmt2 = null;
 		
-		String query = prop.getProperty("deleteSecretBoard");
-		
+		String query = prop.getProperty("deleteAllBoard");
+		String comentQuery = prop.getProperty("deleteComment");
 		try {
+			
+			pstmt2 = con.prepareStatement(comentQuery);
+			
+			pstmt2.setInt(1, title.getBoardNo());
+			result2 = pstmt2.executeUpdate();
+			if(result2 > 0) {
+				System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
+				con.commit();
+			}
 			
 			BoardDTO board = new BoardDTO();
 			
+			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, title.getTitle());
-			pstmt.setInt(2, title.getUserNo());
+			pstmt.setInt(2, title.getBoardNo());
 			
 			result = pstmt.executeUpdate();
+			
+			
+			
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1269,6 +1286,34 @@ public class TunaDAO {
 		return result;
 
 	}
+	
+	   // 비밀게시글 삭제하기
+	   public int deleteSecretBoard(Connection con, BoardDTO title) {
+	      
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      
+	      String query = prop.getProperty("deleteSecretBoard");
+	      
+	      try {
+	         
+	         BoardDTO board = new BoardDTO();
+	         
+	         pstmt = con.prepareStatement(query);
+	         pstmt.setString(1, title.getTitle());
+	         pstmt.setInt(2, title.getUserNo());
+	         
+	         result = pstmt.executeUpdate();
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(pstmt);
+	      }
+	      
+	      return result;
+	      
+	   }
 
 
 
