@@ -127,7 +127,6 @@ public class TunaController {
 		equipItemList.add(equItem1);
 		equipItemList.add(equItem2);
 		equipItemList.add(equItem3);
-		System.out.println(equipItemList);
 
 		itemMap.put(1, category1Item);
 		itemMap.put(2, category2Item);
@@ -147,11 +146,11 @@ public class TunaController {
 	}
 
 	// 받아온 코인 정보값에 코인갯수 업데이트
-	public int updateCoin(UserDTO userInfo) {
+	public int updateCoin(int userNo,int coin) {
 
 		int userCoin = 0;
 
-		userCoin = service.updateCoinHB(userInfo.getUserNo(), userInfo.getCoin());
+		userCoin = service.updateCoinHB(userNo, coin);
 		
 		return userCoin;
 		
@@ -262,6 +261,7 @@ public class TunaController {
 		if(check == 0) {
 			inventory.setEquipItemYN("Y");
 			result = service.updateItemEquipYn(inventory);
+			
 			if(result > 0) {
 				resultComent = "장착성공";
 			}
@@ -492,7 +492,7 @@ public class TunaController {
 		UserInventoryDTO userInven = new UserInventoryDTO();
 
 		UserDTO user = new UserDTO();
-		user = service.selectMemberInfo("user01");
+		user = service.selectMemberInfo(loginMember.getUserID());
 
 //		아이템 가격보다 보유 코인 갯수가 많을때 실행.
 		if (item.getItemPrice() <= user.getCoin()) {
@@ -504,12 +504,17 @@ public class TunaController {
 
 			result = service.updateUserInventory(userInven);
 
-			coin = user.getCoin() - item.getItemPrice();
-			coinUpdateResult = service.updateCoin(user.getUserNo(), coin);
 
-			System.out.println(result + "Result");
-			System.out.println(coinUpdateResult + "coinUpdateResult");
+//			System.out.println(result + "Result");
+//			System.out.println(coinUpdateResult + "coinUpdateResult");
 		}
+		
+		if(result == 1) {
+			coin = (user.getCoin() - item.getItemPrice());
+			coinUpdateResult = service.updateCoin(user.getUserNo(), coin);
+		}
+		
+		
 
 		resultMap.put("invenUpdateresult", result);
 		resultMap.put("coinUpdateResult", coinUpdateResult);
@@ -595,24 +600,40 @@ public class TunaController {
 		return friendBoard;
 	}
 
+	
+	
 	//수정 할 게시물 불러오기
 	public BoardDTO modifySecretBoard(int boardNo) {
 		 
 		BoardDTO boardDTO = new BoardDTO();
+		
 		boardDTO = service.modifySecretBoard(boardNo);
+		
 		return boardDTO ;
 	
 	}
+
+
+	
+	public AddFriendDTO selectNickName(int userNo) {
+		
+		AddFriendDTO af = new AddFriendDTO();
+		
+		af = service.selectFriendNickName(userNo);
+		return af;
+	}
+
+
      //
 	public int updateBoard(Map<String, Object> updateInputContent) {
 	
 			BoardDTO boardDTO = new BoardDTO();
 
+
 			boardDTO.setTitle(updateInputContent.get("title").toString());
 			boardDTO.setBoardContent(updateInputContent.get("content").toString());
-			boardDTO.setUserNo((Integer) updateInputContent.get("userNo"));
-			boardDTO.setListNo((Integer) (updateInputContent.get("listNo")));
-
+			boardDTO.setBoardNo((int)updateInputContent.get("boardNo"));
+			
 			int result = service.updatetBoard(boardDTO);
 
 		

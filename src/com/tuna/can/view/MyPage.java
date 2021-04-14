@@ -12,11 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -85,6 +88,12 @@ public class MyPage extends JFrame {
 		frame.setVisible(true);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+	      try {
+	    	  frame.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
+	       } catch (IOException e1) {
+	          e1.printStackTrace();
+	       }
 		
 		return frame;
 		

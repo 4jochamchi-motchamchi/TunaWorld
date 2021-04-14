@@ -7,9 +7,11 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.tuna.can.model.dto.StoreItemDTO;
+import com.tuna.can.view.Store;
 
 public class StoreItemButtonController extends JButton{
 
@@ -19,7 +21,7 @@ public class StoreItemButtonController extends JButton{
 	private int itemCategory;
 	private TunaController controller = new TunaController();
 
-	public StoreItemButtonController(StoreItemDTO item) {
+	public StoreItemButtonController(StoreItemDTO item, JFrame frame) {
 		
 		ImageIcon itemImg = new ImageIcon("image/" + item.getItemImg());
 		
@@ -50,6 +52,8 @@ public class StoreItemButtonController extends JButton{
 				} else {
 					JOptionPane.showMessageDialog(null, "보유 코인 부족", "코인 부족", 0);
 				}
+				new Store();
+				frame.dispose();
 				
 			}
 		});

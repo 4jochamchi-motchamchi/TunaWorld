@@ -8,11 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,7 +40,13 @@ public class Store{
 	}
 	
 	public Store() {
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame("Store");
+		
+	      try {
+	    	  frame.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
+	       } catch (IOException e1) {
+	          e1.printStackTrace();
+	       }
 		
 //		public static void main(String[] args) {
 			Font font = new Font("상점폰트", Font.BOLD, 50);
@@ -46,6 +55,10 @@ public class Store{
 			frame.setLayout(null);
 			frame.setSize(700, 900);
 			frame.setLocation(600, 50);
+			JPanel colorPanel = new JPanel();
+			colorPanel.setBackground(new Color(255, 240, 245));
+			colorPanel.setSize(700, 900);
+			colorPanel.setLayout(null);
 
 			// 최상단 패널
 			JPanel topPanel = new JPanel();
@@ -54,8 +67,8 @@ public class Store{
 			topPanel.setBackground(Color.pink);
 
 			// 상점 글씨
-			JLabel storeLabel = new JLabel("상점~~~");
-			storeLabel.setBounds(270, 40, 150, 50);
+			JLabel storeLabel = new JLabel("Store");
+			storeLabel.setBounds(270, 40, 170, 50);
 			storeLabel.setFont(font);
 			topPanel.add(storeLabel);
 
@@ -81,27 +94,27 @@ public class Store{
 //			코인 넣자
 			int coin = 0;
 //			coin = controller.selectUSerCoin(controller.loginMember.getUserNo());
-			coin = controller.selectUSerCoin(1);
+			coin = controller.selectUSerCoin(controller.loginMember.getUserNo());
 			JLabel coinLabel = new JLabel();
 			coinLabel.setBounds(565, 55, 100, 30);
 			coinLabel.setText("보유 코인 " + coin);
 			topPanel.add(coinLabel);
 			
 //			새로고침 넣자
-			JButton refreshButton = new JButton("코인 확인");
-			refreshButton.setBounds(550, 90, 100, 30);
-			
-			refreshButton.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					new Store();
-					frame.dispose();
-					
-				}
-			});
-			
-			topPanel.add(refreshButton);
+//			JButton refreshButton = new JButton("코인 확인");
+//			refreshButton.setBounds(550, 90, 100, 30);
+//			
+//			refreshButton.addActionListener(new ActionListener() {
+//				
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					new Store();
+//					frame.dispose();
+//					
+//				}
+//			});
+//			
+//			topPanel.add(refreshButton);
 
 			//////////////////////////////////////////
 
@@ -109,8 +122,9 @@ public class Store{
 			JPanel midPanel = new JPanel();
 			midPanel.setLayout(new GridLayout(1, 3));
 			midPanel.setBounds(45, 170, 600, 130);
-			midPanel.setBackground(Color.blue);
-
+			
+			midPanel.setBackground(new Color(255, 240, 245));
+			
 			JButton characterButton = new JButton("캐릭터");
 
 			JButton backgroundButton = new JButton("배경");
@@ -158,7 +172,7 @@ public class Store{
 			for(int i = 0; i < 9; i++) {
 				if(i < storeItemMap.get(1).size()) {
 					
-					characterPanel.add(new StoreItemButtonController(storeItemMap.get(1).get(i)));
+					characterPanel.add(new StoreItemButtonController(storeItemMap.get(1).get(i),frame));
 				} else {
 					
 					characterPanel.add(new JButton("아이템 없음"));
@@ -167,7 +181,7 @@ public class Store{
 			
 			for(int i = 0; i < 9; i++) {
 				if(i < storeItemMap.get(2).size()) {
-					backgroundPanel.add(new StoreItemButtonController(storeItemMap.get(2).get(i)));
+					backgroundPanel.add(new StoreItemButtonController(storeItemMap.get(2).get(i),frame));
 				} else {
 					
 					backgroundPanel.add(new JButton("아이템 없음"));
@@ -176,7 +190,7 @@ public class Store{
 			
 			for(int i = 0; i < 9; i++) {
 				if(i < storeItemMap.get(3).size()) {
-					fontPanel.add(new StoreItemButtonController(storeItemMap.get(3).get(i)));
+					fontPanel.add(new StoreItemButtonController(storeItemMap.get(3).get(i),frame));
 				} else {
 					
 					fontPanel.add(new JButton("아이템 없음"));
@@ -219,10 +233,13 @@ public class Store{
 
 				}
 			});
-
-			frame.add(topPanel);
-			frame.add(midPanel);
-			frame.add(botPanel);
+			colorPanel.add(topPanel);
+			colorPanel.add(midPanel);
+			colorPanel.add(botPanel);
+			frame.add(colorPanel);
+//			frame.add(topPanel);
+//			frame.add(midPanel);
+//			frame.add(botPanel);
 
 			frame.setVisible(true);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

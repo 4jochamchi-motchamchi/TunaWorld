@@ -104,7 +104,7 @@ public class BoardList extends JFrame{
 			//전체글 리스트 
 			JPanel allList = null;
 
-		    List<BoardDTO> list = tunaController.selectallBoard(userNo);
+		    List<BoardDTO> list = tunaController.selectallBoard(tunaController.loginMember.getUserNo());
 
 			for(int i = 0; i < list.size(); i++) {
 				

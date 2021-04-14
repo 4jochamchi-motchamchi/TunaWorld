@@ -92,15 +92,10 @@ public class FriendsList extends JFrame{
 			
 			JPanel middlePanel = new JPanel();
 			middlePanel.setLayout(null);
-//			middlePanel.setBounds(0, 100, 700, 9000);
-//			middlePanel.setBackground(Color.BLACK);
-//			middlePanel.setPreferredSize(new Dimension(700,900));
-			
-			
-//			middlePanel.setPreferredSize(new Dimension(640,300));
+			middlePanel.setBackground(Color.pink);
 			List<FriendDTO> friends = new ArrayList<FriendDTO>();
 			TunaController controller = new TunaController();
-//			FriendDTO friend = new FriendDTO();
+
 			friends = controller.selectFriendsList(controller.loginMember.getUserNo());
 			controller.loginMember.getUserNo();
 			
@@ -117,12 +112,12 @@ public class FriendsList extends JFrame{
 				
 				middlePanel.setLayout(null);
 				middlePanel.setPreferredSize(new Dimension(660, 100*(i+1)));
+				middlePanel.setBackground(Color.pink);
 				
 				// 친구 페널
 				friendsPanel = new JPanel();
 				friendsPanel.setLayout(null);
-//				friendsPanel.setLocation(0,200);
-//				friendsPanel.setPreferredSize(new Dimension(600,100));
+
 				friendsPanel.setBounds(0,i*100,670,100);
 				friendsPanel.setBackground(new Color(255, 240, 245));
 				friendsPanel.setBorder(lightgrayborder);
@@ -130,6 +125,9 @@ public class FriendsList extends JFrame{
 				
 				// 닉네임
 				nickName = new JLabel();
+				
+				
+				
 				Integer no = friends.get(i).getUserNO();
 				JLabel userNo = new JLabel(no.toString());
 				userNo.setVisible(false);
@@ -137,12 +135,14 @@ public class FriendsList extends JFrame{
 				Integer fno = friends.get(i).getFriendsNo();
 				JLabel friendNo = new JLabel(fno.toString());
 			    friendNo.setVisible(false);
+			    
+			    
+			    
 				nickName.setBounds(310, 27, 700, 50);
 				// 객체 연결용
 				nickName.setText(friends.get(i).getFriendsNickname());
-//				nickName.setText("다라미");
+
 				// 이미지 용
-				
 				imageLabel = new JLabel();
 				imageLabel.setLayout(null);
 				imageLabel.setBounds(57,27,72,60);
@@ -255,12 +255,12 @@ public class FriendsList extends JFrame{
 			
 			AddFriendDTO list = new AddFriendDTO();
 			list = tunaController.selectPlusFriend(controller.loginMember.getUserNo());
-			int resultaa =0;
 			
-			
+			AddFriendDTO friendNickName = new AddFriendDTO();
+			friendNickName = tunaController.selectNickName(controller.loginMember.getUserNo());
 			if(list != null) {
 				
-				int result = JOptionPane.showConfirmDialog(null, "친구 추가 요청이 왔어요!", "친구수락", 0);
+				int result = JOptionPane.showConfirmDialog(null, friendNickName.getRequestFriendNickName()+" 님이 친구 요청을 했어요!!", "친구 수락", 0);
 				if(result == JOptionPane.YES_OPTION) {
 					tunaController.RequestFriends(list);
 					new FriendsList();
