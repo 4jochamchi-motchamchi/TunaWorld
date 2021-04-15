@@ -112,7 +112,7 @@ public class FriendsList extends JFrame{
 				
 				middlePanel.setLayout(null);
 				middlePanel.setPreferredSize(new Dimension(660, 100*(i+1)));
-				middlePanel.setBackground(new Color(255, 240, 245));
+				middlePanel.setBackground(Color.pink);
 				
 				// 친구 페널
 				friendsPanel = new JPanel();

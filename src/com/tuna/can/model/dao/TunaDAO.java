@@ -164,7 +164,7 @@ public class TunaDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
@@ -207,18 +207,17 @@ public class TunaDAO {
 	}
 
 	// 코인 획득
-	public int updateUserCoin(Connection con,int userNo ,int coin) {
+	public int updateUserCoin(Connection con, int userNo, int coin) {
 		String query = prop.getProperty("updateCoin");
 		PreparedStatement pstmt = null;
-		 System.out.println("여기에 코인이 찍힐 겁니다. : " + coin);
-		 System.out.println("여기에는 유저 넘버가 찍힐거고요  : " + userNo);
+		System.out.println("여기에 코인이 찍힐 겁니다. : " + coin);
+		System.out.println("여기에는 유저 넘버가 찍힐거고요  : " + userNo);
 		int result = 0;
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, (coin+1));
+			pstmt.setInt(1, (coin + 7));
 			pstmt.setInt(2, userNo);
-	
 
 			result = pstmt.executeUpdate();
 
@@ -316,7 +315,7 @@ public class TunaDAO {
 		String query = prop.getProperty("insertComment");
 
 		try {
-			
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, comment.getBoardNo());
 			pstmt.setString(2, comment.getCommentContent());
@@ -356,7 +355,6 @@ public class TunaDAO {
 				friends.setUserNO(rset.getInt("USER_NO"));
 				friends.setFriendsNo(rset.getInt("FRIEND_NO"));
 				friends.setFriendsNickname(rset.getString("USER_NICKNAME"));
-
 
 				friendsInfo.add(friends);
 
@@ -400,8 +398,6 @@ public class TunaDAO {
 		return lastOrderNo;
 	}
 
-
-
 	public int updateEquipYn(Connection con, int userNo, int itemNo, String equipYn) {
 
 		PreparedStatement pstmt = null;
@@ -421,50 +417,50 @@ public class TunaDAO {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 		}
 
 		return result;
 	}
 
-	//전체글 불러오기
-		public List<BoardDTO> allBoardList(Connection con, int userNo) {
+	// 전체글 불러오기
+	public List<BoardDTO> allBoardList(Connection con, int userNo) {
 
-			String query = prop.getProperty("selectAllBoard");
-			
-			PreparedStatement pstmt = null;
-			ResultSet rset = null;
-			
-			List<BoardDTO> allBoardlist = null;
-			
-			try {
-				pstmt = con.prepareStatement(query);
+		String query = prop.getProperty("selectAllBoard");
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		List<BoardDTO> allBoardlist = null;
+
+		try {
+			pstmt = con.prepareStatement(query);
 //				pstmt.setInt(1, userNo);
 
-				rset = pstmt.executeQuery();
+			rset = pstmt.executeQuery();
 
-				
-				allBoardlist = new ArrayList<>();
+			allBoardlist = new ArrayList<>();
 
-				while(rset.next()) {
-					
-					BoardDTO board = new BoardDTO();
-					
-					board.setTitle(rset.getString("TITLE"));
-					board.setBoardNo(rset.getInt("BOARD_NO"));
-					
-					allBoardlist.add(board);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rset);
-				close(pstmt);
+			while (rset.next()) {
+
+				BoardDTO board = new BoardDTO();
+
+				board.setTitle(rset.getString("TITLE"));
+				board.setBoardNo(rset.getInt("BOARD_NO"));
+
+				allBoardlist.add(board);
 			}
-			return allBoardlist;		
-			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
+		return allBoardlist;
+
+	}
+
 	/**
 	 * <pre>
 	 * 로그인 아이디/비밀번호 확인 메소드
@@ -679,7 +675,7 @@ public class TunaDAO {
 
 		return sotreItem;
 	}
-	
+
 	public int insertRequest(Connection con, AddFriendDTO addFriends) {
 
 		PreparedStatement pstmt = null;
@@ -710,7 +706,7 @@ public class TunaDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updateUserInventory");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 
@@ -718,53 +714,46 @@ public class TunaDAO {
 			pstmt.setInt(2, userInven.getItemNo());
 			pstmt.setInt(3, userInven.getItemCategory());
 			pstmt.setString(4, userInven.getEquipItemYN());
-			
-			
+
 			result = pstmt.executeUpdate();
 
-			
-
-		} catch(SQLIntegrityConstraintViolationException e) {
+		} catch (SQLIntegrityConstraintViolationException e) {
 			result = 3;
-			
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		}  
-		finally {
+		} finally {
 			close(pstmt);
 		}
 
 		return result;
 	}
 
-	
-	
 	// 비밀게시글 목록 불러오기
 	public List<BoardDTO> selectSecretBoard(Connection con, int userNo) {
-		
+
 		String query = prop.getProperty("selectSecretBoard");
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		List<BoardDTO> secrettList = null;
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userNo);
 
 			rset = pstmt.executeQuery();
 
-			
 			secrettList = new ArrayList<>();
 
-			while(rset.next()) {
-				
+			while (rset.next()) {
+
 				BoardDTO board = new BoardDTO();
 				board.setTitle(rset.getString("TITLE"));
 				board.setBoardNo(rset.getInt("BOARD_NO"));
-				
+
 				secrettList.add(board);
 			}
 		} catch (SQLException e) {
@@ -773,56 +762,48 @@ public class TunaDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return secrettList;
 	}
 
-
 	// 비밀게시글 삭제하기
 	public int deleteAllBoard(Connection con, BoardDTO title) {
-		
+
 		PreparedStatement pstmt = null;
 		int result = 0;
 		int result2 = 0;
 		PreparedStatement pstmt2 = null;
-		
+
 		String query = prop.getProperty("deleteAllBoard");
 		String comentQuery = prop.getProperty("deleteComment");
 		try {
-			
+
 			pstmt2 = con.prepareStatement(comentQuery);
-			
+
 			pstmt2.setInt(1, title.getBoardNo());
 			result2 = pstmt2.executeUpdate();
-			if(result2 > 0) {
+			if (result2 > 0) {
 				System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
 				con.commit();
 			}
-			
+
 			BoardDTO board = new BoardDTO();
-			
-			
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, title.getTitle());
 			pstmt.setInt(2, title.getBoardNo());
-			
+
 			result = pstmt.executeUpdate();
-			
-			
-			
-			
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
-		return result;
-		
-	}
 
+		return result;
+
+	}
 
 	// plusfriend 테이블에서 신청한에 신청 받은애 값 받아오기
 	public AddFriendDTO selectAddFriend(Connection con, int userNo) {
@@ -913,11 +894,11 @@ public class TunaDAO {
 //
 //	}
 
-	
 	/**
 	 * <pre>
 	 * (전체/친구/비밀) 게시글 db에 삽입하는 메소드
 	 * </pre>
+	 * 
 	 * @param con
 	 * @param board
 	 * @return
@@ -925,41 +906,40 @@ public class TunaDAO {
 	 * @author Juhee Hwang
 	 */
 	public int insertBoard(Connection con, BoardDTO board) {
-		
-		PreparedStatement pstmt = null;
-		
-		
-		String query = prop.getProperty("insertBoard1");
-		
-		int result = 0;
-		
-		try {
-			pstmt =con.prepareStatement(query);
 
-			pstmt.setString(1,board.getTitle());
+		PreparedStatement pstmt = null;
+
+		String query = prop.getProperty("insertBoard1");
+
+		int result = 0;
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getBoardContent());
 			pstmt.setInt(3, board.getUserNo());
 			pstmt.setInt(4, board.getListNo());
-			
+
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
-		
+
 			e.printStackTrace();
-		}finally {
-			
-		   close(pstmt);
+		} finally {
+
+			close(pstmt);
 		}
-		
+
 		return result;
-	
-		
+
 	}
 
 	/**
 	 * <pre>
 	 * 전체 게시글 마지막 등록된 번호 가져오는 메소드
 	 * </pre>
+	 * 
 	 * @param con
 	 * @return
 	 * @author Juhee Hwang
@@ -988,220 +968,213 @@ public class TunaDAO {
 		}
 		return lastContentNo;
 	}
-	
+
 	public List<BoardDTO> selectMyBoard(Connection con, int userNo) {
 		String query = prop.getProperty("selectMyBoard");
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		List<BoardDTO> allMyBoard = null;
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userNo);
-			
+
 			rset = pstmt.executeQuery();
-			
+
 			allMyBoard = new ArrayList<>();
-			
-			while(rset.next()) {
-				
+
+			while (rset.next()) {
+
 				BoardDTO board = new BoardDTO();
-				
+
 				board.setTitle(rset.getString("TITLE"));
 				board.setBoardNo(rset.getInt("BOARD_NO"));
-				
+
 				allMyBoard.add(board);
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
+
 		return allMyBoard;
 	}
 
-
-	// 
+	//
 	/**
 	 * <pre>
 	 *   친구 수락 메소드
 	 * </pre>
+	 * 
 	 * @author 김현빈
 	 * @param con
 	 * @param userInfo
 	 * @return
 	 */
-	public int acceptFriend(Connection con,AddFriendDTO userInfo ) {
-		
+	public int acceptFriend(Connection con, AddFriendDTO userInfo) {
+
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
-		
+
 		int result1 = 0;
 		int result2 = 0;
 		String query1 = prop.getProperty("insertFriend");
-		
 
-		
 		try {
 			pstmt1 = con.prepareStatement(query1);
 			pstmt1.setInt(1, userInfo.getUserNo());
 			pstmt1.setInt(2, userInfo.getRequsetFriendNo());
 			result1 = pstmt1.executeUpdate();
-			
+
 			pstmt2 = con.prepareStatement(query1);
-			pstmt2.setInt(1,userInfo.getRequsetFriendNo());
-			pstmt2.setInt(2,userInfo.getUserNo());
+			pstmt2.setInt(1, userInfo.getRequsetFriendNo());
+			pstmt2.setInt(2, userInfo.getUserNo());
 			result2 = pstmt2.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
-			
+		} finally {
+
 			close(pstmt2);
 			close(pstmt1);
 		}
-	
+
 		return result1 + result2;
 	}
-
 
 	/**
 	 * <pre>
 	 *  친구 수락 거절 메소드
 	 * </pre>
+	 * 
 	 * @author 김현빈
 	 * @param con
 	 * @param userInfo
 	 * @return
 	 */
 	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
-		
+
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("deleteRequest");
 		int result = 0;
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userInfo.getUserNo());
 			pstmt.setInt(2, userInfo.getRequsetFriendNo());
 			result = pstmt.executeUpdate();
-			
- 		} catch (SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 
 			close(pstmt);
-			
+
 		}
-		
+
 		return result;
 
 	}
 
-
 	public int deleteFriend(Connection con, int userNo, int friendsNo) {
-		
+
 		PreparedStatement pstmt1 = null;
 		PreparedStatement pstmt2 = null;
-		int result1 = 0; 
+		int result1 = 0;
 		int result2 = 0;
 		String query = prop.getProperty("deleteFriend");
-		
+
 		try {
 			pstmt1 = con.prepareStatement(query);
 			pstmt1.setInt(1, friendsNo);
 			pstmt1.setInt(2, userNo);
 			result1 = pstmt1.executeUpdate();
-			
+
 			pstmt2 = con.prepareStatement(query);
 			pstmt2.setInt(1, userNo);
 			pstmt2.setInt(2, friendsNo);
 			result2 = pstmt2.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt2);
 			close(pstmt1);
 		}
-		
-	
+
 		return result1 + result2;
 	}
 
 	public List<BoardDTO> SelectFriendBoard(Connection con, int userNo) {
 		String query = prop.getProperty("selectFriendBoard");
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		List<BoardDTO> friendBoard = null;
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userNo);
-			
+
 			rset = pstmt.executeQuery();
-			
+
 			friendBoard = new ArrayList<>();
-			
-			while(rset.next()) {
-				
+
+			while (rset.next()) {
+
 				BoardDTO board = new BoardDTO();
-				
+
 				board.setTitle(rset.getString("TITLE"));
 				board.setBoardNo(rset.getInt("BOARD_NO"));
-				
+
 				friendBoard.add(board);
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
-			
+
 		}
-		
+
 		return friendBoard;
 	}
 
 	public BoardDTO modifySecretBoard(Connection con, int boardNo) {
-		
+
 		String query = prop.getProperty("modifyScreteBoard");
 		PreparedStatement pstmt = null;
-		
+
 		ResultSet rset = null;
-		
+
 		BoardDTO boardDTO = new BoardDTO();
 		try {
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setInt(1, boardNo);
-			
+
 			rset = pstmt.executeQuery();
-		
-			if(rset.next()) {
+
+			if (rset.next()) {
 				boardDTO.setListNo(rset.getInt("LIST_NO"));
 				boardDTO.setTitle(rset.getString("TITLE"));
 				boardDTO.setBoardContent(rset.getString("BOARD_CONTENTS"));
 				boardDTO.setListNo(rset.getInt("LIST_NO"));
 				boardDTO.setUserNo(rset.getInt("USER_NO"));
-			
-			}	
+
+			}
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 		} finally {
-		
+
 			close(rset);
 			close(pstmt);
 		}
@@ -1214,12 +1187,12 @@ public class TunaDAO {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updateCoin");
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, coin);
 			pstmt.setInt(2, userNo);
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 
@@ -1227,33 +1200,31 @@ public class TunaDAO {
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
-
 
 	public AddFriendDTO selectRequestFriendNickName(Connection con, int requestFriendNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		String query = prop.getProperty("selecrRequestUserNickName");
-		
+
 		AddFriendDTO ad = new AddFriendDTO();
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, requestFriendNo);
-			
+
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				
+			if (rset.next()) {
+
 				ad.setRequestFriendNickName(rset.getString("USER_NICKNAME"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
@@ -1264,57 +1235,55 @@ public class TunaDAO {
 	public int updatetBoard(Connection con, BoardDTO board) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updateBoard");
-		
-        int result = 0;
-		
-		try {
-			pstmt =con.prepareStatement(query);
 
-			pstmt.setString(1,board.getTitle());
+		int result = 0;
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getBoardContent());
 			pstmt.setInt(3, board.getBoardNo());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
-		}finally {
-			
-		   close(pstmt);
+		} finally {
+
+			close(pstmt);
 		}
-		
+
 		return result;
 
 	}
-	
-	   // 비밀게시글 삭제하기
-	   public int deleteSecretBoard(Connection con, BoardDTO title) {
-	      
-	      PreparedStatement pstmt = null;
-	      int result = 0;
-	      
-	      String query = prop.getProperty("deleteSecretBoard");
-	      
-	      try {
-	         
-	         BoardDTO board = new BoardDTO();
-	         
-	         pstmt = con.prepareStatement(query);
-	         pstmt.setString(1, title.getTitle());
-	         pstmt.setInt(2, title.getUserNo());
-	         
-	         result = pstmt.executeUpdate();
-	         
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         close(pstmt);
-	      }
-	      
-	      return result;
-	      
-	   }
 
+	// 비밀게시글 삭제하기
+	public int deleteSecretBoard(Connection con, BoardDTO title) {
 
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("deleteSecretBoard");
+
+		try {
+
+			BoardDTO board = new BoardDTO();
+
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, title.getTitle());
+			pstmt.setInt(2, title.getUserNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+
+	}
 
 }

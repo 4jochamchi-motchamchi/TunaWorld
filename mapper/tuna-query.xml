@@ -158,14 +158,16 @@
 		U.USER_NO
 		, U.USER_NICKNAME
 		, F.FRIEND_NO
-		FROM FRIENDS_LIST F
+		FROM
+		FRIENDS_LIST F
 		JOIN USER_INFORMATION U ON(F.FRIEND_NO = U.USER_NO)
 		WHERE F.USER_NO = ?
 	</entry>
 	<entry key="updateEquipYn">
 		UPDATE USER_INVENTORY_LIST
 		SET EQUIP_ITEM_YN = ?
-		WHERE ITEM_NO = ?
+		WHERE
+		ITEM_NO = ?
 		AND USER_NO = ?
 	</entry>
 	<entry key="selectCoin">
@@ -365,12 +367,16 @@
 		WHERE USER_NO = ?
 	</entry>
 	<entry key="selectFriendBoard">
-		SELECT
-		TITLE
-		, BOARD_NO
-		FROM BOARD_LIST
-		WHERE USER_NO = ?
-		AND LIST_NO = 3
+SELECT
+          B.*
+ FROM 
+   BOARD_LIST B
+WHERE B.USER_NO IN (SELECT F.USER_NO
+               FROM FRIENDS_LIST F
+     JOIN USER_INFORMATION UI ON (F.FRIEND_NO = UI.USER_NO)
+     
+     WHERE UI.USER_NO = ?)
+  AND B.LIST_NO = 3
 	</entry>
 	<entry key="modifyScreteBoard">
 		SELECT
@@ -393,48 +399,23 @@
 	</entry>
 	<entry key="updateBoard">
 		UPDATE BOARD_LIST
-		   SET
-		  TITLE = ?
+		SET
+		TITLE = ?
 		, BOARD_CONTENTS = ?
 		, ENROLLDATE = DEFAULT
 
 		WHERE BOARD_NO = ?
 	</entry>
 	<entry key="deleteComment">
-		DELETE 
+		DELETE
 		FROM COMMENT_BOARD
-	   WHERE BOARD_NO = ?
+		WHERE BOARD_NO = ?
 	</entry>
-	   <entry key="deleteSecretBoard">
-      DELETE
-      FROM BOARD_LIST
-      WHERE TITLE = ?
-      AND USER_NO = ?
-	WHERE BOARD_NO = ?            
-    </entry>
-    <entry key="updateBoard">
-        UPDATE BOARD_LIST
-           SET
-               TITLE = ?
-             , BOARD_CONTENTS = ?
-             , LIST_NO = ?
-             , ENROLLDATE = DEFAULT
-         WHERE USER_NO = ?    
-
-
-               TITLE
-             , BOARD_CONTENTS
-             , USER_NO
-             , LIST_NO
-             , ENROLLDATE
-             )
-              VALUES
-             ( 
-                ?
-              , ? 
-              , ?
-              , ?
-              , DEFAULT
-              )
-    </entry>
+	<entry key="deleteSecretBoard">
+		DELETE
+		FROM BOARD_LIST
+		WHERE TITLE = ?
+		AND USER_NO = ?
+		WHERE BOARD_NO = ?
+	</entry>
 </properties>
