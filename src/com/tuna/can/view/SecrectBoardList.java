@@ -39,7 +39,7 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-     	//	int userNo = 1;
+
 		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
@@ -93,8 +93,8 @@ public class SecrectBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//내게시글 글씨
-			JLabel lbl = new JLabel("비밀게시글");
-			lbl.setFont(new Font("휴먼둥근헤드라인",Font.PLAIN, 30));
+			JLabel lbl = new JLabel(" 비 밀 게 시 글");
+			lbl.setFont(new Font("휴먼둥근헤드라인",Font.BOLD, 30));
 			lbl.setHorizontalAlignment(JLabel.CENTER);
 			lbl.setBounds(100, 40, 500, 50);
 			topPanel.add(lbl);

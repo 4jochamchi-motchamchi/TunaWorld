@@ -191,7 +191,7 @@ public class Text_Area extends JFrame{
 		});
 
 	    range.add(all);
-//	    int listno =0;
+
 	    all.setBounds(40, 0, 100, 50);
 	    myself.setBounds(140, 0, 100,50);
 	    friend.setBounds(240, 0, 100, 50);
@@ -245,7 +245,7 @@ public class Text_Area extends JFrame{
 						JOptionPane.showConfirmDialog(null,"저장되었습니다","성공!!",-1);
 //						txt.requestFocus();
 
-					    new BoardList();
+					    new Main_page();
 					     dispose();
 					}else {
 						JOptionPane.showMessageDialog(null,"게시글 저장에 실패했습니다", "실패",-1);
