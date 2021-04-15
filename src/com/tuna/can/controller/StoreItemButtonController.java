@@ -46,11 +46,11 @@ public class StoreItemButtonController extends JButton{
 				coin = resultMap.get("coin");
 				
 				if((result + coinUpdateResult) == 2) {
-					JOptionPane.showMessageDialog(null, "아이템 구매 성공! 현재 보유 코인 " + coin , "구매성공", 0);
+					JOptionPane.showMessageDialog(null, "아이템 구매 성공! 현재 보유 코인 " + coin , "구매성공", 1);
 				} else if(result == 3){
-					JOptionPane.showMessageDialog(null, "이미 소유한 아이템 입니다.", "보유중", 0);
+					JOptionPane.showMessageDialog(null, "이미 소유한 아이템 입니다.", "보유중", 1);
 				} else {
-					JOptionPane.showMessageDialog(null, "보유 코인 부족", "코인 부족", 0);
+					JOptionPane.showMessageDialog(null, "보유 코인 부족", "코인 부족", 1);
 				}
 				new Store();
 				frame.dispose();
