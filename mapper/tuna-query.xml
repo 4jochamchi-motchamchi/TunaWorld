@@ -416,6 +416,5 @@ WHERE B.USER_NO IN (SELECT F.USER_NO
 		FROM BOARD_LIST
 		WHERE TITLE = ?
 		AND USER_NO = ?
-		WHERE BOARD_NO = ?
 	</entry>
 </properties>
