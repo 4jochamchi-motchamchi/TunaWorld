@@ -30,19 +30,23 @@ public class MiniGame extends JFrame implements ActionListener {
 	private static final int answerNum = (int) (Math.random() * 16) + 1;
 	// 사용한 카드를 비활성화 하기 위한 필드
 	private boolean checkUsedCard = true;
+
 	// view 클래스에 객체 생성
 	public MiniGame() {
 	}
+
 	// countNum 값을 view 클래스로 가져가기 위한 getter
 	public static int getCountNum() {
 		return countNum;
 	}
+
 	public MiniGame(int buttonNum, JButton button, JLabel can, JFrame oldFrame) {
 		this.buttonNum = buttonNum;
 		this.button = button;
 		this.can = can;
 		this.oldFrame = oldFrame;
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
