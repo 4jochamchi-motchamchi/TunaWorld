@@ -142,6 +142,9 @@ public class TunaService {
 	}
 
 	/**
+	 * <pre>
+	 * 코인 업데이트 하는 메소드
+	 * </pre>
 	 * @author 김현빈
 	 * @param userInfor
 	 * @return
@@ -164,9 +167,13 @@ public class TunaService {
 		return userCoin;
 	}
 
-	// 친구 목록 조회
+
 	/**
+	 * <pre>
+	 * 친구리스트에서 친구 닉네임 불러오는 메소드
+	 * </pre>
 	 * @author 김현빈
+	 * @param con
 	 * @param userNo
 	 * @return
 	 */
@@ -317,9 +324,14 @@ public class TunaService {
 		return result;
 	}
 
-	// plus_friends 테이블에서 값 꺼내오기
+
 	/**
+	 * <pre>
+	 * plus_Friend 테이블에 초대장 왓는지 안왔는지 셀렉하는 메소드
+	 * </pre>
 	 * @author 김현빈
+	 * @param con
+	 * @param userNo
 	 * @return
 	 */
 	public AddFriendDTO selectAddFriend(int userNo) {
@@ -515,7 +527,7 @@ public class TunaService {
 	 * <pre>
 	 *   친구 삭제용 메소드
 	 * </pre>
-	 * 
+	 * @author 김현빈
 	 * @param userNo
 	 * @return
 	 */
@@ -539,6 +551,14 @@ public class TunaService {
 		return friendNo;
 	}
 
+	/**
+	 * <pre>
+	 * 친구 요청 보낸 친구 닉네임 
+	 * </pre>
+	 * @author 김현빈
+	 * @param userNo
+	 * @return
+	 */
 	public AddFriendDTO selectFriendNickName(int userNo) {
 		Connection con = getConnection();
 

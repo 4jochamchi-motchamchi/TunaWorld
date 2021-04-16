@@ -27,6 +27,12 @@ import com.tuna.can.model.dto.FriendDTO;
 import com.tuna.can.service.TunaService;
 
 
+/**
+ * @author 김현빈	
+ *<pre>
+ *	친구목록 뷰 클래스
+ *</pre>
+ */
 public class FriendsList extends JFrame{
 	
 	TunaController tunaController = new TunaController();

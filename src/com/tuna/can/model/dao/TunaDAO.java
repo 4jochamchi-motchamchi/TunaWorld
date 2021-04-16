@@ -5,7 +5,6 @@ import static com.tuna.can.common.JDBCTemplate.close;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,10 +23,7 @@ import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
-/**
- * @author doqnt
- *
- */
+
 public class TunaDAO {
 	private Properties prop = new Properties();
 
@@ -182,8 +178,16 @@ public class TunaDAO {
 
 	}
 
-	// 김현빈씨 파트 친구닉네임, 이미지 select하는 메소드
-	// 김현빈씨 파트 코인 획득
+
+	/**
+	 * <pre>
+	 * 유저들의 코인을 셀렉하는 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userNo
+	 * @return
+	 */
 	public int selectMenberCoin(Connection con, int userNo) {
 
 		String query = prop.getProperty("selectCoin");
@@ -215,7 +219,17 @@ public class TunaDAO {
 
 	}
 
-	// 코인 획득
+
+	/**
+	 * <pre>
+	 *  게임에서 승리시 코인 값 업데이트 하는 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userNo
+	 * @param coin
+	 * @return
+	 */
 	public int updateUserCoin(Connection con, int userNo, int coin) {
 		String query = prop.getProperty("updateCoin");
 		PreparedStatement pstmt = null;
@@ -367,7 +381,15 @@ public class TunaDAO {
 
 	}
 
-	// 친구리스트에서 이미지, 친구 닉네임 불러오기
+	/**
+	 * <pre>
+	 * 친구리스트에서 친구 닉네임 불러오는 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userNo
+	 * @return
+	 */
 	public List<FriendDTO> selectFriendsList(Connection con, int userNo) {
 		String query = prop.getProperty("selectFriendsLIst");
 
@@ -900,9 +922,17 @@ public class TunaDAO {
 
 	}
 
-	// plusfriend 테이블에서 신청한에 신청 받은애 값 받아오기
+
+	/**
+	 * <pre>
+	 * plus_Friend 테이블에 초대장 왓는지 안왔는지 셀렉하는 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userNo
+	 * @return
+	 */
 	public AddFriendDTO selectAddFriend(Connection con, int userNo) {
-		System.out.println("userNo : " + userNo);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("selectPlus_friend");
@@ -929,65 +959,8 @@ public class TunaDAO {
 			close(rset);
 			close(pstmt);
 		}
-//		System.out.println("AddList : " +AddList);
 		return AddList;
 	}
-
-	//
-//	public int acceptFriend(Connection con, AddFriendDTO userInfo) {
-//
-//		PreparedStatement pstmt1 = null;
-//		PreparedStatement pstmt2 = null;
-//
-//		int result1 = 0;
-//		int result2 = 0;
-//		String query1 = prop.getProperty("insertFriend");
-//
-////		String query2 = prop.getProperty("insertFriend");
-//
-//		try {
-//			pstmt1 = con.prepareStatement(query1);
-//			pstmt1.setInt(1, userInfo.getUserNo());
-//			pstmt1.setInt(2, userInfo.getRequsetFriendNo());
-//			result1 = pstmt1.executeUpdate();
-//
-//			pstmt2 = con.prepareStatement(query1);
-//			pstmt2.setInt(1, userInfo.getRequsetFriendNo());
-//			pstmt2.setInt(2, userInfo.getUserNo());
-//			result2 = pstmt2.executeUpdate();
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//
-//			close(pstmt2);
-//			close(pstmt1);
-//		}
-//
-//		return result1 + result2;
-//	}
-//
-//	public int rejectFriend(Connection con, AddFriendDTO userInfo) {
-//
-//		PreparedStatement pstmt = null;
-//		String query = prop.getProperty("deleteFriend");
-//		int result = 0;
-//
-//		try {
-//			pstmt = con.prepareStatement(query);
-//			pstmt.setInt(1, userInfo.getUserNo());
-//			pstmt.setInt(2, userInfo.getRequsetFriendNo());
-//			result = pstmt.executeUpdate();
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//		}
-//		System.out.println("resut in reject section : " + result);
-//		return result;
-//
-//	}
 
 	/**
 	 * <pre>
@@ -1150,6 +1123,16 @@ public class TunaDAO {
 
 	}
 
+	/**
+	 * <pre>
+	 * 친구 목록에서 삭제하는 메소드
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param userNo
+	 * @param friendsNo
+	 * @return
+	 */
 	public int deleteFriend(Connection con, int userNo, int friendsNo) {
 
 		PreparedStatement pstmt1 = null;
@@ -1297,6 +1280,15 @@ public class TunaDAO {
 		return result;
 	}
 
+	/**
+	 * <pre>
+	 * 친구 요청 보낸유저의 닉네임 받아오는 메소
+	 * </pre>
+	 * @author 김현빈
+	 * @param con
+	 * @param requestFriendNo
+	 * @return
+	 */
 	public AddFriendDTO selectRequestFriendNickName(Connection con, int requestFriendNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

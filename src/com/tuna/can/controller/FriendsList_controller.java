@@ -17,6 +17,12 @@ import javax.swing.border.Border;
 
 import com.tuna.can.model.dto.FriendDTO;
 
+/**
+ * @author 김현빈
+ * <pre>
+ * 친구목록에 추가 되는 패널 생성하는 클래스
+ * </pre>
+ */
 public class FriendsList_controller extends JPanel{
 		
 	public FriendsList_controller() {
@@ -34,7 +40,6 @@ public class FriendsList_controller extends JPanel{
 		
 		nickName.setText(friend.getFriendsNickname());
 		
-        //ImageIcon photo = new ImageIcon(friend.getImage());
 		ImageIcon photo = new ImageIcon("image/profile.png");
 		//친구 이미지 설정
 		imageLabel.setIcon(photo);
@@ -64,7 +69,6 @@ public class FriendsList_controller extends JPanel{
 		
 		// 메인프레임에 설정하기
 		myFrame.add(friendsPanel);
-//		myFrame.add(middlePanel);
 		
 		
 	}

@@ -13,6 +13,13 @@ import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.service.TunaService;
 import com.tuna.can.view.Main_page;
 
+/**
+ * @author 김현빈
+ * <pre>
+ * 미니게임 버튼 생성하는 클래스
+ * </pre>
+ *
+ */
 public class MiniGame extends JFrame implements ActionListener {
 	// 버튼에 각각 번호를 부여하기 위한 필드
 	// for문으로 받은 매개변수
@@ -65,7 +72,6 @@ public class MiniGame extends JFrame implements ActionListener {
 				// 버튼 비활성화 스위치
 				checkUsedCard = false;
 				// 버튼 비활성화 하는 메소드
-//				button.setEnabled(checkUsedCard);
 				if (buttonNum == answerNum) {
 					ImageIcon can2 = new ImageIcon("image/naraCan.PNG");
 					button.setIcon(can2);

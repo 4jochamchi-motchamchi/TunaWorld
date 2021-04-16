@@ -20,9 +20,9 @@ import javax.swing.border.Border;
 import com.tuna.can.controller.MiniGame;
 
 /**
- * @author doqnt
+ * @author 김현빈
  * <PRE>
- *   4조참치 못참지 김현빈 미니게임 클래스
+ *   4조참치 못참지 김현빈 미니게임 뷰
  * </pre>
  *
  */
