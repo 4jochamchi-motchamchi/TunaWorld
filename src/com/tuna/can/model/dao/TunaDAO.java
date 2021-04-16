@@ -415,10 +415,15 @@ public class TunaDAO {
 		return result;
 	}
 
-	// 전체글 불러오기
+	/**
+	 * <pre>
+	 * 모든 게시글 목록 불러오는 메소드
+	 * </pre>
+	 * @param con, userNo
+	 * @return allBoardlist
+	 * @author Hyelim Jeon
+	 */
 	public List<BoardDTO> allBoardList(Connection con, int userNo) {
-
-
 
 		String query = prop.getProperty("selectAllBoard");
 
@@ -429,8 +434,6 @@ public class TunaDAO {
 
 		try {
 			pstmt = con.prepareStatement(query);
-//				pstmt.setInt(1, userNo);
-
 
 			rset = pstmt.executeQuery();
 
@@ -764,7 +767,14 @@ public class TunaDAO {
 		return result;
 	}
 
-	// 비밀게시글 목록 불러오기
+	/**
+	 * <pre>
+	 * 비밀 게시글 목록 불러오는 메소드
+	 * </pre>
+	 * @param  userNo
+	 * @return secrettList
+	 * @author Hyelim Jeon
+	 */
 	public List<BoardDTO> selectSecretBoard(Connection con, int userNo) {
 
 		String query = prop.getProperty("selectSecretBoard");
@@ -969,6 +979,14 @@ public class TunaDAO {
 
 	}
 
+	/**
+	 * <pre>
+	 * 내 게시글 목록 불러오는 메소드
+	 * </pre>
+	 * @param  userNo
+	 * @return allMyBoard
+	 * @author Hyelim Jeon
+	 */
 	public List<BoardDTO> selectMyBoard(Connection con, int userNo) {
 		String query = prop.getProperty("selectMyBoard");
 
@@ -1110,6 +1128,14 @@ public class TunaDAO {
 		return result1 + result2;
 	}
 
+	/**
+	 * <pre>
+	 * 친구 게시글 불러오는 메소드
+	 * </pre>
+	 * @param  userNo
+	 * @return friendBoard
+	 * @author Hyelim Jeon
+	 */
 	public List<BoardDTO> SelectFriendBoard(Connection con, int userNo) {
 		String query = prop.getProperty("selectFriendBoard");
 
@@ -1147,40 +1173,6 @@ public class TunaDAO {
 		return friendBoard;
 	}
 
-	public BoardDTO modifySecretBoard(Connection con, int boardNo) {
-
-		String query = prop.getProperty("modifyScreteBoard");
-		PreparedStatement pstmt = null;
-
-		ResultSet rset = null;
-
-		BoardDTO boardDTO = new BoardDTO();
-		try {
-			pstmt = con.prepareStatement(query);
-
-			pstmt.setInt(1, boardNo);
-
-			rset = pstmt.executeQuery();
-
-			if (rset.next()) {
-				boardDTO.setListNo(rset.getInt("LIST_NO"));
-				boardDTO.setTitle(rset.getString("TITLE"));
-				boardDTO.setBoardContent(rset.getString("BOARD_CONTENTS"));
-				boardDTO.setListNo(rset.getInt("LIST_NO"));
-				boardDTO.setUserNo(rset.getInt("USER_NO"));
-
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-
-			close(rset);
-			close(pstmt);
-		}
-
-		return boardDTO;
-	}
 
 	/**
 	 * <pre>
@@ -1238,7 +1230,14 @@ public class TunaDAO {
 		return ad;
 	}
 
-//게시글 수정
+	/**
+	 * <pre>
+	 * 수정게시글 삽입	
+	 * </pre>
+	 * @param board
+	 * @return result
+	 * @author Hyelim Jeon
+	 */
 	public int updatetBoard(Connection con, BoardDTO board) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updateBoard");

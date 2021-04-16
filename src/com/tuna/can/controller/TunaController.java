@@ -555,7 +555,14 @@ public class TunaController {
 		return secretlist;
 
 	}
-    //게시글 삭제하기
+	/**
+	 * <pre>
+	 * 내가 쓴 게시물 삭제하기
+	 * </pre>
+	 * @param title
+	 * @return
+	 * @author Hyelim Jeon
+	 */
 	public int deleteAllBoard(BoardDTO title) {
 
 		int result = 0;
@@ -565,7 +572,14 @@ public class TunaController {
 		return result;
 	}
 	
-	// 전체게시물 목록 불러오기
+	/**
+	 * <pre>
+	 * 모든 게시물 목록 불러오기
+	 * </pre>
+	 * @param userno
+	 * @return
+	 * @author Hyelim Jeon
+	 */
 	public List<BoardDTO> selectallBoard(int userNo) {
 		
 		
@@ -574,33 +588,34 @@ public class TunaController {
 
 	}
 
-	// 내가 쓴 게시물목록 불러오기
+	/**
+	 * <pre>
+	 * 내가 여태 쓴 게시물 목록 불러오기
+	 * </pre>
+	 * @param userno
+	 * @return
+	 * @author Hyelim Jeon
+	 */
 	public List<BoardDTO> selectMyBoard(int userNo) {
 		List<BoardDTO> myBoardList = service.selectMyBoard(userNo);
 		return myBoardList;
 	}
 
-	// 친구가 쓴 게시물 목록 불러오기
+	/**
+	 * <pre>
+	 * 친구가 쓴 게시물 목록 불러오기
+	 * </pre>
+	 * @param userno
+	 * @return
+	 * @author Hyelim Jeon
+	 */
+	
 	public List<BoardDTO> selectFriendBoard(int userNo) {
 		List<BoardDTO> friendBoard = service.selectFriendBoard(userNo);
 		return friendBoard;
 	}
 
-	
-	
-	//수정 할 게시물 불러오기
-	public BoardDTO modifySecretBoard(int boardNo) {
-		 
-		BoardDTO boardDTO = new BoardDTO();
-		
-		boardDTO = service.modifySecretBoard(boardNo);
-		
-		return boardDTO ;
-	
-	}
 
-
-	
 	public AddFriendDTO selectNickName(int userNo) {
 		
 		AddFriendDTO af = new AddFriendDTO();
@@ -609,8 +624,14 @@ public class TunaController {
 		return af;
 	}
 
-
-     //
+	/**
+	 * <pre>
+	 * 수정 게시물 다시 재삽입
+	 * </pre>
+	 * @param updateInputContent
+	 * @return
+	 * @author Hyelim Jeon
+	 */
 	public int updateBoard(Map<String, Object> updateInputContent) {
 	
 			BoardDTO boardDTO = new BoardDTO();

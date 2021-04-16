@@ -3,6 +3,13 @@ package com.tuna.can.model.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * <pre>
+ * 	게시글 목록과 게시글 삽입을 위한 BoardDTO
+ * </pre>
+ * @author Hyelim Jeon
+ *
+ */
 public class BoardDTO implements Serializable {
 	
 	/**
@@ -42,14 +49,9 @@ public class BoardDTO implements Serializable {
 		return userNo;
 	}
 
-
-
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-
-
-
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -81,24 +83,20 @@ public class BoardDTO implements Serializable {
 		this.boardContent = boardContent;
 	}
 
-	
+	public int getListNo() {
+		return listNo;
+	}
+
+	public void setListNo(int listNo) {
+		this.listNo = listNo;
+	}
+
 
 
 	@Override
 	public String toString() {
 		return "BoardDTO [boardNo=" + boardNo + ", userId=" + userId + ", boardDate=" + boardDate + ", title=" + title
 				+ ", boardContent=" + boardContent + ", listNo=" + listNo + ", userNo=" + userNo + "]";
-	}
-
-
-
-	public int getListNo() {
-		return listNo;
-	}
-
-
-	public void setListNo(int listNo) {
-		this.listNo = listNo;
 	}
 
 

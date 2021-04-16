@@ -28,7 +28,7 @@ import com.tuna.can.model.dto.BoardDTO;
 
 /**
  * <pre>
- * 비밀게시글 목록 페이지
+ * 내가 쓴 모든 게시글 목록 페이지
  * </pre>
  * 
  * @author Hyelim Jeon
