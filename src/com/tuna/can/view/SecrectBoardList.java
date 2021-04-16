@@ -61,8 +61,6 @@ public class SecrectBoardList extends JFrame{
 			topPanel.setBackground(Color.pink);
 			
 		    JPanel midlePanel = new JPanel();
-     	    //midlePanel.setLayout(null);
-		    //midlePanel.setBounds(0,100,700,700);
 		    midlePanel.setBackground(Color.pink);
 		    
 		    JPanel bottomPanel = new JPanel();

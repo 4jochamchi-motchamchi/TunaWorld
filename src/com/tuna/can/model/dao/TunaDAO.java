@@ -1172,6 +1172,49 @@ public class TunaDAO {
 
 		return friendBoard;
 	}
+	
+	/**
+	 * <pre>
+	 *  수정 게시물 불러오는 메소드
+	 * </pre>
+	 * @param userNo
+	 * @return BoardDTO
+	 * @author Hyelim Jeon
+	 */
+	public BoardDTO modifySecretBoard(Connection con, int boardNo) {
+
+		String query = prop.getProperty("modifyScreteBoard");
+		PreparedStatement pstmt = null;
+
+		ResultSet rset = null;
+
+		BoardDTO boardDTO = new BoardDTO();
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, boardNo);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				boardDTO.setListNo(rset.getInt("LIST_NO"));
+				boardDTO.setTitle(rset.getString("TITLE"));
+				boardDTO.setBoardContent(rset.getString("BOARD_CONTENTS"));
+				boardDTO.setListNo(rset.getInt("LIST_NO"));
+				boardDTO.setUserNo(rset.getInt("USER_NO"));
+
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+
+		return boardDTO;
+	}
 
 
 	/**
@@ -1291,5 +1334,7 @@ public class TunaDAO {
 		return result;
 
 	}
+
+
 
 }

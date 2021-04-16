@@ -496,6 +496,19 @@ public class TunaService {
 
 		return FriendBoard;
 	}
+	
+	 public BoardDTO modifySecretBoard(int boardNo) {
+
+			BoardDTO boardDTO = new BoardDTO();
+
+			Connection con = getConnection();
+
+			boardDTO = tunaDAO.modifySecretBoard(con, boardNo);
+
+			close(con);
+
+			return boardDTO;
+		}
 
 
 	/**

@@ -52,7 +52,7 @@ public class ModifyTextArea extends JFrame{
 		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);	
 		//게시글 DTO
 		BoardDTO board = new BoardDTO();
-		
+		board = tunaController.modifySecretBoard(boardNum);
 
 
 		this.setLayout(null);

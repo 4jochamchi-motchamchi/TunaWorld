@@ -1,6 +1,7 @@
 package com.tuna.can.controller;
 
 import java.awt.Font;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -614,6 +615,23 @@ public class TunaController {
 		List<BoardDTO> friendBoard = service.selectFriendBoard(userNo);
 		return friendBoard;
 	}
+	/**
+	 * <pre>
+	 * 수정할 게시물 목록 불러오
+	 * </pre>
+	 * @param userno
+	 * @return
+	 * @author Hyelim Jeon
+	 */
+	public BoardDTO modifySecretBoard(int boardNo) {
+		 
+		BoardDTO boardDTO = new BoardDTO();
+		
+		boardDTO = service.modifySecretBoard(boardNo);
+		
+		return boardDTO ;
+	
+	}
 
 
 	public AddFriendDTO selectNickName(int userNo) {
@@ -646,6 +664,7 @@ public class TunaController {
 		
 		return result;
 	}
+
 	
 	   public int deleteSecretBoard(BoardDTO title) {
 
@@ -655,5 +674,7 @@ public class TunaController {
 		      
 		      return result;
 		   }
+		
+	  
 	
 }
