@@ -427,6 +427,8 @@ public class TunaDAO {
 	// 전체글 불러오기
 	public List<BoardDTO> allBoardList(Connection con, int userNo) {
 
+
+
 		String query = prop.getProperty("selectAllBoard");
 
 		PreparedStatement pstmt = null;
@@ -437,6 +439,7 @@ public class TunaDAO {
 		try {
 			pstmt = con.prepareStatement(query);
 //				pstmt.setInt(1, userNo);
+
 
 			rset = pstmt.executeQuery();
 
@@ -896,7 +899,7 @@ public class TunaDAO {
 
 	/**
 	 * <pre>
-	 * (전체/친구/비밀) 게시글 db에 삽입하는 메소드
+	 * 전체 게세글 db에 삽입하는 메소드
 	 * </pre>
 	 * 
 	 * @param con
@@ -942,7 +945,6 @@ public class TunaDAO {
 	 * 
 	 * @param con
 	 * @return
-	 * @author Juhee Hwang
 	 */
 	public int selectLastContentNo(Connection con) {
 		Statement stmt = null;
@@ -957,7 +959,7 @@ public class TunaDAO {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
-				lastContentNo = rset.getInt("CURRENT");
+				lastContentNo = rset.getInt("CURRVAL");
 			}
 		} catch (SQLException e) {
 
@@ -966,6 +968,7 @@ public class TunaDAO {
 			close(rset);
 			close(stmt);
 		}
+
 		return lastContentNo;
 	}
 
