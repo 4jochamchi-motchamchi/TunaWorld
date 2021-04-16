@@ -35,7 +35,6 @@ import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
 
-
 /**
  * <pre>
  * 로그인 할 수 있는 페이지
@@ -168,8 +167,6 @@ public class Login_page extends JFrame{
                   }
                   System.out.println(userDTO);
 
-                  //                     주희누님 수정 바래영^^
-                  //                     int result = 0;
 
                   result = tunaController.checkLoginUser(idCheck, pwCheck);
                   System.out.println(result);
@@ -193,8 +190,6 @@ public class Login_page extends JFrame{
       
 
       loginBtn.addActionListener(new ActionListener() {
-
-
 
          @Override
          public void actionPerformed(ActionEvent e) {
