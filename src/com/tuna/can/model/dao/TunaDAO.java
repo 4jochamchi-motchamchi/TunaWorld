@@ -240,8 +240,16 @@ public class TunaDAO {
 		return result;
 	}
 
-	// 게시글 내용 가져오기
 
+	/**
+	 * <pre>
+	 * 게시글 내용 가져오기
+	 * </pre>
+	 * @param con
+	 * @param boardNo
+	 * @return bulletinDTO
+	 * @author NaraWee
+	 */
 	public BulletinDTO selectBulletinContent(Connection con, int boardNo) {
 
 		String query = prop.getProperty("selectBulletin");
@@ -279,7 +287,16 @@ public class TunaDAO {
 		return bulletinDTO;
 	}
 
-	// 댓글 내용 가져오기
+
+	/**
+	 * <pre>
+	 * 댓글 내용 가져오기
+	 * </pre>
+	 * @param con
+	 * @param commentNo
+	 * @return commentList
+	 * @author NaraWee 
+	 */
 	public List<CommentDTO> selectComment(Connection con, int commentNo) {
 
 		String query = prop.getProperty("selectComment");
@@ -315,7 +332,15 @@ public class TunaDAO {
 		return commentList;
 	}
 
-	// 댓글 넣어주기
+	/**
+	 * <pre>
+	 * 댓글 넣어주기
+	 * </pre>
+	 * @param con
+	 * @param comment
+	 * @return result
+	 * @author WEENARA
+	 */
 	public int insertComment(Connection con, CommentDTO comment) {
 
 		PreparedStatement pstmt = null;
@@ -624,7 +649,15 @@ public class TunaDAO {
 		return equipYNList;
 	}
 
-	// 친구인지 아닌지 확인하기 위해 친구조회
+	/**
+	 * <pre>
+	 * 친구인지 아닌지 확인하기 위해 친구조회
+	 * <pre>
+	 * @param con
+	 * @param userNo
+	 * @return friend
+	 * @author WEENARA
+	 */
 	public List<FriendDTO> selectFriends(Connection con, int userNo) {
 
 		String query = prop.getProperty("selectFriends");
@@ -705,6 +738,15 @@ public class TunaDAO {
 		return sotreItem;
 	}
 
+	/**
+	 * <pre>
+	 * 친구요청 보내기
+	 * </pre>
+	 * @param con
+	 * @param addFriends
+	 * @return result
+	 * @author WEENARA
+	 */
 	public int insertRequest(Connection con, AddFriendDTO addFriends) {
 
 		PreparedStatement pstmt = null;
@@ -810,7 +852,16 @@ public class TunaDAO {
 		return secrettList;
 	}
 
-	// 비밀게시글 삭제하기
+
+	/**
+	 * <pre>
+	 * 비밀게시글 삭제하기
+	 * </pre>
+	 * @param con
+	 * @param title
+	 * @return result
+	 * @author WEENARA
+	 */
 	public int deleteAllBoard(Connection con, BoardDTO title) {
 
 		PreparedStatement pstmt = null;
@@ -1307,7 +1358,15 @@ public class TunaDAO {
 
 	}
 
-	// 비밀게시글 삭제하기
+	/**
+	 * <pre>
+	 * 비밀게시글 삭제하기
+	 * </pre>
+	 * @param con
+	 * @param title
+	 * @return result
+	 * @author WEENARA
+	 */
 	public int deleteSecretBoard(Connection con, BoardDTO title) {
 
 		PreparedStatement pstmt = null;

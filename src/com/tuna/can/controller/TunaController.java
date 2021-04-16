@@ -178,7 +178,13 @@ public class TunaController {
 	}
 	
 
-	// 게시글 내용 조회
+	/**
+	 * <pre>
+	 * 게시글 내용 조회
+	 * </pre>
+	 * @return 
+	 * @author NaraWee
+	 */
 	public BulletinDTO selectBulletinContent(int boardNo) {
 
 		BulletinDTO bulletinDTO = new BulletinDTO();
@@ -187,7 +193,14 @@ public class TunaController {
 
 	}
 
-	// 댓글 내용 조회
+
+	/**
+	 * <pre>
+	 * 댓글 내용 조회
+	 * </pre>
+	 * @return 
+	 * @author NaraWee
+	 */
 	public List<CommentDTO> selectComment(int commentNo) {
 
 		List<CommentDTO> comment = service.selectComment(commentNo);
@@ -195,7 +208,14 @@ public class TunaController {
 
 	}
 
-	// 댓글 집어넣기
+
+	/**
+	 * <pre>
+	 * 댓글 넣어주기
+	 * </pre>
+	 * @return 
+	 * @author NaraWee
+	 */
 	public int insertComment(CommentDTO comment) {
 
 		CommentDTO insertComment = new CommentDTO();
@@ -403,7 +423,13 @@ public class TunaController {
 	
 
 
-	// 친구인지 아닌지 확인하기 위해 친구조회
+	/**
+	 * <pre>
+	 * 친구인지 아닌지 확인하기 위해 친구조회
+	 * </pre>
+	 * @return 
+	 * @author NaraWee
+	 */
 	public List<FriendDTO> selectFriends(int userNo) {
 
 		List<FriendDTO> friendDTO = new ArrayList<>();
@@ -509,8 +535,13 @@ public class TunaController {
 		return resultMap;
 	}
 	
-
-	// 친구요청 보내기 정보 INSERT
+	/**
+	 * <pre>
+	 * 친구요청 보내기 정보 INSERT
+	 * </pre>
+	 * @return 
+	 * @author NaraWee
+	 */
 	public int insertRequest(AddFriendDTO addFriend) {
 
 		AddFriendDTO insertRequest = new AddFriendDTO();
@@ -548,8 +579,13 @@ public class TunaController {
 	}
 
 
-
-	// 비밀게시글 목록 불러오기
+	/**
+	 * <pre>
+	 * 비밀게시글 목록 불러오기
+	 * </pre>
+	 * @return 
+	 * @author NaraWee
+	 */
 	public List<BoardDTO> selectSecretBoard(int userNo) {
 
 		List<BoardDTO> secretlist = service.selectSecretBoard(userNo);
@@ -666,7 +702,14 @@ public class TunaController {
 	}
 
 	
-	   public int deleteSecretBoard(BoardDTO title) {
+	/**
+	 * <pre>
+	 * 비밀게시글 목록 삭제하기
+	 * </pre>
+	 * @return 
+	 * @author NaraWee
+	 */
+	public int deleteSecretBoard(BoardDTO title) {
 
 		      int result = 0;
 		      
