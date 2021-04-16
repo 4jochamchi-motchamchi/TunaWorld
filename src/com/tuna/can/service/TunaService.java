@@ -451,18 +451,17 @@ public class TunaService {
 	}
 
 
-	public int deleteSecretBoard(BoardDTO title) {
+	public int deleteAllBoard(BoardDTO title) {
 		
 		int result = 0;
 		
 		Connection con = getConnection();
 		
-		result = tunaDAO.deleteSecretBoard(con, title);
+		result = tunaDAO.deleteAllBoard(con, title);
 			
 		if(result > 0){
 			commit(con);
 		} else {
-			System.out.println();
 			rollback(con);
 		}
 		close(con);
@@ -607,5 +606,22 @@ public class TunaService {
 		
 
 	}
+	   public int deleteSecretBoard(BoardDTO title) {
+		      
+		      int result = 0;
+		      
+		      Connection con = getConnection();
+		      
+		      result = tunaDAO.deleteSecretBoard(con, title);
+		         
+		      if(result > 0){
+		         commit(con);
+		      } else {
+		         System.out.println();
+		         rollback(con);
+		      }
+		      
+		      return result;
+		   }
 
 }

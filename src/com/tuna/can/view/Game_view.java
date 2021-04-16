@@ -73,8 +73,6 @@ public class Game_view extends JFrame{
 		buttonPanel.setLayout(new GridLayout(4,4,5,5));
 		// 버튼 생성
 		
-//		JButton[] jb = new JButton[25];
-		
 		// 하단 페널에 게임 남은 횟수 표시
 		MiniGame hg = new MiniGame();
 		JLabel countNum = new JLabel("남은 횟수  X  " + hg.getCountNum());
@@ -88,18 +86,8 @@ public class Game_view extends JFrame{
 			button.addActionListener(new MiniGame(i, button, countNum, this));
 			
 			buttonPanel.add(button);
-//			if(MiniGame_hyunbin.getCheck() == 1) {
-//				break;
-//			}
-//		나라 작품	break;
-//			buttonPanel.add(new JButton(i+ ""));
-			
 		}
-		
 	/*--------------------------------------------------------------------------*/	
-		
-		
-		
 		// 홈 가기 버튼
 		ImageIcon home = new ImageIcon("image/home.PNG");
 		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
@@ -112,8 +100,6 @@ public class Game_view extends JFrame{
 					dispose();
 			}
 		});
-//		backB.setBounds(10,10,90,25);
-//		topPanel.add(backB);
 		backB.setBounds(30, 25, 55, 55);
 		backB.setBackground(Color.pink);
 		backB.setBorder(pinkborder);
@@ -127,36 +113,15 @@ public class Game_view extends JFrame{
 		bottomPanel.setLayout(null);
 		bottomPanel.setBounds(100,750,600,300);
 		bottomPanel.setBackground(Color.PINK);
-		
-		// 재화 박스 설정
-//		JTextField textBox = new JTextField(100);
-//		textBox.setBackground(Color.PINK);
-//		textBox.setBounds(400, 40, 150, 30);
-//		textBox.setText("참치캔 이미지 " +" X ");
-//		ImageIcon  can = new ImageIcon("image/logoBig.PNG");
-//		JLabel jaehwa = new JLabel("참치캔    X   갯수");
-//		jaehwa.setBounds(400, 70, 150, 30);
-		//-----------------------------------------------------
-		
-		
-		
-		// 읽기 전용으로 만들기
-//		textBox.setEditable(false);
-//		bottomPanel.add(textBox);
-		bottomPanel.add(countNum);
-//		bottomPanel.add(jaehwa);
-		
-		
+		bottomPanel.add(countNum);		
 	/*--------------------------------------------------------------------------*/	
 		
 		// 좌우 판넬 설정
-//		ImageIcon cwtree = new ImageIcon("image/catwithtree.PNG");
-//		JButton ctree = new JButton(cwtree);
 		JPanel sidePanel1 = new JPanel();
 		sidePanel1.setLayout(null);
 		sidePanel1.setBounds(0,0,100,900);
 		sidePanel1.setBackground(Color.PINK);
-//		sidePanel1.add(ctree);
+		
 		JPanel sidePanel2 = new JPanel();
 		sidePanel2.setLayout(null);
 		sidePanel2.setBounds(600,0,100,750);
@@ -173,8 +138,7 @@ public class Game_view extends JFrame{
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+	
 	}
 	public static void main(String[] args) {
 		new Game_view();

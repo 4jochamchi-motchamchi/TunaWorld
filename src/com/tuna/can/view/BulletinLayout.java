@@ -122,7 +122,7 @@ public class BulletinLayout extends JFrame{
 			// 제목 설정
 			topLabel.setHorizontalAlignment(JLabel.CENTER);
 			topLabel.setBounds(115, 0, 470, 100);
-			topLabel.setFont(new Font("휴먼둥근헤드라인",Font.PLAIN, 30));
+			topLabel.setFont(new Font("휴먼둥근헤드라인",Font.BOLD, 30));
 			topPanel.add(topLabel);
 			
 			
