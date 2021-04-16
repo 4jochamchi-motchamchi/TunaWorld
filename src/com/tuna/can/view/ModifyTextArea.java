@@ -121,7 +121,7 @@ public class ModifyTextArea extends JFrame{
 		JLabel titleT = new JLabel("제목");
 		titleT.setBounds(50,10,90,25);
 		JTextField subject = new JTextField(board.getTitle());
-		titleT.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 20));
+		titleT.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 20));
 		lbl.setHorizontalAlignment(JLabel.CENTER);
 		
 

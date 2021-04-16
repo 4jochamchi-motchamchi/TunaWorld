@@ -414,14 +414,14 @@ public class TunaController {
 	 * </pre>
 	 * @param userNoCheck
 	 * @return
+	 * @author Juhee Hwang
 	 */
 	public int checkUserNo(String userNoCheck) {
 
 		UserDTO userDTO = new UserDTO();
 		userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		
 		int userNo = userDTO.getUserNo();
-		System.out.println(userDTO);
-		System.out.println(userNo);
 		return userNo;
 	}
 	
@@ -570,11 +570,11 @@ public class TunaController {
 
 	}
     //게시글 삭제하기
-	public int deleteSecretBoard(BoardDTO title) {
+	public int deleteAllBoard(BoardDTO title) {
 
 		int result = 0;
 		
-		result = service.deleteSecretBoard(title);
+		result = service.deleteAllBoard(title);
 		
 		return result;
 	}
@@ -639,5 +639,14 @@ public class TunaController {
 		
 		return result;
 	}
+	
+	   public int deleteSecretBoard(BoardDTO title) {
+
+		      int result = 0;
+		      
+		      result = service.deleteSecretBoard(title);
+		      
+		      return result;
+		   }
 	
 }

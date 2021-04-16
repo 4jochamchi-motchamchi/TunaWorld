@@ -39,7 +39,7 @@ public class SecrectBoardList extends JFrame{
 		
 		TunaController tunaController = new TunaController();
 		
-     	//	int userNo = 1;
+
 		int userNo = tunaController.checkUserNo(tunaController.loginMemberId);
 
 		    Border border = BorderFactory.createLineBorder(Color.BLACK, 1);	
@@ -93,8 +93,8 @@ public class SecrectBoardList extends JFrame{
 			topPanel.add(backB);
 			
 			//내게시글 글씨
-			JLabel lbl = new JLabel("비밀게시글");
-			lbl.setFont(new Font("휴먼둥근헤드라인",Font.PLAIN, 30));
+			JLabel lbl = new JLabel(" 비 밀 게 시 글");
+			lbl.setFont(new Font("휴먼둥근헤드라인",Font.BOLD, 30));
 			lbl.setHorizontalAlignment(JLabel.CENTER);
 			lbl.setBounds(100, 40, 500, 50);
 			topPanel.add(lbl);
@@ -163,37 +163,37 @@ public class SecrectBoardList extends JFrame{
 							
 				
 			    
-			    ImageIcon delete = new ImageIcon("image/delete.PNG");
-				JButton deleteButton = new JButton(delete);
-				deleteButton.setBackground(Color.pink);
-				deleteButton.setBorder(pinkborder);
-				deleteButton.setBounds(580,28,50,40);
-				deleteButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-								
-					if(e.getSource() == deleteButton) {
-						
-		
-						// 삭제 버튼 눌렀을 떄
-						int answer = JOptionPane.showConfirmDialog(null, "삭제하시겠습까?", "삭제",0);
-						
-						if(answer == JOptionPane.YES_OPTION){
-							//사용자가 yes를 눌렀을 떄
-							JOptionPane.showMessageDialog(null, "삭제되었습니다.", "삭제",1);
-							board.setUserNo(userNo);
-							board.setTitle(boardDTO.getTitle());
-							System.out.println(boardDTO.getTitle());
-							int result = tunaController.deleteSecretBoard(board);
-							
-							new SecrectBoardList();
-							dispose();	
-							
-						}
-						
-					}				
-				}
-			});
+//			    ImageIcon delete = new ImageIcon("image/delete.PNG");
+//				JButton deleteButton = new JButton(delete);
+//				deleteButton.setBackground(Color.pink);
+//				deleteButton.setBorder(pinkborder);
+//				deleteButton.setBounds(580,28,50,40);
+//				deleteButton.addActionListener(new ActionListener() {
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//								
+//					if(e.getSource() == deleteButton) {
+//						
+//		
+//						// 삭제 버튼 눌렀을 떄
+//						int answer = JOptionPane.showConfirmDialog(null, "삭제하시겠습까?", "삭제",0);
+//						
+//						if(answer == JOptionPane.YES_OPTION){
+//							//사용자가 yes를 눌렀을 떄
+//							JOptionPane.showMessageDialog(null, "삭제되었습니다.", "삭제",1);
+//							board.setUserNo(userNo);
+//							board.setTitle(boardDTO.getTitle());
+//							System.out.println(boardDTO.getTitle());
+//							int result = tunaController.deleteSecretBoard(board);
+//							
+//							new SecrectBoardList();
+//							dispose();	
+//							
+//						}
+//						
+//					}				
+//				}
+//			});
 				
 				
 				ImageIcon edit = new ImageIcon("image/edit.PNG");
@@ -220,7 +220,7 @@ public class SecrectBoardList extends JFrame{
 								
 							
 				allList.add(editButton);
-			    allList.add(deleteButton);
+//			    allList.add(deleteButton);
 
 			    midlePanel.add(allList);
 			    

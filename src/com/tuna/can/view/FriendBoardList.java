@@ -88,10 +88,10 @@ public class FriendBoardList extends JFrame{
 			backB.setBorder(pinkborder);
 			topPanel.add(backB);
 			
-			//전체게시글 글씨
+			//친구게시글 글씨
 			JLabel lbl = new JLabel(" 친 구 게 시 글 ");
 			lbl.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
-			lbl.setBounds(210, 40, 250, 50);
+			lbl.setBounds(100, 40, 500, 50);
 			topPanel.add(lbl);
 			
 		    
@@ -126,7 +126,7 @@ public class FriendBoardList extends JFrame{
 				title.setBounds(50, 40, 450, 30);
 				title.setLayout(null);
 				title.setBackground(Color.pink);
-				title.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 20));
+				title.setFont(new Font("휴먼둥근헤드라인" ,Font.ITALIC, 20));
 				title.setBorder(pinkborder);
 				title.setHorizontalAlignment(SwingConstants.LEFT);
 

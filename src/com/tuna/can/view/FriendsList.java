@@ -63,7 +63,7 @@ public class FriendsList extends JFrame{
 			JLabel topLabel = new JLabel("친구 목록");
 			topLabel.setLayout(null);
 			topLabel.setBounds(270, 27, 700, 50);
-			topLabel.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 30));
+			topLabel.setFont(new Font("휴먼둥근헤드라인" ,Font.BOLD, 30));
 			
 			
 			// 상단 판넬에 라벨 
@@ -118,16 +118,12 @@ public class FriendsList extends JFrame{
 				friendsPanel = new JPanel();
 				friendsPanel.setLayout(null);
 
-				friendsPanel.setBounds(0,i*100,670,100);
+				friendsPanel.setBounds(0,i*100,700,100);
 				friendsPanel.setBackground(new Color(255, 240, 245));
 				friendsPanel.setBorder(lightgrayborder);
-			
 				
 				// 닉네임
 				nickName = new JLabel();
-				
-				
-				
 				Integer no = friends.get(i).getUserNO();
 				JLabel userNo = new JLabel(no.toString());
 				userNo.setVisible(false);
@@ -135,8 +131,6 @@ public class FriendsList extends JFrame{
 				Integer fno = friends.get(i).getFriendsNo();
 				JLabel friendNo = new JLabel(fno.toString());
 			    friendNo.setVisible(false);
-			    
-			    
 			    
 				nickName.setBounds(310, 27, 700, 50);
 				// 객체 연결용
@@ -146,8 +140,6 @@ public class FriendsList extends JFrame{
 				imageLabel = new JLabel();
 				imageLabel.setLayout(null);
 				imageLabel.setBounds(57,27,72,60);
-//				ImageIcon photo = new ImageIcon("image/profile.png");
-//				imageLabel.setIcon(friend.getImage());
 				
 				JButton button = new JButton(delete);
 				button.setLayout(null);
@@ -163,7 +155,6 @@ public class FriendsList extends JFrame{
 						if(result == JOptionPane.YES_OPTION) {
 							// 딜리트
 							TunaService ts = new TunaService();
-//							System.out.println(Integer.parseInt(userNo.getText()) + " : " + Integer.parseInt(friendNo.getText()));
 							ts.deleteFriend(Integer.parseInt(userNo.getText()), Integer.parseInt(friendNo.getText()));
 							new FriendsList();
 							dispose();
@@ -179,61 +170,17 @@ public class FriendsList extends JFrame{
 				friendsPanel.add(imageLabel);
 				friendsPanel.add(nickName);
 				middlePanel.add(friendsPanel);
-				
 				}
-			
-			
-			
-	
-//			for(int i = 0; i < friends.size(); i++) {
-//				friend = friends.get(i);
-//				
-//				// 친구 목록 페널
-//				friendsPanel = new JPanel();
-////				friendsPanel.setBackground(Color.WHITE);
-//				friendsPanel.setLayout(null);
-//				friendsPanel.setBorder(panelborder);
-//				friendsPanel.setBackground(new Color(255, 240, 245));
-//				
-//				// 삭제 버튼
-//				JButton button = new JButton(delete);
-//				button.setLayout(null);
-//				button.setBackground(new Color(255, 240, 245));
-//				button.setBorder(button2);
-//				button.setBounds(550,27,90,40);
-//				button.setRolloverIcon(deletered);
-//				
-//				// 친구 닉네임 라벨
-//				JLabel nickName = new JLabel();
-//				nickName.setLayout(null);
-//				nickName.setBounds(310, 27, 700, 50);
-//				
-//				// 친구 이미지
-//				JLabel imageLabel = new JLabel();
-//				imageLabel.setLayout(null);
-//				imageLabel.setBounds(57,27,72,60);
-//				
-//				// 미드 페널 설정
-//				middlePanel.setLocation(0, 100);
-//				middlePanel.setPreferredSize(new Dimension(665,100*(i+1)));
-////				middlePanel.setBounds(0, 100, 700, (i * 100)+100);
-////				middlePanel.setPreferredSize(new Dimension(700, (i * 100)+100));
-//				middlePanel.add(new FriendsList_controller(i,friendsPanel, this, friend, nickName, button, imageLabel));
-//				
-//			}
-//			middlePanel.setBackground(new Color(255, 240, 245));
-			
 			// 스크롤
 			JScrollPane scrollbar = new JScrollPane(middlePanel);
 			scrollbar.setPreferredSize(new Dimension(685,700));
-			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 			int width = scrollbar.getPreferredSize().width;
 			int height = scrollbar.getPreferredSize().height;
 			scrollbar.setBounds(0,100,width,height);
 			scrollbar.setBorder(pinkborder);
 			scrollbar.setBackground(Color.pink);
 
-			
 			/*------------------------------------------------------------------------------------------*/
 			
 			// 하단 판넬
@@ -247,7 +194,6 @@ public class FriendsList extends JFrame{
 			// 마이 프레임에 판넬 추가
 			this.add(topPanel);
 			this.add(bottomPanel);
-//			this.add(middlePanel);
 			this.getContentPane().add(scrollbar);
 			this.setResizable(false);
 			this.setVisible(true);

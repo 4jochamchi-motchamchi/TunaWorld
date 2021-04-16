@@ -49,9 +49,7 @@ public class Login_page extends JFrame{
 
    public Login_page() {
       super("Login page");
-      //      public static void main(String[] args) {
-
-      //         JFrame mf = new JFrame("Login Page");
+  
       this.setLayout(null);
       this.setSize(700,900);
       this.setLocation(600, 50);
@@ -156,19 +154,8 @@ public class Login_page extends JFrame{
 
                   idCheck = idText.getText();
                   String pwCheck = pwText.getText();
-                  UserDTO userDTO = new UserDTO();
+                 
                   int result = tunaController.checkLoginUser(idCheck, pwCheck);
-
-                  if(result > 0) {
-                     System.out.println("로그인 성공");
-                  } else {
-                     System.out.println("로그인 실패");
-
-                  }
-                  System.out.println(userDTO);
-
-
-                  result = tunaController.checkLoginUser(idCheck, pwCheck);
                   System.out.println(result);
 
                   if(result>0) {
@@ -191,6 +178,8 @@ public class Login_page extends JFrame{
 
       loginBtn.addActionListener(new ActionListener() {
 
+
+
          @Override
          public void actionPerformed(ActionEvent e) {
 
@@ -208,21 +197,8 @@ public class Login_page extends JFrame{
 
                idCheck = idText.getText();
                String pwCheck = pwText.getText();
-               UserDTO userDTO = new UserDTO();
+
                int result = tunaController.checkLoginUser(idCheck, pwCheck);
-
-               if(result > 0) {
-                  System.out.println("로그인 성공");
-               } else {
-                  System.out.println("로그인 실패");
-
-               }
-               System.out.println(userDTO);
-
-               //                  주희누님 수정 바래영^^
-               //                  int result = 0;
-
-               result = tunaController.checkLoginUser(idCheck, pwCheck);
                System.out.println(result);
 
                if(result>0) {
@@ -232,11 +208,11 @@ public class Login_page extends JFrame{
 
                }else {
                   JOptionPane.showMessageDialog(null, "로그인 정보가 잘못되어 로그인에 실패했습니다.", "로그인 실패", 0);
+               		 }
                }
-            }
-         }
+         	}
 
-      });
+      	});
 
       this.add(imagePanel);
       this.add(loginPanel);

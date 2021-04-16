@@ -69,7 +69,7 @@ public class Store{
 			// 상점 글씨
 			JLabel storeLabel = new JLabel("Store");
 			storeLabel.setBounds(270, 40, 170, 50);
-			storeLabel.setFont(font);
+			storeLabel.setFont(new Font("휴먼둥근헤드라인",Font.BOLD, 30));
 			topPanel.add(storeLabel);
 
 			// 뒤로가기 버튼
