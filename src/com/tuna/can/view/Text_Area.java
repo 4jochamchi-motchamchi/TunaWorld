@@ -105,7 +105,7 @@ public class Text_Area extends JFrame{
 		topPanel.add(backB);
 		
 
-//		Scanner sc = new Scanner(System.in);
+
 		BoardDTO b = new BoardDTO();
 
 	    //제목
@@ -114,12 +114,7 @@ public class Text_Area extends JFrame{
         titleT.setFont(new Font("휴먼둥근헤드라인" ,Font.PLAIN, 20));
 		lbl.setHorizontalAlignment(JLabel.CENTER);
         TextField subject = new TextField(80);
-        subject.setBounds(140,10, 500 ,25);
-
-//        String sub = subject.getText();
-        
- 
-        
+        subject.setBounds(140,10, 500 ,25);      
 
  
         subP.add(titleT);
@@ -132,7 +127,6 @@ public class Text_Area extends JFrame{
         textareaP.add(txt);
  
 
-        
           
 		//날짜
         Date day = new Date();
@@ -141,8 +135,6 @@ public class Text_Area extends JFrame{
         oneul.setBounds(500, 10, 200, 30);
         bottonP.add(oneul);
 
-
-		
 
         BoardDTO board = new BoardDTO();
         //공개범위 라디오 버튼
@@ -179,6 +171,7 @@ public class Text_Area extends JFrame{
 	    	    jListNo.setText(listno.toString());				
 			}
 		});
+	  
 	    friend.setBounds(240, 0, 100, 50);
 	    friend.addActionListener(new ActionListener() {
 			
@@ -195,10 +188,6 @@ public class Text_Area extends JFrame{
 	    all.setBounds(40, 0, 100, 50);
 	    myself.setBounds(140, 0, 100,50);
 	    friend.setBounds(240, 0, 100, 50);
-
-	   
-	       
-	  
 
 	    bottonP.add(myself);
 	    bottonP.add(friend);
@@ -239,11 +228,8 @@ public class Text_Area extends JFrame{
 					result = tunaController.insertBoard(newInputContent);
 				
 					
-//					int result =controller.insertBoard(board);
-
 					if(result > 0) {
 						JOptionPane.showConfirmDialog(null,"저장되었습니다","성공!!",-1);
-//						txt.requestFocus();
 
 					    new Main_page();
 					     dispose();
@@ -253,8 +239,6 @@ public class Text_Area extends JFrame{
 					}
 					
 				} 
-			
-					
 
 	    });
 	    

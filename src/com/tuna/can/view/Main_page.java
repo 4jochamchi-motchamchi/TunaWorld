@@ -145,7 +145,7 @@ public class Main_page extends JFrame{
 	      //        scroll.add(listPanel);
 
 
-	      //        JScrollPane scrollPane = new JScrollPane(listPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	  
 	      JScrollPane scrollPane = new JScrollPane(listPanel);
 	      scrollPane.setPreferredSize(new Dimension(685,460));
 	      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -154,7 +154,6 @@ public class Main_page extends JFrame{
 	      scrollPane.setBounds(0, 300, width, height);
 	      scrollPane.setBackground(Color.pink);
 
-	      //scrollPane.setBounds(0, 300, 683, 450);
 	      this.getContentPane().add(scrollPane);
 
         

@@ -52,7 +52,15 @@ public class TunaController {
 		return result;
 	}
 
-//	MyPage에 로그인한 회원정보 조회
+	
+	/**
+	 * <pre>
+	 * 로그인 아이디 기반으로 멤버 정보 로드
+	 * </pre>
+	 * @param id
+	 * @return
+	 * @author kim-sunwoong
+	 */
 	public UserDTO selectMemberInfo(String id) {
 
 		loginMemberId = id;
@@ -64,7 +72,15 @@ public class TunaController {
 		return loginMember;
 	}
 
-//	MyPage에 로그인한 회원의 아이템 정보 조회
+	/**
+	 * <pre>
+	 * 소유 아이템들을 로드 후 
+	 * 각 카테고리, 장착 여부 별로 분류한후 반환
+	 * </pre>
+	 * @param userNo
+	 * @return itemMap
+	 * @author kim-sunwoong
+	 */
 	public Map<Integer, ArrayList<UserInventoryDTO>> selectUserInventory(int userNo) {
 
 		Map<Integer, ArrayList<UserInventoryDTO>> itemMap = new HashMap<Integer, ArrayList<UserInventoryDTO>>();
@@ -135,7 +151,13 @@ public class TunaController {
 		return itemMap;
 	}
 
-	// 유저 정보에서 코인 조회
+	/**
+	 * <pre>
+	 * 유저의 현재 코인 갯수 조회
+	 * </pre>
+	 * @return 
+	 * @author kim-sunwoong
+	 */
 	public int selectUSerCoin(int userNo) {
 
 		coin = service.selectCoin(userNo);
@@ -153,9 +175,6 @@ public class TunaController {
 		return userCoin;
 		
 	}
-	
-
-
 	
 
 	// 게시글 내용 조회
@@ -197,21 +216,33 @@ public class TunaController {
 		return friendsList;
 	}
 
-//	유저 개인정보 변경
+	/**
+	 * <pre>
+	 * 마이페이지 에서 유저 정보 수정
+	 * </pre>
+	 * @return 
+	 * @author kim-sunwoong
+	 */
 	public int updateUserInformation(UserDTO updateUserInfo) {
 
 		int result = 0;
 
 		result = service.updateUserInformation(updateUserInfo);
 
-//		System.out.println("업데이트 됨?"+ result);
-
 		return result;
 
 	}
 
-//	아이템장착 여부 변경
-//	클릭시 우선 호출
+	/**
+	 * <pre>
+	 * 아이템의 중복 장착 방지,
+	 * 카테고리별 한가지 아이템만 장착 가능하게 제한
+	 * 조건 만족시 아이템 장착 , 해제
+	 * </pre>
+	 * @param inventory
+	 * @return resultMap
+	 * @author kim-sunwoong
+	 */
 	public Map<String, Object> updateItemEquipYn(UserInventoryDTO inventory) {
 
 		int category = inventory.getItemCategory();
@@ -265,57 +296,11 @@ public class TunaController {
 			}
 		}
 		
-		
 		resultMap.put("result", resultComent);
 		resultMap.put("itemNo", inventory.getItemNo());
 		resultMap.put("itemImg", inventory.getItemImg());
 		
 		return resultMap;
-		
-//		아이템 장착 해제 하려 할 때.
-//		if (inventory.getEquipItemYN().equals("N")) {
-//			
-//			result = service.updateItemEquipYn(inventory);
-//			if (result > 0) {
-//				resultComent = "장착해제";
-//			}
-//		}
-		
-//		Y로 업데이트 하려할 때 실행
-//		이미 장착된 아이템이 있으면 장착이 되면 안된다. 
-//		Y가 있는지 조회
-//		if (inventory.getEquipItemYN().equals("N")) {
-//
-//			for (int i = 0; i < invenButtonInfo.size(); i++) {
-//
-////				같은 카테고리만 조회
-//				if (invenButtonInfo.get(i).getItemCategory() == inventory.getItemCategory()) {
-//
-////					장착되어 있는 아이템이 있는지 확인
-//					if (invenButtonInfo.get(i).getEquipItemYN().equals("Y")) {
-//
-////						하나의 아이템만 장착되야 하므로 false로 변경
-//						check = false;
-//						resultComent = "한개만장착가능";
-//
-////						이미 장착된 아이템이 지금 장착하려는 아이템인지 확인
-//						if (inventory.getItemNo() == invenButtonInfo.get(i).getItemNo()) {
-//							resultComent = "이미장착";
-//						}
-//					}
-//				}
-//
-//				if (check) {
-//					result = service.updateItemEquipYn(inventory);
-////					현재 장착된 아이템이 없으므로 Y로 업데이트  
-//					if (result > 0) {
-//						resultComent = "장착성공";
-//					} else {
-//						resultComent = "장착실패";
-//					}
-//				}
-//			}
-//		}
 
 	}
 
@@ -404,14 +389,14 @@ public class TunaController {
 	 * </pre>
 	 * @param userNoCheck
 	 * @return
+	 * @author Juhee Hwang
 	 */
 	public int checkUserNo(String userNoCheck) {
 
 		UserDTO userDTO = new UserDTO();
 		userDTO = service.checkLoginUser(TunaController.loginMemberId);
+		
 		int userNo = userDTO.getUserNo();
-		System.out.println(userDTO);
-		System.out.println(userNo);
 		return userNo;
 	}
 	
@@ -426,7 +411,13 @@ public class TunaController {
 
 	}
 
-//	   상점 템 셀렉
+	/**
+	 * <pre>
+	 * DB에 저장된 아이템들을 카테고리별 분류 후 반환
+	 * </pre>
+	 * @return itemMap
+	 * @author kim-sunwoong
+	 */
 	public Map<Integer, ArrayList<StoreItemDTO>> selectStoreItem() {
 
 		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
@@ -468,7 +459,16 @@ public class TunaController {
 
 	}
 
-//	아이템 구매
+	/**
+	 * <pre>
+	 * 아이템 구매시 보유 코인 갯수, 아이템 가격, 소유 정보 판단 후
+	 * 조건 성립시 아이템 구매 후 
+	 * 유저 정보에 코인 갯수 업데이트
+	 * </pre>
+	 * @param item
+	 * @return resultMap
+	 * @author kim-sunwoong
+	 */
 	public Map<String, Integer> storeItemBuy(StoreItemDTO item) {
 
 		Map<String, Integer> resultMap = new HashMap<String, Integer>();
@@ -507,6 +507,7 @@ public class TunaController {
 
 		return resultMap;
 	}
+	
 
 	// 친구요청 보내기 정보 INSERT
 	public int insertRequest(AddFriendDTO addFriend) {

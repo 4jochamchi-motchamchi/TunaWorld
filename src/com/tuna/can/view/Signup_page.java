@@ -23,7 +23,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import com.tuna.can.controller.Test;
+
 import com.tuna.can.controller.TunaController;
 
 public class Signup_page extends JFrame{

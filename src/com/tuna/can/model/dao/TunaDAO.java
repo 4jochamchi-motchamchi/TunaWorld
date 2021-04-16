@@ -132,6 +132,15 @@ public class TunaDAO {
 
 	}
 
+	/**
+	 * <pre>
+	 * 소유 아이템들을 로드 후 
+	 * 각 카테고리, 장착 여부 별로 분류한후 반환
+	 * </pre>
+	 * @param con, userNo
+	 * @return invenButtonInfo
+	 * @author kim-sunwoong
+	 */
 	public ArrayList<UserInventoryDTO> selectUserInventory(Connection con, int userNo) {
 
 		PreparedStatement pstmt = null;
@@ -371,33 +380,15 @@ public class TunaDAO {
 		return friendsInfo;
 	}
 
-	// 회원번호 시퀀스 조회용 메소드
-	public int selectLastNo(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
 
-		int lastOrderNo = 0;
-
-		String query = prop.getProperty("selectLastUserNo");
-
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-
-			if (rset.next()) {
-				lastOrderNo = rset.getInt("CURRVAL");
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-
-		return lastOrderNo;
-	}
-
+	/**
+	 * <pre>
+	 * 아이템 장착 여부 업데이트
+	 * </pre>
+	 * @param con, userNo, itemNo, equipYn
+	 * @return result
+	 * @author kim-sunwoong
+	 */
 	public int updateEquipYn(Connection con, int userNo, int itemNo, String equipYn) {
 
 		PreparedStatement pstmt = null;
@@ -514,6 +505,14 @@ public class TunaDAO {
 		return userDTO;
 	}
 
+	/**
+	 * <pre>
+	 * 유저 정보 수정 내역 업데이트
+	 * </pre>
+	 * @param con, updateUserInfo
+	 * @return result
+	 * @author kim-sunwoong
+	 */
 	public int updateUserInformation(Connection con, UserDTO updateUserInfo) {
 
 		String query = prop.getProperty("updateUserInformation");
@@ -543,6 +542,14 @@ public class TunaDAO {
 		return result;
 	}
 
+	/**
+	 * <pre>
+	 * 아이템 장착, 해제시 장착여부 업데이트
+	 * </pre>
+	 * @param con, inventory
+	 * @return result
+	 * @author kim-sunwoong
+	 */
 	public int updateItemEquipYn(Connection con, UserInventoryDTO inventory) {
 
 		PreparedStatement pstmt = null;
@@ -571,6 +578,14 @@ public class TunaDAO {
 		return result;
 	}
 
+	/**
+	 * <pre>
+	 * 아이템 장착여부 셀렉트
+	 * </pre>
+	 * @param con, inventory
+	 * @return inven
+	 * @author kim-sunwoong
+	 */
 	public List<String> selectCategoryInvenYN(Connection con, UserInventoryDTO inventory) {
 
 		UserInventoryDTO inven = new UserInventoryDTO();
@@ -640,7 +655,15 @@ public class TunaDAO {
 
 		return friend;
 	}
-
+	
+	/**
+	 * <pre>
+	 * 상점 아이템 내역 조회
+	 * </pre>
+	 * @param con
+	 * @return sotreItem
+	 * @author kim-sunwoong
+	 */
 	public List<StoreItemDTO> selectStoreItem(Connection con) {
 
 		ResultSet rset = null;
@@ -705,6 +728,14 @@ public class TunaDAO {
 		return result;
 	}
 
+	/**
+	 * <pre>
+	 * 유저의 아이템 보유내역 업데이트
+	 * </pre>
+	 * @param userInven
+	 * @return result
+	 * @author kim-sunwoong
+	 */
 	public int updateUserInventory(Connection con, UserInventoryDTO userInven) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -938,40 +969,6 @@ public class TunaDAO {
 
 	}
 
-	/**
-	 * <pre>
-	 * 전체 게시글 마지막 등록된 번호 가져오는 메소드
-	 * </pre>
-	 * 
-	 * @param con
-	 * @return
-	 */
-	public int selectLastContentNo(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-
-		int lastContentNo = 0;
-
-		String query = prop.getProperty("selectLastContentNo");
-
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-
-			if (rset.next()) {
-				lastContentNo = rset.getInt("CURRVAL");
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-
-		return lastContentNo;
-	}
-
 	public List<BoardDTO> selectMyBoard(Connection con, int userNo) {
 		String query = prop.getProperty("selectMyBoard");
 
@@ -1185,7 +1182,14 @@ public class TunaDAO {
 		return boardDTO;
 	}
 
-//	웅이꺼
+	/**
+	 * <pre>
+	 * 유저의 코인 보유 갯수 업데이트
+	 * </pre>
+	 * @param userNo, coin
+	 * @return result
+	 * @author kim-sunwoong
+	 */
 	public int updateCoin(Connection con, int userNo, int coin) {
 		int result = 0;
 		PreparedStatement pstmt = null;

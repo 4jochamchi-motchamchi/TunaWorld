@@ -30,6 +30,13 @@ import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
+/**
+ * <pre>
+ * 상점
+ * </pre>
+ * @author kim-sunwoong
+ *
+ */
 public class Store{
 
 	private TunaController controller = new TunaController();
@@ -82,11 +89,8 @@ public class Store{
 			backB.setBorder(pinkborder);
 			topPanel.add(backB);
 			
-			//////////////////////////////////////////
 			
-//			코인 넣자
 			int coin = 0;
-//			coin = controller.selectUSerCoin(controller.loginMember.getUserNo());
 			coin = controller.selectUSerCoin(controller.loginMember.getUserNo());
 			JLabel coinLabel = new JLabel();
 			coinLabel.setBounds(565, 55, 100, 30);
@@ -110,8 +114,6 @@ public class Store{
 			midPanel.add(backgroundButton);
 			midPanel.add(fontButton);
 			
-			////////////////////////////////////////
-
 			// 하단 패널
 //			하단 패널에 버튼 9개씩 추가하여 
 //			중간 패널 버튼 클릭시 하단패널 버튼 변경
@@ -142,7 +144,6 @@ public class Store{
 			List<StoreItemDTO> storeItem = new ArrayList<StoreItemDTO>();
 			
 			storeItemMap = controller.selectStoreItem();
-			
 			
 			for(int i = 0; i < 9; i++) {
 				if(i < storeItemMap.get(1).size()) {

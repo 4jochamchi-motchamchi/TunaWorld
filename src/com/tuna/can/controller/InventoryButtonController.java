@@ -23,6 +23,14 @@ import com.tuna.can.model.dto.UserInventoryDTO;
 import com.tuna.can.service.TunaService;
 import com.tuna.can.view.MyPage;
 
+/**
+ * <pre>
+ * 인벤토리 버튼 컨트롤러
+ * </pre>
+ * @author kim-sunwoong
+ * 인벤토리에 소유 아이템 추가시 같은 기능 으로 각각 다른 아이템들을 전달받아
+ * 각각 다른 버튼 생성
+ */
 public class InventoryButtonController extends JButton{
 	
 	private int itemNo;
@@ -56,7 +64,6 @@ public class InventoryButtonController extends JButton{
 				resultMap = controller.updateItemEquipYn(inventory);
 				
 				resultComent = resultMap.get("result").toString();
-				
 				
 				switch (resultComent) {
 				case "장착성공":

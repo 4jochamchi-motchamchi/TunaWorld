@@ -36,22 +36,15 @@ public class TunaService {
 
 		Connection con = getConnection();
 
-		int result =  tunaDAO.createUser(con, user);
-
-//		int createResult = tunaDAO.createUser(con, user);
-		// 마지막 발생한 회원번호 시퀀스 조회
-//		int createdNo = tunaDAO.selectLastNo(con);
-//		UserDTO userDTO = new UserDTO();
-//		userDTO.setUserNo(createdNo);
+		int result = tunaDAO.createUser(con, user);
 
 		if (result > 0) {
 			commit(con);
-			
+
 		} else {
 			rollback(con);
 		}
 		close(con);
-
 
 		return result;
 
@@ -81,22 +74,10 @@ public class TunaService {
 		invenButtonInfo = tunaDAO.selectUserInventory(con, userNo);
 
 		close(con);
-		
 
 		return invenButtonInfo;
 
 	}
-
-////	장비 장착시 장착여부 DB변경
-//	public int updateEquipYn(int itemNo, String equipYn) {
-//		
-//		Connection con = getConnection();
-
-//		int result = tunaDAO.updateEquipYn(con, itemNo, equipYn);
-
-//		return result;
-
-//	}
 
 	// boardNO 정보로 게시글 내용 SELECT
 	public BulletinDTO selectBulletinContent(int boardNo) {
@@ -106,7 +87,7 @@ public class TunaService {
 		Connection con = getConnection();
 
 		bulletinContent = tunaDAO.selectBulletinContent(con, boardNo);
-		
+
 		close(con);
 
 		return bulletinContent;
@@ -119,7 +100,7 @@ public class TunaService {
 		Connection con = getConnection();
 
 		List<CommentDTO> comment = tunaDAO.selectComment(con, commentNo);
-		
+
 		close(con);
 
 		return comment;
@@ -140,9 +121,8 @@ public class TunaService {
 			System.out.println();
 			rollback(con);
 		}
-		
-		close(con);
 
+		close(con);
 
 		return result;
 	}
@@ -154,7 +134,7 @@ public class TunaService {
 		Connection con = getConnection();
 
 		userCoin = tunaDAO.selectMenberCoin(con, userNo);
-		
+
 		close(con);
 
 		return userCoin;
@@ -166,21 +146,20 @@ public class TunaService {
 	 * @param userInfor
 	 * @return
 	 */
-	public int updateCoinHB(int userNo ,int coin) {
+	public int updateCoinHB(int userNo, int coin) {
 
 		int userCoin = 0;
 		Connection con = getConnection();
-		
+
 		userCoin = tunaDAO.updateUserCoin(con, userNo, coin);
 
 		if (userCoin > 0) {
 			commit(con);
-			
+
 		} else {
 			rollback(con);
 		}
 		close(con);
-
 
 		return userCoin;
 	}
@@ -196,7 +175,7 @@ public class TunaService {
 
 		List<FriendDTO> friendsList = new ArrayList<>();
 		friendsList = tunaDAO.selectFriendsList(con, userNo);
-		
+
 		close(con);
 
 		return friendsList;
@@ -225,11 +204,11 @@ public class TunaService {
 		Connection con = getConnection();
 
 		result = tunaDAO.updateItemEquipYn(con, inventory);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			commit(con);
 		}
-		
+
 		close(con);
 
 		return result;
@@ -244,16 +223,15 @@ public class TunaService {
 		equipYNList = tunaDAO.selectCategoryInvenYN(con, inventory);
 
 		close(con);
-		
 
 		return equipYNList;
 	}
 
-
 	/**
 	 * <pre>
-	 *  친구 등록 
+	 *  친구 등록
 	 * </pre>
+	 * 
 	 * @author 김현빈
 	 * @return
 	 */
@@ -274,26 +252,27 @@ public class TunaService {
 			System.out.println("실패");
 			rollback(con);
 		}
-		
+
 		close(con);
-		
+
 		return result1 + result2;
 	}
-	
+
 	/**
 	 * <pre>
 	 *  친구 수락 거절 메소드
-	 * </pre> 
+	 * </pre>
+	 * 
 	 * @author 김현빈
 	 * @param userInfo
-	 * @return 
+	 * @return
 	 */
 	public int rejectRequestFriend(AddFriendDTO userInfo) {
 		Connection con = getConnection();
-		
+
 		int result = 0;
 		result = tunaDAO.rejectFriend(con, userInfo);
-		
+
 		if (result > 0) {
 			System.out.println("성공");
 			commit(con);
@@ -301,35 +280,31 @@ public class TunaService {
 			System.out.println("실패");
 			rollback(con);
 		}
-		
+
 		close(con);
-		
+
 		return result;
 	}
-	
+
 	// 친구인지 아닌지 확인하기 위해 친구조회
 	public List<FriendDTO> selectFriends(int userNo) {
-		
-		
+
 		List<FriendDTO> friend = new ArrayList<>();
-		
+
 		Connection con = getConnection();
-		
+
 		friend = tunaDAO.selectFriends(con, userNo);
-		
+
 		close(con);
 		return friend;
 	}
 
-
 	public int updateRequestFriend(AddFriendDTO userInfo) {
 
-		
 		Connection con = getConnection();
 		int result = 0;
 		result = tunaDAO.rejectFriend(con, userInfo);
-		
-		
+
 		if (result > 0) {
 			System.out.println("성공");
 			commit(con);
@@ -337,7 +312,7 @@ public class TunaService {
 			System.out.println("실패");
 			rollback(con);
 		}
-		
+
 		close(con);
 		return result;
 	}
@@ -360,106 +335,102 @@ public class TunaService {
 	public List<StoreItemDTO> selectStoreItem() {
 
 		List<StoreItemDTO> sotreItem = new ArrayList<StoreItemDTO>();
-		
+
 		Connection con = getConnection();
-		
+
 		sotreItem = tunaDAO.selectStoreItem(con);
-		
+
 		close(con);
-		
+
 		return sotreItem;
 	}
 
 	// 친구요청 보내기 정보 INSERT
 	public int insertRequest(AddFriendDTO addFriend) {
-		
 
 		int result = 0;
-			
+
 		Connection con = getConnection();
-			
+
 		result = tunaDAO.insertRequest(con, addFriend);
-			
-		if(result > 0){
+
+		if (result > 0) {
 			commit(con);
 		} else {
 			System.out.println();
 			rollback(con);
 		}
-		
-		close(con);
-			
-		return result;
-		
-	}
 
+		close(con);
+
+		return result;
+
+	}
 
 	/**
 	 * <pre>
 	 * 로그인 아이디/비번 체크용
 	 * 닉네임까지 불러올때 사용가능
 	 * </pre>
+	 * 
 	 * @param idCheck
 	 * @return
 	 * @author Juhee Hwang
 	 */
 	public UserDTO checkLoginUser(String idCheck) {
 		Connection con = getConnection();
-		UserDTO userCheck = tunaDAO.checkLoginUser(con,idCheck);
-		
+		UserDTO userCheck = tunaDAO.checkLoginUser(con, idCheck);
+
 		close(con);
 		return userCheck;
 	}
-
 
 	/**
 	 * <pre>
 	 * (전체/친구/비밀) 게시글 저장하기
 	 * </pre>
+	 * 
 	 * @param board
 	 * @return
 	 * @author Juhee Hwang
 	 */
 	public int insertBoard(BoardDTO board) {
 		Connection con = getConnection();
-		
+
 		int result = tunaDAO.insertBoard(con, board);
 
-		if(result > 0){
+		if (result > 0) {
 			commit(con);
-//			result =1;
+
 		} else {
-//			System.out.println();
+
 			rollback(con);
 		}
-		
+
 		close(con);
-		
+
 		return result;
 	}
-
-
 
 	// 비밀게시글 목록 불러오기
 	public List<BoardDTO> selectSecretBoard(int userNo) {
 
 		Connection con = getConnection();
-		
+
 		List<BoardDTO> secretList = tunaDAO.selectSecretBoard(con, userNo);
 		close(con);
 		return secretList;
 	}
 
-
 	public int deleteAllBoard(BoardDTO title) {
-		
+
 		int result = 0;
-		
+
 		Connection con = getConnection();
-		
+
 		result = tunaDAO.deleteAllBoard(con, title);
-			
-		if(result > 0){
+
+		if (result > 0) {
 			commit(con);
 		} else {
 			rollback(con);
@@ -467,15 +438,14 @@ public class TunaService {
 		close(con);
 		return result;
 	}
-		
 
 	public int updateUserInventory(UserInventoryDTO userInven) {
-		
+
 		int result = 0;
 		Connection con = getConnection();
 		result = tunaDAO.updateUserInventory(con, userInven);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			commit(con);
 		} else {
 			rollback(con);
@@ -484,67 +454,61 @@ public class TunaService {
 		return result;
 	}
 
-	
 //	업데이트코인
 //	웅이꺼
 	public int updateCoin(int userNo, int coin) {
 		int result = 0;
 		Connection con = getConnection();
-		
+
 		result = tunaDAO.updateCoin(con, userNo, coin);
-		
-		if(result > 0) {
+
+		if (result > 0) {
 			commit(con);
 		} else {
 			rollback(con);
 		}
-		
+
 		close(con);
 		return result;
 	}
 
-	
-
 	public List<BoardDTO> selectAllBoard(int userNo) {
-		Connection con =  getConnection();
-		List<BoardDTO> allBoardlist  = tunaDAO.allBoardList(con,userNo);
+		Connection con = getConnection();
+		List<BoardDTO> allBoardlist = tunaDAO.allBoardList(con, userNo);
 		close(con);
 
 		return allBoardlist;
-		
+
 	}
 
-
 	public List<BoardDTO> selectMyBoard(int userNo) {
-		Connection con =  getConnection();
-		List<BoardDTO> myBoardList  = tunaDAO.selectMyBoard(con,userNo);
+		Connection con = getConnection();
+		List<BoardDTO> myBoardList = tunaDAO.selectMyBoard(con, userNo);
 		close(con);
 
 		return myBoardList;
 	}
 
 	public List<BoardDTO> selectFriendBoard(int userNo) {
-		Connection con =  getConnection();
-		List<BoardDTO> FriendBoard  = tunaDAO.SelectFriendBoard (con,userNo);
+		Connection con = getConnection();
+		List<BoardDTO> FriendBoard = tunaDAO.SelectFriendBoard(con, userNo);
 		close(con);
 
 		return FriendBoard;
 	}
 
 	public BoardDTO modifySecretBoard(int boardNo) {
-		
-        BoardDTO boardDTO = new BoardDTO();
-		
+
+		BoardDTO boardDTO = new BoardDTO();
+
 		Connection con = getConnection();
-		
+
 		boardDTO = tunaDAO.modifySecretBoard(con, boardNo);
-			
+
 		close(con);
-		
+
 		return boardDTO;
 	}
-
-
 
 	/**
 	 * <pre>
@@ -555,73 +519,69 @@ public class TunaService {
 	 * @return
 	 */
 	public int deleteFriend(int userNO, int fNo) {
-		
+
 		Connection con = getConnection();
-		
+
 		int friendNo = 0;
-		
+
 		friendNo = tunaDAO.deleteFriend(con, userNO, fNo);
-		
-		if(friendNo > 0){
-				commit(con);
+
+		if (friendNo > 0) {
+			commit(con);
 
 		} else {
 			System.out.println();
-				rollback(con);
+			rollback(con);
 		}
 		close(con);
 
-		
 		return friendNo;
 	}
 
-
 	public AddFriendDTO selectFriendNickName(int userNo) {
 		Connection con = getConnection();
-		
+
 		AddFriendDTO ad = new AddFriendDTO();
-		
+
 		ad = tunaDAO.selectRequestFriendNickName(con, userNo);
 		close(con);
 
-		
 		return ad;
 	}
 
 	public int updatetBoard(BoardDTO board) {
 		Connection con = getConnection();
-		
+
 		int result = 0;
-		
+
 		result = tunaDAO.updatetBoard(con, board);
 //		int insertContentNo = tunaDAO.selectLastContentNo(con);
-		
-		
-		if(result > 0){
+
+		if (result > 0) {
 			commit(con);
-		} 
+		}
 		close(con);
-		
+
 		return result;
-		
 
 	}
-	   public int deleteSecretBoard(BoardDTO title) {
-		      
-		      int result = 0;
-		      
-		      Connection con = getConnection();
-		      
-		      result = tunaDAO.deleteSecretBoard(con, title);
-		         
-		      if(result > 0){
-		         commit(con);
-		      } else {
-		         System.out.println();
-		         rollback(con);
-		      }
-		      
-		      return result;
-		   }
+
+	public int deleteSecretBoard(BoardDTO title) {
+
+		int result = 0;
+
+		Connection con = getConnection();
+
+		result = tunaDAO.deleteSecretBoard(con, title);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			System.out.println();
+			rollback(con);
+		}
+
+		return result;
+	}
 
 }

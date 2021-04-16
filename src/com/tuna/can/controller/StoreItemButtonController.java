@@ -13,6 +13,14 @@ import javax.swing.JOptionPane;
 import com.tuna.can.model.dto.StoreItemDTO;
 import com.tuna.can.view.Store;
 
+/**
+ * <pre>
+ * 상점 버튼 컨트롤러
+ * </pre>
+ * @author kim-sunwoong
+ * 상점에 아이템 추가시 같은 기능 으로 각각 다른 아이템들을 전달받아
+ * 각각 다른 버튼 생성
+ */
 public class StoreItemButtonController extends JButton{
 
 	private int itemPrice;
@@ -26,8 +34,6 @@ public class StoreItemButtonController extends JButton{
 		
 		this.setIcon(itemImg);
 
-//		this.setText(item.getItemImg());
-		
 		this.addActionListener(new ActionListener() {
 			
 			@Override

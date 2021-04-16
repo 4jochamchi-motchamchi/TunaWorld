@@ -35,9 +35,16 @@ import com.tuna.can.controller.TunaController;
 import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
+/**
+ * <pre>
+ * 마이페이지
+ * </pre>
+ * @author kim-sunwoong
+ *
+ */
 public class MyPage extends JFrame {
 
-	private JFrame frame = null;
+	JFrame frame = null;
 	private TunaController tunaController = new TunaController();
 	private UserDTO member = null;
 	private JLabel imageLabel = null;
@@ -259,19 +266,16 @@ public class MyPage extends JFrame {
 		Font myfont = new Font("내캐릭터 폰트", Font.BOLD, 18);
 
 		JButton myCharacterButton = new JButton();
-//		myCharacterButton = new JButton();
 		JLabel myCharacterLabel = new JLabel();
 		myCharacterButton.add(myCharacterLabel);
 		myCharacterLabel.setFont(myfont);
 
 		JButton myBackgroundButton = new JButton();
-//		myBackgroundButton = new JButton();
 		JLabel myBackgroundLabel = new JLabel();
 		myBackgroundButton.add(myBackgroundLabel);
 		myBackgroundLabel.setFont(myfont);
 
 		JButton myFontButton = new JButton();
-//		myFontButton = new JButton();
 		JLabel myFontLabel = new JLabel();
 		myFontButton.add(myFontLabel);
 		myFontLabel.setFont(myfont);
@@ -287,14 +291,11 @@ public class MyPage extends JFrame {
 		bottomPanel2.setBackground(Color.pink);
 
 //		      우측 하단 상단 패널
-//		      버튼 클릭시 
-//		     bottomTopPanel 버튼 변경
 		bottomTopPanel.setLayout(new GridLayout(0, 3));
 		bottomTopPanel.setSize(350, 100);
 		bottomTopPanel.setLocation(0, 0);
 
 //		      우측 하단 하단 패널
-//		      new GridLayout(3, 2, 20, 20)
 		CardLayout card = new CardLayout();
 
 		bottomBottomPanel.setLayout(card);
