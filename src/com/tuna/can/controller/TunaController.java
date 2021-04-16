@@ -74,7 +74,7 @@ public class TunaController {
 		ArrayList<UserInventoryDTO> category3Item = new ArrayList<UserInventoryDTO>();
 
 		ArrayList<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
-
+		
 		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
 
 		invenButtonInfo = service.selectUserInventory(userNo);
@@ -96,7 +96,6 @@ public class TunaController {
 			}
 		}
 
-//		장착 아이템 분별
 		UserInventoryDTO equItem1 = null;
 		for (int i = 0; i < category1Item.size(); i++) {
 			if (category1Item.get(i).getEquipItemYN().equals("Y")) {
@@ -134,7 +133,6 @@ public class TunaController {
 		itemMap.put(4, equipItemList);
 
 		return itemMap;
-
 	}
 
 	// 유저 정보에서 코인 조회
@@ -225,9 +223,6 @@ public class TunaController {
 		ArrayList<UserInventoryDTO> invenButtonInfo = new ArrayList<UserInventoryDTO>();
 		String resultComent = "";
 
-//		YN 여부 긁어옴
-//		equipYNList = service.selectCategoryInvenYN(inventory);
-
 //		장착여부 긁어옴
 		invenButtonInfo = service.selectUserInventory(inventory.getUserNo());
 		
@@ -252,11 +247,6 @@ public class TunaController {
 				}
 			}
 		}
-		
-//		if(sameCheck) {
-//			inventory.setEquipItemYN("N");
-//			result = service.updateItemEquipYn(inventory);
-//		}
 		
 		if(check == 0) {
 			inventory.setEquipItemYN("Y");
@@ -504,9 +494,6 @@ public class TunaController {
 
 			result = service.updateUserInventory(userInven);
 
-
-//			System.out.println(result + "Result");
-//			System.out.println(coinUpdateResult + "coinUpdateResult");
 		}
 		
 		if(result == 1) {
@@ -514,8 +501,6 @@ public class TunaController {
 			coinUpdateResult = service.updateCoin(user.getUserNo(), coin);
 		}
 		
-		
-
 		resultMap.put("invenUpdateresult", result);
 		resultMap.put("coinUpdateResult", coinUpdateResult);
 		resultMap.put("coin", coin);

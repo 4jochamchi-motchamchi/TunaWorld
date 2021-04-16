@@ -354,9 +354,6 @@ public class MyPage extends JFrame {
 		
 	
 		if(equipItemList.get(0) != null) {
-//			myCharacterLabel.setText(equipItemList.get(0).getItemImg());
-//			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(0).getItemImg());
-
 			Image image = new ImageIcon("image/" + equipItemList.get(0).getItemImg()).getImage().getScaledInstance(85, 75, 0);
 			ImageIcon itemImg = new ImageIcon(image);
 			myCharacterLabel.setIcon(itemImg);
@@ -370,9 +367,6 @@ public class MyPage extends JFrame {
 		}
 		
 		if(equipItemList.get(1) != null) {
-//			myBackgroundLabel.setText(equipItemList.get(1).getItemImg());
-//			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(1).getItemImg());
-			
 			Image image = new ImageIcon("image/" + equipItemList.get(1).getItemImg()).getImage().getScaledInstance(85, 75, 0);
 			ImageIcon itemImg = new ImageIcon(image);
 			
@@ -386,9 +380,6 @@ public class MyPage extends JFrame {
 		}
 		
 		if(equipItemList.get(2) != null) {
-//			myFontLabel.setText(equipItemList.get(2).getItemImg());
-//			ImageIcon itemImg = new ImageIcon("image/" + equipItemList.get(2).getItemImg());
-			
 			Image image = new ImageIcon("image/" + equipItemList.get(2).getItemImg()).getImage().getScaledInstance(85, 75, 0);
 			ImageIcon itemImg = new ImageIcon(image);			
 			
@@ -399,8 +390,6 @@ public class MyPage extends JFrame {
 		} else {
 			myFontLabel.setText("내 폰트");
 		}
-		
-		
 		
 		for(int i = 0; i < 6; i++) {
 			if(i < invMap.get(1).size()) {
