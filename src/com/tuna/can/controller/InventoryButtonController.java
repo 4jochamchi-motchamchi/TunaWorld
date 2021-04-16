@@ -46,32 +46,12 @@ public class InventoryButtonController extends JButton{
 		
 		this.setIcon(itemImg);
 		
-//		this.setIcon(itemImg);
-		
-//		this.setText(inventory.getItemImg());
-		
-		
-//		Border pinkborder = BorderFactory.createLineBorder(Color.pink, 1);
-//		this.setBorder(pinkborder);
-		
-//
-//		JLabel imageLabel = new JLabel(new ImageIcon(icon));
-		
 		this.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TunaController controller = new TunaController();
-//				System.out.println(inventory);
-//				System.out.println(inventory.getEquipItemYN() + "체크체크 제발체크");
 				String resultComent = "";
-//				if(inventory.getEquipItemYN().equals("Y")) {
-//					
-//					inventory.setEquipItemYN("N");
-//					
-//				} else {
-//					inventory.setEquipItemYN("Y");
-//				}
 				
 				resultMap = controller.updateItemEquipYn(inventory);
 				
@@ -81,38 +61,18 @@ public class InventoryButtonController extends JButton{
 				switch (resultComent) {
 				case "장착성공":
 					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 되었습니다.", "장착성공", 1);
-
-					
 					break;
 					
-					
-//					장착 실패시 장착여부 다시 변경
 				case "장착실패":
 					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템 장착에 실패 하였습니다.", "장착실패", 1);
-//					if(inventory.getEquipItemYN().equals("Y")) {
-//						
-//						inventory.setEquipItemYN("N");
-//						
-//					} else {
-//						inventory.setEquipItemYN("Y");
-//					}
-					
 					break;
 					
 				case "한개만장착가능":
 					JOptionPane.showMessageDialog(null, "아이템은 카테고리별로 한개만 장착 가능합니다", "한개만장착가능", 1);
-//					if(inventory.getEquipItemYN().equals("Y")) {
-//						
-//						inventory.setEquipItemYN("N");
-//						
-//					} else {
-//						inventory.setEquipItemYN("Y");
-//					}
+					break;	
 					
-					break;					
 				case "장착해제":
 					JOptionPane.showMessageDialog(null, resultMap.get("itemNo") + "번 아이템이 장착 해제 되었습니다.", "장착해제", 1);
-					
 					break;
 				}
 				
@@ -122,7 +82,5 @@ public class InventoryButtonController extends JButton{
 		});
 		
 	}
-
-
 	
 }

@@ -36,73 +36,59 @@ import com.tuna.can.model.dto.UserDTO;
 import com.tuna.can.model.dto.UserInventoryDTO;
 
 public class MyPage extends JFrame {
-	
-	TunaController tunaController = new TunaController();
-	UserDTO member = null;
-	JFrame frame = null;
-	JLabel imageLabel = null;
-	
+
+	private JFrame frame = null;
+	private TunaController tunaController = new TunaController();
+	private UserDTO member = null;
+	private JLabel imageLabel = null;
+
 	public static Color backgroundColor = null;
 	public static Font font = null;
 	public static ImageIcon myCharacterImage = null;
-	
 
 	public MyPage() {
 
-		JFrame frame = myPageMainFrame();
-		
-	}
-	
-	public static void main(String[] args) {
-
-		new MyPage();
-		
+		myPageMainFrame();
 
 	}
-	
+
 	public JFrame myPageMainFrame() {
-		
-		
+
 		frame = new JFrame("MyPage");
 		frame.setLocation(600, 50);
 		frame.setSize(700, 900);
-		
+
 		frame.setLayout(null);
-		
-//		JPanel tp = topPanel();
-//		JPanel mp = mypageInfo();
-//		JPanel ip = inventory();
-		
+
 		myCharacterImage = null;
-		
+
 		frame.add(topPanel());
 		frame.add(mypageInfo());
 		frame.add(inventory());
-		
-		if(myCharacterImage != null) {
-			
-			
+
+		if (myCharacterImage != null) {
+
 			imageLabel.setIcon(myCharacterImage);
 		}
 
 		frame.setVisible(true);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-	      try {
-	    	  frame.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
-	       } catch (IOException e1) {
-	          e1.printStackTrace();
-	       }
-		
+
+		try {
+			frame.setIconImage(ImageIO.read(new File("image/logoBig.PNG")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
 		return frame;
-		
+
 	}
 
 	public JPanel mypageInfo() {
-		
+
 		member = new UserDTO();
-		
+
 		member = tunaController.selectMemberInfo(tunaController.loginMember.getUserID());
 
 		JPanel bottomPanel1 = new JPanel();
@@ -125,11 +111,11 @@ public class MyPage extends JFrame {
 		Label nicknameLabel = new Label("nickname");
 		nicknameLabel.setBounds(30, 190, 80, 30);
 		nicknameLabel.setFont(font);
-		
+
 		Label pwdLabel = new Label("password");
 		pwdLabel.setBounds(30, 280, 80, 30);
 		pwdLabel.setFont(font);
-		
+
 		Label phoneLabel = new Label("phone");
 		phoneLabel.setBounds(30, 370, 80, 30);
 		phoneLabel.setFont(font);
@@ -137,8 +123,6 @@ public class MyPage extends JFrame {
 		Label emailLabel = new Label("email");
 		emailLabel.setBounds(30, 460, 80, 30);
 		emailLabel.setFont(font);
-
-
 
 		JTextField userIdText = new JTextField(10);
 		userIdText.setBounds(130, 100, 186, 35);
@@ -149,11 +133,11 @@ public class MyPage extends JFrame {
 		nicknameText.setBounds(130, 190, 186, 35);
 		nicknameText.setText(member.getNickName());
 		nicknameText.setEditable(false);
-		
+
 		JTextField pwdText = new JTextField(10);
 		pwdText.setBounds(130, 280, 186, 35);
 		pwdText.setText(member.getUserPwd());
-		
+
 		JTextField phoneText = new JTextField(10);
 		phoneText.setBounds(130, 370, 186, 35);
 		phoneText.setText(member.getPhone());
@@ -162,14 +146,12 @@ public class MyPage extends JFrame {
 		emailText.setBounds(130, 460, 186, 35);
 		emailText.setText(member.getEmail());
 
-		
 		JButton userCommit = new JButton("commit");
 		userCommit.setBounds(240, 530, 80, 40);
-		
+
 //		정보 수정
-		
 		userCommit.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
@@ -178,16 +160,16 @@ public class MyPage extends JFrame {
 				updateUserInfo.setPhone(phoneText.getText());
 				updateUserInfo.setEmail(emailText.getText());
 				updateUserInfo.setUserPwd(pwdText.getText());
-				
+
 				result = tunaController.updateUserInformation(updateUserInfo);
-				
-				if(result > 0) {
+
+				if (result > 0) {
 					JOptionPane.showMessageDialog(null, "업데이트 성공.", "업데이트 성공", 0);
-					
+
 				} else {
 					JOptionPane.showMessageDialog(null, "업데이트 실패.", "업데이트 실패", 0);
 				}
-				
+
 			}
 		});
 
@@ -221,15 +203,10 @@ public class MyPage extends JFrame {
 
 		Image defaultImage = new ImageIcon("image/basicprofile.png").getImage().getScaledInstance(200, 200, 0);
 		ImageIcon icon = new ImageIcon(defaultImage);
-		
+
 		imageLabel = new JLabel();
 		imageLabel.setBounds(250, 25, 200, 200);
 		imageLabel.setIcon(icon);
-		
-//		if(myCharacterImage != null) {
-//			imageLabel.setIcon(myCharacterImage);
-//		}
-
 
 		topPanel.add(imageLabel);
 
@@ -245,33 +222,33 @@ public class MyPage extends JFrame {
 				frame.dispose();
 			}
 		});
-		
+
 		backB.setBounds(30, 25, 55, 55);
 		backB.setBackground(Color.pink);
 		backB.setBorder(pinkborder);
 		topPanel.add(backB);
-		
+
 		JButton refreshButton = new JButton("새로고침");
 		refreshButton.setBounds(600, 220, 50, 20);
-		
+
 		refreshButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new MyPage();
 				frame.dispose();
-				
+
 			}
 		});
-		
+
 		topPanel.add(refreshButton);
-		
+
 		return topPanel;
 
 	}
 
 	public JPanel inventory() {
-		
+
 		JPanel bottomPanel2 = new JPanel();
 
 //	      우측 하단 내 위쪽 패널
@@ -286,7 +263,7 @@ public class MyPage extends JFrame {
 		JLabel myCharacterLabel = new JLabel();
 		myCharacterButton.add(myCharacterLabel);
 		myCharacterLabel.setFont(myfont);
-		
+
 		JButton myBackgroundButton = new JButton();
 //		myBackgroundButton = new JButton();
 		JLabel myBackgroundLabel = new JLabel();
@@ -342,83 +319,82 @@ public class MyPage extends JFrame {
 		fontPanel.setLocation(0, 100);
 		fontPanel.setSize(350, 525);
 		fontPanel.setBackground(Color.green);
-		
-		
+
 		Map<Integer, ArrayList<UserInventoryDTO>> invMap = new HashMap<Integer, ArrayList<UserInventoryDTO>>();
-		
+
 		invMap = tunaController.selectUserInventory(tunaController.loginMember.getUserNo());
-		
+
 		List<UserInventoryDTO> equipItemList = new ArrayList<UserInventoryDTO>();
-		
+
 		equipItemList = invMap.get(4);
-		
-	
-		if(equipItemList.get(0) != null) {
-			Image image = new ImageIcon("image/" + equipItemList.get(0).getItemImg()).getImage().getScaledInstance(85, 75, 0);
+
+		if (equipItemList.get(0) != null) {
+			Image image = new ImageIcon("image/" + equipItemList.get(0).getItemImg()).getImage().getScaledInstance(85,
+					75, 0);
 			ImageIcon itemImg = new ImageIcon(image);
 			myCharacterLabel.setIcon(itemImg);
-			
-			
-			Image mainImage = new ImageIcon("image/" + equipItemList.get(0).getItemImg()).getImage().getScaledInstance(200, 200, 0);
+
+			Image mainImage = new ImageIcon("image/" + equipItemList.get(0).getItemImg()).getImage()
+					.getScaledInstance(200, 200, 0);
 			myCharacterImage = new ImageIcon(mainImage);
-			
+
 		} else {
 			myCharacterLabel.setText("내 캐릭터");
 		}
-		
-		if(equipItemList.get(1) != null) {
-			Image image = new ImageIcon("image/" + equipItemList.get(1).getItemImg()).getImage().getScaledInstance(85, 75, 0);
+
+		if (equipItemList.get(1) != null) {
+			Image image = new ImageIcon("image/" + equipItemList.get(1).getItemImg()).getImage().getScaledInstance(85,
+					75, 0);
 			ImageIcon itemImg = new ImageIcon(image);
-			
+
 			myBackgroundLabel.setIcon(itemImg);
-			
+
 			backgroundColor = Color.decode(equipItemList.get(1).getItemName());
-			
-			
+
 		} else {
 			myBackgroundLabel.setText("내 배경색");
 		}
-		
-		if(equipItemList.get(2) != null) {
-			Image image = new ImageIcon("image/" + equipItemList.get(2).getItemImg()).getImage().getScaledInstance(85, 75, 0);
-			ImageIcon itemImg = new ImageIcon(image);			
-			
+
+		if (equipItemList.get(2) != null) {
+			Image image = new ImageIcon("image/" + equipItemList.get(2).getItemImg()).getImage().getScaledInstance(85,
+					75, 0);
+			ImageIcon itemImg = new ImageIcon(image);
+
 			myFontLabel.setIcon(itemImg);
-			
+
 			MyPage.font = new Font(equipItemList.get(2).getItemName(), Font.PLAIN, 25);
-			
+
 		} else {
 			myFontLabel.setText("내 폰트");
 		}
-		
-		for(int i = 0; i < 6; i++) {
-			if(i < invMap.get(1).size()) {
-				
+
+		for (int i = 0; i < 6; i++) {
+			if (i < invMap.get(1).size()) {
+
 				characterPanel.add(new InventoryButtonController(invMap.get(1).get(i), frame));
 			} else {
-				
+
 				characterPanel.add(new JButton("아이템 없음"));
 			}
 		}
-		
-		for(int i = 0; i < 6; i++) {
-			if(i < invMap.get(2).size()) {
+
+		for (int i = 0; i < 6; i++) {
+			if (i < invMap.get(2).size()) {
 				backgroundPanel.add(new InventoryButtonController(invMap.get(2).get(i), frame));
 			} else {
-				
+
 				backgroundPanel.add(new JButton("아이템 없음"));
 			}
 		}
-		
-		for(int i = 0; i < 6; i++) {
-			if(i < invMap.get(3).size()) {
+
+		for (int i = 0; i < 6; i++) {
+			if (i < invMap.get(3).size()) {
 				fontPanel.add(new InventoryButtonController(invMap.get(3).get(i), frame));
 			} else {
-				
+
 				fontPanel.add(new JButton("아이템 없음"));
 			}
 		}
-		
 
 		bottomBottomPanel.add("character", characterPanel);
 		bottomBottomPanel.add("background", backgroundPanel);
@@ -434,7 +410,7 @@ public class MyPage extends JFrame {
 				if (e.getSource() == myCharacterButton) {
 					card.show(bottomBottomPanel, "character");
 				}
-				
+
 			}
 		});
 		myBackgroundButton.addMouseListener(new MouseAdapter() {
@@ -457,10 +433,9 @@ public class MyPage extends JFrame {
 
 		bottomPanel2.add(bottomTopPanel);
 		bottomPanel2.add(bottomBottomPanel);
-		
-		
+
 		return bottomPanel2;
 
 	}
-	
+
 }

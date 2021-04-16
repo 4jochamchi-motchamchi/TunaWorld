@@ -168,16 +168,13 @@ public class Login_page extends JFrame{
 						}
 						System.out.println(userDTO);
 
-						//                     주희누님 수정 바래영^^
-						//                     int result = 0;
-
 						result = tunaController.checkLoginUser(idCheck, pwCheck);
 						System.out.println(result);
 
 						if(result>0) {
 							JOptionPane.showConfirmDialog(null, "로그인에 성공하셨습니다.", "로그인 성공", -1);
 
-							new MyPage().frame.dispose();
+							new MyPage().dispose();
 							new Main_page();
 							dispose();
 
@@ -224,16 +221,16 @@ public class Login_page extends JFrame{
 					}
 					System.out.println(userDTO);
 
-					//                  주희누님 수정 바래영^^
-					//                  int result = 0;
-
 					result = tunaController.checkLoginUser(idCheck, pwCheck);
 					System.out.println(result);
 
 					if(result>0) {
 						JOptionPane.showConfirmDialog(null, "로그인에 성공하셨습니다.", "로그인 성공", -1);
+						JFrame frame = new MyPage();
+						frame.dispose();
 						new Main_page();
 						dispose();
+						
 
 					}else {
 						JOptionPane.showMessageDialog(null, "로그인 정보가 잘못되어 로그인에 실패했습니다.", "로그인 실패", 0);

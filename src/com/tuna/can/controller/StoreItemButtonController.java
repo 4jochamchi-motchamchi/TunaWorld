@@ -15,7 +15,6 @@ import com.tuna.can.view.Store;
 
 public class StoreItemButtonController extends JButton{
 
-	
 	private int itemPrice;
 	private String itemImg;
 	private int itemCategory;
